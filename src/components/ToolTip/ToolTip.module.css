@@ -1,0 +1,205 @@
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tooltip {
+  background-color: rgb(26, 28, 33);
+  color: white;
+  width: 32rem; /* 20vw * 1.6 */
+  height: auto;
+  padding: 2.4rem; /* 1.5vw * 1.6 */
+  padding-bottom: 4rem; /* 2.5vw * 1.6 */
+  z-index: 1000;
+  pointer-events: none;
+  font-family: 'Spiegel', 'BeaufortforLOL', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  border: 0.1rem solid var(--gold-five); /* 0.0625vw * 1.6 */
+  justify-content: flex-start;
+  position: fixed;
+  /*animation: opacity 0.2s;*/
+}
+
+/* Sección del campeón */
+.championSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.championHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem; /* 0.625vw * 1.6 */
+  margin-top: 0.5rem; /* 0.3125vw * 1.6 */
+}
+
+.masteryIcon {
+  width: 4.5rem; /* 2.8125vw * 1.6 */
+  height: 4.5rem; /* 2.8125vw * 1.6 */
+  border: 0.3rem solid rgb(10, 50, 60); /* 0.1875vw * 1.6 */
+  border-radius: 50%;
+  background-color: rgb(1, 10, 19);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 2rem; /* 1.25vw * 1.6 */
+}
+
+.masteryLevel {
+  color: var(--gold-one);
+  font-weight: bold;
+  font-size: 1.8rem; /* 1.125vw * 1.6 */
+}
+
+.championInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.championName {
+  color: var(--gold-one);
+  font-size: 2.08rem; /* 1.3vw * 1.6 */
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem; /* 0.0625vw * 1.6 */
+  font-family: Bold;
+}
+
+.separator {
+  height: 0.1rem; /* 0.0625vw * 1.6 */
+  background: var(--gold-five);
+  width: 100%;
+  margin-top: 0.8rem; /* 0.5vw * 1.6 */
+  margin-bottom: 0.8rem; /* 0.5vw * 1.6 */
+}
+
+.masteryPoints {
+  display: flex;
+  align-items: center;
+  gap: 0rem;
+  font-size: 1.4rem; /* 0.875vw * 1.6 */
+  color: #a09b8c;
+  margin-bottom: 0.45rem; /* 0.28125vw * 1.6 */
+  margin-top: 0.32rem; /* 0.2vw * 1.6 */
+}
+
+.wingIcon {
+  color: var(--color-primary);
+  font-size: 1.44rem; /* 0.9vw * 1.6 */
+  margin-right: 0.5rem; /* 0.3125vw * 1.6 */
+}
+
+.seasonRating {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  font-size: 1.4rem; /* 0.9vw * 1.6 */
+  color: #a09b8c;
+}
+
+.ratingValue {
+  color: #a09b8c;
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
+/* Sección INICIO */
+.startSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem; /* 0.75vw * 1.6 */
+}
+
+.sectionTitle {
+  color: var(--gold-two);
+  font-size: 1.5rem; /* 0.9375vw * 1.6 */
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 0.64rem; /* 0.4vw * 1.6 */
+  text-transform: uppercase;
+  letter-spacing: 0.05rem; /* 0.03125vw * 1.6 */
+}
+
+.startButton {
+  width: 2.6rem; /* 1.625vw * 1.6 */
+  height: 2.6rem; /* 1.625vw * 1.6 */
+  border: 0.1rem solid slategray; /* 0.0625vw * 1.6 */
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: slategray;
+  font-weight: bold;
+  font-size: 1.4rem; /* 0.875vw * 1.6 */
+  margin-bottom: 0.64rem; /* 0.4vw * 1.6 */
+}
+
+.freePlay {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; /* 0.5vw * 1.6 */
+  font-size: 1.2rem; /* 0.75vw * 1.6 */
+  color: #a09b8c;
+}
+
+.hexagonIcon {
+  width: 1.8rem; /* 1.125vw * 1.6 */
+  height: 1.8rem; /* 1.125vw * 1.6 */
+  background-color: #0ac8b9;
+  color: white;
+  border-radius: 1.5rem; /* 0.9375vw * 1.6 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem; /* 0.75vw * 1.6 */
+  font-weight: bold;
+}
+
+/* Sección PROGRESIÓN DE ETERNOS */
+.eternalsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.eternalsTitle {
+  color: var(--gold-two);
+  font-size: 1.2rem; /* 0.75vw * 1.6 */
+  font-weight: bold;
+  margin-bottom: 0.64rem; /* 0.4vw * 1.6 */
+  padding-top: 0.32rem; /* 0.2vw * 1.6 */
+  text-transform: uppercase;
+  letter-spacing: 0.05rem; /* 0.03125vw * 1.6 */
+}
+
+.eternalsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.eternalItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.44rem; /* 0.9vw * 1.6 */
+  color: #a09b8c;
+  margin-bottom: 0.2rem;
+}
+
+.lockIcon {
+  color: #a09b8c;
+  font-size: 1.2rem; /* 0.75vw * 1.6 */
+}

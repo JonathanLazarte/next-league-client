@@ -1,0 +1,154 @@
+@keyframes vertical-slice-bottom {
+	from {
+		background-position-y: top;
+	}
+	to {
+		background-position-y: bottom;
+	}
+}
+
+.pvp-room{
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+height: var(--dashboard-content-height);
+width: 100%;
+padding-bottom: 1.8rem;
+overflow: hidden;
+/*background: url('/fullroom_background.png');*/
+background-size: cover;
+background-repeat: no-repeat;
+animation: vertical-slice-bottom 2s cubic-bezier(0,1.02,.25,.97);
+background-position-y: bottom;
+}
+.room-header{
+position: absolute;
+top: 0;
+padding-top: 1.7rem;
+height: 100px;
+width: 100%;
+padding-left: 1rem;
+color: var(--gold-one);
+display: flex;
+align-items: flex-start;
+background: linear-gradient(to bottom, black, transparent);
+overflow: hidden;
+white-space: nowrap;
+font-family: Medium;
+z-index: 1;
+}
+.header-arrow{
+display: flex;
+font-size: 3rem; /* 30px → 30 / 1600 * 100 = 1.875vw */
+width: 80px;
+width: 8rem;
+border-right: 1px solid gray;
+margin-right: 3rem;
+color: var(--gold-five);
+cursor: pointer;
+}
+.header-arrow:hover{
+color: var(--gold-two);
+}
+.room-title {
+font-family: Bold;
+font-size: 1.8rem;
+}
+.room-header img{
+width: 3.2rem;
+opacity: 0.8;
+margin-right: 1.6rem;
+}
+.room-users{
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+height: 85%;
+width: 90%;
+}
+.room-user{
+display: flex;
+flex-direction: column;
+align-items: center;
+align-content: center;
+text-align: center;
+width: 34.3rem;
+}
+.user-banner{
+width: 100%;
+height: 100%;
+position: relative;
+}
+.user-banner-info-container{
+position: absolute;
+bottom: 50%;
+color: var(--gold-one);
+font-family: Bold;
+}
+.banner-user-icon{
+position: relative;
+width: 15rem;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.banner-user-icon-img{
+z-index: 0;
+position: absolute;
+object-fit: cover;
+clip-path: circle();
+width: 50%;
+}
+.banner-user-border{
+z-index: 1;
+}
+.banner-username {
+	font-size: 2.2rem; /* 1.1rem → 1.1vw */
+	margin-top: 0.6rem;
+	margin-bottom: 0.8rem;
+}
+.banner-alias {
+	font-family: Medium;
+	font-size: 1.8rem;
+	word-spacing: 0.1rem;
+	line-height: 0;
+	color: #989587;
+}
+@media (max-width: 767px) {
+.pvp-room{
+height: var(--dashboard-content-height-mobile);
+}
+.room-header{
+
+}
+.room-header h3{
+
+}
+.header-arrow{
+
+}
+.room-header img{
+
+}
+.room-user{
+
+}
+.user-banner{
+
+}
+.user-banner-info-container{
+
+}
+.banner-user-icon{
+
+}
+.room-user h2{
+
+}
+.room-user span {
+
+}
+
+}

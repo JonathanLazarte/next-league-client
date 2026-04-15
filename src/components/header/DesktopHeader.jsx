@@ -1,0 +1,126 @@
+"use client";
+
+import "./header.css";
+import "../playButton/playButton.css";
+import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton.jsx";
+import { /*useState,*/ memo } from "react";
+import { GiStoneCrafting } from "react-icons/gi";
+import { useSelector } from "react-redux";
+import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.js";
+import MiniTooltip from "@/components/ToolTip/miniTooltip/miniTooltip.jsx";
+import { useSound } from "@/hooks/useSound.js";
+import { useRouter } from "@/hooks/useRouter.js";
+
+export default memo(function DesktopHeader({ showSideNav }) {
+  const user = useSelector((state) => state.user);
+  const { actualSection, userState } = useSelector(selectUserInterfaceData);
+  const { play } = useSound("/general/menu-click.mp3");
+  const router = useRouter();
+
+  const selectedStyle = {
+    background:
+      "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
+    color: "#F0E6D2",
+    cursor: "default",
+    pointerEvents: "none",
+  };
+
+  /*const handleSound = (sound) => {
+    const menuClick = new Audio('/general/menu-click.mp3');
+    const buttonPlayClick = new Audio('/general/button-play-click.mp3');
+    const buttonPlayHover = new Audio('/general/button-play-hover.mp3');
+
+    if (sound === 'menu-click') menuClick.play();
+    if (sound === 'button-play-click') buttonPlayClick.play();
+    if (sound === 'button-play-hover') buttonPlayHover.play();
+  };*/
+
+  const handleClick = (section) => {
+    /*section === 'Home' && router.push('leagueoflegends')
+    section === 'Tienda' && router.push('store')
+    section === 'Colección' && router.push('collection')
+    section === 'ModeSelection' && router.push('room')*/
+    play();
+    router.push(section);
+    /*dispatch(setActualSection(section));*/
+    /*section === 'Colección' && router.push('collection')
+    section === 'Tienda' && router.push('store')
+    section === 'Home' && router.push('leagueoflegends')*/
+  };
+
+  console.log(actualSection);
+
+  const Tab = ({ section }) => (
+    <MiniTooltip
+      delay={100}
+      position="bottom"
+      content={section}
+      disabled={actualSection === section}
+    >
+      <div
+        className="item"
+        style={actualSection === section ? selectedStyle : null}
+        onClick={() => handleClick(section)}
+      >
+        <svg fill="currentColor">
+          <use href={`/icon.svg#${section}`} />
+          {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
+        </svg>
+      </div>
+    </MiniTooltip>
+  );
+
+  return (
+    <>
+      <header
+        style={{
+          marginRight: !showSideNav ? "0px" : null,
+          marginTop:
+            userState === "In explore match" || userState === "In normal match"
+              ? "-110px"
+              : "0px",
+        }}
+        className="index-header"
+      >
+        <HeaderMainButton text="JUEGA" />
+        <div
+          onClick={() => handleClick("league")}
+          className="item-lol"
+          style={actualSection === "league" ? selectedStyle : null}
+        >
+          LEAGUE
+        </div>
+
+        <div className="header-sections">
+          <Tab section="collection" />
+          {/*<Tab section="Botín" />*/}
+          <div className="icon-separator" />
+          <Tab section="store" />
+          <div className="icon-separator" />
+
+          <div className="account-coins">
+            <div className="riot-points">
+              <img src="/general/RP_icon.png" alt="RP" />
+              <div className="RP">
+                {user.RP > 10000
+                  ? `${Math.floor(user.RP / 1000)} K`
+                  : user.RP || 0}
+              </div>
+              <div className="header-buy-rp-button">
+                <div className="buy-rp-icon">+</div>
+              </div>
+            </div>
+            <div className="blue-essences">
+              <img src="/general/BE_icon.png" alt="BE" />
+              <div className="BE">
+                {user.BE > 10000
+                  ? `${Math.floor(user.BE / 1000)} K`
+                  : user.BE || 0}
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
+  );
+});

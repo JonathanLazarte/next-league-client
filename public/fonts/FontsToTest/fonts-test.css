@@ -1,0 +1,482 @@
+/* ============================================================
+   FONTS TEST — Un nombre único por archivo
+   Cada font-family = exactamente un archivo
+   Ver en: http://localhost:3000/fonts/FontsToTest/fonts-test.html
+============================================================ */
+
+/* ── CAIRO ───────────────────────────────────────────────── */
+@font-face {
+    font-family: "Cairo Bold";
+    src: url("./Cairo Bold.otf") format("opentype");
+    font-display: block;
+}
+@font-face {
+    font-family: "Cairo Regular";
+    src: url("./Cairo Regular.otf") format("opentype");
+    font-display: block;
+}
+@font-face {
+    font-family: "Cairo SemiBold";
+    src: url("./Cairo SemiBold.otf") format("opentype");
+    font-display: block;
+}
+
+/* ── INTER ───────────────────────────────────────────────── */
+@font-face {
+    font-family: "Inter Thin";
+    src: url("./Inter Thin.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Thin Italic";
+    src: url("./Inter Thin Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter ExtraLight";
+    src: url("./Inter ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter ExtraLight Italic";
+    src: url("./Inter ExtraLight Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Light";
+    src: url("./Inter Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Light Italic";
+    src: url("./Inter Light Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Regular";
+    src: url("./Inter Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Italic";
+    src: url("./Inter Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Medium";
+    src: url("./Inter Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Medium Italic";
+    src: url("./Inter Medium Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter SemiBold";
+    src: url("./Inter SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter SemiBold Italic";
+    src: url("./Inter SemiBold Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Bold";
+    src: url("./Inter Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Bold Italic";
+    src: url("./Inter Bold Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter ExtraBold";
+    src: url("./Inter ExtraBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter ExtraBold Italic";
+    src: url("./Inter ExtraBold Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Black";
+    src: url("./Inter Black.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Inter Black Italic";
+    src: url("./Inter Black Italic.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── NOTO SANS JP ────────────────────────────────────────── */
+@font-face {
+    font-family: "Noto Sans JP Thin Thin";
+    src: url("./Noto Sans JP Thin Thin.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin ExtraLight";
+    src: url("./Noto Sans JP Thin ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin Light";
+    src: url("./Noto Sans JP Thin Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin Regular";
+    src: url("./Noto Sans JP Thin Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin Medium";
+    src: url("./Noto Sans JP Thin Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin SemiBold";
+    src: url("./Noto Sans JP Thin SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin Bold";
+    src: url("./Noto Sans JP Thin Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin ExtraBold";
+    src: url("./Noto Sans JP Thin ExtraBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans JP Thin Black";
+    src: url("./Noto Sans JP Thin Black.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── NOTO SANS KR ────────────────────────────────────────── */
+@font-face {
+    font-family: "Noto Sans KR Thin Thin";
+    src: url("./Noto Sans KR Thin Thin.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin ExtraLight";
+    src: url("./Noto Sans KR Thin ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin Light";
+    src: url("./Noto Sans KR Thin Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin Regular";
+    src: url("./Noto Sans KR Thin Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin Medium";
+    src: url("./Noto Sans KR Thin Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin SemiBold";
+    src: url("./Noto Sans KR Thin SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin Bold";
+    src: url("./Noto Sans KR Thin Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin ExtraBold";
+    src: url("./Noto Sans KR Thin ExtraBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans KR Thin Black";
+    src: url("./Noto Sans KR Thin Black.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── NOTO SANS SC ────────────────────────────────────────── */
+@font-face {
+    font-family: "Noto Sans SC Thin Thin";
+    src: url("./Noto Sans SC Thin Thin.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin ExtraLight";
+    src: url("./Noto Sans SC Thin ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin Light";
+    src: url("./Noto Sans SC Thin Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin Regular";
+    src: url("./Noto Sans SC Thin Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin Medium";
+    src: url("./Noto Sans SC Thin Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin SemiBold";
+    src: url("./Noto Sans SC Thin SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin Bold";
+    src: url("./Noto Sans SC Thin Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin ExtraBold";
+    src: url("./Noto Sans SC Thin ExtraBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans SC Thin Black";
+    src: url("./Noto Sans SC Thin Black.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── NOTO SANS TC ────────────────────────────────────────── */
+@font-face {
+    font-family: "Noto Sans TC Thin Thin";
+    src: url("./Noto Sans TC Thin Thin.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin ExtraLight";
+    src: url("./Noto Sans TC Thin ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin Light";
+    src: url("./Noto Sans TC Thin Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin Regular";
+    src: url("./Noto Sans TC Thin Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin Medium";
+    src: url("./Noto Sans TC Thin Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin SemiBold";
+    src: url("./Noto Sans TC Thin SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin Bold";
+    src: url("./Noto Sans TC Thin Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin ExtraBold";
+    src: url("./Noto Sans TC Thin ExtraBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans TC Thin Black";
+    src: url("./Noto Sans TC Thin Black.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── NOTO SANS THAI ──────────────────────────────────────── */
+@font-face {
+    font-family: "Noto Sans Thai Thin";
+    src: url("./Noto Sans Thai Thin.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai ExtraLight";
+    src: url("./Noto Sans Thai ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai Light";
+    src: url("./Noto Sans Thai Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai Regular";
+    src: url("./Noto Sans Thai Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai Medium";
+    src: url("./Noto Sans Thai Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai SemiBold";
+    src: url("./Noto Sans Thai SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai Bold";
+    src: url("./Noto Sans Thai Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai ExtraBold";
+    src: url("./Noto Sans Thai ExtraBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Noto Sans Thai Black";
+    src: url("./Noto Sans Thai Black.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── READEX PRO ──────────────────────────────────────────── */
+@font-face {
+    font-family: "Readex Pro ExtraLight";
+    src: url("./Readex Pro ExtraLight.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Readex Pro Light";
+    src: url("./Readex Pro Light.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Readex Pro Regular";
+    src: url("./Readex Pro Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Readex Pro Medium";
+    src: url("./Readex Pro Medium.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Readex Pro SemiBold";
+    src: url("./Readex Pro SemiBold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Readex Pro Bold";
+    src: url("./Readex Pro Bold.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── RIOT SANS ───────────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans Regular";
+    src: url("./Riot Sans Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans Bold";
+    src: url("./Riot Sans Bold.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── RIOT SANS 20 ────────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans 20 Regular";
+    src: url("./Riot Sans 20 Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans 20 Italic";
+    src: url("./Riot Sans 20 Italic.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans 20 Bold";
+    src: url("./Riot Sans 20 Bold.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans 20 Bold Italic";
+    src: url("./Riot Sans 20 Bold Italic.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── RIOT SANS 20 AR ─────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans 20 AR Regular";
+    src: url("./Riot Sans 20 AR Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans 20 AR Bold";
+    src: url("./Riot Sans 20 AR Bold.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── RIOT SANS JP ────────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans JP Regular";
+    src: url("./Riot Sans JP Regular.ttf") format("truetype");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans JP Bold";
+    src: url("./Riot Sans JP Bold.ttf") format("truetype");
+    font-display: block;
+}
+
+/* ── RIOT SANS KR ────────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans KR Regular";
+    src: url("./Riot Sans KR Regular.ttf") format("truetype");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans KR Bold";
+    src: url("./Riot Sans KR Bold.ttf") format("truetype");
+    font-display: block;
+}
+
+/* ── RIOT SANS SC ────────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans SC Regular";
+    src: url("./Riot Sans SC Regular.ttf") format("truetype");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans SC Bold";
+    src: url("./Riot Sans SC Bold.ttf") format("truetype");
+    font-display: block;
+}
+
+/* ── RIOT SANS TH ────────────────────────────────────────── */
+@font-face {
+    font-family: "Riot Sans TH Regular";
+    src: url("./Riot Sans TH Regular.woff2") format("woff2");
+    font-display: block;
+}
+@font-face {
+    font-family: "Riot Sans TH Bold";
+    src: url("./Riot Sans TH Bold.woff2") format("woff2");
+    font-display: block;
+}
+
+/* ── ICOMOON ─────────────────────────────────────────────── */
+@font-face {
+    font-family: "icomoon";
+    src: url("./icomoon.ttf") format("truetype");
+    font-display: block;
+}

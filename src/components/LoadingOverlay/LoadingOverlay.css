@@ -1,0 +1,75 @@
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.loading-overlay {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    position: fixed;
+}
+.loading-wrapper {
+    width: 6vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+}
+.loading-svg {
+    animation: rotation 9s;
+    width: 4.5vw;
+}
+.loading-1 {
+    stroke-dasharray: 1.99 6.95;
+}
+.loading-1,
+.loading-2 {
+    fill: none;
+    stroke: var(--gold-two);
+    stroke-miterlimit: 10;
+    stroke-width: 7px;
+}
+@keyframes rotateStop {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(45deg);
+    }
+    50% {
+        transform: rotate(45deg);
+    }
+    75% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+.loading-square {
+    position: absolute;
+    border: solid 0.2rem var(--gold-two);
+    border-image: linear-gradient(to bottom, var(--gold-one), var(--gold-two)) 1;
+    height: 4.5rem;
+    width: 4.5rem;
+    margin: auto;
+    animation: rotateStop 1.5s infinite ease-out;
+    margin-bottom: 50%;
+}
+.loading-text {
+    color: lightgray;
+    font-size: 0.85vw;
+    margin-top: 2vw;
+    font-family: Regular;
+}

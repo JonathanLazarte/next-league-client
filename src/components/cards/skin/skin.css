@@ -1,0 +1,86 @@
+.skin-card {
+    width: 17.7rem;
+    aspect-ratio: 4 / 5.7;
+    position: relative;
+    border: 1px solid var(--gold-five);
+    border-radius: 20px;
+    cursor: pointer;
+    /*contain: layout paint;
+    transform: translateZ(0);
+    pointer-events: auto;
+    contain: strict;
+    will-change: transform;*/
+}
+.skin-card-border {
+    position: absolute;
+    color: white;
+    stroke: var(--gold-six);
+    fill: var(--gold-five);
+    stroke-width: 0.2pt;
+    z-index: 1;
+    height: 120%;
+    width: 104%;
+    top: -3rem;
+    left: -3px;
+}
+.skin-card:hover .skin-card-image {
+    filter: brightness(1);
+}
+
+.skin-card:hover .skin-card-border {
+    filter: brightness(1.5);
+}
+
+.skin-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 16px;
+    filter: brightness(0.8);
+}
+
+.skin-card-rarity-image {
+    width: 2.7rem;
+    position: absolute;
+    place-self: center;
+    z-index: 1;
+}
+
+.skin-card.not-obtained {
+    border: 0px;
+    border-radius: 0px;
+}
+
+.skin-card-image.not-obtained {
+    filter: brightness(0.5);
+    border-radius: 0;
+}
+.skin-card.not-obtained .skin-card-border {
+    filter: brightness(0.5);
+}
+.skin-card.not-obtained:hover .skin-card-image {
+    filter: brightness(0.8);
+}
+.skin-card .unlock-champion-button {
+    z-index: 1;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 767px) {
+    .skin-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0px;
+        filter: brightness(0.8);
+    }
+
+    .skin-card-rarity-image {
+        width: 20px;
+        position: absolute;
+        place-self: center;
+    }
+}
