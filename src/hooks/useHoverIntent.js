@@ -50,7 +50,7 @@ export default function useHoverIntent({
 
     timeoutEndRef.current = setTimeout(() => {
       cb();
-    }, 50);
+    }, 50 || delay);
   };
 
   useEffect(() => {

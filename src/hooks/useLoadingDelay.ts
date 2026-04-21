@@ -7,7 +7,7 @@ export default function useLoadingDelay(loading: boolean, options = {}) {
   } = options;
 
   const [isVisible, setIsVisible] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
 
   useEffect(() => {

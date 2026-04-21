@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useMemo, memo } from "react";
 import { useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
@@ -15,10 +15,8 @@ import useSkins from "@/hooks/useSkins";
 
 import "./skinsStore.css";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export default memo(function ItemsShop() {
-  const { skinsData, isLoadingSkinsData } = useSkins();
+  const { skinsData /*, isLoadingSkinsData*/ } = useSkins();
   const [searchKeys, setSearchKeys] = useState("");
   const [inCollection, setInCollection] = useState(false);
   const [championInCollection, setChampionInCollection] = useState(false);

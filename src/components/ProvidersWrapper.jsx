@@ -41,14 +41,12 @@ import {
   /*logout,*/ verifyToken /*, clearError*/,
 } from "@/redux/slices/authSlice";
 import { setMute, setVolume } from "@/redux/slices/soundSlice.js";
-import { useQueryClient } from "@tanstack/react-query";
 import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
 
 export default function ProvidersWrapper({ children }) {
   const router = useRouter();
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const [showSideNav, setShowSideNav] = useState(true);
-  const queryClient = useQueryClient();
   /*useEffect(() => {
     if (!loading && !isAuthenticated) {
       router.push('/login')

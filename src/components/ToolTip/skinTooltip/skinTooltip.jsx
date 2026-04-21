@@ -2,14 +2,7 @@
 
 import ReactDOM from "react-dom";
 import "./skinTooltip.css";
-import {
-  memo,
-  useRef,
-  useLayoutEffect,
-  useEffect,
-  useState,
-  forwardRef,
-} from "react";
+import { memo, useRef, useLayoutEffect, useState } from "react";
 
 const SkinTooltip = ({
   content,
@@ -25,7 +18,7 @@ const SkinTooltip = ({
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   };
   const currentRem = getRem();
-  useEffect(() => {
+  useLayoutEffect(() => {
     const tooltipRect = ref.current?.getBoundingClientRect();
     const skinCardRect = hoveredSkinCardRef?.current?.getBoundingClientRect();
 
@@ -88,5 +81,4 @@ const SkinTooltip = ({
     </>
   );
 };
-const SkinTooltipWithRef = forwardRef(SkinTooltip);
 export default memo(SkinTooltip);

@@ -34,20 +34,6 @@ export default function ConfirmPurchaseWindow() {
   const showLoading = useLoadingDelay(isProcessing);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const obtainProductInfo = (itemToBuy) => {
-    if (itemToBuy) {
-      const data =
-        itemToBuy?.type === "champion"
-          ? Object.values(championsData)
-          : skinsData;
-      const puntualItem = data?.find((item) => item.id === itemToBuy?.id);
-
-      return puntualItem;
-    } else {
-      return null;
-    }
-  };
-
   const productInfo = useMemo(() => {
     if (!itemToBuy) return null;
 

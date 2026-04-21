@@ -13,7 +13,6 @@ export const getUserSkins = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userID: id }),
       });
-      const response2 = await fetch(`${API_URL}pokemons/data/skins`);
 
       if (!response.ok) {
         console.log("SE ESTA EJECUTANDO EL ERROR");

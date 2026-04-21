@@ -1,7 +1,7 @@
 "use client";
 
 import "./collectionChampions.css";
-import { useState, memo, useMemo, useRef, useCallback, useEffect } from "react";
+import { useState, memo, useMemo, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
 import { FaSearch } from "react-icons/fa";

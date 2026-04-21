@@ -11,7 +11,7 @@ const ChampionCard = ({
   onHoverEnd,
   onHoverStart /*, gridWrapperRef*/,
   tooltipPosRef,
-  tooltipRef,
+  /*tooltipRef,*/
 }) => {
   const handleClick = useCallback(() => {
     if (onClick) {

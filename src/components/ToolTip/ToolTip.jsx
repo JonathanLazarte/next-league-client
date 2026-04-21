@@ -14,7 +14,7 @@ const Tooltip = (
 
   useLayoutEffect(() => {
     const tooltipHeight = ref.current.getBoundingClientRect().height;
-    const championCard = activeChampionRef.current?.getBoundingClientRect();
+    /*const championCard = activeChampionRef.current?.getBoundingClientRect();    SE DEBE USER ESTE REF PARA POSICIONAR EL TOOLTIP Y REMOVER LA FUNCION QUE AHORA ESTA SIENDO USADA EN CHAMPION.JSX*/
     const viewportHeight = window.innerHeight;
     const getRem = () => {
       return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -147,6 +147,6 @@ const Tooltip = (
   );
 };
 
-const Input = forwardRef(Tooltip);
-Input.displayName = "Tooltip";
-export default memo(Input);
+const ChampionTooltipWithRef = forwardRef(Tooltip);
+ChampionTooltipWithRef.displayName = "ChampionTooltip";
+export default memo(ChampionTooltipWithRef);
