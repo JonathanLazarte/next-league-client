@@ -1,53 +1,61 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from "react";
 
 export default function useHoverIntent({
-            initialDelay = 500,
-            fastDelay = 0,
-            resetAfter = 800 }) {
+  initialDelay = 500,
+  fastDelay = 0,
+  resetAfter = 700,
+}) {
+  const timeoutRef = useRef(null);
+  const lastShownRef = useRef(0);
+  const timeoutEndRef = useRef(null);
+  const [currentDelayType, setCurrentDelayType] = useState("initial");
 
-        const timeoutRef = useRef(null);
-        const lastShownRef = useRef(0);
-        const timeoutEndRef = useRef(null);
+  const start = ({ cb, isTooltipOpened }) => {
+    const now = Date.now();
+    const timeSinceLast = now - lastShownRef.current;
 
-        const start = (cb) => {
-            const now = Date.now();
-            const timeSinceLast = now - lastShownRef.current;
+    const delay =
+      timeSinceLast < resetAfter
+        ? fastDelay
+        : isTooltipOpened
+          ? fastDelay
+          : initialDelay;
 
-            const delay =
-                timeSinceLast < resetAfter
-                    ? fastDelay
-                    : initialDelay;
+    clearTimeout(timeoutRef.current);
+    clearTimeout(timeoutEndRef.current);
 
-            clearTimeout(timeoutRef.current);
-            clearTimeout(timeoutEndRef.current)
+    timeoutRef.current = setTimeout(() => {
+      lastShownRef.current = Date.now();
+      cb();
+    }, delay);
 
-            timeoutRef.current = setTimeout(() => {
-                lastShownRef.current = Date.now();
-                cb();
-            }, delay);
-        };
+    const delayName =
+      timeSinceLast < resetAfter
+        ? "fast"
+        : isTooltipOpened
+          ? "fast"
+          : "initial";
+    setCurrentDelayType(delayName);
+  };
 
-        const cancel = () => {
-            clearTimeout(timeoutRef.current);
-        };
+  const cancel = () => {
+    clearTimeout(timeoutRef.current);
+  };
 
-        const end = (cb) => {
-            const now = Date.now();
-            const timeSinceLast = now - lastShownRef.current;
+  const end = (cb) => {
+    const now = Date.now();
+    const timeSinceLast = now - lastShownRef.current;
 
-            const delay =
-                timeSinceLast < resetAfter
-                    ? 0
-                    : 50;
+    const delay = timeSinceLast < resetAfter ? 100 : 0;
 
-            timeoutEndRef.current = setTimeout(() => {
-                cb()
-            }, delay)
-        }
+    timeoutEndRef.current = setTimeout(() => {
+      cb();
+    }, 50);
+  };
 
-        useEffect(() => {
-            return () => clearTimeout(timeoutRef.current);
-        }, []);
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
 
-        return { start, cancel, end };
+  return { start, cancel, end, currentDelayType };
 }

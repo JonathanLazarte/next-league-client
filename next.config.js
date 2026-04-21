@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  /*reactStrictMode: false,*/
   // Preservar la funcionalidad de Redux
   webpack: (config) => {
     config.resolve.fallback = {

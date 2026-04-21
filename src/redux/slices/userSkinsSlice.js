@@ -16,38 +16,13 @@ export const getUserSkins = createAsyncThunk(
       const response2 = await fetch(`${API_URL}pokemons/data/skins`);
 
       if (!response.ok) {
-        console.log("SE ESTA EJECUTANDO EL ERRORR");
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      if (!response2.ok) {
+        console.log("SE ESTA EJECUTANDO EL ERROR");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const userSkins = await response.json();
-      const skinsData = await response2.json();
 
-      const fulFillSkinsWithData = () => {
-        const data = skinsData;
-
-        if (typeof data !== "string" && Array.isArray(data)) {
-          const userSkinsData = userSkins
-            .map((us) => {
-              const respectiveSkinData = data.find(
-                (skinData) => skinData.id === us.id,
-              );
-              return respectiveSkinData
-                ? { ...respectiveSkinData, purchaseDate: us.purchaseDate }
-                : null;
-            })
-            .filter(Boolean)
-            .reverse();
-          return userSkinsData;
-        }
-      };
-
-      const userSkinsFull = fulFillSkinsWithData();
-
-      return { userSkins, userSkinsFull }; // Return the data to be used in the reducer
+      return { userSkins }; // Return the data to be used in the reducer
     } catch (error) {
       return rejectWithValue(error.message); // Handle errors
     }
@@ -57,7 +32,6 @@ export const getUserSkins = createAsyncThunk(
 const initialState = {
   loading: false,
   skins: [],
-  skinsFull: [],
   error: "",
 };
 
@@ -75,9 +49,8 @@ const userSkinsSlice = createSlice({
       })
       .addCase(getUserSkins.fulfilled, (state, action) => {
         state.loading = false;
-        const { userSkins, userSkinsFull } = action.payload;
+        const { userSkins } = action.payload;
         state.skins = userSkins; // Update state with fetched Items
-        state.skinsFull = userSkinsFull;
       })
       .addCase(getUserSkins.rejected, (state, action) => {
         state.loading = false;
@@ -85,7 +58,9 @@ const userSkinsSlice = createSlice({
       })
       .addCase(confirmPurchase.fulfilled, (state, action) => {
         const updatedSkins = [...state.skins];
-        updatedSkins.push(action.payload.newInventoryItem);
+        const { newInventoryItem } = action.payload;
+
+        updatedSkins.push(newInventoryItem);
         state.skins = updatedSkins;
       });
   },
@@ -93,20 +68,13 @@ const userSkinsSlice = createSlice({
 
 export const selectUserSkinsState = (state) => state.userSkins;
 export const selectUserSkins = (state) => state.userSkins.skins;
-export const selectUserSkinsFull = (state) => state.userSkins.skinsFull;
 export const selectUserSkinsLoading = (state) => state.userSkins.loading;
 export const selectUserSkinsError = (state) => state.userSkins.error;
 
 export const selectUserSkinsData = createSelector(
-  [
-    selectUserSkins,
-    selectUserSkinsFull,
-    selectUserSkinsLoading,
-    selectUserSkinsError,
-  ],
-  (userSkins, userSkinsFull, loading, error) => ({
+  [selectUserSkins, selectUserSkinsLoading, selectUserSkinsError],
+  (userSkins, loading, error) => ({
     userSkins,
-    userSkinsFull,
     loading,
     error,
   }),

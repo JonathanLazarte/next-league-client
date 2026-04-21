@@ -8,7 +8,6 @@
     height: 4.2rem; /* 2.45vw → 3.92rem */
     background: var(--blue-four);
     color: var(--grey-three);
-    font-family: Spiegel-Regular;
 }
 
 .custom-select-trigger {

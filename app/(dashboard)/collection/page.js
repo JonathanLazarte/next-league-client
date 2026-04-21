@@ -28,8 +28,8 @@ export default memo(function Bag() {
   const { play } = useSound("/general/menu-click.mp3");
 
   return (
-    <section className="bag">
-      <header className="bag-header">
+    <section className="collection">
+      <header className="collection-header">
         {sections.map((section) => (
           <div
             key={section}

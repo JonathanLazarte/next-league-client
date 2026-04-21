@@ -1,7 +1,14 @@
 "use client";
 
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { useRef, useMemo, memo, useState, useCallback } from "react";
+import {
+  useRef,
+  useMemo,
+  memo,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import ChampionCard from "@/components/cards/champion/champion.jsx";
 import { useResizeObserver } from "@/hooks/useResizeObserver.js";
 import "./virtualGrid.css";
@@ -9,15 +16,16 @@ import "./virtualGrid.css";
 export default memo(function VirtualSkinsGrid({
   onHoverStart,
   onHoverEnd,
-  toolTipPosRef,
+  tooltipPosRef,
   groupedChampions,
   handleChampionClick,
   userChampions,
   groupedBy,
+  tooltipRef,
 }) {
   const parentRef = useRef(null);
   //const { width : containerWidth } = useContainerSize(parentRef);
-  const [columns, setColumns] = useState(5);
+  const [columns, setColumns] = useState();
   //const [ rowHeight, setRowHeight ] = useState(100);
 
   function getRem() {
@@ -25,35 +33,37 @@ export default memo(function VirtualSkinsGrid({
   }
   const currentRem = getRem();
   const gapValue = currentRem * 2;
+  const cardWidth = currentRem * 16;
+  const paddingRightValue = currentRem * 3.2;
   //const headerHeight = currentRem * 5;
 
-  function getColumns(containerWidth) {
-    //const { width } = getCardSize();
-    const cardWidth = getRem() * 18;
+  const getAmountOfColumns = useCallback(
+    (containerWidth) => {
+      const amount =
+        (containerWidth + gapValue - paddingRightValue) /
+        (cardWidth + gapValue);
+      return Math.max(Math.min(Math.floor(amount), 6), 2);
+    },
+    [gapValue, cardWidth],
+  );
 
-    const totalGap = (cols) => {
-      return gapValue * (cols - 1);
-    };
-    const newCols = Math.max(
-      1,
-      Math.floor((containerWidth - totalGap(columns)) / cardWidth),
-    );
-
-    if (newCols === columns) return columns;
-
-    const hypotheticWidth = totalGap(newCols) + cardWidth * newCols;
-
-    return hypotheticWidth <= containerWidth ? newCols : columns;
-  }
+  useLayoutEffect(() => {
+    if (parentRef.current) {
+      const rect = parentRef?.current?.getBoundingClientRect();
+      const rectWidth = rect.width;
+      const initialContainerWidth = getAmountOfColumns(rectWidth);
+      setColumns(initialContainerWidth);
+    }
+  }, []);
 
   const handleResize = useCallback(
     (width) => {
-      const newCols = getColumns(width);
+      const newCols = getAmountOfColumns(width);
       if (newCols > 0 && newCols !== columns) {
-        setColumns(newCols);
+        setColumns(Math.min(newCols, 6));
       }
     },
-    [columns],
+    [columns, getAmountOfColumns],
   );
 
   useResizeObserver(parentRef, handleResize);
@@ -146,7 +156,7 @@ export default memo(function VirtualSkinsGrid({
             >
               {/* HEADER */}
               {row.type === "header" && (
-                <div className="skins-section-header">
+                <div className="champions-section-header">
                   <span>{row.section}</span>
                 </div>
               )}
@@ -155,8 +165,9 @@ export default memo(function VirtualSkinsGrid({
               {row.type === "row" && (
                 <div
                   style={{
-                    display: "flex",
+                    display: "grid",
                     gap: `${gapValue}px`,
+                    gridTemplateColumns: `repeat(${columns}, 1fr)`,
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
@@ -169,7 +180,8 @@ export default memo(function VirtualSkinsGrid({
                       onClick={handleChampionClick}
                       onHoverStart={onHoverStart}
                       onHoverEnd={onHoverEnd}
-                      toolTipPosRef={toolTipPosRef}
+                      tooltipPosRef={tooltipPosRef}
+                      tooltipRef={tooltipRef}
                     />
                   ))}
                 </div>

@@ -1,88 +1,90 @@
 .loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    gap: 1rem;
 }
 
 .loading-container.fullscreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--blue-five);
-  z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--blue-five);
+    z-index: 9999;
 }
 
 .loading-spinner {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .loading-spinner.small {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
 
 .loading-spinner.medium {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .loading-spinner.large {
-  width: 80px;
-  height: 80px;
+    width: 80px;
+    height: 80px;
 }
 
 .spinner-ring {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 3px solid transparent;
-  border-top-color: var(--gold-four);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-top-color: var(--gold-four);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    stroke-width: 7px;
 }
 
 .spinner-ring:nth-child(1) {
-  animation-delay: 0s;
+    animation-delay: 0s;
 }
 
 .spinner-ring:nth-child(2) {
-  animation-delay: 0.2s;
-  border-top-color: var(--gold-five);
-  width: 80%;
-  height: 80%;
-  top: 10%;
-  left: 10%;
+    animation-delay: 0.2s;
+    border-top-color: var(--gold-five);
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    stroke-width: 7px;
 }
 
 .spinner-ring:nth-child(3) {
-  animation-delay: 0.4s;
-  border-top-color: var(--gold-six);
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
+    animation-delay: 0.4s;
+    border-top-color: var(--gold-six);
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    stroke-width: 7px;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .loading-message {
-  color: var(--color-primary);
-  font-family: 'Medium';
-  font-size: var(--font-base);
-  margin: 0;
-  text-align: center;
+    color: var(--color-primary);
+    font-family: "Medium";
+    font-size: var(--font-base);
+    margin: 0;
+    text-align: center;
 }
-

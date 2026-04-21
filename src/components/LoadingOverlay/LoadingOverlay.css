@@ -32,6 +32,7 @@
 }
 .loading-1 {
     stroke-dasharray: 1.99 6.95;
+    stroke-width: 7px;
 }
 .loading-1,
 .loading-2 {

@@ -149,10 +149,10 @@ h1 {
     width: 29.76rem; /* 18.6vw → 29.76rem */
     border-bottom: 1px solid gray;
     margin-bottom: 1.5rem;
-    font-family: "Spiegel-Regular";
     color: #e5dcca;
     line-height: 1.4;
     font-size: 1.8rem; /* 1.1vw → 1.76rem */
+    font-family: Spiegel-SemiBold;
 }
 
 .mode-subtitle {
@@ -222,13 +222,13 @@ h1 {
         opacity 0.8s ease-in-out; /* Curva suave tipo LoL */
 }
 .bg-lobby {
-    background-image: url("/finalroom.png");
+    /*background-image: url("/finalroom.png");*/
     background-size: cover;
     z-index: 0;
     transform: translateY(var(--dashboard-content-height));
 }
 .bg-room {
-    background-image: url("/finallobby.png");
+    /*background-image: url("/finallobby.png");*/
     background-size: cover;
     z-index: 0;
     transform: translateY(0px);

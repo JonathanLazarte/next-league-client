@@ -48,8 +48,6 @@ export default memo(function DesktopHeader({ showSideNav }) {
     section === 'Home' && router.push('leagueoflegends')*/
   };
 
-  console.log(actualSection);
-
   const Tab = ({ section }) => (
     <MiniTooltip
       delay={100}

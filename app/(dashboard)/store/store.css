@@ -33,7 +33,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 0.56rem 4rem 0 2.88rem;              /* 0.35vw → 0.56rem | 2.5vw → 4rem | 1.8vw → 2.88rem */
+    padding: 0.56rem 4rem 0 2.88rem; /* 0.35vw → 0.56rem | 2.5vw → 4rem | 1.8vw → 2.88rem */
     justify-content: space-between;
     align-items: flex-start;
     /*padding-top: 0.7vh;*/
@@ -44,19 +44,25 @@
     position: relative;
     transition: all 1s;
     /*height: 24px;*/
-    height: 2.72rem;                              /* 1.7vw → 2.72rem */
-    padding-left: 1.6rem;                         /* 1vw → 1.6rem */
-    padding-right: 1.6rem;                        /* 1vw → 1.6rem */
+    height: 2.72rem; /* 1.7vw → 2.72rem */
+    padding-left: 1.6rem; /* 1vw → 1.6rem */
+    padding-right: 1.6rem; /* 1vw → 1.6rem */
     align-content: center;
     text-align: center;
     cursor: pointer;
     font-size: 0.84rem;
-    font-size: 1.52rem;                           /* 0.95vw → 1.52rem */
+    font-size: 1.52rem; /* 0.95vw → 1.52rem */
     letter-spacing: 1px;
     color: var(--color-primary);
     transition: all 0.1s;
-    border-image: linear-gradient(to right, transparent, var(--color-primary), transparent) 1;
-    font-family: 'Medium';
+    border-image: linear-gradient(
+            to right,
+            transparent,
+            var(--color-primary),
+            transparent
+        )
+        1;
+    font-family: "Medium";
 }
 
 .store-tab:hover {
@@ -64,17 +70,17 @@
 }
 
 .active-store-tab {
-    color: #F0E6D2
+    color: #f0e6d2;
 }
 
 .active-store-tab::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -1px;
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(to right, transparent, #CDBE91, transparent);
+    background: linear-gradient(to right, transparent, #cdbe91, transparent);
     width: 90%;
     justify-self: center;
 }
@@ -91,8 +97,8 @@
     align-content: center;
     align-items: center;
     justify-content: flex-end;
-    top: 0.96rem;                                 /* 0.6vw → 0.96rem */
-    right: 3.84rem;                               /* 2.4vw → 3.84rem */
+    top: 0.96rem; /* 0.6vw → 0.96rem */
+    right: 3.84rem; /* 2.4vw → 3.84rem */
 }
 
 .rounded-button {
@@ -102,11 +108,15 @@
     justify-content: center;
     text-align: center;
     color: var(--color-primary);
-    width: 1.7rem;                                /* 1.7vw → 2.72rem (pero en el segundo bloque usas 1.7vw para width y height) */
-    height: 1.7rem;                               /* 1.7vw → 2.72rem */
-    background-image: linear-gradient(to bottom, var(--gold-four), var(--gold-five));
+    width: 1.7rem; /* 1.7vw → 2.72rem (pero en el segundo bloque usas 1.7vw para width y height) */
+    height: 1.7rem; /* 1.7vw → 2.72rem */
+    background-image: linear-gradient(
+        to bottom,
+        var(--gold-four),
+        var(--gold-five)
+    );
     clip-path: circle(50%);
-    margin-left: 2.72rem;                         /* 1.7vw → 2.72rem */
+    margin-left: 2.72rem; /* 1.7vw → 2.72rem */
     cursor: pointer;
     position: relative;
     z-index: 1;
@@ -114,13 +124,17 @@
 
 .rounded-button:hover {
     color: var(--color-secundary);
-    background-image: linear-gradient(to bottom, var(--gold-one), var(--gold-four));
+    background-image: linear-gradient(
+        to bottom,
+        var(--gold-one),
+        var(--gold-four)
+    );
 }
 
 .rounded-button::before {
     position: absolute;
     left: 6.5%;
-    content: '';
+    content: "";
     height: 87%;
     width: 87%;
     background: var(--blue-six);
@@ -133,19 +147,25 @@
 
 .rounded-icon {
     position: absolute;
-    font-size: 1.44rem;                           /* 0.9vw → 1.44rem */
+    font-size: 1.44rem; /* 0.9vw → 1.44rem */
 }
 
 .store-header .buy-rp-button {
     position: relative;
-    height: 3.84rem;                              /* 2.4vw → 3.84rem */
-    width: 17.7rem;                              /* 10.7vw → 17.12rem */
+    height: 3.84rem; /* 2.4vw → 3.84rem */
+    width: 17.7rem; /* 10.7vw → 17.12rem */
     border: 2px solid white;
     margin: 0px;
     font-size: 0.9rem;
-    font-size: 1.74rem;                           /* 1.1vw → 1.76rem */
+    font-size: 1.74rem; /* 1.1vw → 1.76rem */
     letter-spacing: 1px;
-    border-image: linear-gradient(to bottom, var(--gold-two), var(--gold-four), var(--gold-five)) 1;
+    border-image: linear-gradient(
+            to bottom,
+            var(--gold-two),
+            var(--gold-four),
+            var(--gold-five)
+        )
+        1;
     /*background: linear-gradient(to bottom, rgb(40, 30, 30), rgb(40, 30, 30) , rgb(40, 30, 30) , rgb(40, 30, 30));*/
     background: var(--blue-six);
     display: flex;
@@ -153,15 +173,20 @@
     justify-content: center;
     cursor: pointer;
     color: var(--color-primary);
-    font-family: 'Bold';
+    font-family: "Bold";
     transition: color 0.5s;
     transition-delay: 0.2s;
 }
 
 .store-header .buy-rp-button:hover {
     color: var(--gold-one);
-    border-image: linear-gradient(to bottom, var(--gold-one), var(--gold-four)) 1;
-    background: linear-gradient(to bottom, var(--blue-six) 40%, rgb(69, 63, 44) 100%);
+    border-image: linear-gradient(to bottom, var(--gold-one), var(--gold-four))
+        1;
+    background: linear-gradient(
+        to bottom,
+        var(--blue-six) 40%,
+        rgb(69, 63, 44) 100%
+    );
 }
 
 /* Bloque duplicado en tu código original → lo dejo igual pero convertido */
@@ -172,11 +197,15 @@
     justify-content: center;
     text-align: center;
     color: var(--color-primary);
-    width: 2.72rem;                               /* 1.7vw → 2.72rem */
-    height: 2.72rem;                              /* 1.7vw → 2.72rem */
-    background-image: linear-gradient(to bottom, var(--gold-four), var(--gold-five));
+    width: 2.72rem; /* 1.7vw → 2.72rem */
+    height: 2.72rem; /* 1.7vw → 2.72rem */
+    background-image: linear-gradient(
+        to bottom,
+        var(--gold-four),
+        var(--gold-five)
+    );
     clip-path: circle(50%);
-    margin-left: 2.72rem;                         /* 1.7vw → 2.72rem */
+    margin-left: 2.72rem; /* 1.7vw → 2.72rem */
     cursor: pointer;
     position: relative;
     z-index: 1;
@@ -184,13 +213,17 @@
 
 .rounded-button:hover {
     color: var(--color-secundary);
-    background-image: linear-gradient(to bottom, var(--gold-one), var(--gold-four));
+    background-image: linear-gradient(
+        to bottom,
+        var(--gold-one),
+        var(--gold-four)
+    );
 }
 
 .rounded-button::before {
     position: absolute;
     left: 6.5%;
-    content: '';
+    content: "";
     height: 87%;
     width: 87%;
     background: var(--blue-six);
@@ -203,30 +236,30 @@
 
 .rounded-icon {
     position: absolute;
-    font-size: 1.6rem;                           /* 0.9vw → 1.44rem */
+    font-size: 1.6rem; /* 0.9vw → 1.44rem */
 }
 
 .store .search-filter {
     background: black;
-    border-image: linear-gradient(#785A28, var(--gold-five)) 1!important;
+    border-image: linear-gradient(#785a28, var(--gold-five)) 1 !important;
     width: 100%;
     /*height: 4.1vh;*/
-    height: 3.78rem;                  /* 2.35vw → 3.76rem */
+    height: 3.78rem; /* 2.35vw → 3.76rem */
     margin-bottom: 0px;
-    font-family: Regular;
+    font-family: "Spiegel-Regular";
     letter-spacing: 1px;
 }
 
 .search-filter input {
     width: 100%;
-    font-size: 1.5rem;              /* 0.97vw → 1.552rem */
+    font-size: 1.5rem; /* 0.97vw → 1.552rem */
     color: #7a776c;
 }
 
 .search-icon {
     color: var(--gold-one);
     font-size: 1.4rem;
-    margin-right: 0.96rem;            /* 0.6vw → 0.96rem */
+    margin-right: 0.96rem; /* 0.6vw → 0.96rem */
 }
 
 @media (max-width: 767px) {
@@ -235,22 +268,17 @@
     }
 
     .store-header {
-
     }
 
     .store-header .buy-rp-button {
-
     }
 
     .store .rounded-button {
-
     }
 
     .store-tab {
-
     }
 
     .active-store-tab::after {
-
     }
 }

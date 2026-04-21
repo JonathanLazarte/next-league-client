@@ -126,7 +126,7 @@
     font-size: 1.5rem; /* antes ~0.91vw ≈ 1.456rem */
     letter-spacing: 1px;
     font-family: Bold;
-    padding-left: 0.1rem;
+    padding-left: 1rem;
     height: 3.04rem; /* 1.9vw → 3.04rem */
     cursor: pointer;
     display: flex;
@@ -154,7 +154,6 @@
 }
 
 .right-nav-username {
-    font-size: var(--font-xl);
     font-size: 1.85rem; /* antes ~1.17vw ≈ 1.872rem */
     font-family: Bold;
     color: var(--gold-one);
@@ -362,8 +361,6 @@
 }
 
 .friendlist-username {
-    font-family: "Spiegel-Regular";
-    letter-spacing: 0.1rem;
     font-size: 1.6rem; /* antes ~1.05vw ≈ 1.68rem */
     line-height: 1;
     margin-bottom: 0.1rem;
@@ -372,7 +369,6 @@
 .friendlist-status {
     font-size: var(--font-md); /* antes ~0.94vw ≈ 1.504rem */
     color: rgb(0, 160, 70);
-    font-family: "Spiegel-Regular";
 }
 
 .mini {

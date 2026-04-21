@@ -1,28 +1,39 @@
 "use client";
 
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { useRef, useMemo, useState, useCallback } from "react";
+import {
+  useRef,
+  useMemo,
+  memo,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { useResizeObserver } from "@/hooks/useResizeObserver.js";
 import "./virtualGrid.css";
 
-export default function VirtualSkinsGrid({ items, handleClick, StoreCard }) {
+export default memo(function VirtualSkinsGrid({
+  items,
+  handleClick,
+  StoreCard,
+}) {
   const parentRef = useRef(null);
   //const { width : containerWidth } = useContainerSize(parentRef);
-  const [columns, setColumns] = useState(4);
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   }
   const currentRem = getRem();
-  const gapValue = currentRem * 1.3;
+  const gapValue = currentRem * 1;
+  const cardWidth = getRem() * 23.1;
   //const headerHeight = currentRem * 5;
 
-  function getColumns(containerWidth) {
+  /*function getColumns(containerWidth) {
     //const { width } = getCardSize();
-    const cardWidth = getRem() * 19;
+    //const cardWidth = getRem() * 23.1;
 
     const totalGap = (cols) => {
-      return gapValue * (cols - 1) + currentRem * 2.85 + currentRem * 7;
+      return gapValue * (cols - 1);
     };
     const newCols = Math.max(
       1,
@@ -34,24 +45,42 @@ export default function VirtualSkinsGrid({ items, handleClick, StoreCard }) {
     const hypotheticWidth = totalGap(newCols) + cardWidth * newCols;
 
     return hypotheticWidth <= containerWidth ? newCols : columns;
-  }
+  }*/
+  const [columns, setColumns] = useState();
+
+  const getAmountOfColumns = useCallback(
+    (containerWidth) => {
+      const amount = (containerWidth + gapValue) / (cardWidth + gapValue);
+      return Math.floor(Math.max(amount, 2));
+    },
+    [gapValue, cardWidth],
+  );
+
+  useLayoutEffect(() => {
+    if (parentRef.current) {
+      const rect = parentRef?.current?.getBoundingClientRect();
+      const rectWidth = rect.width;
+      const initialContainerWidth = getAmountOfColumns(rectWidth);
+      setColumns(initialContainerWidth);
+    }
+  }, []);
 
   const handleResize = useCallback(
     (width) => {
-      const newCols = getColumns(width);
+      const newCols = getAmountOfColumns(width);
 
       if (newCols > 1 && newCols !== columns) {
         newCols > 5 ? setColumns(5) : setColumns(newCols);
       }
     },
-    [columns, getColumns],
+    [columns, getAmountOfColumns],
   );
 
   useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
   // Construimos filas
-  const itemsCopy = [...items];
+  const itemsCopy = items ? [...items] : [];
   const rows = useMemo(() => {
     const result = [];
 
@@ -69,7 +98,7 @@ export default function VirtualSkinsGrid({ items, handleClick, StoreCard }) {
     getScrollElement: () => parentRef.current,
     // Altura dinámica según tipo
     estimateSize: () => {
-      return currentRem * 15;
+      return cardWidth;
     },
     measureElement: (el) => el.getBoundingClientRect().height,
     gap: gapValue,
@@ -125,4 +154,4 @@ export default function VirtualSkinsGrid({ items, handleClick, StoreCard }) {
       </div>
     </div>
   );
-}
+});

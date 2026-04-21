@@ -12,13 +12,12 @@ import VirtualStoreGrid from "@/components/VirtualGrid/VirtualStoreGrid.jsx";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
 import UseNearScreen from "@/services/UseNearScreen.js";
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import useChampions from "@/hooks/useChampions";
 
 export default memo(function PokemonShop() {
-  const [champions, setChampions] = useState([]);
   const [searchKeys, setSearchKeys] = useState("");
   const [inCollection, setInCollection] = useState(false);
+  const { championsData /* , isLoadingChampions*/ } = useChampions();
   const [sortedBy, setSortedBy] = useState("");
   const [sectionSelected, setSectionSelected] = useState("CAMPEONES");
   const [championCategory, setChampionCategory] = useState({
@@ -47,16 +46,6 @@ export default memo(function PokemonShop() {
     "Mage",
   ];
 
-  // Cargar campeones
-  useEffect(() => {
-    fetch(`${API_URL}pokemons/data/getchamps`)
-      .then((res) => res.json())
-      .then((data) => {
-        const champs = Object.values(data);
-        setChampions(champs);
-      });
-  }, []);
-
   // Infinite scroll
   useEffect(() => {
     if (isNearScreen) {
@@ -72,7 +61,7 @@ export default memo(function PokemonShop() {
       (role) => championCategory[role],
     );
 
-    let result = champions.filter((champion) => {
+    let result = championsData?.filter((champion) => {
       const matchesSearch = searchKeys
         ? champion.name.toLowerCase().startsWith(searchKeys.toLowerCase())
         : true;
@@ -114,7 +103,7 @@ export default memo(function PokemonShop() {
 
     return result;
   }, [
-    champions,
+    championsData,
     searchKeys,
     championCategory,
     inCollection,

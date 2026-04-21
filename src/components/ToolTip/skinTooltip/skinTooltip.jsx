@@ -1,45 +1,92 @@
-'use client';
+"use client";
 
-import ReactDOM from 'react-dom';
-import './skinTooltip.css';
+import ReactDOM from "react-dom";
+import "./skinTooltip.css";
+import {
+  memo,
+  useRef,
+  useLayoutEffect,
+  useEffect,
+  useState,
+  forwardRef,
+} from "react";
 
-const SkinTooltip = ({ content, hoveredSkin, cords : coords }) => {
+const SkinTooltip = ({
+  content,
+  cords,
+  currentDelayType,
+  hoveredSkinCardRef,
+}) => {
   /*const [visible, setVisible] = useState(true);*/
-  /*const [coords, setCoords] = useState({ top: 0, left: 0 });*/
-  
+  const [coords, setCoords] = useState(cords);
+  const [tooltipDirection, setTooltipDirection] = useState("up");
+  const ref = useRef();
+  const getRem = () => {
+    return parseFloat(getComputedStyle(document.documentElement).fontSize);
+  };
+  const currentRem = getRem();
+  useEffect(() => {
+    const tooltipRect = ref.current?.getBoundingClientRect();
+    const skinCardRect = hoveredSkinCardRef?.current?.getBoundingClientRect();
+
+    const intendedX = cords.x - tooltipRect?.width / 2;
+    const overflowInTop = cords.y + tooltipRect.height > window.innerHeight;
+
+    overflowInTop ? setTooltipDirection("down") : null;
+
+    const newPos = {
+      x: intendedX,
+      y: overflowInTop
+        ? cords.y - tooltipRect.height - skinCardRect?.height - currentRem * 7
+        : cords.y,
+    };
+    setCoords(newPos);
+  }, [cords]);
 
   return (
     <>
-
-      {hoveredSkin &&
-        typeof window !== 'undefined' &&
+      {typeof window !== "undefined" &&
         ReactDOM.createPortal(
           <div
-            className="skin-tooltip"
+            className={`skin-tooltip ${tooltipDirection === "down" && "down"}`}
+            ref={ref}
             style={{
               bottom: coords.y,
               left: coords.x,
-              position: 'fixed',
+              position: "fixed",
+              animation: `${currentDelayType === "initial" ? "opacity 0.3s" : null}`,
             }}
           >
-
-          <div className="tooltip-header">
-            {content.skinRarity !== 'NoRarity' ? <img className="tooltip-rarity-icon" src={`/raritys/${content.skinRarity}.png`}></img> : null}
-            <h2 className="tooltip-skin-name">{content.skinName}</h2>
-          </div>
-          <div className="purchase-date-chroma-section">
-            {
-            content.inCollection ? `Adquirido en ${new Date(content.purchaseDate).toLocaleDateString('es-ES')}`
-            : <><img className="w-5 h-5 mr-4 rp-icon" src="/general/RP_icon.png"></img> <span className="rp-price">{content.value}</span></>
-            }
-            {content.chromas ? <img className="chroma-icon" src={`/raritys/Chroma.png`}></img> : null}
-          </div>
-            
+            <div className="tooltip-header">
+              {content.skinRarity !== "NoRarity" ? (
+                <img
+                  className="tooltip-rarity-icon"
+                  src={`/raritys/${content.skinRarity}.png`}
+                ></img>
+              ) : null}
+              <h2 className="tooltip-skin-name">{content.skinName}</h2>
+            </div>
+            <div className="purchase-date-chroma-section">
+              {content.inCollection ? (
+                `Adquirido en ${new Date(content.purchaseDate).toLocaleDateString("es-ES")}`
+              ) : (
+                <>
+                  <img
+                    className="w-5 h-5 mr-4 rp-icon"
+                    src="/general/RP_icon.png"
+                  ></img>{" "}
+                  <span className="rp-price">{content.value}</span>
+                </>
+              )}
+              {content.chromas ? (
+                <img className="chroma-icon" src={`/raritys/Chroma.png`}></img>
+              ) : null}
+            </div>
           </div>,
-          document.body
+          document.body,
         )}
     </>
   );
 };
-
-export default SkinTooltip;
+const SkinTooltipWithRef = forwardRef(SkinTooltip);
+export default memo(SkinTooltip);

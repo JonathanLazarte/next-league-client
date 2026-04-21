@@ -23,8 +23,8 @@ import useSkins from "@/hooks/useSkins.js";
 
 export default memo(function CollectionSkins() {
   /*const API_URL = process.env.NEXT_PUBLIC_API_URL;*/
-  const { userSkins, userSkinsFull, loading } =
-    useSelector(selectUserSkinsData);
+  const { userSkins, loading } = useSelector(selectUserSkinsData);
+  const [userSkinsFull, setUserSkinsFull] = useState();
   const raritys = RARITY_LEVELS;
   const [searchKeys, setSearchKeys] = useState();
   const deferredSearch = useDeferredValue(searchKeys);
@@ -32,9 +32,36 @@ export default memo(function CollectionSkins() {
   const [sortedBy, setSortedBy] = useState();
   const [showNotObtained, setShowNotObtained] = useState(false);
   const [hoveredSkin, setHoveredSkin] = useState(null);
+  const [hoveredSkinCardRef, setHoveredSkinCardRef] = useState(null);
   const toolTipPosRef = useRef({ x: 0, y: 0 });
   const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
   const { skinsData: skins /*, isLoadingSkinsData*/ } = useSkins();
+  const { start, cancel, end, currentDelayType } = useHoverIntent({
+    initialDelay: HOVER_DELAYS.INITIAL,
+    fastDelay: HOVER_DELAYS.FAST,
+    resetAfter: HOVER_DELAYS.RESET_AFTER,
+  });
+
+  useEffect(() => {
+    if (!skins && !userSkins) return;
+    const fulfillSkinsWithData = () => {
+      const data = skins;
+
+      const userSkinsData = userSkins
+        .map((us) => {
+          const respectiveSkinData = data?.find(
+            (skinData) => skinData.id === us.id,
+          );
+          return respectiveSkinData
+            ? { ...respectiveSkinData, purchaseDate: us.purchaseDate }
+            : null;
+        })
+        .filter(Boolean)
+        .reverse();
+      return userSkinsData;
+    };
+    setUserSkinsFull(fulfillSkinsWithData());
+  }, [skins, userSkins]);
 
   const sortOptionsByMode = {
     collection: [
@@ -58,41 +85,44 @@ export default memo(function CollectionSkins() {
     level: [{ value: "rarity", label: "Nivel (por defecto)" }],
   };
 
-  const countRarity = userSkinsFull.reduce((acc, skin) => {
-    acc[skin.rarity] = (acc[skin.rarity] || 0) + 1;
-    return acc;
-  }, {});
+  const countRarity = userSkinsFull
+    ? userSkinsFull?.reduce((acc, skin) => {
+        acc[skin.rarity] = (acc[skin.rarity] || 0) + 1;
+        return acc;
+      }, {})
+    : raritys.reduce((acc, rarity) => {
+        acc[rarity] = 0;
+        return acc;
+      }, {});
 
   useEffect(() => {
     const defaultOption = sortOptionsByMode[groupedBy]?.[0]?.value;
     setSortedBy(defaultOption);
   }, [groupedBy]);
 
-  const { start, cancel } = useHoverIntent({
-    initialDelay: HOVER_DELAYS.INITIAL,
-    fastDelay: HOVER_DELAYS.FAST,
-    resetAfter: HOVER_DELAYS.RESET_AFTER,
-  });
-
   const onHoverStart = useCallback(
-    (skin) => {
-      start(() => {
-        // Importante: setear coords y hover en el mismo tick evita "salto" en equipos lentos.
-        setToolTipPos(toolTipPosRef.current);
-        setHoveredSkin(skin);
+    (skin, skinCardRef) => {
+      start({
+        cb: () => {
+          setToolTipPos(toolTipPosRef.current);
+          setHoveredSkinCardRef(skinCardRef);
+          setHoveredSkin(skin);
+        },
+        isTooltipOpened: hoveredSkin !== null,
       });
     },
     [start],
   );
 
   const onHoverEnd = useCallback(() => {
+    end(() => setHoveredSkin(null));
     cancel();
-    setHoveredSkin(null);
-  }, [cancel]);
+    /*probar pasar sethoveredchampion por prop en cancel()*/
+  }, [cancel, end]);
 
   function groupByAcquisitionYear(skins) {
     return Object.entries(
-      skins.reduce((acc, skin) => {
+      skins?.reduce((acc, skin) => {
         const year = new Date(skin.purchaseDate).getFullYear();
         acc[year] = acc[year] || [];
         acc[year].push(skin);
@@ -290,6 +320,7 @@ export default memo(function CollectionSkins() {
   };
 
   const groupedSkins = useMemo(() => {
+    if (!userSkinsFull) return;
     const grouped = getGroupedSkins(
       groupedBy,
       showNotObtained,
@@ -358,6 +389,7 @@ export default memo(function CollectionSkins() {
     }
     const rows = buildVirtualRows(groupedSkins, 5)*/
   const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
+  const tooltipRef = useRef();
   /*const RenderSkinsBySections = () => {
         return groupedSkins.map(([section, skins], index) => (
             <div
@@ -475,7 +507,7 @@ export default memo(function CollectionSkins() {
                       alt={`Rareza ${rarity}`}
                       loading="lazy"
                     />
-                    {countRarity[rarity] || "0"}
+                    {countRarity[rarity] ? countRarity[rarity] : "0"}
                   </div>
                 ))}
               </div>
@@ -570,25 +602,29 @@ export default memo(function CollectionSkins() {
       ) : (
         <></>
       )}
-      {loading == false && groupedSkins.length == 0 ? (
+      {loading == false && groupedSkins?.length == 0 ? (
         <span className="apologize-message">
           We are sorry, no collectible matches your search criteria
         </span>
       ) : null}
-      <SkinTooltip
-        hoveredSkin={hoveredSkin || null}
-        cords={toolTipPos}
-        delay={100}
-        content={{
-          skinName: hoveredSkin?.name || null,
-          purchaseDate: hoveredSkin?.purchaseDate || null,
-          chromas: hoveredSkin?.chromas || null,
-          skinRarity: hoveredSkin?.rarity || null,
-          inCollection: isSkinInCollection(hoveredSkin?.id) || null,
-          value: hoveredSkin?.value || null,
-        }}
-        position="top"
-      />
+      {hoveredSkin ? (
+        <SkinTooltip
+          cords={toolTipPos}
+          delay={100}
+          content={{
+            skinName: hoveredSkin?.name || null,
+            purchaseDate: hoveredSkin?.purchaseDate || null,
+            chromas: hoveredSkin?.chromas || null,
+            skinRarity: hoveredSkin?.rarity || null,
+            inCollection: isSkinInCollection(hoveredSkin?.id) || null,
+            value: hoveredSkin?.value || null,
+          }}
+          position="top"
+          currentDelayType={currentDelayType}
+          ref={tooltipRef}
+          hoveredSkinCardRef={hoveredSkinCardRef}
+        />
+      ) : null}
     </section>
   );
 });

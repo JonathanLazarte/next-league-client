@@ -10,6 +10,8 @@ const ChampionCard = ({
   adquired,
   onHoverEnd,
   onHoverStart /*, gridWrapperRef*/,
+  tooltipPosRef,
+  tooltipRef,
 }) => {
   const handleClick = useCallback(() => {
     if (onClick) {
@@ -33,14 +35,19 @@ const ChampionCard = ({
     const position = "right";
     const wrapperRef = localRef.current;
     const rect = localRef.current.getBoundingClientRect();
-    const tooltipHeight = /*440*/ (window.innerHeight / 100) * 50;
-    const tooltipWidth = (window.innerWidth / 100) * 20;
+    //const tooltipRect = tooltipRef.current?.getBoundingClientRect();
+    const getRem = () => {
+      return parseFloat(getComputedStyle(document.documentElement).fontSize);
+    };
+    const currentRem = getRem();
+    const tooltipHeight = currentRem * 40;
+    const tooltipWidth = currentRem * 32;
 
     // Encontrar el contenedor padre (el elemento que contiene el grid de campeones)
     if (wrapperRef) {
       let parentContainer =
-        wrapperRef.closest(".grid-pokemon-container") ||
-        wrapperRef.closest(".Pokedex") ||
+        wrapperRef.closest(".champions-grid-container") ||
+        wrapperRef.closest(".collection") ||
         wrapperRef.closest(".pokedex-container") ||
         null;
       // Si no encontramos un contenedor específico, usar el body
@@ -58,7 +65,7 @@ const ChampionCard = ({
       if (position === "right") {
         // Si está muy a la derecha del contenedor padre, cambiar a izquierda
         const rightEdge = rect.right - parentRect.left;
-        if (rightEdge + tooltipWidth + 20 > parentRect.width) {
+        if (rightEdge + tooltipWidth + 2 * currentRem > parentRect.width) {
           detectedPosition = "left";
         }
       } else if (position === "left") {
@@ -90,24 +97,25 @@ const ChampionCard = ({
           break;
 
         case "left":
-          top = rect.top + rect.height / 2 - tooltipHeight / 2;
-          left = rect.left - tooltipWidth - 20 /*8*/;
+          top = rect.top + rect.height / 2;
+          left =
+            parentRect.right -
+            (parentRect.right - rect.left) -
+            tooltipWidth -
+            2 * currentRem /*rect.left - currentRem * 34*/ /*8*/;
           // Asegurar que no se salga del contenedor padre
           /*if (top < parentRect.top + 8) top = parentRect.top + 8;*/
-          if (top + tooltipHeight > parentRect.bottom - 8)
-            top = parentRect.bottom - tooltipHeight - 8;
+
           break;
 
         case "right":
-          top = rect.top + rect.height / 2 - tooltipHeight / 2;
-          left = rect.right + 20 /*8*/;
+          top = rect.top + rect.height / 2;
+          left = rect.right + currentRem * 2 /*8*/;
           // Asegurar que no se salga del contenedor padre
           /*if (top < parentRect.top + 8) top = parentRect.top + 8;*/
-          if (top + tooltipHeight > parentRect.bottom - 8)
-            top = parentRect.bottom - tooltipHeight - 8;
+
           break;
       }
-
       /*setActualPosition(detectedPosition);
             setCoords({ top, left });*/
       return { x: left, y: top };
@@ -115,7 +123,7 @@ const ChampionCard = ({
   };
 
   return (
-    <article
+    <div
       id={id}
       className={` champion-card ${adquired ? "adquired" : null}`}
       onClick={handleClick}
@@ -127,7 +135,10 @@ const ChampionCard = ({
       <div
         ref={ref}
         className="champion-sprites"
-        onMouseEnter={() => onHoverStart(champion, getPosition(ref))}
+        onMouseEnter={() => {
+          tooltipPosRef.current = getPosition(ref);
+          onHoverStart(champion, ref);
+        }}
         onMouseLeave={onHoverEnd}
       >
         <img
@@ -151,7 +162,7 @@ const ChampionCard = ({
         )}
       </div>
       <h2 className="champion-name">{champion.name}</h2>
-    </article>
+    </div>
   );
 };
 

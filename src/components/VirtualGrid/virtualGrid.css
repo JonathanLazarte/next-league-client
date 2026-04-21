@@ -1,13 +1,15 @@
 .skins-grid-container {
     flex-grow: 1;
-    height: calc(var(--dashboard-content-height) - 9.5rem);
     overflow: auto;
     padding-right: 3.2rem;
     margin-top: 5rem;
+    scrollbar-gutter: stable;
 }
 .champions-grid-container {
     flex-grow: 1;
     overflow: scroll;
+    scrollbar-gutter: stable;
+    padding-right: 3.2rem;
 }
 .skins-section-header {
     font-family: Bold;
@@ -19,6 +21,20 @@
     align-content: center;
     display: flex;
     height: 2rem;
+    text-transform: uppercase;
+}
+.champions-section-header {
+    font-family: Bold;
+    color: var(--color-secundary);
+    line-height: 1;
+    font-size: 2.3rem;
+    letter-spacing: 1px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    height: 8rem;
+    padding-left: 1.5rem;
+    text-transform: uppercase;
 }
 
 .apologize-message {

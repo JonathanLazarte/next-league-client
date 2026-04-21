@@ -7,10 +7,11 @@
     flex-direction: row;
     --total-skins-width: 16.8rem; /* 10.5vw → 16.8rem */
     --total-skins-max-width: 160px;
+    padding-top: 4.4rem;
 }
 
 .skins-panel {
-    width: clamp(200px, 24.32rem, 280px); /* 15.2vw → 24.32rem */
+    width: 24.32rem; /* 15.2vw → 24.32rem */
     margin-right: 6.08rem; /* 3.8vw → 6.08rem */
     padding-top: 12rem; /* 5vw → 8rem */
     max-width: 250px;
@@ -150,19 +151,10 @@
 }
 
 .checkbox-container {
-    height: clamp(70px, 9.28rem, 110px); /* 5.8vw → 9.28rem */
+    height: 9.28rem; /* 5.8vw → 9.28rem */
     display: flex;
     align-content: flex-start;
     justify-content: flex-start;
-}
-
-.skins-section-header {
-    font-family: Bold;
-    color: var(--color-secundary);
-    line-height: 1;
-    font-size: clamp(18px, 1.3rem, 24px);
-    letter-spacing: 1px;
-    text-transform: uppercase;
 }
 
 .apologize-message {

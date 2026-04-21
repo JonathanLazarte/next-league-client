@@ -11,13 +11,14 @@ import VirtualStoreGrid from "@/components/VirtualGrid/VirtualStoreGrid.jsx";
 
 import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
+import useSkins from "@/hooks/useSkins";
 
 import "./skinsStore.css";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default memo(function ItemsShop() {
-  const [items, setItems] = useState([]);
+  const { skinsData, isLoadingSkinsData } = useSkins();
   const [searchKeys, setSearchKeys] = useState("");
   const [inCollection, setInCollection] = useState(false);
   const [championInCollection, setChampionInCollection] = useState(false);
@@ -33,16 +34,9 @@ export default memo(function ItemsShop() {
   const { userSkins = [] } = useSelector(selectUserSkinsData);
   const { userChampions = [] } = useSelector(selectUserChampionsData);
 
-  // Cargar skins
-  useEffect(() => {
-    fetch(`${API_URL}pokemons/data/skins`)
-      .then((res) => res.json())
-      .then((data) => setItems(data));
-  }, []);
-
   // Filtro + ordenamiento
   const filteredItems = useMemo(() => {
-    let result = [...items];
+    let result = skinsData ? [...skinsData] : [];
 
     result = [...result].filter((skin) => {
       const showInCollectionFilter = inCollection
@@ -102,7 +96,7 @@ export default memo(function ItemsShop() {
 
     return result /*.slice(0, 2000)*/;
   }, [
-    items,
+    skinsData,
     searchKeys,
     inCollection,
     championInCollection,

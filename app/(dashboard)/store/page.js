@@ -20,7 +20,7 @@ export default memo(function Store() {
       <header className="store-header">
         <div className="sections-items">
           <div
-            className={`store-tab ${actualSection === "campeones" ? "active-store-tab" : null}`}
+            className={`subheader-tab ${actualSection === "campeones" ? "active-subheader-tab" : null}`}
             onClick={() => {
               setActualSection("campeones");
               play();
@@ -29,7 +29,7 @@ export default memo(function Store() {
             CAMPEONES
           </div>
           <div
-            className={`store-tab ${actualSection === "aspectos" ? "active-store-tab" : null}`}
+            className={`subheader-tab ${actualSection === "aspectos" ? "active-subheader-tab" : null}`}
             onClick={() => {
               setActualSection("aspectos");
               play();

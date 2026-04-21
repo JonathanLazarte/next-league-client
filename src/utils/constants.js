@@ -2,14 +2,21 @@
  * Constantes globales de la aplicación
  */
 
-export const RARITY_LEVELS = ["Signature", "Hall", "Ultimate", "Mythic", "Legendary", "Epic"];
+export const RARITY_LEVELS = [
+  "Signature",
+  "Hall",
+  "Ultimate",
+  "Mythic",
+  "Legendary",
+  "Epic",
+];
 
 export const GROUP_MODES = {
   COLLECTION: "collection",
   ALL: "all",
   CHAMPION: "champion",
   SET: "set",
-  LEVEL: "level"
+  LEVEL: "level",
 };
 
 export const SORT_OPTIONS = {
@@ -18,18 +25,17 @@ export const SORT_OPTIONS = {
   ALPHABETICAL: "alphabetical",
   MASTERY: "mastery",
   MOST_OWNED: "mostOwned",
-  RARITY: "rarity"
+  RARITY: "rarity",
 };
 
 export const HOVER_DELAYS = {
-  INITIAL: 600,
+  INITIAL: 500,
   FAST: 0,
-  RESET_AFTER: 1000
+  RESET_AFTER: 600,
 };
 
 export const API_ENDPOINTS = {
-  SKINS: 'pokemons/data/skins',
-  POKEMON: 'pokemons/data',
-  USERS: 'users'
+  SKINS: "pokemons/data/skins",
+  POKEMON: "pokemons/data",
+  USERS: "users",
 };
-

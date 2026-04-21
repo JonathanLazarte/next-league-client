@@ -86,7 +86,11 @@
 
 .header-sections .item:hover,
 .item-lol:hover {
-    background: linear-gradient(to bottom, transparent 30%, rgb(47, 50, 52));
+    background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(212, 175, 120, 0.5)
+    );
     color: #f0e6d2;
 }
 

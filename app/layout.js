@@ -1,15 +1,9 @@
 import { Inter } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "./providers";
 import { NavigationProgress } from "@/components/NavigationProgress";
 
 const inter = Inter({ subsets: ["latin"] });
-const bold = localFont({
-  src: "../public/fonts/BeaufortforLOL-Bold.otf",
-  display: "swap",
-  variable: "--bold",
-});
 
 export const metadata = {
   title: "League of Legends",

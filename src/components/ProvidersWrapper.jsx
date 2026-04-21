@@ -20,6 +20,8 @@ import { io } from "socket.io-client";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useRouter } from "@/hooks/useRouter";
+import Image from "next/image";
+
 import { setUser /*, setUserMessages*/ } from "@/redux/slices/userSlice.js";
 import {
   selectUserInterfaceData,
@@ -39,13 +41,14 @@ import {
   /*logout,*/ verifyToken /*, clearError*/,
 } from "@/redux/slices/authSlice";
 import { setMute, setVolume } from "@/redux/slices/soundSlice.js";
+import { useQueryClient } from "@tanstack/react-query";
+import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
 
 export default function ProvidersWrapper({ children }) {
   const router = useRouter();
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const [showSideNav, setShowSideNav] = useState(true);
-  /*const { actualSection } = useSelector(state => state.userInterface)*/
-
+  const queryClient = useQueryClient();
   /*useEffect(() => {
     if (!loading && !isAuthenticated) {
       router.push('/login')
@@ -54,7 +57,6 @@ export default function ProvidersWrapper({ children }) {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [/*battleRequest,*/ setBattleRequest] = useState([]);
-  /*    const [battleVisible, setBattleVisible] = useState(false)*/
   const socket = useRef(null);
   /*const newRoom = uuidv4()*/
   const { token } = useAuth();
@@ -64,8 +66,7 @@ export default function ProvidersWrapper({ children }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { actualSection, isNavigating } = useSelector(selectUserInterfaceData);
-  /*const {loading : userPokemonLoading, userPokemon, error : userPokemonError} = useSelector(selectUserPokemonData);*/
-  /*const {loading : userSkinsLoading, userSkins, error : userSkinsError} = useSelector(selectUserSkinsData);*/
+  const { itemToBuy } = useSelector(selectPurchaseData);
 
   /*const indexElementStyle = {
       paddingRight: !showSideNav || userState === 'In explore match' ? `0px` : null,
@@ -101,14 +102,11 @@ export default function ProvidersWrapper({ children }) {
       }
     };*/
     const sectionName = pathname.split("/").pop();
+
     dispatch(setActualSection(sectionName));
   }, [pathname]);
 
   useEffect(() => {
-    /*const xinXhaoSong = new Audio('/music/Xin Zhao, the Seneschal of Demacia.mp3')
-      xinXhaoSong.volume = 0.15
-      xinXhaoSong.loop = true;
-      xinXhaoSong.play()*/
     localStoreToken && dispatch(getUserChampions(localStoreToken));
     localStoreToken && dispatch(getUserSkins(localStoreToken));
     localStoreToken &&
@@ -194,7 +192,12 @@ export default function ProvidersWrapper({ children }) {
         className="flex items-center content-center justify-center w-screen min-h-screen"
       >
         <div className="text-center">
-          <img className="lol-logo-image" src="/LOL_Icon_Rendered.png" />
+          <Image
+            className="lol-logo-image"
+            src="/LOL_Icon_Rendered.png"
+            width={100}
+            height={100}
+          />
         </div>
       </div>
     );
@@ -249,8 +252,9 @@ export default function ProvidersWrapper({ children }) {
       <MusicPlayer
         url="/music/Xin Zhao, the Seneschal of Demacia.mp3" /*'/music/Xin Zhao, the Seneschal of Demacia.mp3'*/
       />
+      {itemToBuy && <ConfirmPurchaseModal />}
       <section className="dashboard">
-        {children}
+        {!isNavigating && children}
         {isNavigating && (
           <div
             style={{
@@ -265,8 +269,6 @@ export default function ProvidersWrapper({ children }) {
           ></div>
         )}
       </section>
-
-      <ConfirmPurchaseModal />
     </div>
   ) : (
     <div></div>

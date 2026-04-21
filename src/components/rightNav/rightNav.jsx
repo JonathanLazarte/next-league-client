@@ -54,8 +54,8 @@ export const FriendRow = memo(function FriendRow({
       const rect = ref.current.getBoundingClientRect();
 
       toolTipPosRef.current = {
-        x: rect.left,
-        y: rect.bottom,
+        x: rect.width,
+        y: rect.top + rect.height / 2,
       };
 
       onHoverStart(u);
@@ -132,10 +132,15 @@ export default memo(function RightNav({
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
   const onHoverStart = (user) => {
-    start(() => {
-      // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
-      setToolTipPos({ x: toolTipPosRef.current.x, y: toolTipPosRef.current.y });
-      setHoveredUser(user);
+    start({
+      cb: () => {
+        // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
+        setToolTipPos({
+          x: toolTipPosRef.current.x,
+          y: toolTipPosRef.current.y,
+        });
+        setHoveredUser(user);
+      },
     });
   };
   const onHoverEnd = () => {
@@ -331,7 +336,7 @@ export default memo(function RightNav({
     <div
       style={{
         right: `${!showSideNav ? "-260px" : "0"}`,
-        background: `${actualSection === "Tienda" ? "linear-gradient(to top, var(--blue-five), #07161e 90%, var(--blue-five))" : "var(--blue-five)"}`,
+        background: `${actualSection === "store" ? "linear-gradient(to top, var(--blue-five), #07161e 90%, var(--blue-five))" : "var(--blue-five)"}`,
       }}
       className={`right-nav`}
       onClick={() => setShowMenu(false)}
