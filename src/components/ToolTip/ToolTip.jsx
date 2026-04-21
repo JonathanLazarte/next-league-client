@@ -7,7 +7,7 @@ import { memo, forwardRef, useState } from "react";
 import { useLayoutEffect } from "react";
 
 const Tooltip = (
-  { content, tooltipPos, currentDelayType, activeChampionRef },
+  { content, tooltipPos, currentDelayType /* , activeChampionRef*/ },
   ref,
 ) => {
   const [coords, setCoords] = useState(tooltipPos);
