@@ -2,7 +2,7 @@
 
 import { memo, useRef } from "react";
 import { GiPadlock } from "react-icons/gi";
-import { useSmartHover } from "@/hooks/useSmartHover.js";
+/*import { useSmartHover } from "@/hooks/useSmartHover.js";*/
 import "./skin.css";
 
 export default memo(function SkinCard({

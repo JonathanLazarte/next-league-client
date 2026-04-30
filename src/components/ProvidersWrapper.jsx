@@ -13,7 +13,7 @@ const ConfirmPurchaseModal = dynamic(
   () => import("@/components/confirmPurchaseWindow/confirmPurchaseWindow.jsx"),
   { ssr: false },
 );
-import Loading from "@/components/Loading/Loading.jsx";
+/*import Loading from "@/components/Loading/Loading.jsx";*/
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import "../../app/(dashboard)/index.css";
 
