@@ -316,7 +316,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
                       />
                       {!isThisSkinInCollection(skinIndex) ? (
                         <GiPadlock
-                          className={`locked-icon ${skinIndex === selectedSkin ? "selected" : ""}`}
+                          className={`skin-locked-icon ${skinIndex === selectedSkin && "selected"}`}
                         />
                       ) : null}
                     </>
@@ -427,17 +427,19 @@ const ChampionDetailModal = ({ champion, onClose }) => {
       <div className={styles.modal}>
         {/* Header */}
         <div className={styles.header}>
-          <div className={styles.championInfo}>
-            <div className={styles.championIcon}>
-              <img
-                src={`/tiles/${champion.id}_0.jpg`}
-                alt={champion.name}
-                className={styles.iconImage}
-              />
-            </div>
-            <div className={styles.championText}>
-              <h1 className={styles.championName}>{champion.name}</h1>
-              <p className={styles.championTitle}>EL OJO DEL CREPÚSCULO</p>
+          <div className={styles.championInfoBorder}>
+            <div className={styles.championInfo}>
+              <div className={styles.championIcon}>
+                <img
+                  src={`/tiles/${champion.id}_0.jpg`}
+                  alt={champion.name}
+                  className={styles.iconImage}
+                />
+              </div>
+              <div className={styles.championText}>
+                <h1 className={styles.championName}>{champion.name}</h1>
+                <p className={styles.championTitle}>EL OJO DEL CREPÚSCULO</p>
+              </div>
             </div>
           </div>
 

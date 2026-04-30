@@ -241,7 +241,7 @@ export default memo(function MainPage() {
             <div className="search-filter">
               <FaSearch className="search-icon" />
               <input
-                placeholder="Buscar"
+                placeholder="Search"
                 type="search"
                 onKeyUp={(event) => setSearchKeys(event.currentTarget.value)}
               ></input>

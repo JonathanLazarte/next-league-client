@@ -5,6 +5,7 @@ import { GiPadlock } from "react-icons/gi";
 import { GiAngelWings } from "react-icons/gi";
 import { memo, forwardRef, useState } from "react";
 import { useLayoutEffect } from "react";
+import Image from "next/image";
 
 const Tooltip = (
   { content, tooltipPos, currentDelayType /* , activeChampionRef*/ },
@@ -14,6 +15,7 @@ const Tooltip = (
 
   useLayoutEffect(() => {
     const tooltipHeight = ref.current.getBoundingClientRect().height;
+    const tooltipWidth = ref.current.getBoundingClientRect().width;
     /*const championCard = activeChampionRef.current?.getBoundingClientRect();    SE DEBE USER ESTE REF PARA POSICIONAR EL TOOLTIP Y REMOVER LA FUNCION QUE AHORA ESTA SIENDO USADA EN CHAMPION.JSX*/
     const viewportHeight = window.innerHeight;
     const getRem = () => {

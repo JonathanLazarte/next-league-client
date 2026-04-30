@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "@/hooks/useRouter";
 import { useSelector } from "react-redux";
 import { useRouter as useNextRouter } from "next/navigation";
+import { preload } from "react-dom";
 
 export default function AuthLayout({ children }) {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function AuthLayout({ children }) {
   // así el chunk ya está descargado cuando navega
   useEffect(() => {
     nextRouter.prefetch("/league");
+    preload("LOADING/.webm", { as: "video", fetchPriority: "high" });
   }, []);
 
   useEffect(() => {

@@ -1,6 +1,8 @@
 "use client";
+
 import "./userTooltip.css";
 import { useRef, useState, useLayoutEffect } from "react";
+import Image from "next/image";
 
 export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
   const ref = useRef();
@@ -31,19 +33,27 @@ export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
     <div className="right-nav-user-tooltip" style={style} ref={ref}>
       <div className="tooltip-user-container">
         <div className="tooltip-user-level">
-          <img src={`${RESOURCES_URL}general/7201_Precision.png`} />
+          <Image
+            src={`${RESOURCES_URL}general/7201_Precision.png`}
+            width={30}
+            height={30}
+          />
           <h3>24</h3>
         </div>
         <div className="tooltip-user-info">
           <div className="tooltip-user-icon">
-            <img
+            <Image
               className="tooltip-user-border"
-              src={`${RESOURCES_URL}general/EoG_Border_150_4k.png`}
+              src={`${RESOURCES_URL}general/border_175.png`}
+              height={150}
+              width={150}
             />
-            <img
+            <Image
               className="tooltip-user-icon-img"
               src={`${RESOURCES_URL}profileicon/${dataToRender?.profileIcon}.png`}
-            ></img>
+              width={100}
+              height={100}
+            />
           </div>
           <div className="tooltip-user-info-text">
             <h4>{dataToRender?.userName}</h4>

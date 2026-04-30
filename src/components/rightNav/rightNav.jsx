@@ -2,6 +2,7 @@
 
 import "./rightNav.css";
 import { useState, memo, useEffect, useRef } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
@@ -78,9 +79,11 @@ export const FriendRow = memo(function FriendRow({
       onContextMenu={handleContextMenu}
     >
       <div className="icon-border mini">
-        <img
+        <Image
           className="user-icon"
           src={`${RESOURCES_URL}profileicon/${u.profileIcon}.png`}
+          width={150}
+          height={150}
         />
         <div className="box-status-icon" />
       </div>
@@ -198,14 +201,16 @@ export default memo(function RightNav({
         >
           <div className="userLevelBar">
             <div className="icon-border">
-              <img
+              <Image
                 className="user-icon"
                 src={
                   user.profileIcon
                     ? `${RESOURCES_URL}profileicon/${user.profileIcon}.png`
                     : `/profileicon/6705.png`
                 }
-              ></img>
+                width={150}
+                height={150}
+              />
             </div>
           </div>
           <div className="user-level">{user.level || 0}</div>

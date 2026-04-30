@@ -40,7 +40,7 @@
     justify-content: center;
     width: 100%; /* 6vw → 9.6rem */
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 1.92rem;
+    padding-bottom: 2.5rem;
     height: clamp(500px, 40vh /*37.3rem*/, 1000px); /* 1.2vw → 1.92rem */
     /*text-wrap: nowrap;*/
     height: 280px !important;
@@ -102,9 +102,9 @@
     justify-self: center;
 }
 
-h1 {
+.mode-title {
     /* 1.7rem */
-    font-size: 3.04rem; /* 1.9vw → 3.04rem */
+    font-size: 3.1rem; /* 1.9vw → 3.04rem */
     line-height: 1.2;
     margin-top: 1.5%;
     color: var(--gold-one);
@@ -126,7 +126,7 @@ h1 {
 
 .gamemode-icon img {
     /*width: 110px;*/
-    width: 11.5rem; /* 8vw → 12.8rem */
+    width: 13rem; /* 8vw → 12.8rem */
     /*margin-bottom: 15px;*/
     margin-bottom: 2.24rem; /* 1.4vw → 2.24rem */
 }
@@ -143,8 +143,8 @@ h1 {
 }
 .gamemode-description {
     display: flex;
-    padding-top: 1.8rem; /* 1.125vw → 1.8rem */
-    padding-bottom: 1.92rem; /* 1.2vw → 1.92rem */
+    padding-top: 2rem; /* 1.125vw → 1.8rem */
+    padding-bottom: 2.2rem; /* 1.2vw → 1.92rem */
     /*width: 300px;*/
     width: 29.76rem; /* 18.6vw → 29.76rem */
     border-bottom: 1px solid gray;
@@ -173,7 +173,7 @@ h1 {
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     transition: color 0.4s;
-    height: 4rem;
+    height: 4.5rem;
 }
 
 .queue-option:hover {

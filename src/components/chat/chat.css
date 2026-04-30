@@ -10,15 +10,15 @@
 .chat {
     display: flex;
     flex-direction: column;
-    height: 48rem;               /* 30vw → 48rem */
-    width: 44rem;                 /* 27.5vw → 44rem */
+    height: 48rem; /* 30vw → 48rem */
+    width: 44rem; /* 27.5vw → 44rem */
     padding-top: 0px;
     border: 1px solid rgba(50, 0, 0, 0.5);
     background-color: rgba(1, 10, 19, 0.95);
     position: fixed;
     right: var(--dashboard-sidebar-width);
     bottom: 0px;
-    z-index: 1;
+    z-index: 50;
     border: 1px solid rgba(40, 40, 40, 1);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
 }
@@ -29,9 +29,9 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--gold-five);
-    font-size: var(--font-lg);                         /* antes ~1vw ≈ 1.6rem */
+    font-size: var(--font-lg); /* antes ~1vw ≈ 1.6rem */
     color: rgba(250, 250, 250, 0.9);
-    padding: 0 1.12rem;              /* 0.7vw → 1.12rem */
+    padding: 0 1.12rem; /* 0.7vw → 1.12rem */
     font-family: Medium;
 }
 
@@ -44,20 +44,20 @@
 }
 
 .chat-username {
-    font-size: var(--font-lg);                         /* antes ~1vw ≈ 1.6rem */
+    font-size: var(--font-lg); /* antes ~1vw ≈ 1.6rem */
     font-family: Regular;
     color: var(--gold-one);
 }
 
 .chat-status {
-    font-size: var(--font-base);                       /* antes ~0.9vw ≈ 1.44rem */
+    font-size: var(--font-base); /* antes ~0.9vw ≈ 1.44rem */
     color: rgba(250, 250, 250, 0.5);
     margin-top: 2px;
 }
 
 .chat-controls {
     display: flex;
-    gap: 0.8rem;                     /* 0.5vw → 0.8rem */
+    gap: 0.8rem; /* 0.5vw → 0.8rem */
 }
 
 .chat-control-btn {
@@ -81,7 +81,7 @@
 .chat-messages {
     color: white !important;
     flex-grow: 1;
-    padding: 1.6rem;                /* 1vw → 1.6rem */
+    padding: 1.6rem; /* 1vw → 1.6rem */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -158,11 +158,17 @@
     animation: typingDot 1.4s infinite ease-in-out;
 }
 
-.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+.typing-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+.typing-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
 
 @keyframes typingDot {
-    0%, 80%, 100% {
+    0%,
+    80%,
+    100% {
         transform: scale(0.8);
         opacity: 0.5;
     }
@@ -192,17 +198,29 @@
     border: 1px solid gray;
     width: 100%;
     color: #fafafa;
-    height: clamp(30px, 4rem, 45px);                   /* 2.5vw → 4rem */
-    border-image: linear-gradient(to bottom, gray, rgba(250, 250, 250, 0.4), rgba(60, 60, 60, 1)) 1;
-    font-size: var(--font-base);                       /* antes ~0.9vw ≈ 1.44rem */
+    height: clamp(30px, 4rem, 45px); /* 2.5vw → 4rem */
+    border-image: linear-gradient(
+            to bottom,
+            gray,
+            rgba(250, 250, 250, 0.4),
+            rgba(60, 60, 60, 1)
+        )
+        1;
+    font-size: var(--font-base); /* antes ~0.9vw ≈ 1.44rem */
     font-weight: 530;
-    padding: 0 clamp(10px, 1.28rem, 15px);             /* 0.8vw → 1.28rem */
+    padding: 0 clamp(10px, 1.28rem, 15px); /* 0.8vw → 1.28rem */
     border-radius: 4px;
     transition: all 0.2s ease;
 }
 
 .input-chat:focus {
-    border-image: linear-gradient(to bottom, var(--gold-two), var(--gold-four), var(--gold-five)) 1;
+    border-image: linear-gradient(
+            to bottom,
+            var(--gold-two),
+            var(--gold-four),
+            var(--gold-five)
+        )
+        1;
     outline: none;
     box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
@@ -238,15 +256,12 @@
     }
 
     .chatHead {
-
     }
 
     .chat-messages {
-
     }
 
     .message-content {
-
     }
 
     .chat-username {
@@ -254,7 +269,6 @@
     }
 
     .chat-status {
-
     }
 
     .message {
@@ -262,22 +276,17 @@
     }
 
     .message-content {
-
     }
 
     .message-text {
-
     }
 
     .message-time {
-
     }
 
     .chat-form {
-
     }
 
     .input-chat {
-
     }
 }

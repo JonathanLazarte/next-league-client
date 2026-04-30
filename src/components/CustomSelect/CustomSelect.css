@@ -46,7 +46,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .custom-select-arrow {
@@ -97,7 +97,7 @@
     padding: 1.1rem; /* 1vh mantenido */
     cursor: pointer;
     color: #c1b38a;
-    font-size: 1.45rem; /* antes ~0.9vw ≈ 1.44rem */
+    font-size: 1.4rem; /* antes ~0.9vw ≈ 1.44rem */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 

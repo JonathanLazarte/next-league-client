@@ -98,7 +98,7 @@ export default memo(function VirtualSkinsGrid({
     getScrollElement: () => parentRef.current,
     // Altura dinámica según tipo
     estimateSize: () => {
-      return cardWidth;
+      return 300;
     },
     measureElement: (el) => el.getBoundingClientRect().height,
     gap: gapValue,

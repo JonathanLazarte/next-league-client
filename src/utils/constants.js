@@ -29,7 +29,7 @@ export const SORT_OPTIONS = {
 };
 
 export const HOVER_DELAYS = {
-  INITIAL: 500,
+  INITIAL: 250,
   FAST: 0,
   RESET_AFTER: 600,
 };

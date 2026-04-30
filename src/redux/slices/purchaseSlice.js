@@ -82,6 +82,7 @@ const purchaseSlice = createSlice({
     },
     closeModal: (state) => {
       state.itemToBuy = null;
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {

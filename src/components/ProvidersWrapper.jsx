@@ -13,6 +13,8 @@ const ConfirmPurchaseModal = dynamic(
   () => import("@/components/confirmPurchaseWindow/confirmPurchaseWindow.jsx"),
   { ssr: false },
 );
+import Loading from "@/components/Loading/Loading.jsx";
+import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import "../../app/(dashboard)/index.css";
 
 import { useState, useEffect, useRef } from "react";
@@ -253,19 +255,7 @@ export default function ProvidersWrapper({ children }) {
       {itemToBuy && <ConfirmPurchaseModal />}
       <section className="dashboard">
         {!isNavigating && children}
-        {isNavigating && (
-          <div
-            style={{
-              height: "100vh",
-              width: "100vw",
-              backgroundColor: "var(--blue-five)",
-              position: "fixed",
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-            }}
-          ></div>
-        )}
+        {isNavigating && <LoadingOverlay />}
       </section>
     </div>
   ) : (

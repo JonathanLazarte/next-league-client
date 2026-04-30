@@ -1,15 +1,16 @@
 .skins-grid-container {
     flex-grow: 1;
     overflow: auto;
-    padding-right: 3.2rem;
+    padding-right: 3.3rem;
     margin-top: 5rem;
+    padding-bottom: 4rem;
     scrollbar-gutter: stable;
 }
 .champions-grid-container {
     flex-grow: 1;
     overflow: scroll;
     scrollbar-gutter: stable;
-    padding-right: 3.2rem;
+    padding-right: 3.5rem;
 }
 .skins-section-header {
     font-family: Bold;

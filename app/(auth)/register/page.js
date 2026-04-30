@@ -97,6 +97,12 @@ export default function Register() {
           <h2 className="register-title">Register</h2>
           <div className="active-indicator"></div>
         </div>
+        <div
+          className="loading-spinner"
+          style={{ display: loading ? "block" : "none" }}
+        >
+          <img src="/red-loading-circle.png" alt="loading spinner" />
+        </div>
 
         <section
           className="form-interface"
@@ -137,27 +143,28 @@ export default function Register() {
             </label>
           </div>
           {/*errors.password && touched.password && <div className="error-message">{errors.password}</div>*/}
-
-          <div className="actions-box">
-            <button
-              type="submit"
-              disabled={!values.password || !values.userName || loading}
-              className={`login-button ${!values.userName || !values.password || loading ? "disabled" : null}`}
-            >
-              <FaArrowRight />
-            </button>
-            <a onClick={() => router.push("/login")}>Iniciar Sesión</a>
-            <div className="disclaimer">
-              <span className="disclaimer-line">
-                THIS APP IS PROTECTED BY HCAPCHA AND ITS
-              </span>
-              <span className="disclaimer-line">
-                <a>PRIVACY POLICY</a> AND <a>TERMS OF SERVICE</a> APPLY.
-              </span>
-            </div>
-          </div>
         </section>
-        <svg
+        <div className="actions-box">
+          <button
+            type="submit"
+            disabled={!values.password || !values.userName || loading}
+            className={`login-button ${!values.userName || !values.password || loading ? "disabled" : null}`}
+            style={{ display: loading ? "none" : "flex" }}
+          >
+            <FaArrowRight />
+          </button>
+          <a onClick={() => router.push("/login")}>Iniciar Sesión</a>
+          <div className="disclaimer">
+            <span className="disclaimer-line">
+              THIS APP IS PROTECTED BY HCAPCHA AND ITS
+            </span>
+            <span className="disclaimer-line">
+              <a>PRIVACY POLICY</a> AND <a>TERMS OF SERVICE</a> APPLY.
+            </span>
+          </div>
+        </div>
+
+        {/*<svg
           style={{
             color: "#d53235",
             height: "45px",
@@ -184,7 +191,7 @@ export default function Register() {
               repeatCount="indefinite"
             />
           </path>
-        </svg>
+          </svg>*/}
       </form>
     </div>
   );

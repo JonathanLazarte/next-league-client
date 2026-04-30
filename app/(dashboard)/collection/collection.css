@@ -11,6 +11,7 @@
     width: 100%;
     overflow: hidden;
     animation: appearance 0.6s;
+    pposition: relative;
 }
 .collection-header {
     display: flex;
@@ -22,7 +23,7 @@
     padding-top: 0.9rem; /* 0.44vw = 7.04px at 1600px */
     height: 4.4rem; /* 2.8vw = 44.8px at 1600px */
     --collection-header-height: 4.4rem;
-    position: fixed;
+    position: absolute;
 }
 
 .collection-tab {
@@ -74,8 +75,8 @@
 }
 
 .collection .search-filter {
-    background: black;
-    border-image: linear-gradient(#785a28, var(--gold-five)) 1 !important;
+    background: #000407;
+    border-image: linear-gradient(#785a28, var(--gold-five)) 1;
     width: 100%;
     /*height: 4.1vh;*/
     height: 4rem; /* 2.35vw → 3.76rem */
@@ -83,7 +84,7 @@
     font-family: Regular;
     letter-spacing: 1px;
     font-size: 0.78rem;
-    border: 1px solid #c8aa6e;
+    border: 1px solid #785a28;
     margin-top: 0px;
     padding-left: 10px;
     color: #999486;
@@ -92,7 +93,14 @@
     cursor: pointer;
     font-family: "Spiegel-Regular";
 }
-.collection .search-filter:focus {
+.collection .search-filter:focus-within {
+    background: linear-gradient(
+        to bottom,
+        #07111a,
+        #0e171f,
+        #151e25
+    ) !important;
+    border-image: linear-gradient(to bottom, #6c5227, #907747, #c4a66c) 1;
 }
 .collection .checkbox:hover {
     color: var(--gold-one);
@@ -106,7 +114,7 @@
     font-size: 1.5rem; /* 0.97vw → 1.552rem */
     color: #999486;
 }
-.collection .search-filter input::placeholder {
+.search-filter input::placeholder {
     color: #9f9a8b;
 }
 

@@ -1,21 +1,23 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect, useRef, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   addMessage,
   markAllAsRead,
   closeChat,
   minimizeChat,
-} from '@/redux/slices/chatSlice';
-import { PiXBold, PiMinus } from 'react-icons/pi';
-import './chat.css';
-import { useSound } from '@/hooks/useSound.js'
+} from "@/redux/slices/chatSlice";
+import { PiXBold, PiMinus } from "react-icons/pi";
+import "./chat.css";
+import { useSound } from "@/hooks/useSound.js";
 
 export default memo(function Chat({ socket }) {
   const dispatch = useDispatch();
-  const RESOURCES_URL = '/' || 'https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/'
-  const [chatInput, setChatInput] = useState('');
+  const RESOURCES_URL =
+    "/" ||
+    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
+  const [chatInput, setChatInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
   const typingTimeoutRef = useRef(null);
@@ -34,13 +36,15 @@ export default memo(function Chat({ socket }) {
 
   const selectedChatUser = selectedChat ? chatUsers[selectedChat] : null;
   const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
-  const isUserTyping = selectedChat ? typingUsers[selectedChat] || false : false;
+  const isUserTyping = selectedChat
+    ? typingUsers[selectedChat] || false
+    : false;
 
-  const { play : playClickSound } = useSound('/sfx/menu-click.mp3')
+  const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
   // Auto-scroll al fondo cuando llegan mensajes nuevos
   useEffect(() => {
     if (autoScroll && messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, autoScroll]);
 
@@ -54,9 +58,7 @@ export default memo(function Chat({ socket }) {
   // Sonido al abrir el chat
   useEffect(() => {
     if (isChatVisible && selectedChat) {
-      const sound = new Audio(
-        `${RESOURCES_URL}general/menu-click.mp3`
-      );
+      const sound = new Audio(`${RESOURCES_URL}general/menu-click.mp3`);
       sound.play().catch(() => {}); // Ignorar errores de autoplay
     }
   }, [isChatVisible, selectedChat]);
@@ -68,7 +70,7 @@ export default memo(function Chat({ socket }) {
 
     if (value.trim() && !isTyping) {
       setIsTyping(true);
-      socket?.current?.emit('typing', { to: selectedChat, isTyping: true });
+      socket?.current?.emit("typing", { to: selectedChat, isTyping: true });
     }
 
     if (typingTimeoutRef.current) {
@@ -78,7 +80,7 @@ export default memo(function Chat({ socket }) {
     typingTimeoutRef.current = setTimeout(() => {
       if (isTyping) {
         setIsTyping(false);
-        socket?.current?.emit('typing', { to: selectedChat, isTyping: false });
+        socket?.current?.emit("typing", { to: selectedChat, isTyping: false });
       }
     }, 1000);
   };
@@ -94,53 +96,54 @@ export default memo(function Chat({ socket }) {
       to: selectedChat,
       content: chatInput.trim(),
       timestamp: Date.now(),
-      type: 'text',
+      type: "text",
       isRead: false,
       isDelivered: false,
     };
 
-    socket?.current?.emit('chat-message', {
+    socket?.current?.emit("chat-message", {
       to: selectedChat,
       from: userName,
       message: chatInput.trim(),
     });
 
     dispatch(addMessage(message));
-    setChatInput('');
+    setChatInput("");
 
     if (isTyping) {
       setIsTyping(false);
-      socket?.current?.emit('typing', { to: selectedChat, isTyping: false });
+      socket?.current?.emit("typing", { to: selectedChat, isTyping: false });
     }
   };
 
   // Cerrar / Minimizar chat
-  const handleCloseChat = () => selectedChat && dispatch(closeChat(selectedChat));
+  const handleCloseChat = () =>
+    selectedChat && dispatch(closeChat(selectedChat));
   const handleMinimizeChat = () => {
-    playClickSound() 
+    playClickSound();
     selectedChat && dispatch(minimizeChat(selectedChat));
-  }
+  };
 
   // Formatear hora
   const formatTimestamp = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString('es-ES', {
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Date(timestamp).toLocaleTimeString("es-ES", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   // Color según estado
   const getStatusColor = (status) => {
     switch (status) {
-      case 'online':
-        return '#00ff00';
-      case 'away':
-        return '#ffff00';
-      case 'busy':
-        return '#ff0000';
-      case 'offline':
+      case "online":
+        return "#00ff00";
+      case "away":
+        return "#ffff00";
+      case "busy":
+        return "#ff0000";
+      case "offline":
       default:
-        return '#808080';
+        return "#808080";
     }
   };
 
@@ -151,7 +154,7 @@ export default memo(function Chat({ socket }) {
       {/* Header */}
       <div className="chatHead">
         {selectedChatUser && (
-          <div style={{ marginRight: '10px' }} className="icon-border mini">
+          <div style={{ marginRight: "10px" }} className="icon-border mini">
             <img
               className="user-icon mini"
               src={`${RESOURCES_URL}profileicon/${selectedChatUser.profileIcon}.png`}
@@ -159,7 +162,9 @@ export default memo(function Chat({ socket }) {
             />
             <div
               className="box-status-icon"
-              style={{ backgroundColor: getStatusColor(selectedChatUser.status) }}
+              style={{
+                backgroundColor: getStatusColor(selectedChatUser.status),
+              }}
             />
           </div>
         )}
@@ -170,22 +175,30 @@ export default memo(function Chat({ socket }) {
           </span>
           {selectedChatUser?.status && (
             <span className="chat-status">
-              {selectedChatUser.status === 'online'
-                ? 'En línea'
-                : selectedChatUser.status === 'away'
-                ? 'Ausente'
-                : selectedChatUser.status === 'busy'
-                ? 'Ocupado'
-                : 'Desconectado'}
+              {selectedChatUser.status === "online"
+                ? "En línea"
+                : selectedChatUser.status === "away"
+                  ? "Ausente"
+                  : selectedChatUser.status === "busy"
+                    ? "Ocupado"
+                    : "Desconectado"}
             </span>
           )}
         </div>
 
         <div className="chat-controls">
-          <button onClick={handleMinimizeChat} className="chat-control-btn" title="Minimizar">
+          <button
+            onClick={handleMinimizeChat}
+            className="chat-control-btn"
+            title="Minimizar"
+          >
             <PiMinus />
           </button>
-          <button onClick={handleCloseChat} className="chat-control-btn" title="Cerrar">
+          <button
+            onClick={handleCloseChat}
+            className="chat-control-btn"
+            title="Cerrar"
+          >
             <PiXBold />
           </button>
         </div>
@@ -196,12 +209,14 @@ export default memo(function Chat({ socket }) {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`message ${message.from === userName ? 'own-message' : 'other-message'}`}
+            className={`message ${message.from === userName ? "own-message" : "other-message"}`}
           >
             <div className="message-content">
               <span className="message-text">{message.content}</span>
               {showTimestamps && (
-                <span className="message-time">{formatTimestamp(message.timestamp)}</span>
+                <span className="message-time">
+                  {formatTimestamp(message.timestamp)}
+                </span>
               )}
             </div>
           </div>

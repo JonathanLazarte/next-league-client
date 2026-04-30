@@ -11,7 +11,10 @@ export function useRouter() {
 
   const push = useCallback(
     (href, options) => {
-      if (typeof document !== "undefined") {
+      if (
+        typeof document !== "undefined" &&
+        (href === "/login" || href === "/register")
+      ) {
         document.documentElement.classList.add("navigating");
       }
       dispatch(setIsNavigating(true));

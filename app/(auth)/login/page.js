@@ -60,7 +60,7 @@ export default memo(function Login() {
         }),
       ).unwrap();
       // Si el login es exitoso, también actualizar el user slice
-      dispatch(setUser(result.user));
+      if (result.profileIcon) dispatch(setUser(result.user));
 
       // Redirigir al dashboard
     } catch (error) {
@@ -103,7 +103,7 @@ export default memo(function Login() {
           {tabs.map((tab, index) => (
             <div
               key={tab}
-              className={`switch-option ${loginOptionSelected === tab ? "active" : ""} ${loading && "disabled"}`}
+              className={`switch-option ${loginOptionSelected === tab && "active"} ${loading && "disabled"}`}
               onClick={() => (!loading ? setLoginOptionSelected(tab) : null)}
               ref={(el) => (tabRefs.current[index] = el)}
             >
@@ -113,6 +113,12 @@ export default memo(function Login() {
             </div>
           ))}
           <div style={tabStyles} className="active-indicator"></div>
+        </div>
+        <div
+          className="loading-spinner"
+          style={{ display: loading ? "block" : "none" }}
+        >
+          <img src="/red-loading-circle.png" alt="loading spinner" />
         </div>
         <section
           className="form-interface"
@@ -160,31 +166,25 @@ export default memo(function Login() {
               </label>
             </div>
           </div>
-          {/*errors.password && touched.password && <div className="error-text">{errors.password}</div>*/}
-          <div className="actions-box">
-            <button
-              className={`login-button ${isButtonDisabled ? "disabled" : null}`}
-              type="submit"
-            >
-              <FaArrowRight />
-            </button>
-            <a onClick={() => router.push("/register")}>Crear cuenta</a>
-            <div className="disclaimer">
-              <span className="disclaimer-line">
-                THIS APP IS PROTECTED BY HCAPCHA AND ITS
-              </span>
-              <span className="disclaimer-line">
-                <a>PRIVACY POLICY</a> AND <a>TERMS OF SERVICE</a> APPLY.
-              </span>
-            </div>
-          </div>
         </section>
-
-        <div
-          className="loading-spinner"
-          style={{ display: loading ? "block" : "none" }}
-        >
-          <img src="/red-loading-circle.png" alt="loading spinner" />
+        {/*errors.password && touched.password && <div className="error-text">{errors.password}</div>*/}
+        <div className="actions-box">
+          <button
+            className={`login-button ${isButtonDisabled ? "disabled" : null}`}
+            style={{ display: loading ? "none" : "flex" }}
+            type="submit"
+          >
+            <FaArrowRight />
+          </button>
+          <a onClick={() => router.push("/register")}>Crear cuenta</a>
+          <div className="disclaimer">
+            <span className="disclaimer-line">
+              THIS APP IS PROTECTED BY HCAPCHA AND ITS
+            </span>
+            <span className="disclaimer-line">
+              <a>PRIVACY POLICY</a> AND <a>TERMS OF SERVICE</a> APPLY.
+            </span>
+          </div>
         </div>
       </form>
     </div>

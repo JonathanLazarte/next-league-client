@@ -1,85 +1,99 @@
-import {useState, useEffect, memo} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 /*import { v4 as uuidv4 } from 'uuid';*/
-import './styles.css';
-import FindMatchButton from '@/components/playButton/FindMatchButton/FindMatchButton.jsx'
+import "./styles.css";
+import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
 import { MdArrowBackIos } from "react-icons/md";
-import { setUserState } from '@/redux/slices/userInterfaceSlice.js'
+import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 
+export default memo(function PvpRoom({ socket, setRoomUsers }) {
+  const RESOURCES_URL =
+    "/" ||
+    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
+  const [, /*roomId*/ setRoomId] = useState();
+  /*const newRoom = uuidv4()*/
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-
-export default memo(function PvpRoom({socket, setRoomUsers}){
-    const RESOURCES_URL = '/' || 'https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/'
-    const [/*roomId*/, setRoomId] = useState()
-    /*const newRoom = uuidv4()*/
-    const user = useSelector(state => state.user);
-    const dispatch = useDispatch()
-
-    /*useEffect(()=>{
+  /*useEffect(()=>{
         const lobbyIntro = new Audio('./assets/sounds/lobby-intro.mp3')
         setTimeout(()=>{
             lobbyIntro.play();
         },650)
-        
+
     },[])*/
 
-    /*const handleEmitJoinRoom = () => {
+  /*const handleEmitJoinRoom = () => {
       socket?.current.emit('join-room', { roomId : newRoom })
     }*/
-    
-    useEffect(()=>{
-        socket?.current.on('USER JOINED',({room, roomId})=>{
-        setRoomId(roomId)
-        //setActualSection("PvpRoom")
-        setRoomUsers(room)
-       /* setRoomUsers(prevRoomUsers => {
+
+  useEffect(() => {
+    socket?.current.on("USER JOINED", ({ room, roomId }) => {
+      setRoomId(roomId);
+      //setActualSection("PvpRoom")
+      setRoomUsers(room);
+      /* setRoomUsers(prevRoomUsers => {
           const newRoomUsers = roomUsers;
           newRoomUsers.push(userJoined);
           return newRoomUsers
         })*/
-        const indexRoom = room.findIndex(id => id == socket?.current.id)
-        const currentPlayer = indexRoom == 0 ? "One" : "Two"
-        localStorage.setItem('currentPlayer', currentPlayer)
-        localStorage.setItem('roomId', roomId)
-        if(room.length == "2"){
-            socket?.current.emit('start-match', ({roomId}))
-        }
-      })
-        return ()=> socket?.current?.off('USER JOINED')
-    },[]) 
+      const indexRoom = room.findIndex((id) => id == socket?.current.id);
+      const currentPlayer = indexRoom == 0 ? "One" : "Two";
+      localStorage.setItem("currentPlayer", currentPlayer);
+      localStorage.setItem("roomId", roomId);
+      if (room.length == "2") {
+        socket?.current.emit("start-match", { roomId });
+      }
+    });
+    return () => socket?.current?.off("USER JOINED");
+  }, []);
 
-    useEffect(()=>{
-        socket?.current.on('USER-OUT',({newRoom})=>{
-        setRoomUsers(newRoom)
-        
-      })
-        return ()=> socket?.current.off('USER-OUT')
-    },[])
+  useEffect(() => {
+    socket?.current.on("USER-OUT", ({ newRoom }) => {
+      setRoomUsers(newRoom);
+    });
+    return () => socket?.current.off("USER-OUT");
+  }, []);
 
-    useEffect(()=>{
-        socket?.current.on('find-opponent',({roomId})=>{
-        console.log(roomId)
-        socket?.current.emit('join-room', { roomId : roomId })
-        
-      })
-        return ()=> socket?.current.off('find-opponent')
-    },[])
+  useEffect(() => {
+    socket?.current.on("find-opponent", ({ roomId }) => {
+      console.log(roomId);
+      socket?.current.emit("join-room", { roomId: roomId });
+    });
+    return () => socket?.current.off("find-opponent");
+  }, []);
 
-  return <section className="pvp-room">
-            <div className='room-header'><MdArrowBackIos onClick={()=>{ dispatch(setUserState('Online'));}} className="header-arrow" /><img src='https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png'/><h3 className="room-title">GL · CLASIFICATORIA SOLO · RECLUTAMIENTO</h3></div>
-          <div className="room-users">
-                    <div className="room-user">
-                        <img className="user-banner" src="/general/banner.png"/>
-                        <div className="user-banner-info-container">
-                            <div className="banner-user-icon">
-                                <img className="banner-user-border" src={`${RESOURCES_URL}general/EoG_Border_150_4k.png`}/>
-                                <img className="banner-user-icon-img" src={`${RESOURCES_URL}profileicon/${user.profileIcon}.png`}></img>
-                            </div>
-                            <h2 className="banner-username">{user.alias}</h2>
-                            <span className="banner-alias">{user.title}</span> 
-                        </div>
-                    </div>
-                    {/*roomUsers?.map((roomUserId, index)=>{
+  return (
+    <section className="pvp-room">
+      <div className="room-header">
+        <MdArrowBackIos
+          onClick={() => {
+            dispatch(setUserState("Online"));
+          }}
+          className="header-arrow"
+        />
+        <img src="https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png" />
+        <h3 className="room-title">GL · CLASIFICATORIA SOLO · RECLUTAMIENTO</h3>
+      </div>
+      <div className="room-users">
+        <div className="room-user">
+          <img className="user-banner" src="/general/banner.png" />
+          <div className="user-banner-info-container">
+            <div className="banner-user-icon">
+              <img
+                className="banner-user-border"
+                src={`${RESOURCES_URL}general/border_175.png`}
+              />
+              <img
+                className="banner-user-icon-img"
+                src={`${RESOURCES_URL}profileicon/${user.profileIcon}.png`}
+              ></img>
+            </div>
+            <h2 className="banner-username">{user.alias}</h2>
+            <span className="banner-alias">{user.title}</span>
+          </div>
+        </div>
+        {/*roomUsers?.map((roomUserId, index)=>{
                     const roomUser = connectedUsers?.find(cu => cu.socketID == roomUserId)
                     return <div className="room-user">
                         <img className="user-banner" src="/general/banner.png"/>
@@ -89,12 +103,18 @@ export default memo(function PvpRoom({socket, setRoomUsers}){
                                 <img className="banner-user-icon-img" src={`https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/profileicon/${roomUser?.profileIcon}.png`}></img>
                             </div>
                             <h2></h2>
-                            <span></span> 
+                            <span></span>
                         </div>
                     </div>
                     })
                     */}
-          </div>
-        <FindMatchButton type={"pvp-room"} text={"BUSCAR PARTIDA"} socket={socket} setRoomId={setRoomId} ></FindMatchButton>
-      </section>
-})
+      </div>
+      <FindMatchButton
+        type={"pvp-room"}
+        text={"BUSCAR PARTIDA"}
+        socket={socket}
+        setRoomId={setRoomId}
+      ></FindMatchButton>
+    </section>
+  );
+});

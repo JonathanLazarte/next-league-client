@@ -240,20 +240,23 @@
 }
 
 .store .search-filter {
+    font-family: "Spiegel-Regular";
+    letter-spacing: 1px;
+    color: #999486;
     background: black;
     border-image: linear-gradient(#785a28, var(--gold-five)) 1 !important;
     width: 100%;
-    /*height: 4.1vh;*/
-    height: 3.78rem; /* 2.35vw → 3.76rem */
+    height: 3.7rem; /* 2.2vw → 3.52rem */
     margin-bottom: 0px;
-    font-family: "Spiegel-Regular";
-    letter-spacing: 1px;
+    color: var(--color-secundary);
+    padding-left: 0.96rem; /* 0.6vw → 0.96rem */
+    margin-top: 2.48rem;
 }
 
 .search-filter input {
     width: 100%;
     font-size: 1.5rem; /* 0.97vw → 1.552rem */
-    color: #7a776c;
+    color: #999486;
 }
 
 .search-icon {

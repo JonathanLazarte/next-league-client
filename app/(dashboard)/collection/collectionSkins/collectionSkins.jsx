@@ -602,7 +602,7 @@ export default memo(function CollectionSkins() {
       ) : (
         <></>
       )}
-      {loading == false && groupedSkins?.length == 0 ? (
+      {loading == false && groupedSkins?.length == 0 && skins ? (
         <span className="apologize-message">
           We are sorry, no collectible matches your search criteria
         </span>

@@ -1,9 +1,8 @@
 .skin-card {
     width: 17.7rem;
     width: 100%;
-    aspect-ratio: 4 / 5.7;
+    aspect-ratio: 16 / 23.5;
     position: relative;
-    border: 1px solid var(--gold-five);
     border-radius: 20px;
     cursor: pointer;
     /*contain: layout paint;
@@ -19,17 +18,12 @@
     fill: var(--gold-five);
     stroke-width: 0.2pt;
     z-index: 1;
-    height: 120%;
-    width: 104%;
-    top: -10%;
+    width: 100%;
+    top: -4%;
     left: -0.3%;
 }
 .skin-card:hover .skin-card-image {
     filter: brightness(1);
-}
-
-.skin-card:hover .skin-card-border {
-    filter: brightness(1.5);
 }
 
 .skin-card-image {
@@ -54,14 +48,14 @@
 }
 
 .skin-card-image.not-obtained {
-    filter: brightness(0.5);
+    filter: brightness(0.6);
     border-radius: 0;
 }
 .skin-card.not-obtained .skin-card-border {
-    filter: brightness(0.5);
+    filter: brightness(0.6);
 }
 .skin-card.not-obtained:hover .skin-card-image {
-    filter: brightness(0.8);
+    filter: brightness(1.1);
 }
 .skin-card .unlock-champion-button {
     z-index: 1;

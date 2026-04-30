@@ -68,7 +68,7 @@
     position: relative;
 }
 .switch-option {
-    font-size: 12.5px;
+    font-size: 13px;
     font-family: Bold;
     /*background-color: #d9d9d9;*/
     height: 32px;
@@ -98,6 +98,10 @@
 .switch-option.disabled:hover {
     background-color: #efefef;
     color: #726868;
+}
+.switch-option.active.disabled:hover {
+    background-color: #d9d9d9;
+    color: #0a1a22;
 }
 .switch-option-icon {
     margin-right: 5px;
@@ -196,6 +200,9 @@
         left 0.1s,
         font-size 0.1s;
     pointer-events: none;
+    font-family:
+        FF Mark W,
+        sans-serif;
 }
 .auth-input:focus + .label-placeholder,
 .auth-input:not(:placeholder-shown) + .label-placeholder,
@@ -245,7 +252,9 @@
     cursor: pointer;
     color: #78708f;
     font-size: 10px;
-    letter-spacing: 0.5px;
+    font-family:
+        FF Mark W,
+        sans-serif;
 }
 .actions-box a:hover {
     color: #555555;
@@ -254,8 +263,8 @@
     color: white;
     background-color: #d53235;
     border: 0;
-    height: 60px;
-    width: 62px;
+    height: 65px;
+    width: 65px;
     font-size: 23px;
     cursor: pointer;
     margin-top: 10px;
@@ -289,8 +298,8 @@
 }
 .loading-spinner {
     animation: spin 1s linear infinite;
-    width: 60px;
-    margin-top: 15vh;
+    width: 53px;
+    margin-top: 20vh;
 }
 .disclaimer {
     color: rgb(170, 170, 170);
@@ -299,6 +308,9 @@
     line-height: 1.5;
     margin-bottom: 1.5vh;
     margin-top: 2vh;
+    font-family:
+        FF Mark W,
+        sans-serif;
 }
 .disclaimer-line {
     display: block;

@@ -6,9 +6,8 @@ import dynamic from "next/dynamic";
 import { IoIosGift } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { useSound } from "@/hooks/useSound.js";
-const ChampionsStore = dynamic(
-  () => import("./championsStore/championsStore.jsx"),
-);
+
+import ChampionsStore from "./championsStore/championsStore.jsx";
 const SkinsStore = dynamic(() => import("./skinsStore/skinsStore.jsx"));
 
 export default memo(function Store() {

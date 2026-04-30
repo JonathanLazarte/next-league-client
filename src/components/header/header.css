@@ -82,6 +82,7 @@
     align-content: center;
     cursor: pointer;
     text-align: center;
+    z-index: 200;
 }
 
 .header-sections .item:hover,

@@ -58,7 +58,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
       <div
         className="item"
         style={actualSection === section ? selectedStyle : null}
-        onClick={() => handleClick(section)}
+        onMouseUp={() => handleClick(section)}
       >
         <svg fill="currentColor">
           <use href={`/icon.svg#${section}`} />
