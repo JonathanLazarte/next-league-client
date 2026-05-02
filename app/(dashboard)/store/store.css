@@ -42,7 +42,6 @@
 
 .store-tab {
     position: relative;
-    transition: all 1s;
     /*height: 24px;*/
     height: 2.72rem; /* 1.7vw → 2.72rem */
     padding-left: 1.6rem; /* 1vw → 1.6rem */
@@ -174,8 +173,6 @@
     cursor: pointer;
     color: var(--color-primary);
     font-family: "Bold";
-    transition: color 0.5s;
-    transition-delay: 0.2s;
 }
 
 .store-header .buy-rp-button:hover {

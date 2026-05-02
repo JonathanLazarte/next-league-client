@@ -1,6 +1,7 @@
 "use client";
 
 import "./HeaderMainButton.css";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "@/hooks/useRouter.js";
 import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.js";
@@ -9,18 +10,28 @@ import { useSound } from "@/hooks/useSound.js";
 export default function PlayButton({ okButtonAction }) {
   const route = useRouter();
   const { actualSection, userState } = useSelector(selectUserInterfaceData);
+  const [isButtonActive, setIsButtonActive] = useState(false);
   const { play: playHover } = useSound("/general/find-match-button-hover.mp3");
   const { play: playClick } = useSound("/general/find-match-button-click.mp3");
+
+  useEffect(() => {
+    if (actualSection !== "room" && isButtonActive) {
+      setIsButtonActive(false);
+    }
+  }, [actualSection]);
   // Texto dinámico del botón
   const getButtonText = () => {
-    if (userState !== "Online") return "GRUPO";
+    if (userState !== "Online") return "GROUP";
     if (userState.includes("match") || userState === "In match")
       return "EN PARTIDA";
-    return "JUEGA";
+    return "PLAY";
   };
 
   const handleClick = () => {
-    playClick();
+    if (actualSection === "room") return;
+
+    setIsButtonActive(true);
+    userState === "Online" && playClick();
 
     // Si hay acción personalizada (por ejemplo desde el lobby PvP), usarla
     if (okButtonAction) {
@@ -34,7 +45,8 @@ export default function PlayButton({ okButtonAction }) {
     }
   };
 
-  const isActive = actualSection === "room" || userState !== "Online";
+  const isActive =
+    isButtonActive; /*actualSection === "room" || userState !== "Online"*/
 
   return (
     <div className="lol-main-button">
@@ -52,6 +64,17 @@ export default function PlayButton({ okButtonAction }) {
         tabIndex={0}
         aria-label="Abrir selección de modo"
       >
+        <svg
+          className={`main-button-gray-border`}
+          id="Capa_2"
+          data-name="Capa 2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 873.93 215"
+        >
+          <g id="Capa_2-2" data-name="Capa 2">
+            <path d="M1,215c7.16-8.34,15.66-15.34,22.41-24.09,38.95-50.45,36.83-119.79-2.44-169.39C14.54,13.41,7.13,7.33,0,0h873.93v215H1ZM29,10c-.38,1.63.33,2.31.97,3.52,3.22,6.11,10.6,13.27,14.65,20.17,27.99,47.75,26.76,106.9-3.36,153.21-2.12,3.26-10.48,12.37-11.08,14.81-.34,1.36.39,3.28,1.29,3.28h831.53V10H29Z" />
+          </g>
+        </svg>
         <div className={`lol-main-button__text ${isActive ? "selected" : ""}`}>
           {getButtonText()}
         </div>
@@ -59,7 +82,6 @@ export default function PlayButton({ okButtonAction }) {
         <svg
           className={`lol-main-button__action-border ${isActive ? "selected" : ""}`}
           id="Capa_2"
-          style={{ width: "100%" }}
           data-name="Capa 2"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 873.93 215"

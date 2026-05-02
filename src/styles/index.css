@@ -123,7 +123,7 @@ body {
     --dashboard-header-height-mobile: 85px;
     --dashboard-sidebar-width-mobile: 17.4vw;
     --dashboard-content-height-mobile: calc(
-        100vh - var(--dashboard-header-height-mobile)
+        100dvh - var(--dashboard-header-height-mobile)
     );
     --dashboard-content-width-mobile: calc(
         100vw - var(--dashboard-sidebar-width-mobile)
@@ -160,7 +160,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 17.92rem; /* 11.2vw = 179.2px at 1600px */
     margin: 0px;
     font-size: 1.7rem; /* 1vw = 16px at 1600px */
-    border: 2px solid gray;
+    border: 0.2rem solid gray;
     border-image: linear-gradient(
             to bottom,
             var(--gold-two),
@@ -192,18 +192,18 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .general-button:focus-visible {
-    outline: 2px solid var(--gold-four);
+    outline: 0.2rem solid var(--gold-four);
     outline-offset: 2px;
 }
 
 .disabled:hover {
-    border: 2px solid gray;
+    border: 0.2rem solid gray;
     background: var(--blue-six);
     color: gray;
 }
 
 .disabled {
-    border: 2px solid gray;
+    border: 0.2rem solid gray;
     color: gray;
     cursor: default;
 }
@@ -236,8 +236,8 @@ input[type="search"]::-webkit-search-cancel-button {
     text-align: center;
     cursor: pointer;
     font-size: 1.5rem; /* 0.95vw = 15.2px at 1600px */
-    letter-spacing: 1px;
-    color: var(--color-primary);
+    letter-spacing: 1.5px;
+    color: #c5b78c;
     transition: all 0.1s;
     border-image: linear-gradient(
             to right,
@@ -246,7 +246,7 @@ input[type="search"]::-webkit-search-cancel-button {
             transparent
         )
         1;
-    font-family: "Bold";
+    font-family: "Medium";
 }
 .subheader-tab:active {
     color: var(--gold-four);
@@ -264,10 +264,10 @@ input[type="search"]::-webkit-search-cancel-button {
 .active-subheader-tab::after {
     content: "";
     position: absolute;
-    bottom: -2px;
+    bottom: -0.2rem;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 0.2rem;
     background: linear-gradient(to right, transparent, #cdbe91, transparent);
     width: 90%;
     justify-self: center;
@@ -411,6 +411,21 @@ input[type="search"]::-webkit-search-cancel-button {
     src: url("/fonts/Spiegel-SemiBolditalic.otf");
 }
 
+@font-face {
+    font-family: Mark-Bold;
+    src: url("/fonts/Mark-Bold.woff2");
+}
+
+@font-face {
+    font-family: Mark-Heavy;
+    src: url("/fonts/Mark-Heavy.woff2");
+}
+
+@font-face {
+    font-family: Mark-Black;
+    src: url("/fonts/Mark-Black.woff2");
+}
+
 /*@media (prefers-color-scheme: light) {
   :root {
     //color: #213547;
@@ -450,15 +465,6 @@ input[type="search"]::-webkit-search-cancel-button {
         --dashboard-sidebar-width: 0vw !important;
         --dashboard-content-height: 100vh !important;
         --dashboard-content-width: 100vw !important;
-    }
-    .general-button {
-        position: relative;
-        height: 4vh;
-        width: 26vw;
-        margin: 0px;
-        font-size: 0.6rem;
-        line-height: 1;
-        border: 2px solid gray;
     }
 }
 /* Tablet */

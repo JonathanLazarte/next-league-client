@@ -18,7 +18,7 @@
 
 @keyframes brightnes {
     from {
-        filter: brightness(1.5);
+        filter: brightness(2);
     }
     to {
         filter: brightness(1);
@@ -44,7 +44,12 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari */
 }
-
+.header-pointer {
+    width: 10rem;
+    position: absolute;
+    top: -2rem;
+    max-width: unset;
+}
 .header-sections {
     display: flex;
     flex-direction: row;
@@ -82,7 +87,10 @@
     align-content: center;
     cursor: pointer;
     text-align: center;
-    z-index: 200;
+    z-index: 3;
+    position: relative;
+    justify-content: center;
+    display: flex;
 }
 
 .header-sections .item:hover,

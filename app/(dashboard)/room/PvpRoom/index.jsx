@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 /*import { v4 as uuidv4 } from 'uuid';*/
 import "./styles.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
-import { MdArrowBackIos } from "react-icons/md";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 
 export default memo(function PvpRoom({ socket, setRoomUsers }) {
@@ -66,14 +65,25 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
   return (
     <section className="pvp-room">
       <div className="room-header">
-        <MdArrowBackIos
-          onClick={() => {
-            dispatch(setUserState("Online"));
-          }}
+        <svg
           className="header-arrow"
-        />
-        <img src="https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png" />
-        <h3 className="room-title">GL · CLASIFICATORIA SOLO · RECLUTAMIENTO</h3>
+          id="Capa_2"
+          data-name="Capa 2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 30 41.23"
+          onClick={() => dispatch(setUserState("Online"))}
+        >
+          <defs>
+            <linearGradient id="myGradient" gradientTransform="rotate(90)">
+              <stop offset="5%" className="stop-1" stop-color="red" />
+              <stop offset="95%" className="stop-2" stop-color="white" />
+            </linearGradient>
+          </defs>
+          <g className="header-arrow-border" id="Capa_1-2" data-name="Capa 1">
+            <path d="M.03,20.78c-.04-.06-.03-.19,0-.25L20.36,0l9.63,9.59-10.88,11.03,10.88,11.04-9.52,9.57L.03,20.78ZM20.39,36.21l4.6-4.56-10.89-11.03,10.88-10.97-4.55-4.63-15.38,15.54,15.35,15.66Z" />
+          </g>
+        </svg>
+        <h3 className="room-title">SR · RANKED SOLO/DUO · DRAFT</h3>
       </div>
       <div className="room-users">
         <div className="room-user">

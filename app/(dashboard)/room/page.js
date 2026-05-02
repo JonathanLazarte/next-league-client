@@ -22,7 +22,7 @@ export const GAME_DATA = {
       enabledImg: "sr-enabled.png",
       disabledImg: "sr-desabled.png",
       subTitle: "1v1",
-      title: "GRIETA DEL INVOCADOR",
+      title: "SUMMONER'S RIFT",
       queues: [
         {
           name: "Swiftplay",

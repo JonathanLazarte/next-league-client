@@ -9,10 +9,11 @@ const Chat = dynamic(() => import("@/components/chat/chat.jsx"), {
 const MusicPlayer = dynamic(() => import("@/components/Audio/MusicPlayer"), {
   ssr: false,
 });
-const ConfirmPurchaseModal = dynamic(
+/*const ConfirmPurchaseModal = dynamic(
   () => import("@/components/confirmPurchaseWindow/confirmPurchaseWindow.jsx"),
   { ssr: false },
-);
+);*/
+import ConfirmPurchaseModal from "./confirmPurchaseWindow/confirmPurchaseWindow";
 /*import Loading from "@/components/Loading/Loading.jsx";*/
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import "../../app/(dashboard)/index.css";

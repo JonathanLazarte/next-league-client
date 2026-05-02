@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/LOL_Icon_Rendered.png" />
         <link
           rel="preload"
           href="/fonts/BeaufortforLOL-Bold.otf"

@@ -3,27 +3,20 @@
 import "./header.css";
 import "../playButton/playButton.css";
 import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton.jsx";
-import { /*useState,*/ memo } from "react";
+import { /*useState,*/ memo, useState } from "react";
 import { GiStoneCrafting } from "react-icons/gi";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.js";
 import MiniTooltip from "@/components/ToolTip/miniTooltip/miniTooltip.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { useRouter } from "@/hooks/useRouter.js";
+import { flushSync } from "react-dom";
 
 export default memo(function DesktopHeader({ showSideNav }) {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user, shallowEqual);
   const { actualSection, userState } = useSelector(selectUserInterfaceData);
   const { play } = useSound("/general/menu-click.mp3");
   const router = useRouter();
-
-  const selectedStyle = {
-    background:
-      "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
-    color: "#F0E6D2",
-    cursor: "default",
-    pointerEvents: "none",
-  };
 
   /*const handleSound = (sound) => {
     const menuClick = new Audio('/general/menu-click.mp3');
@@ -35,38 +28,86 @@ export default memo(function DesktopHeader({ showSideNav }) {
     if (sound === 'button-play-hover') buttonPlayHover.play();
   };*/
 
-  const handleClick = (section) => {
-    /*section === 'Home' && router.push('leagueoflegends')
-    section === 'Tienda' && router.push('store')
-    section === 'Colección' && router.push('collection')
-    section === 'ModeSelection' && router.push('room')*/
-    play();
-    router.push(section);
-    /*dispatch(setActualSection(section));*/
-    /*section === 'Colección' && router.push('collection')
-    section === 'Tienda' && router.push('store')
-    section === 'Home' && router.push('leagueoflegends')*/
-  };
+  /*useEffect(() => {
+    if (tabsRef?.current) {
+      const tabs = ["collection", "store"];
+      if (tabs.includes(actualSection)) {
+        const puntualTabRef = tabsRef.current.get(actualSection);
+        const tabRect = puntualTabRef.getBoundingClientRect();
+        const pointerWidth = 90;
+        setPointerPosition({
+          x: tabRect?.left + tabRect?.width / 2 - pointerWidth / 2,
+          y: 0,
+        });
+      }
+    }
+  }, [actualSection]);*/
 
-  const Tab = ({ section }) => (
-    <MiniTooltip
-      delay={100}
-      position="bottom"
-      content={section}
-      disabled={actualSection === section}
-    >
-      <div
-        className="item"
-        style={actualSection === section ? selectedStyle : null}
-        onMouseUp={() => handleClick(section)}
+  const Tab = ({ section }) => {
+    const [isMouseUp, setIsMouseUp] = useState();
+    const isPointerVisible = actualSection === section;
+    const selectedStyle = {
+      background:
+        "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
+      color: "#F0E6D2",
+      cursor: "default",
+      pointerEvents: "none",
+    };
+
+    const handleClick = (section) => {
+      flushSync(() => {
+        setIsMouseUp(true);
+      });
+
+      setIsMouseUp(true);
+      play();
+      router.push(section);
+    };
+
+    if (section === "league")
+      return (
+        <div
+          onClick={() => handleClick("league")}
+          className="item-lol"
+          style={actualSection === "league" ? selectedStyle : null}
+        >
+          LEAGUE
+          <img
+            style={{
+              display: isPointerVisible ? "block" : "none",
+            }}
+            className="header-pointer"
+            src="/header-pointer.png"
+          />
+        </div>
+      );
+    return (
+      <MiniTooltip
+        delay={100}
+        position="bottom"
+        content={section}
+        disabled={actualSection === section}
       >
-        <svg fill="currentColor">
-          <use href={`/icon.svg#${section}`} />
-          {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
-        </svg>
-      </div>
-    </MiniTooltip>
-  );
+        <div
+          className={`item ${isMouseUp ? "onMouseUp" : null}`}
+          style={actualSection === section ? selectedStyle : null}
+          onMouseUp={() => handleClick(section)}
+        >
+          <img
+            style={{
+              display: isPointerVisible ? "block" : "none",
+            }}
+            className="header-pointer"
+            src="/header-pointer.png"
+          />
+          <svg fill="currentColor">
+            <use href={`/icon.svg#${section}`} />
+            {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
+          </svg>
+        </div>
+      </MiniTooltip>
+    );
+  };
 
   return (
     <>
@@ -81,14 +122,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
         className="index-header"
       >
         <HeaderMainButton text="JUEGA" />
-        <div
-          onClick={() => handleClick("league")}
-          className="item-lol"
-          style={actualSection === "league" ? selectedStyle : null}
-        >
-          LEAGUE
-        </div>
-
+        <Tab section="league" />
         <div className="header-sections">
           <Tab section="collection" />
           {/*<Tab section="Botín" />*/}

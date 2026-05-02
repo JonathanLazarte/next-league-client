@@ -98,7 +98,6 @@
     align-content: center;
     align-items: center;
     justify-content: center;
-    border: 3px solid rgba(10, 49, 59, 0.8);
     background-color: #0d141c;
     border-left: 0;
     width: 78%;
@@ -107,7 +106,10 @@
     right: 0.45rem;
     position: absolute;
 }
-
+.main-button-gray-border {
+    position: absolute;
+    fill: #0a313a;
+}
 .lol-main-button__action-border {
     position: absolute;
     right: -1px;
@@ -177,19 +179,6 @@
 }
 */
 /* Efecto de brillo al pasar el mouse */
-.lol-main-button__action::before {
-    content: "";
-    position: absolute;
-    clip-path: ellipse(50% 125% at 50% 50%);
-    width: 50%;
-    height: 100%;
-
-    left: -46.5%;
-    top: -1px;
-    background: linear-gradient(to bottom, #08b4b1, #016587);
-    left: -43%;
-    clip-path: ellipse(50% 100% at 50% 50%);
-}
 
 /* Efecto hover */
 .lol-main-button__action:hover {
@@ -201,10 +190,6 @@
 }
 
 /* Efecto al hacer clic */
-.lol-main-button__action:active {
-    background-color: black !important; /* Fondo oscuro */
-    border-color: gray;
-}
 
 /* Texto del botón */
 .lol-main-button__text {
@@ -217,89 +202,26 @@
     transition: color 0.1s;
 }
 
-.header-circunferense {
-    position: absolute;
-    background-color: rgba(20, 0, 0, 1);
-    z-index: 1;
-    width: 25%;
-    clip-path: ellipse(35% 50% at 50% 50%);
-
-    left: -15%;
-    height: 105%;
-}
-
 /*-----------------BUTTON SELECTED STYLES-----------------*/
-.lol-main-button__action-box.selected::before {
-    content: "";
-    position: absolute;
-    clip-path: ellipse(50% 125% at 50% 50%);
-    width: 20%;
-    height: 115%;
-    z-index: 1;
-    left: -11%;
-    clip-path: ellipse(40% 50% at 50% 50%);
-    display: flex;
-    align-self: center;
-    background-color: rgba(80, 80, 80, 1);
-    animation: backgroundMagic 0.7s;
-}
-.lol-main-button__action-box.selected::after {
-    content: "";
-    position: absolute;
-    clip-path: ellipse(50% 125% at 50% 50%);
-    width: 20%;
-    height: 115%;
-    z-index: 1;
-    left: -13%;
-    clip-path: ellipse(40% 50% at 50% 50%);
-    display: flex;
-    align-self: center;
-    background-color: var(--blue-five);
-}
 
 .lol-main-button__action-box.selected {
-    border-color: rgba(80, 80, 80, 1);
-    animation: magic 0.7s;
-    width: 16.1rem;
-    position: absolute;
-    height: 4rem;
-    border-width: 0.25rem;
-    background-color: #1e2328;
+}
+.lol-main-button__action-box.selected .main-button-gray-border {
+    fill: #5c5b57;
 }
 .lol-main-button__action-box.selected .svg-border {
     fill: none;
 }
 .lol-main-button__action-border.selected {
-    background: linear-gradient(
-        to bottom,
-        rgba(200, 50, 50, 1),
-        rgba(150, 0, 0, 1)
-    );
-    width: 100% /*234px*/;
-    height: 110%;
-    clip-path: unset;
-    background: none;
 }
 .lol-main-button__action.selected {
-    clip-path: unset;
-    color: rgba(60, 60, 60, 1);
-    background-color: rgba(30, 30, 30, 1);
-    width: 100%;
-
-    padding-right: 0px;
-    cursor: default;
 }
 .lol-main-button__action-box.selected .lol-main-button__text {
     color: #3a3a3e;
 }
 .lol-main-button__action.selected:hover {
-    box-shadow: unset;
-    background: rgba(30, 30, 30, 1);
 }
 .lol-main-button__action.selected::before {
-    background: rgba(80, 80, 80, 1);
-    left: -41%;
-    top: 0px;
 }
 
 @media (max-width: 767px) {

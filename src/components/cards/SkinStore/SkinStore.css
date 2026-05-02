@@ -26,11 +26,9 @@
 
 .pokemon {
     object-fit: cover;
-    transition: all 0.2s;
     aspect-ratio: 1/ 1;
     padding: 0px;
     filter: brightness(0.8);
-    transition: all 0.2s;
     background: transparent;
 }
 
@@ -38,8 +36,9 @@
     filter: brightness(1);
 }
 .skin-store-item:hover {
-    border-image: linear-gradient(to bottom, #f0e6d2, #c8aa6e, var(--gold-four))
-        1;
+    /*border-image: linear-gradient(to bottom, #f0e6d2, #c8aa6e, var(--gold-two))
+        1;*/
+    border-color: #ede3d0;
 }
 img[src=".undefinedshield.png"] {
     display: none;

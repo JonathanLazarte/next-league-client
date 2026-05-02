@@ -176,7 +176,7 @@ export default memo(function Login() {
           >
             <FaArrowRight />
           </button>
-          <a onClick={() => router.push("/register")}>Crear cuenta</a>
+          <a onClick={() => router.push("/register")}>Create account</a>
           <div className="disclaimer">
             <span className="disclaimer-line">
               THIS APP IS PROTECTED BY HCAPCHA AND ITS

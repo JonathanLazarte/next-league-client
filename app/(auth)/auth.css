@@ -16,7 +16,7 @@
 }
 .logo-container {
     height: 50px;
-    margin-bottom: 10vh;
+    margin-bottom: 50px;
 }
 .riot-games-logo {
     width: 110px;
@@ -68,8 +68,7 @@
     position: relative;
 }
 .switch-option {
-    font-size: 13px;
-    font-family: Bold;
+    font-size: 12.5px;
     /*background-color: #d9d9d9;*/
     height: 32px;
     border-radius: 10px;
@@ -82,13 +81,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: Mark-Bold;
 }
 .switch-option:hover {
     background-color: #e4e4e4;
 }
 .switch-option.active {
     background-color: #d9d9d9;
-    color: #0a1a22;
+    color: #0a0a0a;
 }
 .switch-option.active:hover {
 }
@@ -179,30 +179,31 @@
     padding-top: 10px;
     color: #6e6e6e;
     font-size: 16px;
+    border-radius: 4px;
 }
 .auth-input:focus .auth-input-wrapper {
-    border: 1px solid dimgray;
+    border: 1px solid #1f1f1f;
     background-color: #fafafa;
 }
 .auth-input:focus {
     background-color: #fafafa;
+    border: 2px solid #1f1f1f;
 }
 .label-placeholder {
     position: absolute;
     top: 36%;
     left: 15px;
-    color: #838383;
+    color: #636363;
     text-transform: uppercase;
-    font-size: 10px;
-    font-weight: 800;
+    font-size: 9.5px;
+    font-weight: 1200;
     transition:
         top 0.1s,
         left 0.1s,
         font-size 0.1s;
     pointer-events: none;
-    font-family:
-        FF Mark W,
-        sans-serif;
+    font-family: Mark-Heavy;
+    letter-spacing: 0.5px;
 }
 .auth-input:focus + .label-placeholder,
 .auth-input:not(:placeholder-shown) + .label-placeholder,
@@ -250,11 +251,9 @@
 .actions-box a {
     text-decoration: none;
     cursor: pointer;
-    color: #78708f;
+    color: #636363;
     font-size: 10px;
-    font-family:
-        FF Mark W,
-        sans-serif;
+    font-family: Mark-Heavy;
 }
 .actions-box a:hover {
     color: #555555;
@@ -297,20 +296,19 @@
     }
 }
 .loading-spinner {
-    animation: spin 1s linear infinite;
+    animation: spin 2s linear infinite;
     width: 53px;
     margin-top: 20vh;
 }
 .disclaimer {
-    color: rgb(170, 170, 170);
+    color: #aeaeb0;
     font-size: 10px;
     text-transform: uppercase;
     line-height: 1.5;
-    margin-bottom: 1.5vh;
-    margin-top: 2vh;
-    font-family:
-        FF Mark W,
-        sans-serif;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    font-family: Mark-Heavy;
+    letter-spacing: 1px;
 }
 .disclaimer-line {
     display: block;

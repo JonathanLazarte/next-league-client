@@ -41,10 +41,8 @@
     width: 100%; /* 6vw → 9.6rem */
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     padding-bottom: 2.5rem;
-    height: clamp(500px, 40vh /*37.3rem*/, 1000px); /* 1.2vw → 1.92rem */
-    /*text-wrap: nowrap;*/
-    height: 280px !important;
-    height: 40vh;
+    /*height: clamp(500px, 40vh, 1200px);*/
+    height: 380px;
 }
 
 .mode-selection-header {
@@ -57,6 +55,8 @@
     top: 0;
     /*padding-left: 4.8rem;*/ /* 3vw → 4.8rem */
     z-index: 1;
+    position: absolute;
+    padding-left: 2.5rem;
 }
 
 .subheader-item {
@@ -96,19 +96,20 @@
     bottom: -1px;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 0.1rem;
     background: linear-gradient(to right, transparent, #cdbe91, transparent);
     width: 90%;
     justify-self: center;
 }
 
 .mode-title {
-    /* 1.7rem */
-    font-size: 3.1rem; /* 1.9vw → 3.04rem */
-    line-height: 1.2;
+    font-size: 3.3rem;
+    line-height: 1.1;
     margin-top: 1.5%;
     color: var(--gold-one);
     font-family: Bold;
+    height: 7.5rem;
+    letter-spacing: 1px;
 }
 
 .gamemode-icon {
@@ -143,16 +144,17 @@
 }
 .gamemode-description {
     display: flex;
-    padding-top: 2rem; /* 1.125vw → 1.8rem */
-    padding-bottom: 2.2rem; /* 1.2vw → 1.92rem */
+    padding-top: 1.5rem; /* 1.125vw → 1.8rem */
+    padding-bottom: 2.4rem; /* 1.2vw → 1.92rem */
     /*width: 300px;*/
     width: 29.76rem; /* 18.6vw → 29.76rem */
-    border-bottom: 1px solid gray;
-    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 1rem;
     color: #e5dcca;
-    line-height: 1.4;
+    line-height: 1.5;
     font-size: 1.8rem; /* 1.1vw → 1.76rem */
-    font-family: Spiegel-SemiBold;
+    font-family: Spiegel-Regular;
+    height: 14.5rem;
 }
 
 .mode-subtitle {
@@ -173,7 +175,7 @@
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     transition: color 0.4s;
-    height: 4.5rem;
+    height: 4.3rem;
 }
 
 .queue-option:hover {
@@ -207,14 +209,14 @@
 }
 
 .bg-layer {
-    z-index: -2;
+    z-index: 0;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: var(--dashboard-content-height);
-    background-size: contain;
-    background-position: center top; /* O center center, según tu imagen */
+    background-size: cover;
+    background-position: center bottom; /* O center center, según tu imagen */
     background-repeat: no-repeat;
     will-change: transform, opacity; /* Optimización de rendimiento */
     transition:
@@ -222,15 +224,11 @@
         opacity 0.8s ease-in-out; /* Curva suave tipo LoL */
 }
 .bg-lobby {
-    /*background-image: url("/finalroom.png");*/
-    background-size: cover;
-    z-index: 0;
+    background-image: url("/finalroom.png");
     transform: translateY(var(--dashboard-content-height));
 }
 .bg-room {
-    /*background-image: url("/finallobby.png");*/
-    background-size: cover;
-    z-index: 0;
+    background-image: url("/finallobby.png");
     transform: translateY(0px);
 }
 .background-engine.in-room .bg-lobby {
@@ -244,7 +242,10 @@
     .play-selection-modes {
         height: var(--dashboard-content-height-mobile);
     }
-
+    .game-mode-grid {
+        display: flex;
+        height: 270px;
+    }
     .gamemode-description {
     }
 
