@@ -53,7 +53,7 @@
     font-size: 1.52rem; /* 0.95vw → 1.52rem */
     letter-spacing: 1px;
     color: var(--color-primary);
-    transition: all 0.1s;
+    transition: color 0.1s;
     border-image: linear-gradient(
             to right,
             transparent,

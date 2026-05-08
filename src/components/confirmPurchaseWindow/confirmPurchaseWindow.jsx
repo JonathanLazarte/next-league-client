@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import "./confirmPurchaseWindow.css";
-import { Riple } from "react-loading-indicators";
+import { OrbitProgress } from "react-loading-indicators";
 import {
   closeModal,
   confirmPurchase,
@@ -232,7 +232,15 @@ export default function ConfirmPurchaseWindow() {
                 {!showLoading ? (
                   <>{!showSuccess ? <DefaultBottom /> : <SuccessBottom />}</>
                 ) : (
-                  <Riple style={{ width: "3rem" }} />
+                  <div className="purchase-success-message">
+                    <OrbitProgress
+                      color="gray"
+                      size="small"
+                      text=""
+                      textColor=""
+                      style={{ fontSize: "1rem", marginBottom: "7rem" }}
+                    />
+                  </div>
                 )}
               </div>
             </div>

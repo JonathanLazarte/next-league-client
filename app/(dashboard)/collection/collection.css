@@ -30,7 +30,7 @@
 .collection-tab {
     position: relative;
     box-sizing: border-box;
-    transition: all 1s;
+    transition: color 1s;
     height: 2.7rem; /* 1.7vw = 27.2px at 1600px */
     padding-left: 1.5rem; /* 1vw = 16px at 1600px */
     padding-right: 1.5rem;
