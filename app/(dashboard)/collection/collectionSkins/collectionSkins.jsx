@@ -4,6 +4,7 @@ import "./collectionSkins.css";
 import {
   useState,
   useEffect,
+  useLayoutEffect,
   memo,
   useMemo,
   useDeferredValue,
@@ -42,7 +43,7 @@ export default memo(function CollectionSkins() {
     resetAfter: HOVER_DELAYS.RESET_AFTER,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!skins && !userSkins) return;
     const fulfillSkinsWithData = () => {
       const data = skins;
@@ -62,6 +63,11 @@ export default memo(function CollectionSkins() {
     };
     setUserSkinsFull(fulfillSkinsWithData());
   }, [skins, userSkins]);
+
+  const handleScroll = () => {
+    console.log("donedone");
+    setHoveredSkin(null);
+  };
 
   const sortOptionsByMode = {
     collection: [
@@ -598,6 +604,7 @@ export default memo(function CollectionSkins() {
           userSkins={userSkins}
           groupedSkins={groupedSkins}
           groupedBy={groupedBy}
+          handleScroll={handleScroll}
         />
       ) : (
         <></>

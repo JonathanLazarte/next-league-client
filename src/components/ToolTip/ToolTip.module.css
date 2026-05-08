@@ -16,7 +16,7 @@
     padding-bottom: 4rem; /* 2.5vw * 1.6 */
     z-index: 1000;
     pointer-events: none;
-    font-family: "Spiegel", "BeaufortforLOL", sans-serif;
+    font-family: Spiegel-Regular;
     display: flex;
     flex-direction: column;
     gap: 0rem;

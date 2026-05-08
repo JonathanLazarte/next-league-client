@@ -90,7 +90,7 @@ export const FriendRow = memo(function FriendRow({
 
       <div className="user-box-data">
         <span className="friendlist-username">{u.userName}</span>
-        <span className="friendlist-status">En linea</span>
+        <span className="friendlist-status">Online</span>
         {chatUsers[u.userName]?.unreadCount > 0 && (
           <span className="unread-badge">
             {chatUsers[u.userName].unreadCount}
@@ -124,7 +124,7 @@ export default memo(function RightNav({
   const [hoveredUser, setHoveredUser] = useState(null);
   const toolTipPosRef = useRef({ x: 0, y: 0 });
   const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
-  const { start, cancel } = useHoverIntent({ initialDelay: 700 });
+  const { start, cancel } = useHoverIntent({ initialDelay: 400 });
   const {
     selectedChat,
     /*isChatVisible,*/
@@ -150,10 +150,9 @@ export default memo(function RightNav({
     setHoveredUser(null);
     cancel();
   };
-  const handleContextMenu = (e) => {
+  const handleContextMenu = (e, username) => {
     e.preventDefault();
-    const userName =
-      e.currentTarget.children[0].childNodes[0].childNodes[0].data;
+    const userName = username;
     dispatch(selectChat(userName));
     setShowMenu(true);
     setMenuPosition({ x: e.clientX, y: e.clientY });
@@ -325,7 +324,7 @@ export default memo(function RightNav({
               battleRequest={battleRequest}
               chatUsers={chatUsers}
               handleUserClick={handleUserClick}
-              handleContextMenu={handleContextMenu}
+              handleContextMenu={(e) => handleContextMenu(e, u.username)}
               inviteBox={inviteBox}
               toolTipPosRef={toolTipPosRef}
               onHoverStart={onHoverStart}

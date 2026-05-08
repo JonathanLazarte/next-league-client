@@ -6,7 +6,8 @@ import {
   addMessage,
   markAllAsRead,
   closeChat,
-  minimizeChat,
+  /*minimizeChat,*/
+  toggleChatVisibility,
 } from "@/redux/slices/chatSlice";
 import { PiXBold, PiMinus } from "react-icons/pi";
 import "./chat.css";
@@ -121,7 +122,7 @@ export default memo(function Chat({ socket }) {
     selectedChat && dispatch(closeChat(selectedChat));
   const handleMinimizeChat = () => {
     playClickSound();
-    selectedChat && dispatch(minimizeChat(selectedChat));
+    dispatch(toggleChatVisibility());
   };
 
   // Formatear hora
@@ -147,7 +148,7 @@ export default memo(function Chat({ socket }) {
     }
   };
 
-  if (!isChatVisible || !selectedChat) return null;
+  if (!isChatVisible) return null;
 
   return (
     <div className="chat">

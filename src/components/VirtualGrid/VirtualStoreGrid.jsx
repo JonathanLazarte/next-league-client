@@ -51,7 +51,7 @@ export default memo(function VirtualSkinsGrid({
   const getAmountOfColumns = useCallback(
     (containerWidth) => {
       const amount = (containerWidth + gapValue) / (cardWidth + gapValue);
-      return Math.floor(Math.max(amount, 2));
+      return Math.floor(Math.max(amount, 1));
     },
     [gapValue, cardWidth],
   );
@@ -69,7 +69,7 @@ export default memo(function VirtualSkinsGrid({
     (width) => {
       const newCols = getAmountOfColumns(width);
 
-      if (newCols > 1 && newCols !== columns) {
+      if (newCols !== columns) {
         newCols > 5 ? setColumns(5) : setColumns(newCols);
       }
     },

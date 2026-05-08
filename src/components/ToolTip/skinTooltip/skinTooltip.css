@@ -103,6 +103,7 @@
 
 .rp-price {
     font-size: var(--font-md); /* antes ~0.95vw ≈ 1.52rem */
+    font-family: Spiegel-Regular;
 }
 
 @media (max-width: 767px) {

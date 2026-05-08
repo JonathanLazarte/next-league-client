@@ -108,9 +108,9 @@ export default function ProvidersWrapper({ children }) {
   }, [pathname]);
 
   useEffect(() => {
-    localStoreToken && dispatch(getUserChampions(localStoreToken));
-    localStoreToken && dispatch(getUserSkins(localStoreToken));
-    localStoreToken &&
+    if (localStoreToken) {
+      dispatch(getUserChampions(localStoreToken));
+      dispatch(getUserSkins(localStoreToken));
       fetch(`${API_URL}pokemons/users/getUserData`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -131,6 +131,7 @@ export default function ProvidersWrapper({ children }) {
             // Token inválido, redirigir al login
           }
         });
+    }
   }, [localStoreToken]);
 
   useEffect(() => {
@@ -152,7 +153,7 @@ export default function ProvidersWrapper({ children }) {
         router.push("/login");
       }
     }
-  }, [isAuthenticated, loading, router, dispatch, localStoreToken]);
+  }, [isAuthenticated, loading, router, localStoreToken]);
   //----------------------------------------------------------------------------------
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef, useMemo, useState, useCallback, useLayoutEffect } from "react";
 import SkinCard from "@/components/cards/skin/skin.jsx";
 import { useResizeObserver } from "@/hooks/useResizeObserver.js";
+import { useThrottledCallback } from "@/hooks/useThrottle";
 import "./virtualGrid.css";
 
 export default function VirtualSkinsGrid({
@@ -15,6 +16,7 @@ export default function VirtualSkinsGrid({
   toolTipPosRef,
   userSkins,
   groupedBy,
+  handleScroll,
 }) {
   const parentRef = useRef(null);
   /*const { width : containerWidth } = useContainerSize(parentRef);*/
@@ -36,19 +38,24 @@ export default function VirtualSkinsGrid({
       const amount =
         (containerWidth + gapValue - paddingRightValue) /
         (cardWidth + gapValue);
-      return Math.max(Math.floor(amount), 2);
+      return Math.max(Math.floor(amount), 1);
     },
     [gapValue, cardWidth],
   );
+  const throttledHandleScroll = useThrottledCallback(handleScroll, 500);
 
   useLayoutEffect(() => {
     if (parentRef.current) {
       const rect = parentRef?.current?.getBoundingClientRect();
-      console.log(rect);
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
       setColumns(initialContainerWidth);
+      parentRef.current.addEventListener("scroll", throttledHandleScroll, {
+        pasive: true,
+      });
     }
+    return () =>
+      parentRef?.current?.removeEventListener("scroll", throttledHandleScroll);
   }, []);
 
   const handleResize = useCallback(

@@ -56,11 +56,12 @@ const userSkinsSlice = createSlice({
         state.error = action.payload || "Something went wrong"; // Set error message
       })
       .addCase(confirmPurchase.fulfilled, (state, action) => {
-        const updatedSkins = [...state.skins];
-        const { newInventoryItem } = action.payload;
-
-        updatedSkins.push(newInventoryItem);
-        state.skins = updatedSkins;
+        const { newInventoryItem, type } = action.payload;
+        if (type === "skin") {
+          const updatedSkins = [...state.skins];
+          updatedSkins.push(newInventoryItem);
+          state.skins = updatedSkins;
+        }
       });
   },
 });

@@ -74,7 +74,7 @@
     align-items: center;
     align-content: center;
     text-align: center;
-    width: clamp(200px, 34.3rem, 0);
+    width: clamp(200px, 34.3rem, 340px);
 }
 .user-banner {
     width: 100%;

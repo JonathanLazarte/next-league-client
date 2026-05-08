@@ -13,6 +13,7 @@ import useHoverIntent from "@/hooks/useHoverIntent.js";
 import VirtualChampionsGrid from "@/components/VirtualGrid/VirtualChampionsGrid.jsx";
 import useChampions from "@/hooks/useChampions";
 import { useQuery } from "@tanstack/react-query";
+import { useDebounce } from "@/hooks/useDebounce";
 import { HOVER_DELAYS } from "@/utils/constants.js";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -25,6 +26,7 @@ export const fetchChampionsFull = async () => {
 export default memo(function MainPage() {
   //const toggleMenu = () => document.body.classList.toggle("open");
   const [searchKeys, setSearchKeys] = useState();
+  const searchKeysWithDelay = useDebounce(searchKeys, 50);
   /*const [skins, setSkins] = useState([])*/
   const [inCollection, setInCollection] = useState(true);
   const [sortedBy, setSortedBy] = useState("");
@@ -49,6 +51,10 @@ export default memo(function MainPage() {
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
+
+  const handleScroll = () => {
+    setHoveredChampion(null);
+  };
 
   const onHoverStart = (champion, championCardRef) => {
     start({
@@ -111,14 +117,14 @@ export default memo(function MainPage() {
   };
   const filterChampions = (
     allChamps,
-    searchKeys,
+    searchKeysWithDelay,
     inCollection /*, sortedBy, groupedBy, page*/,
   ) => {
     var championsFiltered = allChamps?.filter((champ) => {
       const inCollectionFilter = inCollection
         ? userChampions.some((uc) => uc.id == champ.id)
         : true;
-      const keysFilter = searchKeys
+      const keysFilter = searchKeysWithDelay
         ? champ.name.toLowerCase().startsWith(searchKeys.toLowerCase())
         : true;
 
@@ -158,13 +164,13 @@ export default memo(function MainPage() {
     if (!championsData) return {};
     let result = filterChampions(
       championsData,
-      searchKeys,
+      searchKeysWithDelay,
       inCollection,
       sortedBy,
       groupedBy,
     );
     return result;
-  }, [championsData, searchKeys, inCollection, sortedBy, groupedBy]);
+  }, [championsData, searchKeysWithDelay, inCollection, sortedBy, groupedBy]);
 
   /*const RenderChampsWithSections = () => {
         return Object.keys(groupedChampions)?.map((section, index) => (
@@ -294,6 +300,7 @@ export default memo(function MainPage() {
             handleChampionClick={handleChampionClick}
             userChampions={userChampions}
             tooltipRef={tooltipRef}
+            handleScroll={handleScroll}
           />
         ) : (
           <></>

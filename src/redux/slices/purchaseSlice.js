@@ -24,11 +24,11 @@ export const confirmPurchase = createAsyncThunk(
   async ({ coin, price }, { getState, rejectWithValue }) => {
     const token = localStorage.getItem("token");
     const state = getState();
-    const { itemToBuy, itemType } = state.purchase;
+    const { itemToBuy } = state.purchase;
     //const price = itemToBuy.price[coin]
     //const { be, rp } = state.user.coins;
     const body =
-      itemType === "champion"
+      itemToBuy.type === "champion"
         ? {
             userID: token,
             championId: itemToBuy.id,
@@ -42,7 +42,7 @@ export const confirmPurchase = createAsyncThunk(
             coin,
           };
     const apiRoute =
-      itemType === "champion" ? "pokemons/users/addpokemon" : "shop/skin";
+      itemToBuy.type === "champion" ? "pokemons/users/addpokemon" : "shop/skin";
     //const item = selectItemFromState(state, selectedItemId, itemType);
 
     if (!itemToBuy) return rejectWithValue("Ítem no encontrado");
@@ -64,6 +64,7 @@ export const confirmPurchase = createAsyncThunk(
       return {
         /*costBE: itemToBuy.price.be,
         costRP: itemToBuy.price.rp,*/
+        type: itemToBuy.type,
         newInventoryItem: data,
       };
     } catch (error) {

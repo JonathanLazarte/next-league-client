@@ -412,6 +412,15 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 @font-face {
+    font-family: try1;
+    src: url("/fonts/semibold1.woff2");
+}
+@font-face {
+    font-family: try2;
+    src: url("/fonts/semibold2.woff2");
+}
+
+@font-face {
     font-family: Mark-Bold;
     src: url("/fonts/Mark-Bold.woff2");
 }

@@ -249,6 +249,18 @@
     padding-left: 0.96rem; /* 0.6vw → 0.96rem */
     margin-top: 2.48rem;
 }
+.store .search-filter:focus-within {
+    background: linear-gradient(
+        to bottom,
+        #07111a,
+        #0e171f,
+        #151e25
+    ) !important;
+    border-image: linear-gradient(to bottom, #6c5227, #907747, #c4a66c) 1;
+}
+.store .search-filter::placeholder {
+    color: #999486;
+}
 
 .search-filter input {
     width: 100%;

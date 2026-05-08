@@ -56,7 +56,9 @@ export default memo(function Login() {
           userName:
             loginOptionSelected === "login" ? values.userName : "Invitado",
           password:
-            loginOptionSelected === "login" ? values.password : "guestpassword",
+            loginOptionSelected === "login"
+              ? values.password
+              : "guestpassword123",
         }),
       ).unwrap();
       // Si el login es exitoso, también actualizar el user slice

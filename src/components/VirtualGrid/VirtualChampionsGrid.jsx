@@ -12,6 +12,7 @@ import {
 import ChampionCard from "@/components/cards/champion/champion.jsx";
 import { useResizeObserver } from "@/hooks/useResizeObserver.js";
 import "./virtualGrid.css";
+import { useThrottledCallback } from "@/hooks/useThrottle";
 
 export default memo(function VirtualSkinsGrid({
   onHoverStart,
@@ -22,6 +23,7 @@ export default memo(function VirtualSkinsGrid({
   userChampions,
   groupedBy,
   tooltipRef,
+  handleScroll,
 }) {
   const parentRef = useRef(null);
   //const { width : containerWidth } = useContainerSize(parentRef);
@@ -42,10 +44,11 @@ export default memo(function VirtualSkinsGrid({
       const amount =
         (containerWidth + gapValue - paddingRightValue) /
         (cardWidth + gapValue);
-      return Math.max(Math.min(Math.floor(amount), 6), 2);
+      return Math.max(Math.min(Math.floor(amount), 6), 1);
     },
     [gapValue, cardWidth],
   );
+  const throttledHandleScroll = useThrottledCallback(handleScroll, 500);
 
   useLayoutEffect(() => {
     if (parentRef.current) {
@@ -53,7 +56,12 @@ export default memo(function VirtualSkinsGrid({
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
       setColumns(initialContainerWidth);
+      parentRef.current.addEventListener("scroll", throttledHandleScroll, {
+        pasive: true,
+      });
     }
+    return () =>
+      parentRef?.current?.removeEventListener("scroll", throttledHandleScroll);
   }, []);
 
   const handleResize = useCallback(

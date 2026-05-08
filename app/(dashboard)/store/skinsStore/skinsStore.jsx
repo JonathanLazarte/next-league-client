@@ -38,13 +38,13 @@ export default memo(function ItemsShop() {
 
     result = [...result].filter((skin) => {
       const showInCollectionFilter = inCollection
-        ? true
+        ? true // devuelve todas las skins, incluyendo las adquiridas por el usuario
         : !userSkins.find((s) => s.id === skin.id);
       const championInCollectionFilter = !championInCollection
-        ? true
+        ? true // solo devuelve las skins relacionadas con los campeones adquiridos por el usuario
         : userChampions.find((c) => c.id === skin.champion);
 
-      return showInCollectionFilter && championInCollectionFilter;
+      return showInCollectionFilter && championInCollectionFilter; // si un filtro esta desactivado simplemente devolverá true por lo tanto solo se evaluara el filtro activado
     });
 
     // Búsqueda
@@ -57,10 +57,12 @@ export default memo(function ItemsShop() {
 
     // Filtros de rareza / disponibilidad limitada
     const activeFilters = Object.keys(checkboxFilter).filter(
+      // se detectan los filtros de rareza con checkbox marcados
       (key) => checkboxFilter[key],
     );
 
     if (activeFilters.length > 0) {
+      // se aplican los filtros segun los filtros de rareza activados
       result = result.filter((item) => {
         if (activeFilters.includes("Limited")) {
           return item.availability === "Limited";
@@ -69,7 +71,13 @@ export default memo(function ItemsShop() {
       });
     } else {
       // Si no está marcado "Limited", ocultar los de disponibilidad limitada
-      result = result.filter((item) => item.availability !== "Limited");
+      result = result.filter(
+        (item) =>
+          item.availability !== "Limited" &&
+          item.value !== "Special" &&
+          item.value !== "Battle Pass" &&
+          item.value !== "Sanctum",
+      );
     }
 
     // Ordenamiento
@@ -166,7 +174,7 @@ export default memo(function ItemsShop() {
 
           <div
             onClick={() => setInCollection((prev) => !prev)}
-            className="checkbox collection"
+            className="checkbox incollection"
           >
             <div className="custom-checkbox">
               {inCollection && <FaCheck className="check-icon" />}

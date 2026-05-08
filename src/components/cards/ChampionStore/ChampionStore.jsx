@@ -6,7 +6,7 @@ import { openPurchaseModal } from "@/redux/slices/purchaseSlice.js";
 import { preload } from "react-dom";
 import "./ChampionStore.css";
 
-const PokeCard = ({ id, item: data }) => {
+const ChampionCard = ({ id, item: data }) => {
   const dispatch = useDispatch();
 
   const handleClick = async () => {
@@ -49,4 +49,4 @@ const PokeCard = ({ id, item: data }) => {
   );
 };
 
-export default memo(PokeCard);
+export default memo(ChampionCard);

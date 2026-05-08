@@ -44,14 +44,15 @@
 }
 
 .chat-username {
-    font-size: var(--font-lg); /* antes ~1vw ≈ 1.6rem */
-    font-family: Regular;
+    font-size: 1.7rem;
+    font-family: Spiegel-Regular;
     color: var(--gold-one);
 }
 
 .chat-status {
-    font-size: var(--font-base); /* antes ~0.9vw ≈ 1.44rem */
-    color: rgba(250, 250, 250, 0.5);
+    font-size: 1.5rem;
+    font-family: Spiegel-Regular;
+    color: #424343;
     margin-top: 2px;
 }
 

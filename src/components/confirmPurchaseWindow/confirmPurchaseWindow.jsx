@@ -1,7 +1,7 @@
 "use client";
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import "./confirmPurchaseWindow.css";
@@ -24,15 +24,15 @@ export default function ConfirmPurchaseWindow() {
     }),
     shallowEqual,
   );
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
   //const [ chapionsData, setChampionsData ] = useState()
   const { championsData } = useChampions();
   const { skinsData } = useSkins();
-  const { itemToBuy, selectedCurrency, status } =
+  const { itemToBuy, /*selectedCurrency, */ status } =
     useSelector(selectPurchaseData);
   const isProcessing = status === "processing";
   const showLoading = useLoadingDelay(isProcessing);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const showSuccess = status === "success" && !showLoading;
 
   const productInfo = useMemo(() => {
     if (!itemToBuy) return null;
@@ -43,26 +43,6 @@ export default function ConfirmPurchaseWindow() {
 
     return puntualItem;
   }, [itemToBuy, championsData, skinsData]);
-
-  // Este useEffect maneja la transición loading → success
-  useEffect(() => {
-    if (status === "success" && !showLoading) {
-      setShowSuccess(true); // activa el mensaje de éxito
-
-      // Delay para mostrar el éxito y luego cerrar
-      const timer = setTimeout(() => {
-        setShowSuccess(false);
-        dispatch(closeModal());
-      }, 2200); // 2.2 segundos se siente natural
-
-      return () => clearTimeout(timer); // cleanup importante
-    }
-
-    // Si vuelve a loading o hay error, ocultamos el success
-    if (showLoading || status === "failed") {
-      setShowSuccess(false);
-    }
-  }, [status, showLoading, dispatch]); // dependencias clave
 
   // Memoized price calculation
   const productPrice = useMemo(
@@ -103,20 +83,111 @@ export default function ConfirmPurchaseWindow() {
       : `/splash/${productInfo?.img}`;
 
   // Optimized purchase function
-  const buyProduct = useCallback(
-    async (coin, price) => {
-      try {
-        await dispatch(confirmPurchase({ coin, price })).unwrap();
-        setTimeout(() => {}, 1500);
-        //await dispatch(updateCoins({ coin, price }));
-      } catch (error) {
-        console.error("Purchase failed:", error);
-      }
-    },
-    [dispatch, token],
-  );
+  const buyProduct = (coin, price) => {
+    dispatch(confirmPurchase({ coin, price })).unwrap();
+  };
   const closeWindow = () => {
     dispatch(closeModal());
+  };
+
+  const DefaultBottom = () => {
+    return (
+      <div className="product-actions">
+        <div className="license-info">
+          Esta compra otorga una licencia para este producto digital.{" "}
+          <a
+            className="more-info"
+            href="https://www.riotgames.com/es-419/terms-of-service-LATAM#:~:text=4.1."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mas información{" "}
+            <LiaLongArrowAltUpSolid className="more-info-icon" />
+          </a>
+        </div>
+
+        <div className="product-buy-buttons">
+          <div className="button-container">
+            <div
+              onClick={() => {
+                if (newBalance.rp >= 0) {
+                  buyProduct("RP", productPrice.rp);
+                }
+              }}
+              style={buttonStyles.rp}
+              className="buy-rp-button"
+            >
+              <>
+                <img
+                  className="w-4 h-4 rp-icon"
+                  src="/general/RP_icon.png"
+                  alt="RP"
+                />
+                {productPrice.rp}
+              </>
+              {newBalance.rp >= 0 ? (
+                <span className="new-balance">
+                  nuevo saldo: {newBalance.rp} RP
+                </span>
+              ) : (
+                <span className="new-balance" style={{ color: "red" }}>
+                  Saldo insuficiente
+                </span>
+              )}
+            </div>
+          </div>
+
+          {itemToBuy?.type === "champion" && (
+            <div className="button-container">
+              <div
+                onClick={() => {
+                  if (newBalance.be >= 0) {
+                    buyProduct("BE", productPrice.be);
+                  }
+                }}
+                style={buttonStyles.be}
+                className="buy-be-button"
+              >
+                <>
+                  <img
+                    className="w-4 h-4 be-icon"
+                    src="/general/BE_icon.png"
+                    alt="BE"
+                  />
+                  {productPrice.be}
+                </>
+                {newBalance.be >= 0 ? (
+                  <span className="new-balance">
+                    nuevo saldo: {newBalance.be} EA
+                  </span>
+                ) : (
+                  <span className="new-balance" style={{ color: "red" }}>
+                    Saldo insuficiente
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const SuccessBottom = () => {
+    return (
+      <div className="purchase-success-message">
+        <span>
+          You have unlocked {productInfo.name}! Check out champion detail page
+          for some quick tips on how to play {productInfo.name}. GLHF!{" "}
+        </span>
+        <div
+          onClick={() => dispatch(closeModal())}
+          className="general-button done-purchase-modal-button"
+        >
+          Done
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -147,111 +218,21 @@ export default function ConfirmPurchaseWindow() {
                   <h2 className="product-name">
                     {productInfo.name?.toUpperCase()}
                   </h2>
-                  <span className="product-subtitle">
-                    {itemToBuy?.type !== "skin"
-                      ? productInfo.title
-                      : "Elige este nuevo estilo para tu campeón!"}
-                  </span>
+                  {!showSuccess ? (
+                    <span className="product-subtitle">
+                      {itemToBuy?.type !== "skin"
+                        ? productInfo.title
+                        : "Elige este nuevo estilo para tu campeón!"}
+                    </span>
+                  ) : (
+                    <span className="product-subtitle">Item unlocked!</span>
+                  )}
                 </div>
 
-                {!showSuccess ? (
-                  <div className="product-actions">
-                    <div className="license-info">
-                      Esta compra otorga una licencia para este producto
-                      digital.
-                      <a
-                        className="more-info"
-                        href="https://www.riotgames.com/es-419/terms-of-service-LATAM#:~:text=4.1."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Mas información{" "}
-                        <LiaLongArrowAltUpSolid className="more-info-icon" />
-                      </a>
-                    </div>
-
-                    <div className="product-buy-buttons">
-                      <div className="button-container">
-                        <div
-                          onClick={() => {
-                            if (newBalance.rp >= 0) {
-                              buyProduct("RP", productPrice.rp);
-                            }
-                          }}
-                          style={buttonStyles.rp}
-                          className="buy-rp-button"
-                        >
-                          {selectedCurrency === "RP" && showLoading ? (
-                            <Riple color="blue" size="large" />
-                          ) : (
-                            <>
-                              <img
-                                className="w-4 h-4 rp-icon"
-                                src="/general/RP_icon.png"
-                                alt="RP"
-                              />
-                              {productPrice.rp}
-                            </>
-                          )}
-                          {newBalance.rp >= 0 ? (
-                            <span className="new-balance">
-                              nuevo saldo: {newBalance.rp} RP
-                            </span>
-                          ) : (
-                            <span
-                              className="new-balance"
-                              style={{ color: "red" }}
-                            >
-                              Saldo insuficiente
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {itemToBuy?.type === "champion" && (
-                        <div className="button-container">
-                          <div
-                            onClick={() => {
-                              if (newBalance.be >= 0) {
-                                buyProduct("BE", productPrice.be);
-                              }
-                            }}
-                            style={buttonStyles.be}
-                            className="buy-be-button"
-                          >
-                            {selectedCurrency === "BE" && showLoading ? (
-                              <Riple color="blue" size="large" />
-                            ) : (
-                              <>
-                                <img
-                                  className="w-4 h-4 be-icon"
-                                  src="/general/BE_icon.png"
-                                  alt="BE"
-                                />
-                                {productPrice.be}
-                              </>
-                            )}
-                            {newBalance.be >= 0 ? (
-                              <span className="new-balance">
-                                nuevo saldo: {newBalance.be} EA
-                              </span>
-                            ) : (
-                              <span
-                                className="new-balance"
-                                style={{ color: "red" }}
-                              >
-                                Saldo insuficiente
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                {!showLoading ? (
+                  <>{!showSuccess ? <DefaultBottom /> : <SuccessBottom />}</>
                 ) : (
-                  <div className="purchase-success-message">
-                    <span>Compra realizada con exito</span>
-                  </div>
+                  <Riple style={{ width: "3rem" }} />
                 )}
               </div>
             </div>

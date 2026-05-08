@@ -19,11 +19,10 @@
     margin-top: 0px;
     margin: 0px;
     color: var(--gold-one);
-    /*font-size: 0.9rem;*/
+    font-size: 1.9rem;
     height: auto;
-    font-family: "Medium";
+    font-family: Spiegel-Regular;
 }
-
 .pokemon {
     object-fit: cover;
     aspect-ratio: 1/ 1;
@@ -80,11 +79,10 @@ img[src=".undefinedshield.png"] {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 0.8vh;
+    margin-top: 1rem;
     margin-top: 0.6rem;
     justify-content: space-around;
     width: 75%;
-    font-family: "Spiegel-Regular";
 }
 .essences-price,
 .rp-price {
@@ -100,7 +98,7 @@ img[src=".undefinedshield.png"] {
 }
 .price-number {
     margin-left: 3px;
-    color: var(--gold-two);
+    color: #c8aa6e;
     font-size: 1.75rem;
     letter-spacing: 1px;
     font-family: "Bold";

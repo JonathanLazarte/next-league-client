@@ -50,9 +50,8 @@
 }
 
 .total-skins-info .description {
-    margin-top: clamp(12px, 1.5vh, 18px);
+    margin-top: 1rem;
     line-height: 1.3;
-    color: var(--grey-three);
 }
 
 .cls-1 {
@@ -85,7 +84,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 clamp(9px, 1.12rem, 14px); /* 0.7vw → 1.12rem */
+    align-items: center;
+    padding:
+        0 9px,
+        1.12rem;
+    font-family: Spiegel-Regular;
 }
 
 .rarity-icons {
@@ -94,20 +97,21 @@
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 1px solid rgb(80, 80, 80);
-    padding: 0 clamp(6px, 0.8rem, 10px); /* 0.5vw → 0.8rem */
-    padding-bottom: clamp(15px, 2.1vh, 22px);
+    padding: 0 1rem;
+    padding-bottom: 1.5rem;
+    width: 90%;
 }
 
 .rarity-item {
     color: var(--grey-three);
-    font-size: var(--font-sm); /* ya era variable, antes 0.8vw ≈ 1.28rem */
+    font-size: 1.5rem;
     text-align: center;
 }
 
 .rarity-image {
-    width: 2rem; /* 1.3vw → 2.08rem */
+    width: 2.2rem;
     cursor: pointer;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1rem;
 }
 
 .legacy-chromas-icons {
@@ -115,13 +119,13 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 2rem; /* 1.2vw → 1.92rem */
+    gap: 1.5rem;
     align-content: center;
     align-items: center;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     color: var(--grey-three);
-    font-size: var(--font-sm); /* ya era variable, antes 0.8vw ≈ 1.28rem */
-    padding-bottom: 5%;
+    font-size: 1.5rem; /* ya era variable, antes 0.8vw ≈ 1.28rem */
+    padding-bottom: 1rem;
 }
 
 .chroma-item,
@@ -137,7 +141,7 @@
 
 .chroma-item img,
 .legacy-item img {
-    width: 2.3rem;
+    width: 3.2rem;
     margin-bottom: 0.4rem;
 }
 

@@ -8,6 +8,7 @@
     height: 4.2rem; /* 2.45vw → 3.92rem */
     background: var(--blue-four);
     color: var(--grey-three);
+    font-family: Spiegel-Regular;
 }
 
 .custom-select-trigger {
@@ -34,6 +35,7 @@
 
 .custom-select.open .custom-select-trigger {
     border: 1px solid var(--gold-six);
+    color: #3f3315;
 }
 
 .custom-select.open .custom-select-trigger:hover {
@@ -46,12 +48,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 .custom-select-arrow {
-    margin-left: 12px;
-    font-size: var(--font-base); /* antes ~0.9vw ≈ 1.44rem */
+    margin-left: 1.2rem;
+    font-size: 1.2rem;
     color: var(--gold-two);
     transition: transform 0.3s ease;
     user-select: none;
@@ -96,8 +98,8 @@
 .custom-select-option {
     padding: 1.1rem; /* 1vh mantenido */
     cursor: pointer;
-    color: #c1b38a;
-    font-size: 1.4rem; /* antes ~0.9vw ≈ 1.44rem */
+    color: #b5a882;
+    font-size: 1.5rem; /* antes ~0.9vw ≈ 1.44rem */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 

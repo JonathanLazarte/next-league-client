@@ -23,7 +23,7 @@
     left: -0.3%;
 }
 .skin-card:hover .skin-card-image {
-    filter: brightness(1);
+    filter: brightness(1.1);
 }
 
 .skin-card-image {

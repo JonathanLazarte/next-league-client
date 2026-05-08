@@ -157,7 +157,7 @@ export default memo(function PokemonShop() {
           </div>
           <div
             onClick={() => setInCollection((prev) => !prev)}
-            className="checkbox collection"
+            className="checkbox incollection"
           >
             <div className="custom-checkbox">
               {inCollection && <FaCheck className="check-icon" />}
