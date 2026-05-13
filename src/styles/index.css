@@ -411,15 +411,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 @font-face {
-    font-family: try1;
-    src: url("/fonts/semibold1.woff2");
-}
-@font-face {
-    font-family: try2;
-    src: url("/fonts/semibold2.woff2");
-}
-
-@font-face {
     font-family: Mark-Bold;
     src: url("/fonts/Mark-Bold.woff2");
 }
@@ -432,6 +423,18 @@ input[type="search"]::-webkit-search-cancel-button {
 @font-face {
     font-family: Mark-Black;
     src: url("/fonts/Mark-Black.woff2");
+}
+@font-face {
+    font-family: Inter;
+    src: url("/fonts/Inter/Inter_18pt-Bold.ttf");
+    font-style: Light;
+    font-display: swap;
+}
+@font-face {
+    font-family: Inter;
+    src: url("/fonts/Inter/Inter_28pt-Regular.ttf");
+    font-style: Regular;
+    font-display: swap;
 }
 
 /*@media (prefers-color-scheme: light) {
@@ -448,8 +451,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }*/
 
 ::-webkit-scrollbar {
-    width: clamp(4px, 0.45vw, 8px); /* 0.45vw = 7.2px at 1600px */
-    height: clamp(8px, 1vh, 12px); /* 1vh = 9px at 900px */
+    width: 1rem;
     display: inline-block;
 }
 

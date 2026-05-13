@@ -5,12 +5,17 @@ import { useSelector } from "react-redux";
 import { useSound } from "@/hooks/useSound.js";
 
 import ModeSelector from "./ModeSelector.jsx";
-import Pvp from "./PvpRoom/index.jsx";
 import Training from "./Training/training.jsx";
+import Pvp from "./PvpRoom/index.jsx";
+/*import dynamic from "next/dynamic";
+const Pvp = dynamic(() => import("./PvpRoom/index.jsx"), {
+  ssr: false
+})
+const Training = dynamic(() => import("./PvpRoom/index.jsx"), {
+  ssr: false
+})*/
 /*
-import dynamic from 'next/dynamic'
-const Pvp = dynamic(() => import('./PvpRoom/index.jsx'), { ssr: false })
-const Explore = dynamic(() => import('./Training/explore.jsx'), { ssr: false })
+
 */
 import "./room.css";
 

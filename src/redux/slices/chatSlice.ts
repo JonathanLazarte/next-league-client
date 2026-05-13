@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Message {
   id: string;
@@ -6,7 +6,7 @@ export interface Message {
   to: string;
   content: string;
   timestamp: number;
-  type: 'text' | 'system' | 'notification';
+  type: "text" | "system" | "notification";
   isRead: boolean;
   isDelivered?: boolean;
 }
@@ -14,8 +14,8 @@ export interface Message {
 export interface ChatUser {
   userId: string;
   userName: string;
-  profileIcon: number;
-  status: 'online' | 'away' | 'busy' | 'offline';
+  profile_icon: number;
+  status: "online" | "away" | "busy" | "offline";
   lastSeen?: number;
   isTyping?: boolean;
   unreadCount: number;
@@ -24,7 +24,7 @@ export interface ChatUser {
 export interface ChatRoom {
   id: string;
   name: string;
-  type: 'private' | 'group' | 'lobby';
+  type: "private" | "group" | "lobby";
   participants: string[];
   lastMessage?: Message;
   isActive: boolean;
@@ -37,22 +37,22 @@ export interface ChatState {
   activeChats: string[]; // IDs of currently open chats
   minimizedChats: string[]; // IDs of minimized chats
   chatRooms: Record<string, ChatRoom>;
-  
+
   // Messages management
   messagesByRoom: Record<string, Message[]>;
-  
+
   // Users management
   chatUsers: Record<string, ChatUser>;
-  
+
   // UI State
   selectedChat: string | null;
   isChatVisible: boolean;
   isTyping: Record<string, boolean>; // userId -> isTyping
-  
+
   // Notifications
   unreadCount: number;
   notifications: Message[];
-  
+
   // Settings
   soundEnabled: boolean;
   showTimestamps: boolean;
@@ -73,200 +73,219 @@ const initialState: ChatState = {
   soundEnabled: true,
   showTimestamps: true,
   autoScroll: true,
+  messagesByUser: {},
 };
 
 const chatSlice = createSlice({
-  name: 'chat',
+  name: "chat",
   initialState,
   reducers: {
     // Chat Room Management
-    openChat: (state, action: PayloadAction<{ userId: string; userName: string; profileIcon: number }>) => {
-      const { userId, userName/*, profileIcon*/ } = action.payload;
-      
+    openChat: (
+      state,
+      action: PayloadAction<{
+        userId: string;
+        userName: string;
+        profile_icon: number;
+      }>,
+    ) => {
+      const { userId, userName /*, profile_icon*/ } = action.payload;
+
       // Create chat room if it doesn't exist
       if (!state.chatRooms[userId]) {
         state.chatRooms[userId] = {
           id: userId,
           name: userName,
-          type: 'private',
+          type: "private",
           participants: [userId],
           isActive: true,
           isMinimized: false,
         };
       }
-      
+
       // Add to active chats if not already there
       if (!state.activeChats.includes(userId)) {
         state.activeChats.push(userId);
       }
-      
+
       // Remove from minimized if it was there
-      state.minimizedChats = state.minimizedChats.filter(id => id !== userId);
-      
+      state.minimizedChats = state.minimizedChats.filter((id) => id !== userId);
+
       // Set as selected chat
       state.selectedChat = userId;
       state.isChatVisible = true;
-      
+
       // Reset unread count for this chat
       if (state.chatUsers[userId]) {
         state.chatUsers[userId].unreadCount = 0;
       }
     },
-    
+
     closeChat: (state, action: PayloadAction<string>) => {
       const userId = action.payload;
-      state.activeChats = state.activeChats.filter(id => id !== userId);
-      state.minimizedChats = state.minimizedChats.filter(id => id !== userId);
-      
+      state.activeChats = state.activeChats.filter((id) => id !== userId);
+      state.minimizedChats = state.minimizedChats.filter((id) => id !== userId);
+
       if (state.selectedChat === userId) {
         state.selectedChat = state.activeChats[0] || null;
         state.isChatVisible = state.activeChats.length > 0;
       }
     },
-    
+
     minimizeChat: (state, action: PayloadAction<string>) => {
       const userId = action.payload;
       if (state.activeChats.includes(userId)) {
-        state.activeChats = state.activeChats.filter(id => id !== userId);
+        state.activeChats = state.activeChats.filter((id) => id !== userId);
         state.minimizedChats.push(userId);
         state.chatRooms[userId].isMinimized = true;
-        
+
         if (state.selectedChat === userId) {
           state.selectedChat = state.activeChats[0] || null;
         }
       }
     },
-    
+
     restoreChat: (state, action: PayloadAction<string>) => {
       const userId = action.payload;
       if (state.minimizedChats.includes(userId)) {
-        state.minimizedChats = state.minimizedChats.filter(id => id !== userId);
+        state.minimizedChats = state.minimizedChats.filter(
+          (id) => id !== userId,
+        );
         state.activeChats.push(userId);
         state.chatRooms[userId].isMinimized = false;
         state.selectedChat = userId;
       }
     },
-    
+
     selectChat: (state, action: PayloadAction<string>) => {
       const userId = action.payload;
-      if (state.activeChats.includes(userId) || state.minimizedChats.includes(userId)) {
+      if (
+        state.activeChats.includes(userId) ||
+        state.minimizedChats.includes(userId)
+      ) {
         state.selectedChat = userId;
         state.isChatVisible = true;
-        
+
         // Reset unread count
         if (state.chatUsers[userId]) {
           state.chatUsers[userId].unreadCount = 0;
         }
       }
     },
-    
+
     // Message Management
     addMessage: (state, action: PayloadAction<Message>) => {
-      const message = action.payload;
-      const roomId = message.to === 'me' ? message.from : message.to;
-      
-      // Initialize room if it doesn't exist
-      if (!state.messagesByRoom[roomId]) {
-        state.messagesByRoom[roomId] = [];
-      }
-      
-      // Add message
-      state.messagesByRoom[roomId].push(message);
-      
-      // Update last message in chat room
-      if (state.chatRooms[roomId]) {
-        state.chatRooms[roomId].lastMessage = message;
-      }
-      
-      // Update unread count if chat is not active or not selected
-      if (!state.activeChats.includes(roomId) || state.selectedChat !== roomId) {
-        if (state.chatUsers[roomId]) {
-          state.chatUsers[roomId].unreadCount += 1;
-        }
-        state.unreadCount += 1;
-      }
-      
-      // Add to notifications if it's a system message
-      if (message.type === 'notification') {
-        state.notifications.push(message);
-      }
+      const newMessages = [...state.messages];
+      newMessages.push(action.payload);
+      state.messages = newMessages;
     },
-    
-    markMessageAsRead: (state, action: PayloadAction<{ roomId: string; messageId: string }>) => {
+
+    // Message Management
+    setMessages: (state, action: PayloadAction<string[]>) => {
+      state.messages = action.payload;
+    },
+
+    markMessageAsRead: (
+      state,
+      action: PayloadAction<{ roomId: string; messageId: string }>,
+    ) => {
       const { roomId, messageId } = action.payload;
-      const message = state.messagesByRoom[roomId]?.find(m => m.id === messageId);
+      const message = state.messagesByRoom[roomId]?.find(
+        (m) => m.id === messageId,
+      );
       if (message) {
         message.isRead = true;
       }
     },
-    
+
     markAllAsRead: (state, action: PayloadAction<string>) => {
       const roomId = action.payload;
       if (state.messagesByRoom[roomId]) {
-        state.messagesByRoom[roomId].forEach(message => {
+        state.messagesByRoom[roomId].forEach((message) => {
           message.isRead = true;
         });
       }
-      
+
       if (state.chatUsers[roomId]) {
         state.chatUsers[roomId].unreadCount = 0;
       }
     },
-    
+
     // User Management
     updateChatUser: (state, action: PayloadAction<ChatUser>) => {
       const user = action.payload;
       state.chatUsers[user.userId] = user;
     },
-    
-    updateUserStatus: (state, action: PayloadAction<{ userId: string; status: ChatUser['status'] }>) => {
+
+    updateUserStatus: (
+      state,
+      action: PayloadAction<{ userId: string; status: ChatUser["status"] }>,
+    ) => {
       const { userId, status } = action.payload;
       if (state.chatUsers[userId]) {
         state.chatUsers[userId].status = status;
-        if (status === 'offline') {
+        if (status === "offline") {
           state.chatUsers[userId].lastSeen = Date.now();
         }
       }
     },
-    
+
     // Typing Indicators
-    setTyping: (state, action: PayloadAction<{ userId: string; isTyping: boolean }>) => {
+    setTyping: (
+      state,
+      action: PayloadAction<{ userId: string; isTyping: boolean }>,
+    ) => {
       const { userId, isTyping } = action.payload;
       state.isTyping[userId] = isTyping;
-      
+
       if (state.chatUsers[userId]) {
         state.chatUsers[userId].isTyping = isTyping;
       }
     },
-    
+
     // UI Controls
     toggleChatVisibility: (state) => {
       state.isChatVisible = !state.isChatVisible;
     },
-    
-    setChatPosition: (state, action: PayloadAction<{ chatId: string; position: { x: number; y: number } }>) => {
+
+    setChatPosition: (
+      state,
+      action: PayloadAction<{
+        chatId: string;
+        position: { x: number; y: number };
+      }>,
+    ) => {
       const { chatId, position } = action.payload;
       if (state.chatRooms[chatId]) {
         state.chatRooms[chatId].position = position;
       }
     },
-    
+
     // Settings
-    updateChatSettings: (state, action: PayloadAction<Partial<Pick<ChatState, 'soundEnabled' | 'showTimestamps' | 'autoScroll'>>>) => {
+    updateChatSettings: (
+      state,
+      action: PayloadAction<
+        Partial<
+          Pick<ChatState, "soundEnabled" | "showTimestamps" | "autoScroll">
+        >
+      >,
+    ) => {
       Object.assign(state, action.payload);
     },
-    
+
     // Notifications
     clearNotification: (state, action: PayloadAction<string>) => {
       const messageId = action.payload;
-      state.notifications = state.notifications.filter(n => n.id !== messageId);
+      state.notifications = state.notifications.filter(
+        (n) => n.id !== messageId,
+      );
     },
-    
+
     clearAllNotifications: (state) => {
       state.notifications = [];
       state.unreadCount = 0;
     },
-    
+
     // Cleanup
     clearChatHistory: (state, action: PayloadAction<string>) => {
       const roomId = action.payload;
@@ -283,6 +302,7 @@ export const {
   minimizeChat,
   restoreChat,
   selectChat,
+  setMessages,
   addMessage,
   markMessageAsRead,
   markAllAsRead,

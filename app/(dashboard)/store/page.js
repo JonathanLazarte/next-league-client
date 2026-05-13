@@ -6,9 +6,19 @@ import dynamic from "next/dynamic";
 import { IoIosGift } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { useSound } from "@/hooks/useSound.js";
+import Loading from "@/components/Loading/Loading";
 
-import ChampionsStore from "./championsStore/championsStore.jsx";
-const SkinsStore = dynamic(() => import("./skinsStore/skinsStore.jsx"));
+const ChampionsStore = dynamic(
+  () => import("./championsStore/championsStore"),
+  {
+    loading: () => <Loading />,
+    ssr: false,
+  },
+);
+const SkinsStore = dynamic(() => import("./skinsStore/skinsStore.jsx"), {
+  loading: () => <Loading />,
+  ssr: false,
+});
 
 export default memo(function Store() {
   const [actualSection, setActualSection] = useState("campeones");

@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { memo } from 'react';
-import './Loading.css';
+import { memo } from "react";
+import "./Loading.css";
 
-const Loading = memo(function Loading({ 
-  message = 'Cargando...', 
-  size = 'medium',
-  fullScreen = false 
+const Loading = memo(function Loading({
+  message = "",
+  size = "medium",
+  fullScreen = false,
 }) {
   return (
-    <div 
-      className={`loading-container ${fullScreen ? 'fullscreen' : ''}`}
+    <div
+      className={`loading-container ${fullScreen ? "fullscreen" : ""}`}
       role="status"
       aria-live="polite"
       aria-label={message}
@@ -30,4 +30,3 @@ const Loading = memo(function Loading({
 });
 
 export default Loading;
-

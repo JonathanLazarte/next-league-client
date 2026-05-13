@@ -5,6 +5,8 @@
     justify-content: center;
     padding: 2rem;
     gap: 1rem;
+    height: 100%;
+    width: 100%;
 }
 
 .loading-container.fullscreen {
@@ -50,16 +52,19 @@
 
 .spinner-ring:nth-child(1) {
     animation-delay: 0s;
+    border-top-color: #0acbe6;
+    stroke-width: 15px;
 }
 
 .spinner-ring:nth-child(2) {
     animation-delay: 0.2s;
-    border-top-color: var(--gold-five);
+    border-top-color: #0acbe6;
     width: 80%;
     height: 80%;
     top: 10%;
     left: 10%;
     stroke-width: 7px;
+    display: none;
 }
 
 .spinner-ring:nth-child(3) {
@@ -70,6 +75,7 @@
     top: 20%;
     left: 20%;
     stroke-width: 7px;
+    display: none;
 }
 
 @keyframes spin {

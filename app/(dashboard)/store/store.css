@@ -100,50 +100,6 @@
     right: 3.84rem; /* 2.4vw → 3.84rem */
 }
 
-.rounded-button {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--color-primary);
-    width: 1.7rem; /* 1.7vw → 2.72rem (pero en el segundo bloque usas 1.7vw para width y height) */
-    height: 1.7rem; /* 1.7vw → 2.72rem */
-    background-image: linear-gradient(
-        to bottom,
-        var(--gold-four),
-        var(--gold-five)
-    );
-    clip-path: circle(50%);
-    margin-left: 2.72rem; /* 1.7vw → 2.72rem */
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-}
-
-.rounded-button:hover {
-    color: var(--color-secundary);
-    background-image: linear-gradient(
-        to bottom,
-        var(--gold-one),
-        var(--gold-four)
-    );
-}
-
-.rounded-button::before {
-    position: absolute;
-    left: 6.5%;
-    content: "";
-    height: 87%;
-    width: 87%;
-    background: var(--blue-six);
-    clip-path: circle(50%);
-    z-index: 0;
-    align-self: center;
-    justify-self: center;
-    place-self: center;
-}
-
 .rounded-icon {
     position: absolute;
     font-size: 1.44rem; /* 0.9vw → 1.44rem */
@@ -194,8 +150,8 @@
     justify-content: center;
     text-align: center;
     color: var(--color-primary);
-    width: 2.72rem; /* 1.7vw → 2.72rem */
-    height: 2.72rem; /* 1.7vw → 2.72rem */
+    width: 3.2rem; /* 1.7vw → 2.72rem */
+    height: 3.2rem; /* 1.7vw → 2.72rem */
     background-image: linear-gradient(
         to bottom,
         var(--gold-four),

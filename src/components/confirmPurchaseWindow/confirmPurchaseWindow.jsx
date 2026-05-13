@@ -234,7 +234,7 @@ export default function ConfirmPurchaseWindow() {
                 ) : (
                   <div className="purchase-success-message">
                     <OrbitProgress
-                      color="gray"
+                      color="#0acbe6"
                       size="small"
                       text=""
                       textColor=""

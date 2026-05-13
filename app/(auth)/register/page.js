@@ -29,7 +29,59 @@ export default function Register() {
         .min(6, "Debe tener al menos 6 caracteres"),
       password: Yup.string().required("Campo obligatorio"),
     });
-
+  const Ahri = {
+    version: "14.17.1",
+    id: "Ahri",
+    key: "103",
+    name: "Ahri",
+    title: "la Vastaya de Nueve Colas",
+    blurb:
+      "Ahri es una vastaya de aspecto vulpino conectada de forma innata a la magia del reino de los espíritus; puede manipular las emociones de sus presas y consumir su esencia, por lo que recibe fragmentos de su memoria y conocimiento de cada alma que consume...",
+    info: {
+      attack: 3,
+      defense: 4,
+      magic: 8,
+      difficulty: 5,
+    },
+    image: {
+      full: "Ahri.png",
+      sprite: "champion0.png",
+      group: "champion",
+      x: 48,
+      y: 0,
+      w: 48,
+      h: 48,
+    },
+    tags: ["Mage", "Assassin"],
+    partype: "Maná",
+    stats: {
+      hp: 590,
+      hpperlevel: 104,
+      mp: 418,
+      mpperlevel: 25,
+      movespeed: 330,
+      armor: 21,
+      armorperlevel: 4.7,
+      spellblock: 30,
+      spellblockperlevel: 1.3,
+      attackrange: 550,
+      hpregen: 2.5,
+      hpregenperlevel: 0.6,
+      mpregen: 8,
+      mpregenperlevel: 0.8,
+      crit: 0,
+      critperlevel: 0,
+      attackdamage: 53,
+      attackdamageperlevel: 3,
+      attackspeedperlevel: 2.2,
+      attackspeed: 0.668,
+    },
+    release: "2011-12-14",
+    price: {
+      rp: 790,
+      be: 3150,
+    },
+  };
   const onSubmit = async (values) => {
     setErrorMessage(null);
     const body = {
@@ -39,7 +91,8 @@ export default function Register() {
       alias: values.userName,
       tag: "LAS",
       title: "Novice",
-      champions: [],
+      status: "online",
+      champions: [Ahri],
       skins: [],
       messages: [],
       level: 1,
@@ -51,10 +104,10 @@ export default function Register() {
         level: 4,
         points: 100,
       },
-      profileIcon: "5909",
-      background: "Aatrox_30",
+      profile_icon: "5909",
+      profile_background: "Aatrox_30",
       settings: {
-        language: "es",
+        language: "en",
         sound: {
           master: { volume: 1, muted: false },
           sfx: { volume: 2, muted: false },
@@ -98,7 +151,7 @@ export default function Register() {
           <div className="active-indicator"></div>
         </div>
         <div
-          className="loading-spinner"
+          className="auth-loading-spinner"
           style={{ display: loading ? "block" : "none" }}
         >
           <img src="/red-loading-circle.png" alt="loading spinner" />

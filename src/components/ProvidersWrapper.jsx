@@ -45,17 +45,12 @@ import {
 } from "@/redux/slices/authSlice";
 import { setMute, setVolume } from "@/redux/slices/soundSlice.js";
 import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
+import { addMessage, setMessages } from "@/redux/slices/chatSlice";
 
 export default function ProvidersWrapper({ children }) {
   const router = useRouter();
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
   const [showSideNav, setShowSideNav] = useState(true);
-  /*useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      router.push('/login')
-    }
-  }, [isAuthenticated, loading, router])*/
-
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [/*battleRequest,*/ setBattleRequest] = useState([]);
   const socket = useRef(null);
@@ -127,6 +122,8 @@ export default function ProvidersWrapper({ children }) {
             dispatch(setMute({ type: "master", muted: master.muted }));
             dispatch(setMute({ type: "sfx", muted: sfx.muted }));
             dispatch(setMute({ type: "music", muted: music.muted }));
+            console.log(user.messages);
+            dispatch(setMessages(data.messages));
           } else {
             // Token inválido, redirigir al login
           }
@@ -135,11 +132,13 @@ export default function ProvidersWrapper({ children }) {
   }, [localStoreToken]);
 
   useEffect(() => {
+    console.log(token);
+    if (!token) return;
     socket.current = io(`${API_URL}`, { auth: { token } });
     return () => {
-      socket.current.disconnect();
+      socket.current?.disconnect();
     };
-  }, []);
+  }, [token]);
   //--------------------------------------------------------------------------------
   useEffect(() => {
     if (localStoreToken != "loading" && !loading) {
@@ -156,26 +155,45 @@ export default function ProvidersWrapper({ children }) {
   }, [isAuthenticated, loading, router, localStoreToken]);
   //----------------------------------------------------------------------------------
 
-  useEffect(() => {
-    user.id && socket.current.emit("authenticate", { userName: user.userName });
+  /*useEffect(() => {
+    user.id && socket.current.emit("authenticate", { id: user.id });
     return () => socket.current.off("authenticate");
-  }, [user]);
+  }, [user]);*/
 
   useEffect(() => {
-    socket.current.on("battle-mailbox", (msg) => {
+    socket.current?.on("battle-mailbox", (msg) => {
       const request = [{ roomId: msg.roomId, from: msg.from, to: msg.from }];
       setBattleRequest(request);
       setTimeout(() => {
         setBattleRequest([]);
       }, 7000);
     });
-    return () => socket.current.off(token);
+    return () => socket.current?.off(token);
   }, []);
 
   useEffect(() => {
-    socket.current.on("user-list", (msg) => {
-      const actualUserIndex = msg.findIndex((u) => u.userName == user.userName);
-      msg.splice(actualUserIndex, 1);
+    socket.current?.on("chat-message", (msg) => {
+      /*const message = {
+        id: Date.now().toString(),
+        from: msg.from,
+        to: msg.to,
+        content: msg.message.trim(),
+        timestamp: Date.now(),
+        type: "text",
+        isRead: false,
+        isDelivered: false,
+      };*/
+      dispatch(addMessage(msg));
+    });
+    return () => socket.current?.off("chat-message");
+  }, []);
+
+  useEffect(() => {
+    if (!socket.current) return;
+    socket.current?.on("user-list", (msg) => {
+      console.log(msg);
+      //const actualUserIndex = msg.findIndex((u) => u.alias === user.alias);
+      //msg.splice(actualUserIndex, 1);
       const friendFolders = [
         {
           name: "general",
@@ -184,8 +202,8 @@ export default function ProvidersWrapper({ children }) {
       ];
       dispatch(setFriendsOnline(friendFolders));
     });
-    return () => socket.current.off("user-list");
-  }, []);
+    return () => socket.current?.off("user-list");
+  }, [socket.current]);
 
   if (loading) {
     return (
@@ -232,7 +250,7 @@ export default function ProvidersWrapper({ children }) {
         return null;
     }
   };
-  return user.profileIcon ? (
+  return user.profile_icon ? (
     <div
       className="dashboard-layout w-screen min-h-screen"
       style={{
@@ -250,7 +268,7 @@ export default function ProvidersWrapper({ children }) {
         showSideNav={showSideNav}
       />
       <RightNav setShowSideNav={setShowSideNav} showSideNav={showSideNav} />
-      <Chat />
+      <Chat socket={socket.current} />
       <MusicPlayer
         url="/music/Xin Zhao, the Seneschal of Demacia.mp3" /*'/music/Xin Zhao, the Seneschal of Demacia.mp3'*/
       />

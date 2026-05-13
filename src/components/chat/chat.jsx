@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, memo } from "react";
+import { useState, useEffect, useRef, memo, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addMessage,
@@ -24,7 +24,7 @@ export default memo(function Chat({ socket }) {
   const typingTimeoutRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  const { userName } = useSelector((state) => state.user);
+  const { alias } = useSelector((state) => state.user);
   const {
     selectedChat,
     isChatVisible,
@@ -33,10 +33,10 @@ export default memo(function Chat({ socket }) {
     isTyping: typingUsers,
     showTimestamps,
     autoScroll,
+    messages,
   } = useSelector((state) => state.chat);
-
   const selectedChatUser = selectedChat ? chatUsers[selectedChat] : null;
-  const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
+  //const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
   const isUserTyping = selectedChat
     ? typingUsers[selectedChat] || false
     : false;
@@ -85,7 +85,6 @@ export default memo(function Chat({ socket }) {
       }
     }, 1000);
   };
-
   // Enviar mensaje
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,7 +92,7 @@ export default memo(function Chat({ socket }) {
 
     const message = {
       id: Date.now().toString(),
-      from: userName,
+      from: alias,
       to: selectedChat,
       content: chatInput.trim(),
       timestamp: Date.now(),
@@ -101,12 +100,7 @@ export default memo(function Chat({ socket }) {
       isRead: false,
       isDelivered: false,
     };
-
-    socket?.current?.emit("chat-message", {
-      to: selectedChat,
-      from: userName,
-      message: chatInput.trim(),
-    });
+    socket?.current?.emit("chat-message", message);
 
     dispatch(addMessage(message));
     setChatInput("");
@@ -147,6 +141,18 @@ export default memo(function Chat({ socket }) {
         return "#808080";
     }
   };
+  const filterByUser = (msgs, selectedUser) => {
+    return msgs.filter(
+      (m) =>
+        (m.from === selectedUser && m.to === alias) ||
+        (m.to === selectedUser && m.from === alias),
+    );
+  };
+
+  const filteredMessages = useMemo(() => {
+    const result = filterByUser(messages, selectedChat);
+    return result;
+  }, [messages, selectedChat]);
 
   if (!isChatVisible) return null;
 
@@ -158,8 +164,8 @@ export default memo(function Chat({ socket }) {
           <div style={{ marginRight: "10px" }} className="icon-border mini">
             <img
               className="user-icon mini"
-              src={`${RESOURCES_URL}profileicon/${selectedChatUser.profileIcon}.png`}
-              alt={selectedChatUser.userName}
+              src={`${RESOURCES_URL}profileicon/${selectedChatUser.profile_icon}.png`}
+              alt={selectedChatUser.alias}
             />
             <div
               className="box-status-icon"
@@ -172,19 +178,11 @@ export default memo(function Chat({ socket }) {
 
         <div className="chat-header-info">
           <span className="chat-username">
-            {selectedChatUser?.userName || selectedChat}
+            {selectedChatUser?.alias || selectedChat || "Seleccione un chat"}
           </span>
-          {selectedChatUser?.status && (
-            <span className="chat-status">
-              {selectedChatUser.status === "online"
-                ? "En línea"
-                : selectedChatUser.status === "away"
-                  ? "Ausente"
-                  : selectedChatUser.status === "busy"
-                    ? "Ocupado"
-                    : "Desconectado"}
-            </span>
-          )}
+          <span className="chat-status">
+            {selectedChatUser?.alias} {selectedChatUser?.tag || "#LAS"}
+          </span>
         </div>
 
         <div className="chat-controls">
@@ -207,10 +205,10 @@ export default memo(function Chat({ socket }) {
 
       {/* Área de mensajes */}
       <div className="chat-messages">
-        {messages.map((message) => (
+        {filteredMessages?.map((message) => (
           <div
             key={message.id}
-            className={`message ${message.from === userName ? "own-message" : "other-message"}`}
+            className={`message ${message.from === alias ? "own-message" : "other-message"}`}
           >
             <div className="message-content">
               <span className="message-text">{message.content}</span>

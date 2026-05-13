@@ -4,11 +4,20 @@ import "./collection.css";
 import { useState, memo } from "react";
 import { useSound } from "@/hooks/useSound.js";
 import dynamic from "next/dynamic";
+import Loading from "@/components/Loading/Loading";
 const ChampionsSection = dynamic(
   () => import("./collectionChampions/collectionChampions.jsx"),
+  {
+    loading: () => <Loading />,
+    ssr: false,
+  },
 );
 const SkinsSection = dynamic(
   () => import("./collectionSkins/collectionSkins.jsx"),
+  {
+    loading: () => <Loading />,
+    ssr: false,
+  },
 );
 
 export default memo(function Bag() {

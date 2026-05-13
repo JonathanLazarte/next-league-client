@@ -16,8 +16,8 @@ const initialState = {
   BE: 20000,
   RP: 3000,
   rank: {},
-  profileIcon: "",
-  background: "",
+  profile_icon: "",
+  profile_background: "",
 };
 
 const userSlice = createSlice({
@@ -27,15 +27,15 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.userName = action.payload.userName;
       state.id = action.payload.id;
-      state.alias = action.payload.userName;
+      state.alias = action.payload.alias;
       state.tag = action.payload.tag;
       state.title = action.payload.title;
       state.level = action.payload.level;
       state.EXP = action.payload.EXP;
       state.BE = action.payload.BE;
       state.RP = action.payload.RP;
-      state.profileIcon = action.payload.profileIcon;
-      state.background = action.payload.profileIcon;
+      state.profile_icon = action.payload.profile_icon;
+      state.profile_background = action.payload.profile_background;
       state.rank = action.payload.rank;
       state.messages = action.payload.messages;
     },

@@ -64,24 +64,24 @@ export const FriendRow = memo(function FriendRow({
     onLeave: onHoverEnd,
   });
 
-  if (u.userName === user.userName) return null;
+  if (u.alias === user.alias) return null;
 
-  if (battleRequest?.find((br) => br.from === u.userName)) {
-    return inviteBox(u.userName);
+  if (battleRequest?.find((br) => br.from === u.alias)) {
+    return inviteBox(u.alias);
   }
 
   return (
     <li
       ref={ref}
       className="user-box"
-      key={u.userName}
-      onClick={() => handleUserClick(u.userName)}
+      key={u.alias}
+      onClick={() => handleUserClick(u.alias)}
       onContextMenu={handleContextMenu}
     >
       <div className="icon-border mini">
         <Image
           className="user-icon"
-          src={`${RESOURCES_URL}profileicon/${u.profileIcon}.png`}
+          src={`${RESOURCES_URL}profileicon/${u.profile_icon}.png`}
           width={150}
           height={150}
         />
@@ -89,13 +89,13 @@ export const FriendRow = memo(function FriendRow({
       </div>
 
       <div className="user-box-data">
-        <span className="friendlist-username">{u.userName}</span>
+        <span className="friendlist-username">{u.alias}</span>
         <span className="friendlist-status">Online</span>
-        {chatUsers[u.userName]?.unreadCount > 0 && (
+        {/*chatUsers[u.alias]?.unreadCount > 0 && (
           <span className="unread-badge">
-            {chatUsers[u.userName].unreadCount}
+            {chatUsers[u?.alias]?.unreadCount}
           </span>
-        )}
+        )*/}
       </div>
     </li>
   );
@@ -128,7 +128,7 @@ export default memo(function RightNav({
   const {
     selectedChat,
     /*isChatVisible,*/
-    chatUsers,
+    /*chatUsers,*/
     unreadCount,
     /*activeChats*/
   } = useSelector((state) => state.chat);
@@ -203,8 +203,8 @@ export default memo(function RightNav({
               <Image
                 className="user-icon"
                 src={
-                  user.profileIcon
-                    ? `${RESOURCES_URL}profileicon/${user.profileIcon}.png`
+                  user.profile_icon
+                    ? `${RESOURCES_URL}profileicon/${user.profile_icon}.png`
                     : `/profileicon/6705.png`
                 }
                 width={150}
@@ -257,13 +257,13 @@ export default memo(function RightNav({
     if (friendsOnline) {
       friendsOnline.forEach((folder) => {
         folder.users.forEach((u) => {
-          if (u.userName !== user.userName) {
+          if (u.alias !== user.alias) {
             dispatch(
               updateChatUser({
-                userId: u.userName,
-                userName: u.userName,
-                profileIcon: u.profileIcon,
-                status: "online",
+                userId: u.alias,
+                userName: u.alias,
+                profile_icon: u.profile_icon,
+                status: u.status,
                 unreadCount: 0,
               }),
             );
@@ -271,7 +271,7 @@ export default memo(function RightNav({
         });
       });
     }
-  }, [friendsOnline, user.userName, dispatch]);
+  }, [friendsOnline, user.alias, dispatch]);
 
   const handleUserClick = (userName) => {
     // Find the user in friendsOnline to get their profileIcon
@@ -281,7 +281,7 @@ export default memo(function RightNav({
       for (const folder of friendsOnline) {
         const foundUser = folder.users.find((u) => u.userName === userName);
         if (foundUser) {
-          profileIcon = foundUser.profileIcon;
+          profileIcon = foundUser.profile_icon;
           break;
         }
       }
@@ -292,7 +292,7 @@ export default memo(function RightNav({
       openChat({
         userId: userName,
         userName: userName,
-        profileIcon: profileIcon,
+        profile_icon: profileIcon,
       }),
     );
   };
@@ -317,14 +317,13 @@ export default memo(function RightNav({
         <div style={folderStyle}>
           {folder.users.map((u) => (
             <FriendRow
-              key={u.userName}
+              key={u.alias}
               u={u}
               user={user}
               RESOURCES_URL={RESOURCES_URL}
               battleRequest={battleRequest}
-              chatUsers={chatUsers}
               handleUserClick={handleUserClick}
-              handleContextMenu={(e) => handleContextMenu(e, u.username)}
+              handleContextMenu={(e) => handleContextMenu(e, u.alias)}
               inviteBox={inviteBox}
               toolTipPosRef={toolTipPosRef}
               onHoverStart={onHoverStart}

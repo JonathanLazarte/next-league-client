@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 
 export default function useLoadingDelay(loading: boolean, options = {}) {
   const {
-    delay = 200, // ms antes de mostrar
-    minDisplayTime = 500, // ms mínimo una vez mostrado
+    delay = 300, // ms antes de mostrar
+    minDisplayTime = 300, // ms mínimo una vez mostrado
   } = options;
 
   const [isVisible, setIsVisible] = useState(false);

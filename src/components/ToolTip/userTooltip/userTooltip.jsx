@@ -26,7 +26,7 @@ export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
     top: tooltipPos.y - tooltipHeight / 2,
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url('${RESOURCES_URL}centered/${dataToRender?.background}.jpg')`,
+    backgroundImage: `url('${RESOURCES_URL}centered/${dataToRender?.profile_background}.jpg')`,
     pointerEvents: "none",
   };
   return (
@@ -50,13 +50,13 @@ export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
             />
             <Image
               className="tooltip-user-icon-img"
-              src={`${RESOURCES_URL}profileicon/${dataToRender?.profileIcon}.png`}
+              src={`${RESOURCES_URL}profileicon/${dataToRender?.profile_icon}.png`}
               width={100}
               height={100}
             />
           </div>
           <div className="tooltip-user-info-text">
-            <h4>{dataToRender?.userName}</h4>
+            <h4>{dataToRender?.alias}</h4>
             <h6 className="subname">#{dataToRender?.tag}</h6>
             <span className="user-title">{dataToRender?.title}</span>
             <div className="separator" />

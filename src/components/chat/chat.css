@@ -24,7 +24,7 @@
 }
 
 .chatHead {
-    height: 14%;
+    height: 6.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -33,6 +33,7 @@
     color: rgba(250, 250, 250, 0.9);
     padding: 0 1.12rem; /* 0.7vw → 1.12rem */
     font-family: Medium;
+    min-height: 6.5rem;
 }
 
 .chat-header-info {
@@ -80,7 +81,7 @@
 }
 
 .chat-messages {
-    color: white !important;
+    color: white;
     flex-grow: 1;
     padding: 1.6rem; /* 1vw → 1.6rem */
     display: flex;

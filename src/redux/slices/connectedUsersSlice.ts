@@ -1,9 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ConnectedUser {
   id: string;
-  name: string;
-  status: 'online' | 'in_game' | 'away';
+  alias: string;
+  tag: string;
+  title: string;
+  rank: object;
+  profile_icon: string;
+  profile_background: string;
+  status: "online" | "offline" | "away";
+  activity:
+    | "idle"
+    | "in queue"
+    | "ranked_flex"
+    | "ranked_solo_duo"
+    | "swiftplay"
+    | "in_game";
 }
 
 interface ConnectedUsersState {
@@ -17,7 +29,7 @@ const initialState: ConnectedUsersState = {
 };
 
 const connectedUsersSlice = createSlice({
-  name: 'connectedUsers',
+  name: "connectedUsers",
   initialState,
   reducers: {
     setFriendsOnline: (state, action: PayloadAction<ConnectedUser[]>) => {
@@ -29,5 +41,6 @@ const connectedUsersSlice = createSlice({
   },
 });
 
-export const { setFriendsOnline, setPartyMembers } = connectedUsersSlice.actions;
+export const { setFriendsOnline, setPartyMembers } =
+  connectedUsersSlice.actions;
 export default connectedUsersSlice.reducer;

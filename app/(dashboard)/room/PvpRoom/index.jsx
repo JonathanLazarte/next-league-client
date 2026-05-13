@@ -96,7 +96,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
               />
               <img
                 className="banner-user-icon-img"
-                src={`${RESOURCES_URL}profileicon/${user.profileIcon}.png`}
+                src={`${RESOURCES_URL}profileicon/${user.profile_icon}.png`}
               ></img>
             </div>
             <h2 className="banner-username">{user.alias}</h2>

@@ -117,7 +117,7 @@ export default memo(function Login() {
           <div style={tabStyles} className="active-indicator"></div>
         </div>
         <div
-          className="loading-spinner"
+          className="auth-loading-spinner"
           style={{ display: loading ? "block" : "none" }}
         >
           <img src="/red-loading-circle.png" alt="loading spinner" />

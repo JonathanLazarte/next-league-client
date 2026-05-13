@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { NavigationProgress } from "@/components/NavigationProgress";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
   title: "League of Legends",
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={inter.className}>
+      <body className={`${inter.variable}`}>
         <Providers>
           {children}
           <NavigationProgress />
