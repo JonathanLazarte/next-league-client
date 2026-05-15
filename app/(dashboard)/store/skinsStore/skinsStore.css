@@ -1,0 +1,111 @@
+@keyframes appearance {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.skins-store {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: space-between;
+    flex-grow: 1;
+    padding-left: 4.4rem;       /* 2.75vw → 4.4rem */
+    padding-right: 0.32rem;          /* 0.2vw → 0.32rem */
+    margin-top: 5.6rem;
+    overflow: hidden;
+}
+
+.unlock-skin-icon {
+    position: absolute;
+    display: none;
+    font-size: 2rem;
+    align-self: center;
+    color: var(--gold-two);
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.items-grid-container::-webkit-scrollbar {
+    width: clamp(5px, 0.8rem, 8px);                    /* 0.5vw → 0.8rem */
+    height: clamp(8px, 1vh, 12px);
+    display: inline-block;
+}
+
+.items-grid-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.items-grid-container::-webkit-scrollbar-thumb {
+    background: var(--gold-five);
+    border-radius: 5px;
+}
+
+.items-grid-container::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-two);
+}
+
+@media (max-width: 767px) {
+    .items-section {
+
+    }
+
+    .items-grid-container {
+                   /* 1.8vw → 2.88rem */
+    }
+
+    .items {
+
+    }
+
+    .items article {
+
+    }
+
+    .items article h3 {
+
+    }
+
+    .essences-price,
+    .rp-price {
+
+    }
+
+    .price {
+
+    }
+
+    .pokemon-shop {
+        
+    }
+
+    .pokemon-shop .grid-pokemon-container {
+        
+    }
+
+    .pokemon-shop-grid {
+        
+    }
+
+    .store .filter-nav {
+
+    }
+
+    .store .search-filter {
+
+    }
+
+    .search-filter input {
+
+    }
+
+    .checkbox.collection {
+
+    }
+}
