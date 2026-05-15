@@ -1,0 +1,125 @@
+.find-match-button-wrapper {
+	width: 45rem;
+	height: fit-content;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-content: center;
+	margin-bottom: 0.5rem;
+	height: fit-content;
+}
+.find-match-button {
+	width: 23.5rem;
+	cursor: pointer;
+}
+.find-match-button-vector-border {
+	fill: url('#findMatchGradient');
+
+}
+.therect {
+  fill: url('#shine-grad'); 
+  mask: url('#btn-mask');
+}
+.find-match-button-vector-background:hover .find-match-button-vector-border {
+	fill: url('#hoverGradient');
+	filter: url('#glow');
+}
+.find-match-button-vector-background:hover {
+	filter: brightness(1.2);
+}
+.find-match-button-vector-background:active .find-match-button-vector-border{
+	fill: #005a82;
+}
+.find-match-button-vector-background:active {
+	fill: #1e2328;
+}
+
+.find-match-button-vector-background {
+	fill: url('#hextech-bg');
+}
+.find-match-button-text {
+    /*color: #9ec2c2;*/
+    font-family: 'Bold';                 /* Fuente oficial de LoL */                    /* Tamaño de fuente base */
+    font-size: 1.7rem;                  /* 1.1vw → 1.76rem */
+    text-transform: uppercase;           /* Texto en mayúsculas */
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #caf8f8;
+    pointer-events: none;
+}
+
+.find-match-out-button-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: white;
+    height: 3.75rem;                     /* 2.6vw → 4.16rem */
+    width: 3.75rem;                      /* 2.6vw → 4.16rem */
+    clip-path: circle(50% at 50% 50%);
+    z-index: 2;
+    background: linear-gradient(to bottom, var(--gold-four), var(--gold-five));
+    position: absolute;
+    top: 1.2rem;
+    left: 4rem;
+}
+
+.find-match-out-button {
+    width: 87%;
+    height: 87%;
+    background-color: #1e2328;
+    border: 8px solid #1d2124;
+    clip-path: circle(50% at 50% 50%);
+    cursor: pointer;
+    filter: brightness(1.2);
+    transition: filter 0.1s;
+    color: var(--color-primary);
+    /*font-size: 16px;*/
+    font-size: 1.6rem;                   /* 1vw → 1.6rem */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.find-match-out-button-border:hover {
+    filter: brightness(1.2);
+    background: linear-gradient(to bottom, var(--gold-one), var(--gold-two), var(--gold-four));
+}
+
+.find-match-out-button:hover {
+    filter: brightness(1.1);
+}
+
+.find-match-button-wrapper.in-queue .find-match-button-vector-background {
+	fill: #1e2328;
+}
+.find-match-button-wrapper.in-queue .find-match-button-vector-border {
+	fill: #5b5a56;
+}
+.find-match-button-wrapper.in-queue .find-match-button-text {
+	color: #7a7a7a;
+}
+.find-match-button-wrapper.in-queue .find-match-button {
+	pointer-events: none;
+}
+
+.find-match-button-decorations {
+	fill: white;
+	position: absolute;
+	top: 0.1rem;
+	width: 100%;
+	pointer-events: none;
+}
+.decoration{
+	fill: gray;
+}
