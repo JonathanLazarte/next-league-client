@@ -1,5 +1,8 @@
 "use client";
 
+import "$/(dashboard)/collection/collection.css";
+import "$/(dashboard)/store/store.css";
+import "$/(dashboard)/room/room.css";
 import ResponsiveHeader from "@/components/header";
 import RightNav from "@/components/rightNav/rightNav.jsx";
 /*import Chat from '@/components/chat/chat.jsx'*/
@@ -16,7 +19,7 @@ const MusicPlayer = dynamic(() => import("@/components/Audio/MusicPlayer"), {
 import ConfirmPurchaseModal from "./confirmPurchaseWindow/confirmPurchaseWindow";
 /*import Loading from "@/components/Loading/Loading.jsx";*/
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
-import "../../app/(dashboard)/index.css";
+import "$/(dashboard)/index.css";
 
 import { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
@@ -106,28 +109,32 @@ export default function ProvidersWrapper({ children }) {
     if (localStoreToken) {
       dispatch(getUserChampions(localStoreToken));
       dispatch(getUserSkins(localStoreToken));
-      fetch(`${API_URL}pokemons/users/getUserData`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: localStoreToken }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.message !== "Usuario no encontrado") {
-            dispatch(setUser(data));
-            const { master, sfx, music } = data.settings.sound;
-            dispatch(setVolume({ type: "master", val: master.volume }));
-            dispatch(setVolume({ type: "sfx", val: sfx.volume }));
-            dispatch(setVolume({ type: "music", val: music.volume }));
-            dispatch(setMute({ type: "master", muted: master.muted }));
-            dispatch(setMute({ type: "sfx", muted: sfx.muted }));
-            dispatch(setMute({ type: "music", muted: music.muted }));
-            console.log(user.messages);
-            dispatch(setMessages(data.messages));
-          } else {
-            // Token inválido, redirigir al login
-          }
-        });
+      try {
+        fetch(`${API_URL}pokemons/users/getUserData`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: localStoreToken }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message !== "Usuario no encontrado") {
+              dispatch(setUser(data));
+              const { master, sfx, music } = data.settings.sound;
+              dispatch(setVolume({ type: "master", val: master.volume }));
+              dispatch(setVolume({ type: "sfx", val: sfx.volume }));
+              dispatch(setVolume({ type: "music", val: music.volume }));
+              dispatch(setMute({ type: "master", muted: master.muted }));
+              dispatch(setMute({ type: "sfx", muted: sfx.muted }));
+              dispatch(setMute({ type: "music", muted: music.muted }));
+              console.log(user.messages);
+              dispatch(setMessages(data.messages));
+            } else {
+              // Token inválido, redirigir al login
+            }
+          });
+      } catch {
+        console.log("error");
+      }
     }
   }, [localStoreToken]);
 

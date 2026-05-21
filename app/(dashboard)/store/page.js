@@ -7,6 +7,8 @@ import { IoIosGift } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { useSound } from "@/hooks/useSound.js";
 import Loading from "@/components/Loading/Loading";
+import "./championsStore/championsStore.css";
+import "./skinsStore/skinsStore.css";
 
 const ChampionsStore = dynamic(
   () => import("./championsStore/championsStore"),

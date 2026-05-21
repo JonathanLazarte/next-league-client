@@ -2,13 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "$/*": ["./app/*"],
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/pages/*": ["./src/pages/*"],
       "@/redux/*": ["./src/redux/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/services/*": ["./src/services/*"],
-      "@/svg/*": ["./src/svg/*"],
+      "@/svg/*": ["./src/svg/*"]
     }
   }
 }
