@@ -37,7 +37,7 @@ export const FriendRow = memo(function FriendRow({
   user,
   RESOURCES_URL,
   battleRequest,
-  chatUsers,
+  /*chatUsers,*/
   handleUserClick,
   handleContextMenu,
   inviteBox,

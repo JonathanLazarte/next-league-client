@@ -28,7 +28,7 @@ export default memo(function Chat({ socket }) {
   const {
     selectedChat,
     isChatVisible,
-    messagesByRoom,
+    /*messagesByRoom,*/
     chatUsers,
     isTyping: typingUsers,
     showTimestamps,
