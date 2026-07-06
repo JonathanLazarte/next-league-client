@@ -1,7 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "@/redux/slices/authSlice.js";
 
-const initialState = {
+interface Rank {
+  name: string;
+  level: number;
+  points: number;
+}
+
+interface UserState {
+  userName: string;
+  password: string;
+  id: string;
+  alias: string;
+  tag: string;
+  title: string;
+  champions: string[];
+  skins: string[];
+  messages: string[];
+  level: number;
+  EXP: number;
+  BE: number;
+  RP: number;
+  rank: Rank;
+  profile_icon: string;
+  profile_background: string;
+}
+
+const initialState: UserState = {
   userName: "",
   password: "",
   id: "",
@@ -15,7 +40,11 @@ const initialState = {
   EXP: 0,
   BE: 20000,
   RP: 3000,
-  rank: {},
+  rank: {
+    name: "Bronze",
+    level: 4,
+    points: 100,
+  },
   profile_icon: "",
   profile_background: "",
 };
@@ -24,20 +53,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.userName = action.payload.userName;
-      state.id = action.payload.id;
-      state.alias = action.payload.alias;
-      state.tag = action.payload.tag;
-      state.title = action.payload.title;
-      state.level = action.payload.level;
-      state.EXP = action.payload.EXP;
-      state.BE = action.payload.BE;
-      state.RP = action.payload.RP;
-      state.profile_icon = action.payload.profile_icon;
-      state.profile_background = action.payload.profile_background;
-      state.rank = action.payload.rank;
-      state.messages = action.payload.messages;
+    setUser: (state, action: PayloadAction<UserState>) => {
+      Object.assign(state, action.payload);
     },
     updateUser: (/*state, action*/) => {
       // Aquí puedes añadir reducers para actualizar otros campos del usuario
@@ -45,11 +62,13 @@ const userSlice = createSlice({
       // state.level = action.payload.level;
       // state.EXP = action.payload.EXP;
     },
-    setUserMessages: (state, action) => {
-      const newMessages = [...state.messages, action.payload];
-      state.messages = newMessages;
+    setUserMessages: (state, action: PayloadAction<string>) => {
+      state.messages.push(action.payload);
     },
-    updateCoins: (state, action) => {
+    updateCoins: (
+      state,
+      action: PayloadAction<{ coin: "RP" | "BE"; price: number }>,
+    ) => {
       state.RP =
         action.payload.coin == "RP"
           ? state.RP - action.payload.price
@@ -72,8 +91,8 @@ const userSlice = createSlice({
         state.EXP = action.payload.EXP;
         state.BE = action.payload.BE;
         state.RP = action.payload.RP;
-        state.profileIcon = action.payload.profileIcon;
-        state.background = action.payload.profileIcon;
+        state.profile_icon = action.payload.profile_icon;
+        state.profile_background = action.payload.profile_background;
         state.rank = action.payload.rank;
         state.messages = action.payload.messages;
       })
@@ -87,8 +106,8 @@ const userSlice = createSlice({
         state.EXP = action.payload.EXP;
         state.BE = action.payload.BE;
         state.RP = action.payload.RP;
-        state.profileIcon = action.payload.profileIcon;
-        state.background = action.payload.profileIcon;
+        state.profile_icon = action.payload.profile_icon;
+        state.profile_background = action.payload.profile_background;
         state.rank = action.payload.rank;
         state.messages = action.payload.messages;
       });

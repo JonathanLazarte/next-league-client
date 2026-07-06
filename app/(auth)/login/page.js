@@ -4,7 +4,7 @@ import "../auth.css";
 import { useEffect, memo, useState, useRef } from "react";
 import { useRouter } from "@/hooks/useRouter";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/redux/slices/userSlice.js";
+import { setUser } from "@/redux/slices/userSlice";
 import { loginUser, clearError } from "@/redux/slices/authSlice.js";
 import { useFormik } from "formik";
 import { FaArrowRight } from "react-icons/fa";

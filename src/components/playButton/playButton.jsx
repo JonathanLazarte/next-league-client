@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 import { useSound } from "@/hooks/useSound.js";
+import { HiOutlineX } from "react-icons/hi";
 
 export default function PlayButton({ type, text, queueSelected }) {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function PlayButton({ type, text, queueSelected }) {
       {/* Botón de cancelar/salir */}
       <div className="out-button-border">
         <div translate="no" onClick={handleCancel} className="out-button">
-          X
+          <HiOutlineX />
         </div>
       </div>
 

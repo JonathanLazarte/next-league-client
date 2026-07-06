@@ -42,7 +42,7 @@ export default memo(function Bag() {
         {sections.map((section) => (
           <div
             key={section}
-            className={`collection-tab ${actualSection === section ? "active-collection-tab" : null}`}
+            className={`subheader-tab ${actualSection === section ? "active-subheader-tab" : null}`}
             onClick={() => {
               play();
               setLocalSection(section);

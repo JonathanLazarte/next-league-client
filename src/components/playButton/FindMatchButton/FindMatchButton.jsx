@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 import { useSound } from "@/hooks/useSound.js";
+import { HiOutlineX } from "react-icons/hi";
 
 export default function FindMatchButton({
   setRoomId,
@@ -96,7 +97,7 @@ export default function FindMatchButton({
           onClick={handleCancel}
           className="find-match-out-button"
         >
-          X
+          <HiOutlineX />
         </div>
       </div>
 

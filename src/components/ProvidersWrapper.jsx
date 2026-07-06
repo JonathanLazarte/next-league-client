@@ -28,7 +28,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "@/hooks/useRouter";
 import Image from "next/image";
 
-import { setUser /*, setUserMessages*/ } from "@/redux/slices/userSlice.js";
+import { setUser /*, setUserMessages*/ } from "@/redux/slices/userSlice";
 import {
   selectUserInterfaceData,
   setActualSection /*, setUserState*/,
@@ -126,26 +126,27 @@ export default function ProvidersWrapper({ children }) {
               dispatch(setMute({ type: "master", muted: master.muted }));
               dispatch(setMute({ type: "sfx", muted: sfx.muted }));
               dispatch(setMute({ type: "music", muted: music.muted }));
-              console.log(user.messages);
               dispatch(setMessages(data.messages));
             } else {
               // Token inválido, redirigir al login
             }
           });
-      } catch {
-        console.log("error");
+      } catch (error) {
+        throw new Error("error al autenticar" + error);
       }
     }
   }, [localStoreToken]);
 
   useEffect(() => {
-    console.log(token);
     if (!token) return;
     socket.current = io(`${API_URL}`, { auth: { token } });
     return () => {
       socket.current?.disconnect();
     };
   }, [token]);
+  console.log(localStoreToken);
+  console.log(token);
+  console.log(isAuthenticated);
   //--------------------------------------------------------------------------------
   useEffect(() => {
     if (localStoreToken != "loading" && !loading) {
@@ -175,7 +176,7 @@ export default function ProvidersWrapper({ children }) {
         setBattleRequest([]);
       }, 7000);
     });
-    return () => socket.current?.off(token);
+    return () => socket.current?.off("battle-mailbox");
   }, []);
 
   useEffect(() => {
@@ -210,7 +211,7 @@ export default function ProvidersWrapper({ children }) {
       dispatch(setFriendsOnline(friendFolders));
     });
     return () => socket.current?.off("user-list");
-  }, [socket.current]);
+  }, []);
 
   if (loading) {
     return (

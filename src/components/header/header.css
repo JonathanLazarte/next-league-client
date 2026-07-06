@@ -243,6 +243,10 @@
     align-self: center;
     justify-self: center;
     place-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 .buy-rp-icon {
@@ -252,8 +256,7 @@
     justify-self: center;
     place-self: center;
     line-height: 1;
-    bottom: 17%;
-    font-size: var(--font-lg); /* antes ~1vw ≈ 1.6rem */
+    font-size: 1.4rem; /* antes ~1vw ≈ 1.6rem */
     font-weight: bold;
 }
 

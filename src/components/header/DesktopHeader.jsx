@@ -11,6 +11,7 @@ import MiniTooltip from "@/components/ToolTip/miniTooltip/miniTooltip.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { useRouter } from "@/hooks/useRouter.js";
 import { flushSync } from "react-dom";
+import { FaPlus } from "react-icons/fa6";
 
 export default memo(function DesktopHeader({ showSideNav }) {
   const user = useSelector((state) => state.user, shallowEqual);
@@ -139,7 +140,9 @@ export default memo(function DesktopHeader({ showSideNav }) {
                   : user.RP || 0}
               </div>
               <div className="header-buy-rp-button">
-                <div className="buy-rp-icon">+</div>
+                <div className="buy-rp-icon">
+                  <FaPlus />
+                </div>
               </div>
             </div>
             <div className="blue-essences">
