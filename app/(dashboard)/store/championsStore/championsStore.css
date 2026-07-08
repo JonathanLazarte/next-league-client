@@ -165,11 +165,12 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 14px;
 }
 
-.confirm-purchase-window {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position-y: -90px;
-    background-position-x: center;
+.unlock-skin-icon {
+    position: absolute;
+    display: none;
+    font-size: 2rem;
+    align-self: center;
+    color: var(--gold-two);
 }
 
 @media (max-width: 767px) {
