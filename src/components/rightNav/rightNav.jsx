@@ -21,7 +21,7 @@ import {
   selectChat,
   updateChatUser,
   toggleChatVisibility,
-  selectChatData,
+  /*selectChatData,*/
 } from "@/redux/slices/chatSlice";
 import UserToolTip from "@/components/ToolTip/userTooltip/userTooltip.jsx";
 import { logout } from "@/redux/slices/authSlice.js";
@@ -134,7 +134,6 @@ export default memo(function RightNav({
     /*activeChats*/
     isChatVisible,
   } = useSelector((state) => state.chat);
-  const [activeButton, setActiveButton] = useState();
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
   const onHoverStart = (user) => {
@@ -301,7 +300,6 @@ export default memo(function RightNav({
   };
 
   const handleChatButtonClick = () => {
-    setActiveButton("chat");
     dispatch(toggleChatVisibility());
   };
 
