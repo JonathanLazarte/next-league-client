@@ -60,10 +60,11 @@
     bottom: 0px;
     height: 19%;
     width: 100%;
-    background-color: rgb(1, 10, 19, 0.8);
+    background-color: rgb(1, 10, 19, 0.7);
     border-top: 1px solid rgba(40, 40, 40, 1);
     display: flex;
     flex-direction: row;
+    padding-left: 1px;
 }
 .mastery {
     width: 50%;
@@ -90,15 +91,15 @@
     display: flex;
     width: 35%;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     align-content: center;
 }
 .eternals-icon {
-    width: 35%;
+    width: 45%;
     fill: #4e4e53;
 }
 .eternals-value {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: #4e4e53;
     font-family: Regular;
 }

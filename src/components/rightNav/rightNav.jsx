@@ -8,7 +8,7 @@ import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { PiChatCenteredFill, PiXBold } from "react-icons/pi";
+import { PiXBold } from "react-icons/pi";
 import { MdBugReport, MdMinimize, MdOutlineQuestionMark } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa6";
@@ -20,8 +20,8 @@ import {
   openChat,
   selectChat,
   updateChatUser,
-  /*updateUserStatus,*/
   toggleChatVisibility,
+  selectChatData,
 } from "@/redux/slices/chatSlice";
 import UserToolTip from "@/components/ToolTip/userTooltip/userTooltip.jsx";
 import { logout } from "@/redux/slices/authSlice.js";
@@ -31,6 +31,7 @@ import Settings from "@/components/Settings/Settings.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { audioEngine } from "@/engine/audioEngine.js";
 import {} from /*stopTrack,*/ /*switchTrack*/ "@/redux/slices/soundSlice.js";
+import { IoChatboxSharp } from "react-icons/io5";
 
 export const FriendRow = memo(function FriendRow({
   u,
@@ -131,7 +132,9 @@ export default memo(function RightNav({
     /*chatUsers,*/
     unreadCount,
     /*activeChats*/
+    isChatVisible,
   } = useSelector((state) => state.chat);
+  const [activeButton, setActiveButton] = useState();
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
   const onHoverStart = (user) => {
@@ -297,6 +300,11 @@ export default memo(function RightNav({
     );
   };
 
+  const handleChatButtonClick = () => {
+    setActiveButton("chat");
+    dispatch(toggleChatVisibility());
+  };
+
   // y reemplaza tu UserFriendList por esto:
   const UserFriendList = () => {
     const [isFolderOpen, setIsFolderOpen] = useState(true);
@@ -380,22 +388,22 @@ export default memo(function RightNav({
       </div>
       <div className="right-nav-buttom-buttons">
         <button
-          onClick={() => dispatch(toggleChatVisibility())}
-          className="right-nav-buttom-button"
+          onClick={handleChatButtonClick}
+          className={`right-nav-buttom-button ${isChatVisible && "active-button"}`}
         >
-          <PiChatCenteredFill />
+          <IoChatboxSharp />
           {unreadCount > 0 && (
             <span className="unread-count-badge">{unreadCount}</span>
           )}
         </button>
-        <button className="right-nav-buttom-button">
+        <button className="right-nav-buttom-button news-button">
           <RiFilePaper2Fill />
         </button>
         <button className="right-nav-buttom-button">
           <FaMicrophone />
         </button>
-        <span className="actual-version">25.51.2</span>
-        <button className="right-nav-buttom-button">
+        <span className="actual-version">26.13</span>
+        <button className="right-nav-buttom-button bug-report-button">
           <MdBugReport />
         </button>
       </div>

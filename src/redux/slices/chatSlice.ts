@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 
 export interface Message {
   id: string;
@@ -295,6 +295,13 @@ const chatSlice = createSlice({
     },
   },
 });
+
+export const isChatVisible = (state) => state.chat.isChatVisible;
+
+export const selectChatData = createSelector(
+  [isChatVisible],
+  (isChatVisible) => ({ isChatVisible }),
+);
 
 export const {
   openChat,

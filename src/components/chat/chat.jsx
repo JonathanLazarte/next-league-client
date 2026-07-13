@@ -181,7 +181,7 @@ export default memo(function Chat({ socket }) {
             {selectedChatUser?.alias || selectedChat || "Seleccione un chat"}
           </span>
           <span className="chat-status">
-            {selectedChatUser?.alias} {selectedChatUser?.tag || "#LAS"}
+            {selectedChatUser?.alias} {selectedChatUser?.tag}
           </span>
         </div>
 
@@ -242,7 +242,7 @@ export default memo(function Chat({ socket }) {
           value={chatInput}
           onChange={handleTyping}
           className="input-chat"
-          placeholder="Escribe aquí..."
+          placeholder="Type here..."
           maxLength={500}
           autoFocus
         />
