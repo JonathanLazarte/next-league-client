@@ -22,6 +22,7 @@ export default function VirtualSkinsGrid({
   /*const { width : containerWidth } = useContainerSize(parentRef);*/
   const [columns, setColumns] = useState();
   const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
+  console.log(columns)
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -29,7 +30,7 @@ export default function VirtualSkinsGrid({
   const currentRem = getRem();
   const gapValue = currentRem * 3;
   const columnGap = currentRem * 3.8;
-  const paddingRightValue = currentRem * 3;
+  const paddingRightValue = currentRem * 3.3;
   const cardWidth = getRem() * 16;
   //const headerHeight = currentRem * 5;
 
@@ -49,6 +50,8 @@ export default function VirtualSkinsGrid({
       const rect = parentRef?.current?.getBoundingClientRect();
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
+      console.log(getAmountOfColumns(rectWidth))
+      console.log(rectWidth)
       setColumns(initialContainerWidth);
       parentRef.current.addEventListener("scroll", throttledHandleScroll, {
         pasive: true,

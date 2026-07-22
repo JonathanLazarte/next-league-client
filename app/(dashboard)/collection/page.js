@@ -25,14 +25,14 @@ export default memo(function Bag() {
   const sections = [
     "campeones",
     "aspectos",
-    "gestos",
+    /*"gestos",
     "runas",
     "hechizos",
     "objetos",
     "íconos",
     "centinelas",
     "chromas",
-    "remates",
+    "remates",*/
   ];
   const { play } = useSound("/general/menu-click.mp3");
 

@@ -92,28 +92,6 @@
     stroke: var(--gold-five);
 }
 
-.grid-pokemon-container::-webkit-scrollbar {
-    width: 0.8rem; /* 0.5vw → 0.8rem */
-    height: 1vh;
-    display: inline-block;
-}
-.grid-pokemon-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-.grid-pokemon-container::-webkit-scrollbar-thumb {
-    background: var(--gold-five);
-    border-radius: 5px;
-}
-.grid-pokemon-container::-webkit-scrollbar-thumb:hover {
-    background: var(--gold-two);
-}
-
-.grid-pokemon-container button {
-    height: 0px;
-    width: 0px;
-    opacity: 0;
-}
-
 main {
     display: grid;
     grid-column-gap: 2.24rem; /* 1.4vw → 2.24rem */
@@ -158,6 +136,7 @@ input[type="search"]::-webkit-search-cancel-button {
     padding-top: 0px;
     margin-right: 7rem; /* 3.2vw → 5.12rem */
     white-space: nowrap;
+    z-index: 1;
 }
 
 .right-place {

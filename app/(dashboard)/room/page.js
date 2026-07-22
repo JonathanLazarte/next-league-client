@@ -114,17 +114,7 @@ export default memo(function ModeSelection({
   //const typeOfRoom = GAME_DATA['PVP'].find(map => map?.queues?.some(q => q.name === userState))
 
   return (
-    <div
-      className="play-screen-container"
-      style={{ backgroundPositionY: `${isQueueSelected ? "bottom" : "top"}` }}
-    >
-      <div
-        className={`background-engine ${isQueueSelected ? "in-room" : null}`}
-      >
-        <div className="bg-layer bg-lobby"></div>
-        <div className="bg-layer bg-room"></div>
-      </div>
-
+    <div className="play-screen-container">
       {!isQueueSelected && <PlaySelectionLayer />}
       {(userState === "Ranked Solo/Duo" ||
         userState === "Ranked Flex" ||

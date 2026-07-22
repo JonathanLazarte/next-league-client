@@ -167,7 +167,7 @@
 .queue-option {
     display: flex;
     align-items: center;
-    font-size: 1.8rem; /* 1.15vw → 1.84rem */
+    font-size: 1.8rem;
     color: #ccbd90;
     cursor: pointer;
     font-family: Bold;
@@ -188,23 +188,27 @@
 .queue-option .custom-checkbox {
     transform: rotate(45deg);
     border: 0.25rem solid var(--gold-four);
-    height: 1.4rem;
-    width: 1.4rem;
+    height: 1.5rem;
+    width: 1.5rem;
     margin-right: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
     background: rgba(0, 0, 0, 0.2);
 }
 
 .checkboxMark {
     height: 6px;
     width: 6px;
-    background-color: white;
+    background-color: var(--gold-one);
 }
 
 .background-engine {
     z-index: 0;
+    position: absolute;
+    height: 100vh;
+    width: 90vw;
 }
 
 .bg-layer {
@@ -212,9 +216,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: var(--dashboard-content-height);
+    width: var(--dashboard-content-width);
+    height: 100vh;
     background-size: cover;
+    background-position-y: top;
     background-position: center bottom; /* O center center, según tu imagen */
     background-repeat: no-repeat;
     will-change: transform, opacity; /* Optimización de rendimiento */
@@ -223,18 +228,19 @@
         opacity 0.8s ease-in-out; /* Curva suave tipo LoL */
 }
 .bg-lobby {
-    background-image: url("/finalroom.png");
-    transform: translateY(var(--dashboard-content-height));
+    transform: translateY(0px);
+    background-image: url("/lobby_background.png");
 }
 .bg-room {
-    background-image: url("/finallobby.png");
-    transform: translateY(0px);
+    height: 100vh;
+    transform: translateY(100vh);
+    background-image: url("/room_background.png");
 }
 .background-engine.in-room .bg-lobby {
-    transform: translateY(0px);
+    transform: translateY(-100vh);
 }
 .background-engine.in-room .bg-room {
-    transform: translateY(calc(var(--dashboard-content-height) * -1));
+    transform: translateY(0px);
 }
 
 @media (max-width: 767px) {

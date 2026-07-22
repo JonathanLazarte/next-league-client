@@ -126,7 +126,7 @@ export default memo(function Login() {
           className="form-interface"
           style={{ display: loading ? "none" : "flex" }}
         >
-          <div className="error-box">{error ? error : null}</div>
+          <div className="error-box" style={{ marginBottom: error ? "10px" : "0" }}>{error ? error : null}</div>
           <div
             className="form-inputs"
             style={{

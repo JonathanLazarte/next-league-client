@@ -87,6 +87,7 @@
     width: 76.8rem; /* 48vw → 76.8rem */
     height: 84%;
     display: flex;
+    justify-content: center;;
 }
 
 .skin-minicards-container {

@@ -64,7 +64,9 @@ export default function ProvidersWrapper({ children }) {
   /*const [roomUsers, setRoomUsers] = useState([])*/
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const { actualSection, isNavigating } = useSelector(selectUserInterfaceData);
+  const { actualSection, isNavigating, userState } = useSelector(
+    selectUserInterfaceData,
+  );
   const { itemToBuy } = useSelector(selectPurchaseData);
 
   /*const indexElementStyle = {
@@ -258,19 +260,32 @@ export default function ProvidersWrapper({ children }) {
         return null;
     }
   };
+  const isQueueSelected =
+    userState === "Ranked Solo/Duo" ||
+    userState === "Intermedio" ||
+    userState === "Ranked Flex" ||
+    userState === "Swiftplay";
   return user.profile_icon ? (
-    <div
-      className="dashboard-layout w-screen min-h-screen"
-      style={{
-        /*paddingTop: 'var(--dashboard-header-height)',
-      paddingRight: `${window.innerWidth < 1400 ? '0px' : 'var(--dashboard-sidebar-width)'}`,*/
-        backgroundImage: isNavigating
-          ? "var(--blue-five)"
-          : `url(${layoutBackgroundImage(actualSection)})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-      }}
-    >
+    <div className="dashboard-layout w-screen min-h-screen">
+      <div
+        className={`background-engine ${isQueueSelected && actualSection === "room" ? "in-room" : null}`}
+        style={{
+          backgroundImage: isNavigating
+            ? "var(--blue-five)"
+            : `url(${layoutBackgroundImage(actualSection)})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <div
+          style={{ display: actualSection === "room" ? "flex" : "none" }}
+          className="bg-layer bg-lobby"
+        ></div>
+        <div
+          style={{ display: actualSection === "room" ? "flex" : "none" }}
+          className={`bg-layer bg-room`}
+        ></div>
+      </div>
       <ResponsiveHeader
         setShowSideNav={setShowSideNav}
         showSideNav={showSideNav}
@@ -287,6 +302,6 @@ export default function ProvidersWrapper({ children }) {
       </section>
     </div>
   ) : (
-    <div></div>
+    <></>
   );
 }

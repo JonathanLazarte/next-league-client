@@ -7,9 +7,10 @@ import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 import { useSound } from "@/hooks/useSound.js";
 import { HiOutlineX } from "react-icons/hi";
 
-export default function PlayButton({ type, text, queueSelected }) {
+export default function PlayButton({ type, queueSelected }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const text = "CONFIRM"
 
   const { play: playHover } = useSound("/general/find-match-button-hover.mp3");
   const { play: playCancel } = useSound(

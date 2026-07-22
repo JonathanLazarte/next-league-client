@@ -9,7 +9,7 @@ import {
   /*minimizeChat,*/
   toggleChatVisibility,
 } from "@/redux/slices/chatSlice";
-import { PiXBold, PiMinus } from "react-icons/pi";
+import { /*PiXBold,*/ PiMinus } from "react-icons/pi";
 import "./chat.css";
 import { useSound } from "@/hooks/useSound.js";
 
@@ -112,8 +112,8 @@ export default memo(function Chat({ socket }) {
   };
 
   // Cerrar / Minimizar chat
-  const handleCloseChat = () =>
-    selectedChat && dispatch(closeChat(selectedChat));
+  /*const handleCloseChat = () =>
+    selectedChat && dispatch(closeChat(selectedChat));*/
   const handleMinimizeChat = () => {
     playClickSound();
     dispatch(toggleChatVisibility());
@@ -193,13 +193,14 @@ export default memo(function Chat({ socket }) {
           >
             <PiMinus />
           </button>
-          <button
+          {/*<button
             onClick={handleCloseChat}
             className="chat-control-btn"
             title="Cerrar"
           >
             <PiXBold />
           </button>
+          */}
         </div>
       </div>
 
