@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   addMessage,
   markAllAsRead,
-  closeChat,
-  /*minimizeChat,*/
+  /*closeChat,
+  minimizeChat,*/
   toggleChatVisibility,
 } from "@/redux/slices/chatSlice";
 import { /*PiXBold,*/ PiMinus } from "react-icons/pi";
