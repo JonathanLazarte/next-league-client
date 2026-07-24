@@ -4,10 +4,9 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-    width: 100%;
-    height: 100%;
     position: fixed;
     padding-right: calc(100vw - var(--dashboard-content-width));
+    inset: 0;
 }
 
 .loading-container.fullscreen {

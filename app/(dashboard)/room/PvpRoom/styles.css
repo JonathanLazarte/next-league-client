@@ -118,6 +118,18 @@
 .banner-user-border {
     z-index: 1;
     left: 50%;
+    width: 20rem;
+}
+.banner-user-level {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-40%);
+    text-align: center;
+    z-index: 20;
+    color: #9f9a8b;
+    font-family: "Bold";
+    font-size: 1.2rem;
 }
 .banner-username {
     font-size: 2.2rem; /* 1.1rem → 1.1vw */
