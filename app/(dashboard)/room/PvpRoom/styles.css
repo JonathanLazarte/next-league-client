@@ -40,21 +40,29 @@
 }
 .header-arrow {
     display: flex;
-    width: 2.2rem;
-    margin-right: 4rem;
+    width: 2.3rem;
+    margin-right: 3rem;
     color: var(--gold-five);
     cursor: pointer;
 }
 .header-arrow-border {
-    fill: var(--gold-five);
+    fill: url('#hextech-metal-gradient');
 }
 .header-arrow:hover .header-arrow-border {
-    fill: var(--gold-two);
+    fill: url('#active-hextech-metal-gradient');
+}
+.header-queue-info {
+    border-left: 1px solid rgba(70, 70, 70, 1);
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: row;
+    height: 4.5rem;
+    align-items: center;
 }
 .room-title {
     font-family: Bold;
     font-size: 1.9rem;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 .room-header img {
     width: 3.2rem;
@@ -65,8 +73,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    height: 85%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
+    min-height: 80rem;
 }
 .room-user {
     display: flex;
@@ -74,22 +83,25 @@
     align-items: center;
     align-content: center;
     text-align: center;
-    width: clamp(200px, 34.3rem, 340px);
+    width: clamp(250px, 38rem, 390px);
+    position: fixed;
+    top: -7rem;
 }
 .user-banner {
     width: 100%;
     height: 100%;
     position: relative;
+    object-fit: contain;
 }
 .user-banner-info-container {
     position: absolute;
-    bottom: 50%;
+    bottom: 30%;
     color: var(--gold-one);
     font-family: Bold;
 }
 .banner-user-icon {
     position: relative;
-    width: 15rem;
+    width: 17rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,10 +111,13 @@
     position: absolute;
     object-fit: cover;
     clip-path: circle();
-    width: 50%;
+    width: 55%;
+    left: 50%;
+    transform: translateX(-48%);
 }
 .banner-user-border {
     z-index: 1;
+    left: 50%;
 }
 .banner-username {
     font-size: 2.2rem; /* 1.1rem → 1.1vw */

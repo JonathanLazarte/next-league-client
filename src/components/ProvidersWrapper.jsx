@@ -278,11 +278,11 @@ export default function ProvidersWrapper({ children }) {
         }}
       >
         <div
-          style={{ display: actualSection === "room" ? "flex" : "none" }}
+          style={{ visibility: actualSection === "room" ? "visible" : "hidden" }}
           className="bg-layer bg-lobby"
         ></div>
         <div
-          style={{ display: actualSection === "room" ? "flex" : "none" }}
+          style={{ visibility: actualSection === "room" ? "visible" : "hidden" }}
           className={`bg-layer bg-room`}
         ></div>
       </div>

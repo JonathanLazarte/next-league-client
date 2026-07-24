@@ -9,7 +9,7 @@
 
 @keyframes appearance {
     from {
-        opacity: 0;
+        opacity: 0.5;
     }
     to {
         opacity: 1;
@@ -27,7 +27,6 @@
     height: 100vh;
     width: 100vw;
     z-index: 70;
-    animation: softBrackground 5s;
 }
 
 .confirm-purchase-window {

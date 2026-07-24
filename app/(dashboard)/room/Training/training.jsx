@@ -23,9 +23,9 @@ export default memo(function Explore() {
             viewBox="0 0 30 41.23"
           >
             <defs>
-              <linearGradient id="myGradient" gradientTransform="rotate(90)">
-                <stop offset="5%" className="stop-1" stop-color="red" />
-                <stop offset="95%" className="stop-2" stop-color="white" />
+              <linearGradient id="active-hextech-metal-gradient" gradientTransform="rotate(90)">
+                <stop offset="5%" className="stop-1" stopColor="var(--gold-one)" />
+                <stop offset="95%" className="stop-2" stopColor="var(--gold-three)" />
               </linearGradient>
             </defs>
             <g className="header-arrow-border" id="Capa_1-2" data-name="Capa 1">
@@ -33,8 +33,10 @@ export default memo(function Explore() {
             </g>
           </svg>
         </div>
-        <img src="https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png" />
-        <h3 className="room-title">SR · INTERMEDIATE · BLIND</h3>
+        <div className="header-queue-info">
+          <img src="https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png" />
+          <h3 className="room-title">SR · INTERMEDIATE · BLIND</h3>
+        </div>
       </div>
       <PlayButton type={"training"} text={"INICIAR"} />
     </section>

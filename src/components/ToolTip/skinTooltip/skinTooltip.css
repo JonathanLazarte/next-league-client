@@ -78,7 +78,7 @@
 .purchase-date-chroma-section {
     width: 100%;
     color: var(--gold-four);
-    font-size: var(--font-base); /* antes ~0.9vw ≈ 1.44rem */
+    font-size: 1.45rem;
     display: flex;
     align-items: center;
     align-content: center;
@@ -86,6 +86,7 @@
     justify-content: center;
     height: 5.76rem; /* 3.6vw → 5.76rem */
     position: relative;
+    font-family: Spiegel-Regular;
 }
 
 .chroma-icon {
@@ -101,10 +102,6 @@
     margin-right: 6%;
 }
 
-.rp-price {
-    font-size: var(--font-md); /* antes ~0.95vw ≈ 1.52rem */
-    font-family: Spiegel-Regular;
-}
 
 @media (max-width: 767px) {
 }

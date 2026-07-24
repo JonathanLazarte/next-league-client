@@ -196,7 +196,7 @@
 
 .queue-option .custom-checkbox {
     transform: rotate(45deg);
-    border: 0.3rem solid var(--gold-five);
+    border: 0.4rem solid var(--gold-five);
     border-image: linear-gradient(-45deg, var(--gold-five), var(--gold-four)) 1;
     height: 1.5rem;
     width: 1.5rem;

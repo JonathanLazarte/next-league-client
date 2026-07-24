@@ -74,26 +74,28 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
           onClick={() => dispatch(setUserState("Online"))}
         >
           <defs>
-            <linearGradient id="myGradient" gradientTransform="rotate(90)">
-              <stop offset="5%" className="stop-1" stop-color="red" />
-              <stop offset="95%" className="stop-2" stop-color="white" />
+            <linearGradient id="active-hextech-metal-gradient" gradientTransform="rotate(90)">
+              <stop offset="5%" className="stop-1" stopColor="var(--gold-one)" />
+              <stop offset="95%" className="stop-2" stopColor="var(--gold-three)" />
             </linearGradient>
           </defs>
           <g className="header-arrow-border" id="Capa_1-2" data-name="Capa 1">
             <path d="M.03,20.78c-.04-.06-.03-.19,0-.25L20.36,0l9.63,9.59-10.88,11.03,10.88,11.04-9.52,9.57L.03,20.78ZM20.39,36.21l4.6-4.56-10.89-11.03,10.88-10.97-4.55-4.63-15.38,15.54,15.35,15.66Z" />
           </g>
         </svg>
-        <img src="https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png" />
-        <h3 className="room-title">SR · RANKED SOLO/DUO · DRAFT</h3>
+        <div className="header-queue-info">
+          <img className="header-map-icon" src={`${RESOURCES_URL}general/mini-sr.png`} />
+          <h3 className="room-title">SR · RANKED SOLO/DUO · DRAFT</h3>
+        </div>
       </div>
       <div className="room-users">
         <div className="room-user">
-          <img className="user-banner" src="/general/banner.png" />
+          <img className="user-banner" src="/banner/estandar6.png" />
           <div className="user-banner-info-container">
             <div className="banner-user-icon">
               <img
                 className="banner-user-border"
-                src={`${RESOURCES_URL}general/border_175.png`}
+                src={`${RESOURCES_URL}profileborder/1.png`}
               />
               <img
                 className="banner-user-icon-img"
