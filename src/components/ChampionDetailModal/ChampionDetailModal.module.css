@@ -162,7 +162,8 @@
     margin-right: 2.5rem;
     cursor: pointer;
     z-index: 1;
-    margin-top: -2rem; /* -1.5vh → -1.5 * 0.5625 = -0.84375vw */
+    top: 0;
+    transform: translateY(-50%);
     font-size: 2rem;
     right: -15px;
     position: absolute;
@@ -177,7 +178,8 @@
 }
 .closeButton::before {
     position: absolute;
-    left: 6.5%;
+    left: 50%;
+    transform: translateX(-50%);
     content: "";
     height: 86%;
     width: 86%;

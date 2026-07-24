@@ -182,12 +182,22 @@
 }
 
 .queue-option:hover .custom-checkbox {
-    border: 3px solid var(--gold-two);
+    border-image: linear-gradient(-45deg, var(--gold-two), var(--gold-one)) 1;
+}
+.queue-option:active .custom-checkbox {
+    border-image: linear-gradient(-45deg, var(--gold-six), var(--gold-five)) 1;
+}
+.queue-option.selected {
+    color: var(--gold-one);
+}
+.queue-option.selected:active .checkboxMark {
+    background-color: var(--gold-five);
 }
 
 .queue-option .custom-checkbox {
     transform: rotate(45deg);
-    border: 0.25rem solid var(--gold-four);
+    border: 0.3rem solid var(--gold-five);
+    border-image: linear-gradient(-45deg, var(--gold-five), var(--gold-four)) 1;
     height: 1.5rem;
     width: 1.5rem;
     margin-right: 1.2rem;

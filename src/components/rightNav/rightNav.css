@@ -145,95 +145,67 @@
     color: rgba(250, 250, 250, 0.9);
     display: flex;
     height: calc(var(--dashboard-header-height) - 2px);
-    padding-left: 0.8rem; /* 0.5vw → 0.8rem */
+    padding-left: 0.5rem; /* 0.5vw → 0.8rem */
     border-bottom: 1px solid rgba(150, 150, 150, 0.4);
     text-align: left;
     justify-content: flex-start;
     align-items: flex-start;
-    padding-top: 1.1rem;
+    padding-top: 0.7rem;
     line-height: 1.3;
 }
 
 .right-nav-username {
-    font-size: 1.85rem; /* antes ~1.17vw ≈ 1.872rem */
+    font-size: 1.85rem;
     font-family: Bold;
     color: var(--gold-one);
     letter-spacing: 0.1rem;
     margin-bottom: 0.2rem;
+    margin-top: 0.5rem;
 }
-
-.userLevelBarContainer {
+.user-icon-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 7.9rem; /* 4.7vw → 7.52rem */
-    aspect-ratio: 1/1;
-    background-color: white;
-    margin-right: 5%;
-    margin-left: 0.6rem;
+    align-items: center;
+    width: 8.5rem;
+    height: 100%;
+    margin-right: 1rem;
+    margin-left: 0.5rem;
     cursor: pointer;
-    border-radius: 50%;
     position: relative;
-    overflow: visible;
-    background: linear-gradient(
-        to bottom,
-        var(--gold-two),
-        var(--gold-five),
-        var(--gold-five),
-        var(--gold-five),
-        var(--gold-five)
-    );
+
+}
+@property --hextech-metal-start {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #ff0000;
 }
 
-.userLevelBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 93%;
-    width: 93%;
-    background-color: black;
-    clip-path: circle(50% at 50% 50%);
-    background: linear-gradient(
-        to right,
-        #0594a8,
-        #0594a8,
-        #0594a8,
-        #0a323c,
-        #0a323c
-    );
+@property --hextech-metal-end {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #0000ff;
 }
-
-.icon-border {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 87%;
-    width: 87%;
-    border-radius: 50%;
-    background: linear-gradient(
-        to bottom,
-        var(--gold-two),
-        var(--gold-five),
-        var(--gold-five),
-        var(--gold-four)
-    );
+.user-icon-border-svg {
+    top: 0;
+    left: 0;
+    width: 8.1rem;
+    fill: #1e2328;
+    --hextech-metal-start: var(--gold-two);
+    --hextech-metal-end: var(--gold-five);
+    transition: --hextech-metal-end 0.2s, --hextech-metal-start 0.2s;
 }
-
-.userLevelBarContainer:hover .userLevelBarContainer,
-.userLevelBarContainer:hover .icon-border {
-    background: linear-gradient(
-        to bottom,
-        var(--gold-two),
-        var(--gold-two),
-        var(--gold-five),
-        var(--gold-five)
-    );
+.user-icon-border-svg:hover {
+    --hextech-metal-start: var(--gold-one);
+    --hextech-metal-end: var(--gold-four);
 }
-
-.userLevelBarContainer:hover .user-level {
-    border: 2px solid var(--gold-two) !important;
-    color: lightgray;
+.user-icon-border-svg .cls-1 {
+    fill: url('#profile-icon-pattern');
+    stroke: var(--gold-one);
+    stroke-width: 2px;
+}
+.user-icon-border-svg .cls-2, .user-icon-border-svg .cls-3, .user-icon-border-svg .cls-4 {
+    fill: url('#hextech-metal-gradient');
 }
 
 .user-icon {
@@ -241,26 +213,24 @@
     width: 91%;
     border-radius: 50%;
     background-color: black;
+    display: none;
+}
+.user-level-wrapper {
+    position: absolute;
+    /*inset: 0;
+
+    display: grid;
+    place-items: center;*/
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0.8rem;
+}
+.user-level {
+    color: #9f9a8b;
+    font-family: "Bold";
+    font-size: 1.5rem;
 }
 
-.user-level {
-    background-color: black;
-    border: 2px solid var(--gold-five);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    position: absolute;
-    bottom: -3px;
-    height: 25%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: darkgray;
-    font-family: "Bold";
-    font-size: var(--font-sm);
-}
 
 .user-state {
     display: flex;
@@ -278,7 +248,7 @@
     gap: 2.5rem;
     align-items: flex-end;
     padding-left: 3rem; /* 1.2vw → 1.92rem */
-    color: darkgray;
+    color: #a09b8c;
 }
 
 .accountOptionIcon {
@@ -296,7 +266,7 @@
     align-items: center;
     font-family: "Spiegel-Regular";
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 .status-icon {
@@ -305,7 +275,7 @@
     background-color: #1e8159;
     border: 2px solid #36d786;
     border-radius: 10px;
-    margin-right: 0.55rem;
+    margin-right: 0.6rem;
 }
 
 .showPerfilSpan {
@@ -316,7 +286,7 @@
     position: absolute;
     top: 40%;
     z-index: -1;
-    font-size: 1.4rem; /* antes ~0.95vw ≈ 1.52rem */
+    font-size: 1.6rem;
     font-family: Spiegel-Regular;
 }
 
@@ -346,7 +316,7 @@
 
 .user-box-data {
     cursor: pointer;
-    padding-left: 4%;
+    padding-left: 1.1rem;
     display: flex;
     height: 100%;
     justify-content: center;
@@ -365,46 +335,45 @@
 }
 
 .friendlist-status {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: #00a03f;
+    font-family: Spiegel-Regular;
 }
 
-.mini {
-    transform: scale(1);
-    width: 3.52rem;
-    height: 3.52rem;
+.friendlist-profile-icon {
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
     background: linear-gradient(
         to bottom,
-        var(--gold-four),
-        var(--gold-five),
-        var(--gold-four),
-        var(--gold-five)
+        #bfa166 0 3%,
+        #a88030,
+        #967330,
+        #6b5028
     );
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
-
-.user-box:hover .icon-border.mini {
-    background: linear-gradient(
-        to bottom,
-        var(--gold-one),
-        var(--gold-two),
-        var(--gold-four),
-        var(--gold-four)
-    );
+.friendlist-profile-icon-image {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 0.5px solid black;
 }
 
 .box-status-icon {
-    border: 2px solid black;
+    border: 0.3rem solid black;
     position: absolute;
     right: -13%;
-    bottom: 5%;
-    width: 1.4rem; /* 0.85vw → 1.36rem */
-    height: 1.4rem;
+    bottom: 10%;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 10px;
     background: radial-gradient(green, green, springgreen, springgreen);
-}
-
-.right-nav-status {
-    color: rgb(0, 160, 70);
 }
 
 .invitation-box {

@@ -45,6 +45,7 @@ const ChampionCard = ({ id, item: data }) => {
       <div className="unlock-icon-box">
         <GiPadlock className="unlock-product-icon" />
       </div>
+
     </article>
   );
 };

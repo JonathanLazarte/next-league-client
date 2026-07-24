@@ -121,20 +121,23 @@ img[src=".undefinedshield.png"] {
     );
     align-self: center;
     justify-self: center;
-    top: 38%;
-    transform: rotate(45deg);
+    place-self: center;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%) rotate(45deg);
     border: 2px solid;
     border-image: linear-gradient(120deg, var(--gold-one), var(--gold-five)) 1;
 }
 .unlock-product-icon {
-    transform: rotate(315deg);
-    color: var(--gold-four);
+    position: absolute;
+    color: var(--gold-five);
+    display: grid;
+    inset: 0;
     align-self: center;
     place-self: center;
-    margin-top: 0.6vw;
     /*font-size: 1.5rem;*/
-    font-size: 1.5vw;
-    display: none;
+    font-size: 2.5rem;
+    transform: rotate(-45deg);
 }
 
 .pokemon-card:hover .unlock-icon-box {

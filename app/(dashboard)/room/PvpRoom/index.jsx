@@ -83,6 +83,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
             <path d="M.03,20.78c-.04-.06-.03-.19,0-.25L20.36,0l9.63,9.59-10.88,11.03,10.88,11.04-9.52,9.57L.03,20.78ZM20.39,36.21l4.6-4.56-10.89-11.03,10.88-10.97-4.55-4.63-15.38,15.54,15.35,15.66Z" />
           </g>
         </svg>
+        <img src="https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/general/mini-sr.png" />
         <h3 className="room-title">SR · RANKED SOLO/DUO · DRAFT</h3>
       </div>
       <div className="room-users">

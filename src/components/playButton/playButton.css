@@ -58,7 +58,16 @@
 .out-button:hover {
     filter: brightness(1.1);
 }
-
+@property --confirm-button-border-start {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #0595a9;
+}
+@property --confirm-button-border-end {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #0595a9;
+}
 .confirm-button-rect {
     position: relative;
     border: 0.4rem solid #092834;
@@ -84,24 +93,24 @@
     top: 0.5rem;
     right: 0.4rem;
     cursor: pointer;
+    /*transition: --confirm-button-border-start 0.5s, --confirm-button-border-end 0.5s;*/
 }
-
 .confirm-button-vector-border {
-    fill: url('#myGradient');
-    fill: #0595a9;
+    fill: url('#confirmButtonBorderGradient');
+    /*fill: #0595a9;*/
 }
 .confirm-button-vector-background {
     fill: #1e2328;
 }
-.confirm-button-vector:hover .confirm-button-vector-border {
-    fill: url('#confirmBorderGradient');
+.confirm-button-vector:hover {
+    --confirm-button-border-start: #90e1dc;
+    --confirm-button-border-end: #12a9bf;
 }
 .confirm-button-vector:hover .confirm-button-vector-background {
     fill: url('#confirmBackgroundGradient');
 }
-.confirm-button-vector:hover .confirm-button-text {
+.confirm-button-vector:hover + .confirm-button-text {
     color: #e6decb;
-    color: red !important;
 }
 
 /*Active button styles*/
@@ -112,7 +121,7 @@
 .confirm-button-vector:active .confirm-button-vector-background {
     fill: #1e2328;
 }
-.confirm-button-vector:active .confirm-button-text {
+.confirm-button-vector:active + .confirm-button-text {
     color: #035579;
 }
 

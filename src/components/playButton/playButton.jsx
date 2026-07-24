@@ -46,7 +46,6 @@ export default function PlayButton({ type, queueSelected }) {
 
       {/* Botón principal */}
       <div className="confirm-button-rect"></div>
-      <div className="confirm-button-text">{displayText}</div>
       <svg
         className="confirm-button-vector"
         id="Capa_2"
@@ -60,28 +59,27 @@ export default function PlayButton({ type, queueSelected }) {
           <linearGradient id="myGradient" gradientTransform="rotate(90)">
             <stop
               offset="5%"
-              className="stop-1"
-              stop-color="var(--start-color1, #08b4b1)"
-            />
+              stopColor="var(--start-color1)"
+            >
+            </stop>
             <stop
               offset="95%"
-              className="stop-2"
-              stop-color="var(--end-color1, #016587)"
+              stopColor="var(--end-color1)"
             />
           </linearGradient>
           <linearGradient
-            id="confirmBorderGradient"
+            id="confirmButtonBorderGradient"
             gradientTransform="rotate(90)"
           >
-            <stop offset="5%" stop-color="#90e1dc" />
-            <stop offset="95%" stop-color="#12a9bf" />
+            <stop offset="5%" stopColor="var(--confirm-button-border-start)" />
+            <stop offset="95%" stopColor="var(--confirm-button-border-end)" />
           </linearGradient>
           <linearGradient
             id="confirmBackgroundGradient"
             gradientTransform="rotate(90)"
           >
-            <stop offset="5%" stop-color="#1c272f" />
-            <stop offset="95%" stop-color="#123a4d" />
+            <stop offset="5%" stopColor="#1c272f" />
+            <stop offset="95%" stopColor="#123a4d" />
           </linearGradient>
           <linearGradient
             id="confirmActiveBorderGradient"
@@ -104,6 +102,7 @@ export default function PlayButton({ type, queueSelected }) {
           </g>
         </g>
       </svg>
+      <div className="confirm-button-text">{displayText}</div>
     </div>
   );
 }

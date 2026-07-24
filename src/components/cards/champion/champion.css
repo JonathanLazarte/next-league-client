@@ -25,10 +25,11 @@
 .champion-name {
     width: 100%;
     transition: all 0.3s;
-    font-size: 1.6rem; /* 0.93vw = 14.88px at 1600px */
+    font-size: 1.8rem;
     color: #949083;
-    height: 6.3rem; /* 3.7vw = 59.2px at 1600px */
+    height: 6.3rem;
     align-content: center;
+    font-family: Spiegel-Regular;
 }
 .champion-sprites {
     cursor: pointer;
@@ -52,13 +53,13 @@
     height: 100%;
     padding: 0px;
     object-position: 0% 0%;
-    aspect-ratio: 17 / 25;
+    aspect-ratio: 17 / 26;
 }
 
 .mastery-box {
     position: absolute;
     bottom: 0px;
-    height: 19%;
+    height: 18%;
     width: 100%;
     background-color: rgb(1, 10, 19, 0.7);
     border-top: 1px solid rgba(40, 40, 40, 1);
@@ -68,7 +69,7 @@
 }
 .mastery {
     width: 50%;
-    background: linear-gradient(to bottom, #292521, #24211f, #1e1c1a, #1e1c19);
+    background: linear-gradient(to bottom, #292521, #24211f, #1e1c19);
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -91,40 +92,44 @@
     display: flex;
     width: 35%;
     justify-content: space-between;
-    align-items: baseline;
-    align-content: center;
+    align-items: end;
 }
 .eternals-icon {
     width: 45%;
     fill: #4e4e53;
+    display: grid;
+    place-self: center;
 }
 .eternals-value {
     font-size: 1.5rem;
     color: #4e4e53;
-    font-family: Regular;
+    font-family: Spiegel-Regular;
+    line-height: 1;
 }
 
 .unlock-champion-button {
-    width: 16.5px;
-    height: 16.5px;
-    transform: rotate(45deg);
-    border: 1px solid var(--gold-four);
+    width: 1.9rem;
+    height: 1.9rem;
+    transform: translateY(50%) translateX(-50%) rotate(45deg) ;
+    border: 1px solid var(--gold-five);
+    border-image: linear-gradient(-45deg, var(--gold-five), var(--gold-four))1;
     position: absolute;
-    bottom: -10px;
+    bottom: 0px;
     margin-left: 5px;
-    background-color: rgb(20, 0, 0, 0.5);
+    background-color: #1c2227;
     cursor: pointer;
     justify-self: center;
-    font-size: 10px;
-    color: var(--gold-four);
+    font-size: 1.2rem;
+    color: var(--gold-five);
     align-items: center;
     align-content: center;
     justify-content: center;
     text-align: center;
     display: flex;
+    left: 50%;
 }
 .unlock-champion-button:hover {
-    border-color: var(--gold-one);
+    border-image: linear-gradient(-45deg, var(--gold-two), var(--gold-one))1;
     color: var(--gold-one);
 }
 

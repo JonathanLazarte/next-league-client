@@ -49,13 +49,10 @@ export default function ModeSelector({ data : gameModes }){
                 <p>{queueSelected.description}</p>
               </div>
 
-              {
-                gameMode.queues.map((queue, index) => (
-                  <div
-                    className="queue-option"
-                    style={{
-                      color: queueSelected.name === queue.name ? 'var(--gold-one)' : null,
-                    }}
+            {
+              gameMode.queues.map((queue, index) => (
+                <div
+                  className={`queue-option ${queueSelected.name === queue.name ? 'selected' : ''}`}
                     onClick={() => setQueueSelected(queue)}
                     key={index}
                   >

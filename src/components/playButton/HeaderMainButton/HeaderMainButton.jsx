@@ -96,13 +96,11 @@ export default function PlayButton({ okButtonAction }) {
             <linearGradient id="myGradient" gradientTransform="rotate(90)">
               <stop
                 offset="5%"
-                className="stop-1"
-                stop-color="var(--start-color1, #08b4b1)"
+                stopColor="var(--start-color1)"
               />
               <stop
                 offset="95%"
-                className="stop-2"
-                stop-color="var(--end-color1, #016587)"
+                stopColor="var(--end-color1)"
               />
             </linearGradient>
 

@@ -128,13 +128,13 @@ export default function FindMatchButton({
             id="hextech-bg"
             patternUnits="userSpaceOnUse"
             width="1900"
-            height="550"
+            height="570"
           >
             <image
               x="-60"
               href="/find-match-button-background.png"
               width="1900"
-              height="550"
+              height="570"
               preserveAspectRatio="xMidYMid slice"
             />
           </pattern>

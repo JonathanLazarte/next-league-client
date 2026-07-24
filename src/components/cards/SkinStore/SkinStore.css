@@ -104,37 +104,6 @@ img[src=".undefinedshield.png"] {
     font-family: "Bold";
 }
 
-.unlock-icon-box {
-    display: none;
-    position: absolute;
-    height: 5rem;
-    width: 5rem;
-    background-image: linear-gradient(
-        320deg,
-        rgba(226, 193, 92, 0.4),
-        rgba(226, 193, 92, 0.05)
-    );
-    align-self: center;
-    justify-self: center;
-    top: 38%;
-    transform: rotate(45deg);
-    border: 2px solid;
-    border-image: linear-gradient(120deg, var(--gold-one), var(--gold-five)) 1;
-}
-.unlock-product-icon {
-    transform: rotate(315deg);
-    color: var(--gold-four);
-    align-self: center;
-    place-self: center;
-    margin-top: 0.6vw;
-    /*font-size: 1.5rem;*/
-    font-size: 1.5vw;
-    display: none;
-}
-
-.pokemon-card:hover .unlock-icon-box {
-    display: block;
-}
 @media (max-width: 767px) {
     .pokemon-card {
     }

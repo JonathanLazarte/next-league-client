@@ -1,9 +1,9 @@
 @keyframes magic {
     from {
-        border-color: #94ebe5;
+        fill: #94ebe5;
     }
     to {
-        border-color: rgba(80, 80, 80, 1);
+        fill :#5c5b57;
     }
 }
 @keyframes backgroundMagic {
@@ -56,10 +56,9 @@
     background: linear-gradient(
         to bottom,
         var(--gold-two),
-        var(--gold-two),
         var(--gold-four),
         var(--gold-four),
-        var(--gold-four)
+        var(--gold-five)
     );
 }
 .lol-main-button__logo {
@@ -87,7 +86,16 @@
     transition: filter 0.1s;
     animation: wave 3s linear infinite; /* Animate the wave effect */
 }
-
+@property --start-color1 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #08b4b1;
+}
+@property --end-color1 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #016587;
+}
 .lol-main-button__action-box {
     display: flex;
     position: relative;
@@ -105,6 +113,15 @@
     left: unset;
     right: 0.45rem;
     position: absolute;
+    --start-color2: #94ebe5;
+    --into-color2: #0cbbad;
+    --end-color2: #1ea2bf;
+
+    transition:
+        --start-color1 0.6s,
+        --end-color1 0.6s,
+        --start-color2 0.5s,
+        --end-color2 0.5s;
 }
 .main-button-gray-border {
     position: absolute;
@@ -117,25 +134,18 @@
     justify-content: center;
     align-items: center;
 
-    --start-color1: #08b4b1;
-    --end-color1: #016587;
-    --start-color2: #94ebe5;
-    --into-color2: #0cbbad;
-    --end-color2: #1ea2bf;
-
-    transition:
-        --start-color1 0.5s ease,
-        --end-color1 0.5s ease,
-        --start-color2 0.5s ease,
-        --end-color2 0.5s ease;
 }
 .svg-border {
     fill: url("#myGradient");
-    transition: fill 1s;
 }
-.lol-main-button__action-box:hover .svg-border {
-    background: linear-gradient(to bottom, #94ebe5, #0cbbad, #1ea2bf);
-    fill: url("#myGradient2");
+.lol-main-button__action-box:hover {
+    /*background: linear-gradient(to bottom, #94ebe5, #0cbbad, #1ea2bf);*/
+    /*fill: url("#myGradient2");*/
+    --start-color1: #94ebe5;
+    --end-color1: #1ea2bf;
+    --start-color2: #94ebe5;
+    --into-color2: #0cbbad;
+    --end-color2: #1ea2bf;
 }
 .stop-1,
 .stop-2 {
@@ -207,6 +217,7 @@
 .lol-main-button__action-box.selected {
 }
 .lol-main-button__action-box.selected .main-button-gray-border {
+    animation: magic 1s;
     fill: #5c5b57;
 }
 .lol-main-button__action-box.selected .svg-border {
