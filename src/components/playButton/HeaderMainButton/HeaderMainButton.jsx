@@ -15,7 +15,7 @@ export default function PlayButton({ okButtonAction }) {
   const { play: playClick } = useSound("/general/find-match-button-click.mp3");
 
   useEffect(() => {
-    if (actualSection !== "room" && isButtonActive) {
+    if (actualSection !== "play" && isButtonActive) {
       setIsButtonActive(false);
     }
   }, [actualSection]);
@@ -28,7 +28,7 @@ export default function PlayButton({ okButtonAction }) {
   };
 
   const handleClick = () => {
-    if (actualSection === "room") return;
+    if (actualSection === "play") return;
 
     setIsButtonActive(true);
     userState === "Online" && playClick();
@@ -40,8 +40,8 @@ export default function PlayButton({ okButtonAction }) {
     }
 
     // Comportamiento por defecto: abrir selección de modos
-    if (actualSection !== "room") {
-      route.push("room");
+    if (actualSection !== "play") {
+      route.push("play");
     }
   };
 

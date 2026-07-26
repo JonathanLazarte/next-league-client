@@ -24,7 +24,7 @@ export default memo(function VirtualSkinsGrid({
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   }
   const currentRem = getRem();
-  const gapValue = currentRem * 1;
+  const gapValue = currentRem * 1.3;
   const cardWidth = getRem() * 23.1;
   //const headerHeight = currentRem * 5;
 

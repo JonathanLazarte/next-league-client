@@ -2,7 +2,7 @@
 
 import "$/(dashboard)/collection/collection.css";
 import "$/(dashboard)/store/store.css";
-import "$/(dashboard)/room/room.css";
+import "$/(dashboard)/play/play.css";
 import ResponsiveHeader from "@/components/header";
 import RightNav from "@/components/rightNav/rightNav.jsx";
 /*import Chat from '@/components/chat/chat.jsx'*/
@@ -268,7 +268,7 @@ export default function ProvidersWrapper({ children }) {
   return user.profile_icon ? (
     <div className="dashboard-layout w-screen min-h-screen">
       <div
-        className={`background-engine ${isQueueSelected && actualSection === "room" ? "in-room" : null}`}
+        className={`background-engine ${isQueueSelected && actualSection === "play" ? "in-room" : null}`}
         style={{
           backgroundImage: isNavigating
             ? "var(--blue-five)"
@@ -278,11 +278,11 @@ export default function ProvidersWrapper({ children }) {
         }}
       >
         <div
-          style={{ visibility: actualSection === "room" ? "visible" : "hidden" }}
+          style={{ visibility: actualSection === "play" ? "visible" : "hidden" }}
           className="bg-layer bg-lobby"
         ></div>
         <div
-          style={{ visibility: actualSection === "room" ? "visible" : "hidden" }}
+          style={{ visibility: actualSection === "play" ? "visible" : "hidden" }}
           className={`bg-layer bg-room`}
         ></div>
       </div>

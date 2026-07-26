@@ -30,19 +30,19 @@
     position: relative;
     height: var(--dashboard-content-height);
     /*animation: vertical-slice 2s cubic-bezier(0,1.02,.25,.97);*/
+    padding-top: 5rem;
 }
 
 /* El área específica de las tarjetas de modo de juego */
-.game-mode-grid {
+.gamemodes-grid {
     display: flex;
-    align-content: center;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 7rem;
     justify-content: center;
-    width: 100%; /* 6vw → 9.6rem */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    flex-grow: 1;
     padding-bottom: 2.5rem;
-    /*height: clamp(500px, 40vh, 1200px);*/
-    height: 380px;
 }
 
 .mode-selection-header {
@@ -101,20 +101,33 @@
     justify-self: center;
 }
 
+.gamemode-wrapper {
+    width: 33rem;
+    justify-content: flex-start;
+    flex-direction: column;
+    display: flex;
+    height: auto;
+}
 .mode-title {
     font-size: 3.3rem;
     line-height: 1.1;
     margin-top: 1.5%;
-    color: var(--gold-one);
+    color: #ccbd90;
     font-family: Bold;
     height: 7.5rem;
     letter-spacing: 1px;
+    transition: color 1s;
 }
-
+.mode-subtitle {
+    color: #ccbd90;
+    font-family: "Bold";
+    font-size: 1.9rem;
+    transition: color 1s;
+}
+.gamemode-wrapper.active .mode-title, .gamemode-wrapper.active .mode-subtitle {
+    color: var(--gold-one);
+}
 .gamemode-icon {
-    height: 100%;
-    /*width: 300px;*/
-    width: 29.76rem; /* 18.6vw → 29.76rem */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -122,15 +135,30 @@
     align-items: center;
     text-align: center;
     cursor: pointer;
+    padding-bottom: 2rem;
+    padding-right: 5rem;
+    position: relative;
+    height: 30rem;
 }
-
-.gamemode-icon img {
-    /*width: 110px;*/
-    width: 12.5rem; /* 8vw → 12.8rem */
-    /*margin-bottom: 15px;*/
-    margin-bottom: 2.24rem; /* 1.4vw → 2.24rem */
+.map-img-wrapper {
+    position: relative;
+    width: 13rem;
+    height: 15rem;
 }
-
+.map-img-wrapper img {
+    width: 13rem;
+    margin-bottom: 2.24rem;
+    position: absolute;
+    transition: opacity 0.3s;
+}
+.dividing-line {
+    width: 100%;
+    height: 1px;
+    background: #5f747b;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
 /* La barra inferior donde confirmas la selección */
 .play-selection-footer {
     display: flex;
@@ -139,35 +167,42 @@
     align-items: center;
     width: 100%;
     flex-grow: 1;
-    /*height: 21vw; /* 38vh → 38 * 0.5625 = 21.375vw */
 }
 .gamemode-description {
     display: flex;
-    padding-top: 1.5rem; /* 1.125vw → 1.8rem */
-    padding-bottom: 2.4rem; /* 1.2vw → 1.92rem */
-    /*width: 300px;*/
-    width: 29.76rem; /* 18.6vw → 29.76rem */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 2rem;
+    padding-bottom: 2.4rem;
+    width: 29.76rem;
     margin-bottom: 1rem;
-    color: #e5dcca;
+    color: gray;
     line-height: 1.5;
-    font-size: 1.8rem; /* 1.1vw → 1.76rem */
+    font-size: 1.8rem;
     font-family: Spiegel-Regular;
     height: 14.5rem;
+    visibility: hidden;
+}
+.gamemode-wrapper.active .gamemode-description, .gamemode-wrapper.active .queue-option {
+    visibility: visible;
+    opacity: 1;
+}
+.gamemode-wrapper.active .gamemode-description {
+    color: #e5dcca;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.gamemode-wrapper.hovered .gamemode-description{
+    visibility: visible;
+}
+.gamemode-wrapper.hovered.active .gamemode-description{
+    color: #e5dcca;
 }
 
-.mode-subtitle {
-    color: var(--gold-one);
-    font-family: "Bold";
-    font-size: 1.9rem;
-}
 .queues-wrapper {
     margin-bottom: 3rem;
 }
 .queue-option {
     display: flex;
     align-items: center;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     color: #ccbd90;
     cursor: pointer;
     font-family: Bold;
@@ -175,6 +210,9 @@
     text-transform: uppercase;
     transition: color 0.4s;
     height: 4.3rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s;
 }
 
 .queue-option:hover {
@@ -230,21 +268,24 @@
     height: 100vh;
     background-size: cover;
     background-position-y: top;
-    background-position: center bottom; /* O center center, según tu imagen */
+    background-position: center bottom;
     background-repeat: no-repeat;
-    will-change: transform, opacity; /* Optimización de rendimiento */
+    will-change: transform, opacity;
     transition:
         transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
-        opacity 0.8s ease-in-out; /* Curva suave tipo LoL */
+        opacity 0.8s ease-in-out;
 }
 .bg-lobby {
     transform: translateY(0px);
-    background-image: url("/lobby_background.png");
+    background-image: url("/background.png");
+    background-position-y: bottom;
 }
 .bg-room {
     height: 100vh;
     transform: translateY(100vh);
-    background-image: url("/room_background.png");
+    background-image: url("/background2.jpg");
+    background-position-y: top;
+    background-position: center top;
 }
 .background-engine.in-room .bg-lobby {
     transform: translateY(-100vh);

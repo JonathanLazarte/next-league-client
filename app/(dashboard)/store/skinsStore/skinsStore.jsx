@@ -64,10 +64,12 @@ export default memo(function ItemsShop() {
     if (activeFilters.length > 0) {
       // se aplican los filtros segun los filtros de rareza activados
       result = result.filter((item) => {
-        if (activeFilters.includes("Limited")) {
-          return item.availability === "Limited";
-        }
-        return activeFilters.includes(item.rarity);
+        return activeFilters.every((filter) => {
+          if (filter === "Limited") {
+            return item.availability === "Limited";
+          }
+          return item.rarity === filter;
+        });
       });
     } else {
       // Si no está marcado "Limited", ocultar los de disponibilidad limitada

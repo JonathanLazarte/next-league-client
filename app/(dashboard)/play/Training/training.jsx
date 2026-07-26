@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import "./training.css";
-import PlayButton from "@/components/playButton/playButton.jsx";
+import ConfirmButton from "@/components/playButton/confirmButton.jsx";
 import { useDispatch } from "react-redux";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 
@@ -38,7 +38,7 @@ export default memo(function Explore() {
           <h3 className="room-title">SR · INTERMEDIATE · BLIND</h3>
         </div>
       </div>
-      <PlayButton type={"training"} text={"INICIAR"} />
+      <ConfirmButton type={"training"} text={"INICIAR"} />
     </section>
   );
 });

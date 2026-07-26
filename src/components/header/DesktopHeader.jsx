@@ -1,7 +1,6 @@
 "use client";
 
 import "./header.css";
-import "../playButton/playButton.css";
 import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton.jsx";
 import { /*useState,*/ memo, useState } from "react";
 import { GiStoneCrafting } from "react-icons/gi";

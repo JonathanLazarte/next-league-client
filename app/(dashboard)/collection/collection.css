@@ -1,6 +1,6 @@
 @keyframes appearance {
     from {
-        opacity: 0.2;
+        opacity: 0.5;
     }
     to {
         opacity: 1;
@@ -10,7 +10,7 @@
     height: var(--dashboard-content-height);
     width: 100%;
     overflow: hidden;
-    animation: appearance 0.6s;
+    animation: appearance 1s;
     pposition: relative;
 }
 .collection-header {

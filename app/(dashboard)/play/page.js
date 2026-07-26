@@ -17,7 +17,7 @@ const Training = dynamic(() => import("./PvpRoom/index.jsx"), {
 /*
 
 */
-import "./room.css";
+import "./play.css";
 
 export const GAME_DATA = {
   PVP: [
@@ -43,6 +43,26 @@ export const GAME_DATA = {
           name: "Ranked Flex",
           description:
             "Crush your lane, dive into epic five-on-five team fights, and destroy the enemy nexus in League`s premier competitive mode.",
+        },
+      ],
+    },
+    {
+      name: "aram",
+      hoverImg: "sr-hover.png",
+      enabledImg: "sr-enabled.png",
+      disabledImg: "sr-desabled.png",
+      subTitle: "5v5",
+      title: "ARAM",
+      queues: [
+        {
+          name: "aram: mayhem",
+          description:
+            "Ten randomly-selected champions assemble on a narrow bridge. Cross to the other side and destroy everything in your path.",
+        },
+        {
+          name: "aram",
+          description:
+            "Ten randomly-selected champions assemble on a narrow bridge. Cross to the other side and destroy everything in your path.",
         },
       ],
     },

@@ -68,7 +68,7 @@ export default memo(function PokemonShop() {
 
       const matchesRole =
         activeRoles.length > 0
-          ? activeRoles.some((role) => champion.tags.includes(role))
+          ? activeRoles.every((role) => champion.tags.includes(role))
           : true;
 
       const notInCollection = inCollection

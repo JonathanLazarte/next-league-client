@@ -1,13 +1,13 @@
 "use client";
 
-import "./playButton.css";
+import "./confirmButton.css";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
 import { useSound } from "@/hooks/useSound.js";
 import { HiOutlineX } from "react-icons/hi";
 
-export default function PlayButton({ type, queueSelected }) {
+export default function PlayButton({ type, activeButtonAction }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const text = "CONFIRM"
@@ -29,7 +29,7 @@ export default function PlayButton({ type, queueSelected }) {
   const handleConfirm = () => {
     if (type === "modeSelection") {
       playConfirm();
-      dispatch(setUserState(queueSelected));
+      activeButtonAction();
     }
   };
 

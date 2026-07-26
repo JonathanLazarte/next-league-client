@@ -201,7 +201,7 @@ export default memo(function RightNav({
           className="user-icon-wrapper"
         >
           <div className="user-level-wrapper">
-            <span className="user-level">160</span>
+            <span className="user-level">{user.level}</span>
           </div>
           <svg className="user-icon-border-svg" id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1039.49 1129.33">
             <defs>
