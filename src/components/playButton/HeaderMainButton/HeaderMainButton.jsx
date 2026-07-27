@@ -4,7 +4,7 @@ import "./HeaderMainButton.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "@/hooks/useRouter.js";
-import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.js";
+import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
 
 export default function PlayButton({ okButtonAction }) {
@@ -21,8 +21,8 @@ export default function PlayButton({ okButtonAction }) {
   }, [actualSection]);
   // Texto dinámico del botón
   const getButtonText = () => {
-    if (userState !== "Online") return "GROUP";
-    if (userState.includes("match") || userState === "In match")
+    if (userState !== "online") return "GROUP";
+    if (userState.includes("match") || userState === "in game")
       return "EN PARTIDA";
     return "PLAY";
   };
@@ -31,7 +31,7 @@ export default function PlayButton({ okButtonAction }) {
     if (actualSection === "play") return;
 
     setIsButtonActive(true);
-    userState === "Online" && playClick();
+    userState === "online" && playClick();
 
     // Si hay acción personalizada (por ejemplo desde el lobby PvP), usarla
     if (okButtonAction) {

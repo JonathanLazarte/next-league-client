@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { useSound } from "@/hooks/useSound.js";
 
 import ModeSelector from "./ModeSelector.jsx";
-import Training from "./Training/training.jsx";
 import Pvp from "./PvpRoom/index.jsx";
 /*import dynamic from "next/dynamic";
 const Pvp = dynamic(() => import("./PvpRoom/index.jsx"), {
@@ -30,19 +29,22 @@ export const GAME_DATA = {
       title: "SUMMONER'S RIFT",
       queues: [
         {
-          name: "Swiftplay",
+          name: "swiftplay",
           description:
             "Authentic SR gameplay in a much shorter match. Play with friends of different skill levels without the fear of falling too far behind.",
+          room_title: "SR · Swiftplay · ",
         },
         {
-          name: "Ranked Solo/Duo",
+          name: "ranked_solo_duo",
           description:
             "Crush your lane, dive into epic five-on-five team fights, and destroy the enemy nexus in League`s premier competitive mode.",
+          room_title: "SR · Ranked Solo/Duo · Draft",
         },
         {
-          name: "Ranked Flex",
+          name: "ranked_flex",
           description:
             "Crush your lane, dive into epic five-on-five team fights, and destroy the enemy nexus in League`s premier competitive mode.",
+          room_title: "SR · Ranked Flex · Draft",
         },
       ],
     },
@@ -55,30 +57,43 @@ export const GAME_DATA = {
       title: "ARAM",
       queues: [
         {
-          name: "aram: mayhem",
+          name: "aram_mayhem",
           description:
             "Ten randomly-selected champions assemble on a narrow bridge. Cross to the other side and destroy everything in your path.",
+          room_title: "RNG · ARAM: MAYHEM · RANDOM",
         },
         {
           name: "aram",
           description:
             "Ten randomly-selected champions assemble on a narrow bridge. Cross to the other side and destroy everything in your path.",
+          room_title: "RNG · ARAM · RANDOM",
         },
       ],
     },
   ],
-  TRAINING: [
+  CO_OP_VS_AI: [
     {
-      name: "tutorial",
+      name: "co-op vs ai",
       hoverImg: "sr-hover.png",
       enabledImg: "sr-enabled.png",
       disabledImg: "sr-desabled.png",
       subTitle: "1v1",
-      title: "TUTORIAL",
+      title: "CO-OP VS AI",
       queues: [
         {
-          name: "Intermedio",
-          description: "Learn the basics in this instructive tutorial flow",
+          name: "intro",
+          description: "Team up with other players against a team of boths and destroy the enemy Nexus.",
+          room_title: "SR · Intro · Blind",
+        },
+        {
+          name: "beginner",
+          description: "Team up with other players against a team of boths and destroy the enemy Nexus.",
+          room_title: "SR · Begginer · Blind",
+        },
+        {
+          name: "intermediate",
+          description: "Team up with other players against a team of boths and destroy the enemy Nexus.",
+          room_title: "SR · Intermediate · Blind",
         },
       ],
     },
@@ -114,11 +129,11 @@ export default memo(function ModeSelection({
             PVP
           </div>
           <div
-            className={`subheader-tab ${categorySelected === "TRAINING" ? "active-subheader-tab" : ""}`}
-            onClick={() => handleCategoryChange("TRAINING")}
+            className={`subheader-tab ${categorySelected === "CO_OP_VS_AI" ? "active-subheader-tab" : ""}`}
+            onClick={() => handleCategoryChange("CO_OP_VS_AI")}
             /*onMouseEnter={() => playConfirmButtonHover()}*/
           >
-            TRAINING
+            CO-OP VS AI
           </div>
         </header>
         <ModeSelector data={GAME_DATA[categorySelected]} />
@@ -127,26 +142,39 @@ export default memo(function ModeSelection({
   };
 
   const isQueueSelected =
-    userState === "Ranked Solo/Duo" ||
-    userState === "Intermedio" ||
-    userState === "Ranked Flex" ||
-    userState === "Swiftplay";
-  //const typeOfRoom = GAME_DATA['PVP'].find(map => map?.queues?.some(q => q.name === userState))
+    userState !== "online";
+    const activeGameMode = Object.keys(GAME_DATA).find(key => GAME_DATA[key]?.some(map => map.queues?.some(q => q.name === userState)));
+    const activeQueue = Object.keys(GAME_DATA).forEach(key => {
+    return GAME_DATA[key]?.forEach(map => {
+      const foundQueue = map.queues?.find(q => q.name === userState);
+      if(foundQueue) {
+        return foundQueue;
+      }
+    });
+  }
+    );
+  console.log(activeGameMode)
 
   return (
     <div className="play-screen-container">
       {!isQueueSelected && <PlaySelectionLayer />}
-      {(userState === "Ranked Solo/Duo" ||
-        userState === "Ranked Flex" ||
-        userState === "Swiftplay") && (
+      {activeGameMode === "PVP" && (
         <Pvp
           socket={socket}
           connectedUsers={connectedUsers}
           roomUsers={roomUsers}
           setRoomUsers={setRoomUsers}
+          roomTitle={userState}
         />
       )}
-      {userState === "Intermedio" && <Training />}
+      {activeGameMode === "CO_OP_VS_AI" &&
+        <Pvp
+          socket={socket}
+          connectedUsers={connectedUsers}
+          roomUsers={roomUsers}
+          setRoomUsers={setRoomUsers}
+          roomTitle={userState}
+        />}
     </div>
   );
 });

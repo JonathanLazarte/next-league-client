@@ -12,6 +12,7 @@
     font-family: Bold;
     font-size: 1.9rem;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 @media (max-width: 767px) {

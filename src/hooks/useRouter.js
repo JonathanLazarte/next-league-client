@@ -2,7 +2,7 @@
 
 import { useRouter as useNextRouter } from "next/navigation";
 import { useCallback } from "react";
-import { setIsNavigating } from "@/redux/slices/userInterfaceSlice";
+import { setIsNavigating } from "@/redux/slices/userInterfaceSlice.ts";
 import { useDispatch } from "react-redux";
 
 export function useRouter() {

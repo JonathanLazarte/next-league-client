@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
 import championsReducer from './slices/userChampionsSlice';
 import skinsReducer from './slices/userSkinsSlice';
-import interfaceReducer from './slices/userInterfaceSlice';
+import interfaceReducer from './slices/userInterfaceSlice.ts';
 import authReducer from './slices/authSlice';
 import soundReducer from './slices/soundSlice';
 import settingsReducer from './slices/settingsSlice';

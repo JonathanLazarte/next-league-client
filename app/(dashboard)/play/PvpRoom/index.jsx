@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 /*import { v4 as uuidv4 } from 'uuid';*/
 import "./styles.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
-import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
+import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
 
-export default memo(function PvpRoom({ socket, setRoomUsers }) {
+export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
   const RESOURCES_URL =
     "/" ||
     "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
@@ -13,6 +13,16 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
   /*const newRoom = uuidv4()*/
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const lobbyName = {
+    'ranked_solo_duo': 'SR · Ranked Solo/Duo · Draft',
+    'ranked_flex': 'SR · Ranked Flex · Draft',
+    'swiftplay': 'SR · Swiftplay · BLIND',
+    'aram': 'RNG · ARAM · RANDOM',
+    'aram_mayhem': 'RNG · ARAM: MAYHEM · RANDOM',
+    'intro': 'SR · INTRO · BLIND',
+    'beginner': 'SR · BEGINNER · BLIND',
+    'intermediate': 'SR · Intermediate · Blind',
+  }
 
   /*useEffect(()=>{
         const lobbyIntro = new Audio('./assets/sounds/lobby-intro.mp3')
@@ -71,7 +81,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
           data-name="Capa 2"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 30 41.23"
-          onClick={() => dispatch(setUserState("Online"))}
+          onClick={() => dispatch(setUserState("online"))}
         >
           <defs>
             <linearGradient id="active-hextech-metal-gradient" gradientTransform="rotate(90)">
@@ -85,7 +95,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers }) {
         </svg>
         <div className="header-queue-info">
           <img className="header-map-icon" src={`${RESOURCES_URL}general/mini-sr.png`} />
-          <h3 className="room-title">SR · RANKED SOLO/DUO · DRAFT</h3>
+          <h3 className="room-title">{lobbyName[roomTitle]}</h3>
         </div>
       </div>
       <div className="room-users">

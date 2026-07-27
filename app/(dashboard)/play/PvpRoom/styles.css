@@ -63,6 +63,7 @@
     font-family: Bold;
     font-size: 1.9rem;
     letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 .room-header img {
     width: 3.2rem;

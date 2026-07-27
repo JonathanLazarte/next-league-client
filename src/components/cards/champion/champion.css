@@ -46,7 +46,7 @@
     filter: brightness(1);
 }
 .champion-image {
-    filter: brightness(0.6);
+    filter: brightness(0.7);
     object-fit: cover;
     border-radius: 2px;
     width: 100%;

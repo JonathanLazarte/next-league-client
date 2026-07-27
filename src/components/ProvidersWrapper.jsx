@@ -32,7 +32,7 @@ import { setUser /*, setUserMessages*/ } from "@/redux/slices/userSlice";
 import {
   selectUserInterfaceData,
   setActualSection /*, setUserState*/,
-} from "@/redux/slices/userInterfaceSlice.js";
+} from "@/redux/slices/userInterfaceSlice.ts";
 import {
   getUserChampions /*, selectUserChampionsData*/,
 } from "@/redux/slices/userChampionsSlice.js";
@@ -146,9 +146,7 @@ export default function ProvidersWrapper({ children }) {
       socket.current?.disconnect();
     };
   }, [token]);
-  console.log(localStoreToken);
-  console.log(token);
-  console.log(isAuthenticated);
+
   //--------------------------------------------------------------------------------
   useEffect(() => {
     if (localStoreToken != "loading" && !loading) {
@@ -261,10 +259,7 @@ export default function ProvidersWrapper({ children }) {
     }
   };
   const isQueueSelected =
-    userState === "Ranked Solo/Duo" ||
-    userState === "Intermedio" ||
-    userState === "Ranked Flex" ||
-    userState === "Swiftplay";
+    userState !== "online";
   return user.profile_icon ? (
     <div className="dashboard-layout w-screen min-h-screen">
       <div

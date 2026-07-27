@@ -5,7 +5,7 @@ import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMai
 import { /*useState,*/ memo, useState } from "react";
 import { GiStoneCrafting } from "react-icons/gi";
 import { shallowEqual, useSelector } from "react-redux";
-import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.js";
+import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import MiniTooltip from "@/components/ToolTip/miniTooltip/miniTooltip.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { useRouter } from "@/hooks/useRouter.js";

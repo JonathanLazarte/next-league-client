@@ -4,7 +4,7 @@ import './mobileHeader.css'
 import HeaderMainButton from '@/components/playButton/HeaderMainButton/HeaderMainButton.jsx'
 import { RiSidebarFoldFill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
-import { selectUserInterfaceData} from '@/redux/slices/userInterfaceSlice.js'
+import { selectUserInterfaceData} from '@/redux/slices/userInterfaceSlice.ts'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { GiStoneCrafting } from "react-icons/gi";

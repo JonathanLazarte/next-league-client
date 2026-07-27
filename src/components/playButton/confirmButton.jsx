@@ -3,7 +3,7 @@
 import "./confirmButton.css";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
+import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
 import { HiOutlineX } from "react-icons/hi";
 
@@ -21,7 +21,7 @@ export default function PlayButton({ type, activeButtonAction }) {
   // Cancelar / Salir
   const handleCancel = () => {
     playCancel();
-    dispatch(setUserState("Online"));
+    dispatch(setUserState("online"));
     router.push("league");
   };
 

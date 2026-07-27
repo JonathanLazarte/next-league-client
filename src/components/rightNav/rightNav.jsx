@@ -15,7 +15,7 @@ import { FaMicrophone } from "react-icons/fa6";
 import { VscTriangleRight } from "react-icons/vsc";
 import { IoIosSettings } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.js";
+import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import {
   openChat,
   selectChat,
@@ -136,6 +136,20 @@ export default memo(function RightNav({
   } = useSelector((state) => state.chat);
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
+  const userStateLabel = {
+    online: "Online",
+    away: "Away",
+    in_game: "In Game",
+    offline: "Offline",
+    ranked_solo_duo: "Ranked Solo/Duo",
+    ranked_flex: "Ranked Flex",
+    swiftplay: "Swiftplay",
+    aram: "Aram",
+    aram_mayhem: "Aram: Mayhem",
+    intro: 'Intro',
+    beginner: 'Beginner',
+    intermediate: "Intermediate",
+  }
   const onHoverStart = (user) => {
     start({
       cb: () => {
@@ -275,7 +289,7 @@ export default memo(function RightNav({
               <h3 className="right-nav-username">{user.userName}</h3>
               <div className="user-status" onClick={toggleState}>
                 <div className="status-icon"></div>
-                {userState}
+                { userState !== 'online' && '1/5 '}{userStateLabel[userState]}
               </div>
             </>
           )}

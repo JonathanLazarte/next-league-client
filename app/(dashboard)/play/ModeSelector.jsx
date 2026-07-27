@@ -1,9 +1,21 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUserState } from '@/redux/slices/userInterfaceSlice.js';
+import { setUserState } from '@/redux/slices/userInterfaceSlice.ts';
 import ConfirmButton from '@/components/playButton/confirmButton.jsx';
+
+const QueueName = {
+  'ranked_solo_duo': 'Ranked Solo/Duo',
+  'ranked_flex': 'Ranked Flex',
+  'swiftplay': 'Swiftplay',
+  'aram': 'ARAM',
+  'aram_mayhem': 'ARAM: Mayhem',
+  'intro': 'Intro',
+  'beginner': 'Beginner',
+  'intermediate': 'Intermediate',
+}
+
 
 const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
   const [ queueSelected, setQueueSelected ] = useState(gameMode.queues[0]);
@@ -22,7 +34,7 @@ const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
             <div className="custom-checkbox">
               {queueSelected.name === queue.name && <div className="checkboxMark" />}
             </div>
-            <h3>{queue.name}</h3>
+            <h3>{QueueName[queue.name]}</h3>
           </div>
         ))
       }
@@ -77,7 +89,10 @@ export default function ModeSelector({ data : gameModes }){
     dispatch(setUserState(selectedQueueGlobal));
   };
 
-
+  useEffect(() => {
+    const mapInfo = gameModes.find(map => map.title === selectedMap);
+    setSelectedQueueGlobal(mapInfo?.queues[0].name);
+  },[selectedMap])
 	return <>
 
       <div className="play-selection-footer">

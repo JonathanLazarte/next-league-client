@@ -4,7 +4,7 @@ import "./FindMatchButton.css";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
+import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
 import { HiOutlineX } from "react-icons/hi";
 
@@ -55,12 +55,12 @@ export default function FindMatchButton({
     if (type === "pvp-room") {
       socket?.current?.emit("leave-room");
       setRoomId?.(null);
-      dispatch(setUserState("Online"));
+      dispatch(setUserState("online"));
       router.push("league");
     }
 
     if (type === "training" || type === "modeSelection") {
-      dispatch(setUserState("Online"));
+      dispatch(setUserState("online"));
       router.push("league");
     }
 
