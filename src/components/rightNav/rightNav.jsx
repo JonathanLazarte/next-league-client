@@ -203,7 +203,7 @@ export default memo(function RightNav({
   const ProfileBox = () => {
     const [iconIsInHover, setIconIsInHover] = useState(false);
     const showPerfilSpanStyle = iconIsInHover
-      ? { marginLeft: "10rem", visibility: "visible" }
+      ? { marginLeft: "1rem", visibility: "visible" }
       : null;
 
     const toggleState = () => {};
@@ -293,10 +293,10 @@ export default memo(function RightNav({
               </div>
             </>
           )}
+          <span className="showPerfilSpan" style={showPerfilSpanStyle}>
+            View Profile
+          </span>
         </div>
-        <span className="showPerfilSpan" style={showPerfilSpanStyle}>
-          View Profile
-        </span>
       </div>
     );
   };

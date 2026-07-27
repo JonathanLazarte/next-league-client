@@ -237,8 +237,10 @@
     flex-direction: column;
     flex-grow: 1;
     padding-right: 1.5rem;
-    padding-top: 0.7rem;
-    font-size: var(--font-md);
+    overflow: hidden;
+    height: 100%;
+    justify-content: center;
+    position: relative;
 }
 
 .user-options {
@@ -250,6 +252,11 @@
     align-items: flex-end;
     padding-left: 3rem; /* 1.2vw → 1.92rem */
     color: #a09b8c;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 1.5rem;
+    margin-top: 1rem;
 }
 
 .accountOptionIcon {
@@ -281,14 +288,16 @@
 
 .showPerfilSpan {
     color: var(--color-primary);
-    margin-left: 5rem;
+    margin-left: -10rem;
     transition: margin 0.2s;
     visibility: hidden;
-    position: absolute;
-    top: 40%;
     z-index: -1;
     font-size: 1.6rem;
     font-family: Spiegel-Regular;
+    transition-delay: 0.1s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .online-users ul {

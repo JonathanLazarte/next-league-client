@@ -271,6 +271,7 @@
 .skin-card.empty {
     border: 3px dashed rgba(255, 255, 255, 0.3);
     background: rgba(0, 0, 0, 0.2);
+    display: none;
 }
 
 .skin-card.empty:hover {
@@ -353,14 +354,14 @@ video {
 }
 
 .spell-separator {
-    height: 44px;
+    height: 4.4rem;
     width: 1px;
     background: var(--gold-five);
     margin-bottom: auto;
 }
 
 .spell-image {
-    width: 42px;
+    width: 4.2rem;
     cursor: pointer;
     border: 1px solid gray;
     margin-bottom: 10px;
@@ -388,8 +389,8 @@ video {
 }
 
 .passive-image {
-    height: 36px;
-    width: 36px;
+    height: 3.6rem;
+    width: 3.6rem;
     cursor: pointer;
     border: 1px solid gray;
     margin-bottom: 10px;
