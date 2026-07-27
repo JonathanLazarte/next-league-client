@@ -1,68 +1,123 @@
-# LOL Interface Clone - Next.js
+# Next League Client
 
-Este proyecto es un clon de la interfaz de League of Legends construido con Next.js.
+A large-scale web application inspired by the League of Legends desktop client, built with React, Next.js, TypeScript, Redux, Node.js, MongoDB, and Socket.io.
 
-## Características
+The goal of this project is to recreate the complexity, responsiveness, and visual quality of a modern desktop game client within a browser environment while maintaining scalable architecture and a polished user experience.
 
-- ⚡ Next.js 14 con App Router
-- 🎨 Tailwind CSS para estilos
-- 🔄 Redux Toolkit para manejo de estado
-- 🎭 Framer Motion para animaciones
-- 📱 Diseño responsive
-- 🔐 Sistema de autenticación
+## Overview
 
-## Instalación
+Next League Client reproduces many of the systems and workflows found in the original League of Legends client, including collections, store functionality, social features, chat systems, game mode navigation, settings management, and interactive overlays.
 
-1. Instalar dependencias:
+The project focuses on:
+
+* Complex frontend architecture
+* Real-time communication
+* Scalable state management
+* High-fidelity UI implementation
+* Performance optimization
+* Reusable component design
+* Desktop-like user experience in the browser
+
+## Features
+
+### User Interface
+
+* Pixel-perfect recreation of League Client inspired interfaces
+* Responsive layouts
+* Animated overlays and modal systems
+* Dynamic navigation and transitions
+* Advanced micro-interactions
+
+### State Management
+
+* Centralized Redux architecture
+* Cross-module state synchronization
+* Optimized rendering workflows
+* Predictable application state management
+
+### Real-Time Systems
+
+* Socket.io integration
+* Live chat functionality
+* Real-time social interactions
+* Client-server communication
+
+### Application Modules
+
+* Store
+* Collections
+* Game Modes
+* Social Panel
+* Chat System
+* Settings
+* User Profiles
+* Interactive Overlays
+
+## Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Redux Toolkit
+* Framer Motion
+* Tailwind CSS
+
+### Backend
+
+* Node.js
+* Express
+* Socket.io
+
+### Database
+
+* MongoDB
+
+## Installation
+
+Install dependencies:
+
 ```bash
 npm install
 ```
 
-2. Ejecutar en modo desarrollo:
+Run the development server:
+
 ```bash
 npm run dev
 ```
 
-3. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
+Open:
 
-## Scripts Disponibles
-
-- `npm run dev` - Ejecuta el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm run start` - Ejecuta la aplicación construida
-- `npm run lint` - Ejecuta el linter
-
-## Estructura del Proyecto
-
-```
-├── app/                 # Next.js App Router
-│   ├── layout.js       # Layout principal
-│   ├── page.js         # Página principal
-│   └── globals.css     # Estilos globales
-├── src/                 # Código fuente
-│   ├── components/      # Componentes reutilizables
-│   ├── pages/          # Páginas de la aplicación
-│   ├── redux/          # Store y slices de Redux
-│   ├── services/       # Servicios y APIs
-│   └── styles/         # Estilos adicionales
-├── public/              # Archivos estáticos
-└── fonts/               # Fuentes personalizadas
+```text
+http://localhost:3000
 ```
 
-## Tecnologías Utilizadas
+## Available Scripts
 
-- **Next.js 14** - Framework de React
-- **React 18** - Biblioteca de UI
-- **Redux Toolkit** - Manejo de estado
-- **Tailwind CSS** - Framework de CSS
-- **Framer Motion** - Animaciones
-- **Formik + Yup** - Formularios y validación
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
 
-## Migración desde Vite
+## Project Goals
 
-Este proyecto fue migrado desde Vite a Next.js. Los principales cambios incluyen:
+This project was created to explore how modern large-scale applications can be structured and implemented using React ecosystem technologies.
 
-- Reemplazo de Vite por Next.js
-- Migración del routing de Wouter al App Router de Next.js
-- Adaptación de la estructura de archivos
-- Preservación de toda la funcionalidad existente
+Special attention was given to:
+
+* Frontend architecture
+* State management patterns
+* Real-time systems
+* Performance optimization
+* UI/UX implementation
+* Code maintainability
+
+## Disclaimer
+
+This project is an independent educational and portfolio project inspired by the League of Legends client.
+
+League of Legends and all related intellectual property belong to Riot Games.

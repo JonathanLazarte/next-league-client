@@ -69,7 +69,7 @@ export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
               style={{ width: "10px", height: "10px" }}
               className="status-icon"
             ></div>{" "}
-            En linea{" "}
+            Online{" "}
           </div>
         </div>
       </div>
