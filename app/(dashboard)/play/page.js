@@ -144,16 +144,6 @@ export default memo(function ModeSelection({
   const isQueueSelected =
     userState !== "online";
     const activeGameMode = Object.keys(GAME_DATA).find(key => GAME_DATA[key]?.some(map => map.queues?.some(q => q.name === userState)));
-    const activeQueue = Object.keys(GAME_DATA).forEach(key => {
-    return GAME_DATA[key]?.forEach(map => {
-      const foundQueue = map.queues?.find(q => q.name === userState);
-      if(foundQueue) {
-        return foundQueue;
-      }
-    });
-  }
-    );
-  console.log(activeGameMode)
 
   return (
     <div className="play-screen-container">
