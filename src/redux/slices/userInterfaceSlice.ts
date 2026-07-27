@@ -20,7 +20,7 @@ interface UserInterfaceState {
   gameId: number | null;
   notifications: [];
   modal: null;
-};
+}
 
 const initialState: UserInterfaceState = {
   // Estado del usuario
