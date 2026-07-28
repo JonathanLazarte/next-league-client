@@ -332,10 +332,14 @@
     background: var(--blue-five);
 }
 
-video {
+.spell-video {
     width: 100%;
     height: 100%;
     object-fit: cover; /* O "contain" según lo que necesites */
+    display: none;
+}
+.selected {
+    display: block;
 }
 .video-placeholder {
     position: absolute;

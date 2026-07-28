@@ -2,7 +2,7 @@
 
 
 
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useRef } from "react";
 import Image from 'next/image'
 import useLoadingDelay from '@/hooks/useLoadingDelay'
 
@@ -356,17 +356,42 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
   const [selectedSpell, setSelectedSpell] = useState(0);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const showLoading = useLoadingDelay(isVideoLoading);
+  /*const videosRef = useRef < HTMLVideoElement[] > ([]);*/
+  const videoRef = useRef([])
+
+  useEffect(() => {
+    videoRef.current.forEach((video, index) => {
+      if (!video) return;
+
+      if (index === selectedSpell) {
+        video.currentTime = 0; // empezar desde el inicio
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  }, [selectedSpell]);
 
   return (
     <div className="spells-section">
-      <video
-        src={`https://lol.dyn.riotcdn.net/x/videos/champion-abilities/0${champion.key.toString().length < 3 ? `0${champion.key}` : champion.key}/ability_0${champion.key.toString().length < 3 ? `0${champion.key}` : champion.key}_${spellKeys[selectedSpell]}1.mp4`}
-        autoPlay
-        loop
-        playsInline
-        onLoadedData={() => setIsVideoLoading(false)}
-      />
-      <div className={`video-placeholder`} style={{ visibility: showLoading ? "visible" : "hidden" }}>CARGANDO</div>
+      {spellKeys.map((spellKey, index) => (
+        <video
+          key={index}
+          ref={(video) => {
+            if (video) {
+              videoRef.current[index] = video;
+            }
+          }}
+          className={`spell-video ${selectedSpell === index ? "selected" : null}`}
+          src={`https://lol.dyn.riotcdn.net/x/videos/champion-abilities/0${champion.key.toString().length < 3 ? `0${champion.key}` : champion.key}/ability_0${champion.key.toString().length < 3 ? `0${champion.key}` : champion.key}_${spellKey}1.mp4`}
+          loop
+          playsInline
+          preload="auto"
+          onLoadedData={() => setIsVideoLoading(false)}
+          onLoadStart={() => setIsVideoLoading(true)}
+        />
+      ))}
+      <div className={`video-placeholder`} style={{ visibility: showLoading ? "visible" : "hidden" }}>Loading...</div>
       <div className="spells-panel">
         <div className="sprites-container">
           <div className="passive-item">
@@ -387,7 +412,6 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
                   key={index}
                   onClick={() => {
                     setSelectedSpell(index + 1);
-                    setIsVideoLoading(true);
                   }}
                   className={`spell-image ${selectedSpell === index + 1 ? "selected" : null}`}
                   src={`/spell/${spell.image.full}`}
