@@ -152,45 +152,42 @@
     justify-content: center;
     text-align: center;
     color: var(--color-primary);
-    width: 3.5rem;
-    height: 3.5rem;
-    background-image: linear-gradient(
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid gray;
+    border-image: linear-gradient(
         to bottom,
         var(--gold-four),
         var(--gold-five)
-    );
-    clip-path: circle(50%);
-    margin-right: 2.5rem;
+    )1;
+    background: var(--blue-six);
     cursor: pointer;
     z-index: 1;
     top: 0;
-    transform: translateY(-50%);
     font-size: 2rem;
-    right: -15px;
+    right: 0;
     position: absolute;
 }
 .closeButton:hover {
     color: var(--color-secundary);
-    background-image: linear-gradient(
+    border-image: linear-gradient(
         to bottom,
         var(--gold-one),
         var(--gold-four)
-    );
+    )1;
 }
-.closeButton::before {
-    position: absolute;
+/*.closeButton::before {
     left: 50%;
-    transform: translateX(-50%);
     content: "";
     height: 86%;
     width: 86%;
     background: var(--blue-six);
-    clip-path: circle(50%);
+    border-radius: 50%;
     z-index: 0;
     align-self: center;
     justify-self: center;
     place-self: center;
-}
+}*/
 .content {
     display: flex;
     flex: 1;
@@ -369,7 +366,7 @@
     justify-content: center;
 }
 .statIcon {
-    font-size: 1.2rem; /* 1.2rem → 1.2vw */
+    font-size: 1.2rem;
     text-shadow: 0 0 5px rgba(200, 155, 60, 0.5);
 }
 .statIcon:hover {
@@ -380,7 +377,7 @@
     margin: 10px 0;
 }
 .loreText {
-    font-size: 1.6rem; /* 0.81rem → 0.81vw */
+    font-size: 1.6rem;
     line-height: 1.4;
     font-family: Spiegel-Regular;
     color: #999487;

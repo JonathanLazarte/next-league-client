@@ -213,6 +213,7 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.4s;
+    flex-direction: row;
 }
 
 .queue-option:hover {

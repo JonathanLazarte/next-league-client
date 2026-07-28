@@ -338,8 +338,8 @@
     object-fit: cover; /* O "contain" según lo que necesites */
     display: none;
 }
-.selected {
-    display: block;
+.spell-video.selected {
+    display: flex;
 }
 .video-placeholder {
     position: absolute;
@@ -372,19 +372,18 @@
 .sprites-container {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 3rem;
     border-bottom: 1px solid var(--gold-five);
     width: 70%;
     justify-content: flex-start;
     align-items: flex-end;
-    margin-top: 18rem; /* 11.25vw → 18rem */
-    padding-bottom: 20px;
+    margin-top: 18rem;
+    padding-bottom: 2rem;
     height: 9rem;
 }
-
 .spell-item,
 .passive-item {
-    font-size: 1.3rem; /* 0.8vw → 1.28rem */
+    font-size: 1.3rem;
     text-align: center;
     font-family: "Bold";
     color: var(--color-secundary);
@@ -392,18 +391,27 @@
 
 .spell-separator {
     height: 4.4rem;
-    width: 1px;
+    width: 0.1rem;
     background: var(--gold-five);
     margin-bottom: auto;
 }
-
-.spell-image {
+.spell-image-container {
     width: 4.2rem;
+    cursor: pointer;
+    border: 1px solid gray;
+    margin-bottom: 1rem;
+}
+.passive-image-container {
+    height: 3.6rem;
+    width: 3.6rem;
     cursor: pointer;
     border: 1px solid gray;
     margin-bottom: 10px;
 }
 
+.spell-image-container.selected, .passive-image-container.selected {
+    border: 2px solid var(--gold-two);
+}
 .spell-info {
     margin-top: 20px;
     width: 60%;
@@ -425,18 +433,6 @@
     color: darkgray;
 }
 
-.passive-image {
-    height: 3.6rem;
-    width: 3.6rem;
-    cursor: pointer;
-    border: 1px solid gray;
-    margin-bottom: 10px;
-}
-
-.spell-image.selected,
-.passive-image.selected {
-    border: 2px solid var(--gold-two);
-}
 
 .rounded-button {
     display: flex;

@@ -34,7 +34,7 @@ const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
             <div className="custom-checkbox">
               {queueSelected.name === queue.name && <div className="checkboxMark" />}
             </div>
-            <h3>{QueueName[queue.name]}</h3>
+            <span>{QueueName[queue.name]}</span>
           </div>
         ))
       }

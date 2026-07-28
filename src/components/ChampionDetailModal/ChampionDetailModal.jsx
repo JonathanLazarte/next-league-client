@@ -395,27 +395,31 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
       <div className="spells-panel">
         <div className="sprites-container">
           <div className="passive-item">
-            <img
-              onClick={() => {
-                setSelectedSpell(0);
-              }}
-              className={`passive-image ${selectedSpell === 0 ? "selected" : null}`}
-              src={`/passive/${champion.passive.image.full}`}
-            ></img>
+            <div className={`passive-image-container ${selectedSpell === 0 ? "selected" : null}`}>
+              <img
+                onClick={() => {
+                  setSelectedSpell(0);
+                }}
+                className='passive-image'
+                src={`/passive/${champion.passive.image.full}`}
+                />
+            </div>
             P
           </div>
           <div className="spell-separator"></div>
           {champion.spells.map((spell, index) => {
             return (
               <div key={index} className="spell-item">
-                <img
-                  key={index}
-                  onClick={() => {
-                    setSelectedSpell(index + 1);
-                  }}
-                  className={`spell-image ${selectedSpell === index + 1 ? "selected" : null}`}
-                  src={`/spell/${spell.image.full}`}
-                ></img>
+                <div className={`spell-image-container ${selectedSpell === index + 1 ? "selected" : null}`}>
+                  <img
+                    key={index}
+                    onClick={() => {
+                      setSelectedSpell(index + 1);
+                    }}
+                    className='spell-image'
+                    src={`/spell/${spell.image.full}`}
+                    />
+                </div>
                 {spellKeys[index]}
               </div>
             );
