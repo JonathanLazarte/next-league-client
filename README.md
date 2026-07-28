@@ -99,8 +99,6 @@ http://localhost:3000
 ```bash
 npm run dev
 npm run build
-npm run start
-npm run lint
 ```
 
 ## Project Goals

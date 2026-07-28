@@ -255,6 +255,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
         onLoad={() => setIsBackgroundImageLoaded(true)}
         height={'800'}
         width={'1320'}
+        quality={'100%'}
       />
       <div className="background-skin-image-placeholder" style={{ visibility: !isBackgroundImageLoaded ? "visible" : "hidden" }}></div>
       <div className="bottom-panel">
