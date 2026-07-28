@@ -100,7 +100,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
       </div>
       <div className="room-users">
         <div className="room-user">
-          <img className="user-banner" src="/banner/estandar6.png" />
+          <img className="user-banner" src="/banner/official (27).png" />
           <div className="user-banner-info-container">
             <div className="banner-user-icon">
               <img

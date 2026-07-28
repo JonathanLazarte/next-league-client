@@ -42,6 +42,7 @@
     transition: padding 0.3s;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari */
+    z-index: 3;
 }
 .header-pointer {
     width: 10rem;
