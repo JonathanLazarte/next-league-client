@@ -62,7 +62,7 @@
 
 .masteryLevel {
     color: var(--gold-one);
-    font-family: bold;
+    font-family: Bold;
     font-size: 2.2rem; /* 1.125vw * 1.6 */
 }
 

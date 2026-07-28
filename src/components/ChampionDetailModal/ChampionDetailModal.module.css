@@ -16,7 +16,7 @@
     align-items: flex-start;
     justify-content: center;
     z-index: 20;
-    background-color: black;
+    background: var(--blue-five);
     /*backdrop-filter: blur(5px);*/
 }
 .modal {
@@ -78,18 +78,19 @@
     flex-direction: column;
     line-height: 1;
     padding-left: 1.5rem;
-    padding-top: 0.7rem; /* 0.6vh → 0.6 * 0.5625 = 0.3375vw */
+    padding-top: 0.7rem;
+    padding-top: 0.9rem;
     height: 100%;
     justify-content: flex-start;
 }
 .championName {
     color: var(--gold-one);
-    font-size: 1.8rem; /* 1rem → 1vw (16px / 1600px * 100 = 1vw) */
+    font-size: 1.8rem;
     margin: 0;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     font-family: "Bold", sans-serif;
-    margin-bottom: 0.5rem; /* 0.7vh → 0.7 * 0.5625 = 0.39375vw */
+    margin-bottom: 0.5rem;
 }
 .championTitle {
     color: var(--gold-two);
@@ -119,7 +120,7 @@
     letter-spacing: 1.5px;
     color: var(--color-primary);
     transition: all 0.1s;
-    font-family: "Medium";
+    font-family: var(--font-medium);
     position: relative;
 }
 .tab:hover {

@@ -12,6 +12,7 @@
 .dashboard {
     grid-area: main;
     overflow: hidden;
+    z-index: 1;
 }
 .index {
     background-image: green;

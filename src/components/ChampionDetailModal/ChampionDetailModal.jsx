@@ -1,8 +1,11 @@
 "use client";
 
+
+
 import React, { useState, useEffect, memo } from "react";
-import { IoClose } from "react-icons/io5";
-import { IoArrowForward } from "react-icons/io5";
+import Image from 'next/image'
+import useLoadingDelay from '@/hooks/useLoadingDelay'
+
 import styles from "./ChampionDetailModal.module.css";
 import "./ChampionDetailModal.css";
 import { openPurchaseModal } from "@/redux/slices/purchaseSlice.js";
@@ -18,6 +21,8 @@ import { PiSpiralBold } from "react-icons/pi";
 import { GiMetalBoot } from "react-icons/gi";
 import { IoMdTrophy } from "react-icons/io";
 import { GiPadlock } from "react-icons/gi";
+import { IoClose } from "react-icons/io5";
+import { IoArrowForward } from "react-icons/io5";
 
 const ResumenTab = memo(function ResumenTab({
   champion,
@@ -149,6 +154,8 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
   const [selectedSkin, setSelectedSkin] = useState(0);
   const { userSkins } = useSelector(selectUserSkinsData);
   const totalSkins = champion.skins.length;
+  const [isBackgroundImageLoaded, setIsBackgroundImageLoaded] = useState(false);
+
   const isSkinInCollection =
     selectedSkin === 0 ||
     userSkins.some((us) => us.key == champion.skins[selectedSkin]?.id);
@@ -205,10 +212,12 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
 
   const goToPreviousSkin = () => {
     setSelectedSkin((prev) => (prev - 1 + totalSkins) % totalSkins);
+    setIsBackgroundImageLoaded(false);
   };
 
   const goToNextSkin = () => {
     setSelectedSkin((prev) => (prev + 1) % totalSkins);
+    setIsBackgroundImageLoaded(false);
   };
 
   useEffect(() => {
@@ -238,10 +247,16 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
   return (
     <div
       className="content"
-      style={{
-        backgroundImage: `url(/${window.innerWidth < 767 ? "loading" : "splash"}/${champion.id}_${champion.skins[selectedSkin].num}.jpg)`,
-      }}
     >
+      <Image
+        className="skin-background-image"
+        src={`/${window.innerWidth < 767 ? "loading" : "splash"}/${champion.id}_${champion.skins[selectedSkin].num}.jpg`}
+        alt={champion.name}
+        onLoad={() => setIsBackgroundImageLoaded(true)}
+        height={'800'}
+        width={'1320'}
+      />
+      <div className="background-skin-image-placeholder" style={{ visibility: !isBackgroundImageLoaded ? "visible" : "hidden" }}></div>
       <div className="bottom-panel">
         <h3 className="skin-name">
           {" "}
@@ -255,7 +270,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
             {champion.skins.map((_, index) => (
               <div
                 key={index}
-                onClick={() => setSelectedSkin(index)}
+                onClick={() => { setSelectedSkin(index); setIsBackgroundImageLoaded(false); }}
                 className={`navigator-minibutton ${index == selectedSkin ? "active" : null}`}
               ></div>
             ))}
@@ -276,9 +291,10 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
               {visibleSkins.map((skinIndex, position) => (
                 <div
                   key={`${skinIndex}-${position}`}
-                  onClick={() =>
-                    skinIndex !== null && setSelectedSkin(skinIndex)
-                  }
+                  onClick={() => {
+                    skinIndex !== null && setSelectedSkin(skinIndex);
+                    setIsBackgroundImageLoaded(false);
+                  }}
                   className={`skin-minicard ${skinIndex === selectedSkin ? "selected" : ""} ${skinIndex === null ? "empty" : ""}`}
                   style={{
                     transform:
@@ -338,6 +354,8 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
 const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
   const spellKeys = ["P", "Q", "W", "E", "R"];
   const [selectedSpell, setSelectedSpell] = useState(0);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const showLoading = useLoadingDelay(isVideoLoading);
 
   return (
     <div className="spells-section">
@@ -346,12 +364,16 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
         autoPlay
         loop
         playsInline
+        onLoadedData={() => setIsVideoLoading(false)}
       />
+      <div className={`video-placeholder`} style={{ visibility: showLoading ? "visible" : "hidden" }}>CARGANDO</div>
       <div className="spells-panel">
         <div className="sprites-container">
           <div className="passive-item">
             <img
-              onClick={() => setSelectedSpell(0)}
+              onClick={() => {
+                setSelectedSpell(0);
+              }}
               className={`passive-image ${selectedSpell === 0 ? "selected" : null}`}
               src={`/passive/${champion.passive.image.full}`}
             ></img>
@@ -363,7 +385,10 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
               <div key={index} className="spell-item">
                 <img
                   key={index}
-                  onClick={() => setSelectedSpell(index + 1)}
+                  onClick={() => {
+                    setSelectedSpell(index + 1);
+                    setIsVideoLoading(true);
+                  }}
                   className={`spell-image ${selectedSpell === index + 1 ? "selected" : null}`}
                   src={`/spell/${spell.image.full}`}
                 ></img>
@@ -406,8 +431,8 @@ const ChampionDetailModal = ({ champion, onClose }) => {
       ? [
           { id: "resumen", label: "RESUMEN" },
           { id: "habilidades", label: "HABILIDADES" },
-          { id: "maestria", label: "MAESTRÍA" },
-          { id: "eternos", label: "ETERNOS" },
+          /*{ id: "maestria", label: "MAESTRÍA" },
+          { id: "eternos", label: "ETERNOS" },*/
           { id: "aspectos", label: "ASPECTOS" },
         ]
       : [

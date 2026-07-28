@@ -1,6 +1,8 @@
 "use client";
 import ReactDOM from "react-dom";
+import { useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import Image from "next/image";
 import { useMemo } from "react";
 import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
@@ -189,6 +191,7 @@ export default function ConfirmPurchaseWindow() {
       </div>
     );
   };
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     typeof window !== "undefined" &&
@@ -206,11 +209,24 @@ export default function ConfirmPurchaseWindow() {
                 </button>
 
                 <div className="image-container">
-                  <img
+                  <Image
                     className="product-image"
                     src={productImg}
                     alt={productInfo.name}
+                    width={600}
+                    height={600}
+                    onLoad={() => setImageLoaded(true)}
+                    style={{
+                      visibility: imageLoaded ? "visible" : "hidden",
+                    }}
                   />
+                  {!imageLoaded && <div className="loading-image">
+                    <div className={`loading-spinner small`}>
+                      <div className="spinner-ring"></div>
+                      <div className="spinner-ring"></div>
+                      <div className="spinner-ring"></div>
+                    </div>
+                  </div>}
                   <div className="gradient"></div>
                 </div>
 

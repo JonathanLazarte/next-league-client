@@ -25,7 +25,7 @@ export default function DashboardError({ error /* , reset*/ }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
+        height: "var(--dashboard-content-height)",
         backgroundColor: "black",
         color: "#C8AA6E",
         gap: "16px",

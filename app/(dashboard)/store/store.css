@@ -313,7 +313,7 @@
 }
 
 .checkbox.section {
-    font-family: "Medium";
+    font-family: var(--font-medium);
     letter-spacing: 1px;
     height: 3.8rem;
     padding-left: 0;

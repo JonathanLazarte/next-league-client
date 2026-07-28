@@ -39,7 +39,6 @@
     position: sticky;
     top: 0px;
     user-select: none;
-    z-index: 15;
     transition: padding 0.3s;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari */
