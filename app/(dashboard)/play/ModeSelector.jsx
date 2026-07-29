@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUserState } from '@/redux/slices/userInterfaceSlice.ts';
 import ConfirmButton from '@/components/playButton/confirmButton.jsx';
+import { useSound } from '@/hooks/useSound';
+
 
 const QueueName = {
   'ranked_solo_duo': 'Ranked Solo/Duo',
@@ -18,7 +20,16 @@ const QueueName = {
 
 
 const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
-  const [ queueSelected, setQueueSelected ] = useState(gameMode.queues[0]);
+  const [queueSelected, setQueueSelected] = useState(gameMode.queues[0]);
+  const { play: playQueueClick } = useSound('/sfx/sfx-soc-ui-click-generic.ogg');
+
+  const handleClick = (queue) => {
+    if(queueSelected.name !== queue.name) {
+      setQueueSelected(queue);
+      setSelectedQueueGlobal(queue.name);
+      playQueueClick();
+    }
+  };
   return (
     <div className="queues-wrapper" key={gameMode.title} >
       <div className="gamemode-description">
@@ -28,7 +39,7 @@ const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
         gameMode?.queues?.map((queue, index) => (
           <div
             className={`queue-option ${queueSelected.name === queue.name ? 'selected' : ''}`}
-              onClick={() => { setQueueSelected(queue); setSelectedQueueGlobal(queue.name); }}
+              onClick={() => handleClick(queue)}
               key={index}
             >
             <div className="custom-checkbox">
@@ -41,16 +52,30 @@ const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
     </div>
   );
 };
+
 const RenderGameMode = ({ gameMode, selectedMap, hoveredMap, setSelectedMap, setHoveredMap, setSelectedQueueGlobal }) => {
+  const { play: playGameModeHover } = useSound('/sfx/sfx-gameselect-button-hover.ogg');
+  const { play : playGameModeClick } = useSound('/sfx/sfx-gameselect-button-map-click.ogg');
+  const handleMouseEnter = () => {
+    if(selectedMap !== gameMode.title) {
+      setHoveredMap(gameMode.title);
+      playGameModeHover();
+    }
+  };
+  const handleClick = () => {
+    if(selectedMap !== gameMode.title) {
+      playGameModeClick();
+      setSelectedMap(gameMode.title);
+      hoveredMap === gameMode.title && setHoveredMap('');
+    }
+  };
+
   return (
     <div className={`gamemode-wrapper ${hoveredMap === gameMode.title ? 'hovered' : ''} ${selectedMap === gameMode.title ? 'active' : ''}`}>
       <div className="gamemode-icon"
         onMouseLeave={() => setHoveredMap('')}
-        onMouseEnter={() => {selectedMap !== gameMode.title && setHoveredMap(gameMode.title) }}
-        onClick={() => {
-          setSelectedMap(gameMode.title);
-          hoveredMap === gameMode.title && setHoveredMap('');
-        }}
+        onMouseEnter={() => handleMouseEnter()}
+        onClick={() => handleClick()}
       >
         <div className='map-img-wrapper'>
           <img

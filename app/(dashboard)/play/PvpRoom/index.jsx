@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
+import { useSound } from "@/hooks/useSound"
 
 export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
   const RESOURCES_URL =
@@ -23,29 +24,13 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     'beginner': 'SR · BEGINNER · BLIND',
     'intermediate': 'SR · Intermediate · Blind',
   }
-
-  /*useEffect(()=>{
-        const lobbyIntro = new Audio('./assets/sounds/lobby-intro.mp3')
-        setTimeout(()=>{
-            lobbyIntro.play();
-        },650)
-
-    },[])*/
-
-  /*const handleEmitJoinRoom = () => {
-      socket?.current.emit('join-room', { roomId : newRoom })
-    }*/
+  const { play: playTransToGameselect} = useSound('/sfx/sfx-lobby-trans-to-gameselect.ogg')
 
   useEffect(() => {
     socket?.current.on("USER JOINED", ({ room, roomId }) => {
       setRoomId(roomId);
-      //setActualSection("PvpRoom")
       setRoomUsers(room);
-      /* setRoomUsers(prevRoomUsers => {
-          const newRoomUsers = roomUsers;
-          newRoomUsers.push(userJoined);
-          return newRoomUsers
-        })*/
+
       const indexRoom = room.findIndex((id) => id == socket?.current.id);
       const currentPlayer = indexRoom == 0 ? "One" : "Two";
       localStorage.setItem("currentPlayer", currentPlayer);
@@ -72,6 +57,10 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     return () => socket?.current.off("find-opponent");
   }, []);
 
+  const handleBack = () => {
+    playTransToGameselect();
+    dispatch(setUserState("online"));
+  }
   return (
     <section className="pvp-room">
       <div className="room-header">
@@ -81,7 +70,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
           data-name="Capa 2"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 30 41.23"
-          onClick={() => dispatch(setUserState("online"))}
+          onClick={() => handleBack()}
         >
           <defs>
             <linearGradient id="active-hextech-metal-gradient" gradientTransform="rotate(90)">

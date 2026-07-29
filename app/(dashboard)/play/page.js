@@ -22,9 +22,9 @@ export const GAME_DATA = {
   PVP: [
     {
       name: "summoner rift",
-      hoverImg: "sr-hover.png",
-      enabledImg: "sr-enabled.png",
-      disabledImg: "sr-desabled.png",
+      hoverImg: "sr-icon-hover.png",
+      enabledImg: "sr-icon-active.png",
+      disabledImg: "sr-icon-default.png",
       subTitle: "1v1",
       title: "SUMMONER'S RIFT",
       queues: [
@@ -78,7 +78,7 @@ export const GAME_DATA = {
       enabledImg: "sr-enabled.png",
       disabledImg: "sr-desabled.png",
       subTitle: "1v1",
-      title: "CO-OP VS AI",
+      title: "SUMMONER'S RIFT",
       queues: [
         {
           name: "intro",

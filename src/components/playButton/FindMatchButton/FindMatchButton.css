@@ -21,9 +21,11 @@
   fill: url('#shine-grad');
   mask: url('#btn-mask');
 }
-.find-match-button-vector-background:hover .find-match-button-vector-border {
-	fill: url('#hoverGradient');
-	filter: url('#glow');
+.find-match-button-vector-background {
+	fill: url('#hextech-bg');
+}
+.find-match-butt.find-match-button-vector-background:hover + .find-match-button-vector-border {
+    fill: red!important;
 }
 .find-match-button-vector-background:hover {
 	filter: brightness(1.2);
@@ -35,9 +37,6 @@
 	fill: #1e2328;
 }
 
-.find-match-button-vector-background {
-	fill: url('#hextech-bg');
-}
 .find-match-button-text {
     /*color: #9ec2c2;*/
     font-family: 'Bold';                 /* Fuente oficial de LoL */                    /* Tamaño de fuente base */
@@ -48,7 +47,6 @@
     top: 0px;
     height: 100%;
     width: 100%;
-    z-index: 1;
     align-content: center;
     display: flex;
     justify-content: center;
@@ -66,7 +64,6 @@
     height: 3.75rem;                     /* 2.6vw → 4.16rem */
     width: 3.75rem;                      /* 2.6vw → 4.16rem */
     clip-path: circle(50% at 50% 50%);
-    z-index: 2;
     background: linear-gradient(to bottom, var(--gold-four), var(--gold-five));
     position: absolute;
     top: 1.2rem;

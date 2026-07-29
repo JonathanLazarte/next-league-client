@@ -23,10 +23,13 @@ export default function FindMatchButton({
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
-  const { play: playHover } = useSound("/general/find-match-button-hover.mp3");
-  const { play: playClick } = useSound("/general/find-match-button-click.mp3");
-  const { play: playCancel } = useSound(
-    "/general/confirm-button-cancel-click.mp3",
+  const { play: playHover } = useSound("/sfx/sfx-lobby-button-find-match-hover.ogg");
+  const { play: playClick } = useSound("/sfx/sfx-lobby-button-find-match-click.ogg");
+  const { play: playQuitClick } = useSound(
+    "/sfx/sfx-lobby-button-quit-click.ogg",
+  );
+  const { play: playQuitHover } = useSound(
+    "/sfx/sfx-lobby-button-quit-hover.ogg",
   );
   const { play: playConfirm } = useSound("/general/confirm-button-click.mp3");
 
@@ -50,7 +53,7 @@ export default function FindMatchButton({
 
   // Cancelar / Salir
   const handleCancel = () => {
-    playCancel();
+    playQuitClick();
 
     if (type === "pvp-room") {
       socket?.current?.emit("leave-room");
@@ -95,6 +98,7 @@ export default function FindMatchButton({
         <div
           translate="no"
           onClick={handleCancel}
+          onMouseEnter={() => playQuitHover()}
           className="find-match-out-button"
         >
           <HiOutlineX />
@@ -128,13 +132,14 @@ export default function FindMatchButton({
             id="hextech-bg"
             patternUnits="userSpaceOnUse"
             width="1900"
-            height="570"
+            height="590"
           >
             <image
-              x="-60"
+              x="-70"
+              y="-10"
               href="/find-match-button-background.png"
               width="1900"
-              height="570"
+              height="590"
               preserveAspectRatio="xMidYMid slice"
             />
           </pattern>
@@ -143,8 +148,8 @@ export default function FindMatchButton({
             <stop offset="95%" className="stop-2" stop-color="#0cb0d9" />
           </linearGradient>
           <linearGradient id="hoverGradient" gradientTransform="rotate(90)">
-            <stop offset="5%" stop-color="#8abccc" />
-            <stop offset="95%" stop-color="#12a9bf" />
+            <stop offset="5%" stopColor="#8abccc" />
+            <stop offset="95%" stopColor="#12a9bf" />
           </linearGradient>
           <filter id="gold-glow">
             <feGaussianBlur stdDeviation="10" result="blur" />

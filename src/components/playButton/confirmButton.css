@@ -6,10 +6,8 @@
     box-shadow: 1px 1px 1px black;
     border-bottom-left-radius: 30px;
     border-top-left-radius: 30px;
-    /*width: 220px;*/
-    width: 27rem;                      /* 16vw → 25.6rem */
-    /*height: 45px;*/
-    height: 5.5rem;                     /* 3.2vw → 5.12rem */
+    width: 25.3rem;                      /* 16vw → 25.6rem */
+    height: 5.2rem;                     /* 3.2vw → 5.12rem */
     position: relative;
     background-color: #010a13;
     padding-right: 0.5rem;
@@ -24,8 +22,8 @@
     align-items: center;
     align-content: center;
     background-color: white;
-    height: 4.2rem;                     /* 2.6vw → 4.16rem */
-    width: 4.2rem;                      /* 2.6vw → 4.16rem */
+    height: 4rem;                     /* 2.6vw → 4.16rem */
+    width: 4rem;                      /* 2.6vw → 4.16rem */
     clip-path: circle(50% at 50% 50%);
     z-index: 3;
     background: linear-gradient(to bottom, var(--gold-four), var(--gold-five));
@@ -89,7 +87,7 @@
     width: fit-content;
     overflow: visible;
     /*background-color: #1e2328;*/
-    height: 4.3rem;
+    height: 4rem;
     top: 0.5rem;
     right: 0.4rem;
     cursor: pointer;
@@ -130,7 +128,7 @@
     color: #9ec2c2;
     /*padding-bottom: 3px;*/
     font-family: 'Bold';                 /* Fuente oficial de LoL */                    /* Tamaño de fuente base */
-    font-size: 1.9rem;                  /* 1.1vw → 1.76rem */
+    font-size: 1.8rem;                  /* 1.1vw → 1.76rem */
     text-transform: uppercase;           /* Texto en mayúsculas */
     cursor: pointer;                     /* Cursor de puntero */
     overflow: hidden;

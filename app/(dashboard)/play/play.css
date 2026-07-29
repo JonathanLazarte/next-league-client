@@ -211,7 +211,7 @@
     height: 4.3rem;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.4s;
+    transition: opacity 0.4s, color 0.4s;
     flex-direction: row;
 }
 

@@ -80,7 +80,7 @@
     align-items: center;
 }
 .loading-square {
-    border: solid 0.4rem var(--gold-five);
+    border: solid 0.4rem var(--gold-four);
     /*border-image: linear-gradient(to bottom, var(--gold-one), var(--gold-two)) 1;*/
     height: 4.5rem;
     width: 4.5rem;

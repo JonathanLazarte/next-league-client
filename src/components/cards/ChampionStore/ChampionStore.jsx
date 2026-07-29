@@ -1,6 +1,4 @@
 import { memo } from "react";
-/*import { GiDoubled, GiDividedSquare } from "react-icons/gi";*/
-import { GiPadlock } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { openPurchaseModal } from "@/redux/slices/purchaseSlice.js";
 import { preload } from "react-dom";
@@ -43,7 +41,7 @@ const ChampionCard = ({ id, item: data }) => {
         </div>
       </div>
       <div className="unlock-icon-box">
-        <GiPadlock className="unlock-product-icon" />
+        <img className="unlock-product-icon" src='/unlock-icon.png'></img>
       </div>
 
     </article>

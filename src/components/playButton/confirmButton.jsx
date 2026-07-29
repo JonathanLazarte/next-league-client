@@ -12,11 +12,11 @@ export default function PlayButton({ type, activeButtonAction }) {
   const router = useRouter();
   const text = "CONFIRM"
 
-  const { play: playHover } = useSound("/general/find-match-button-hover.mp3");
+  const { play: playHover } = useSound("/sfx/sfx-gameselect-button-confirm-hover.ogg");
   const { play: playCancel } = useSound(
     "/general/confirm-button-cancel-click.mp3",
   );
-  const { play: playConfirm } = useSound("/general/confirm-button-click.mp3");
+  const { play: playConfirm } = useSound("/sfx/sfx-gameselect-button-confirm-click.ogg");
 
   // Cancelar / Salir
   const handleCancel = () => {

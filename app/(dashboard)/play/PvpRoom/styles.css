@@ -66,8 +66,7 @@
     text-transform: uppercase;
 }
 .room-header img {
-    width: 3.2rem;
-    opacity: 0.8;
+    width: 3.7rem;
     margin-right: 1.6rem;
 }
 .room-users {
@@ -84,7 +83,7 @@
     align-items: center;
     align-content: center;
     text-align: center;
-    width: clamp(250px, 38rem, 365px);
+    width: clamp(250px, 38rem, 360px);
     position: fixed;
     top: -7rem;
 }
