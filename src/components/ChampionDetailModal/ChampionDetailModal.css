@@ -9,7 +9,7 @@
 
 @keyframes appearance {
     from {
-        opacity: 0.5;
+        opacity: 0.2;
     }
     to {
         opacity: 1;
@@ -22,6 +22,7 @@
     background-size: cover;
     align-content: end;
     position: relative;
+    animation: appearance 0.5s;
 }
 .skin-background-image{
     width: 100%;
@@ -328,7 +329,7 @@
     height: 100%;
     width: 100%;
     position: relative;
-    animation: appearance 1s;
+    animation: appearance 0.5s;
     background: var(--blue-five);
 }
 

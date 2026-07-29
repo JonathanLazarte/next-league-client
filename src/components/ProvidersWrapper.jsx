@@ -249,10 +249,10 @@ export default function ProvidersWrapper({ children }) {
         return "/Jayce_34.webp";
       }
       case "store": {
-        return "/store_background.png";
+        return "/store_background.webp";
       }
       case "collection": {
-        return "/collection_background.png";
+        return "/collection_background.webp";
       }
       default:
         return null;

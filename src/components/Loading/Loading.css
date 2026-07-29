@@ -22,60 +22,30 @@
 .loading-spinner {
     position: relative;
     display: inline-block;
+    width: 5rem;
+    height: 5rem;
 }
 
 .loading-spinner.small {
-    width: 30px;
-    height: 30px;
+    width: 3rem;
+    height: 3rem;
 }
 
 .loading-spinner.medium {
-    width: 50px;
-    height: 50px;
+    width: 5rem;
+    height: 5rem;
 }
 
 .loading-spinner.large {
-    width: 80px;
-    height: 80px;
+    width: 8rem;
+    height: 8rem;
 }
 
 .spinner-ring {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 3px solid transparent;
-    border-top-color: var(--gold-four);
-    border-radius: 50%;
     animation: spin 1s linear infinite;
-    stroke-width: 7px;
-}
-
-.spinner-ring:nth-child(1) {
-    animation-delay: 0s;
-    border-top-color: #0acbe6;
-    stroke-width: 15px;
-}
-
-.spinner-ring:nth-child(2) {
-    animation-delay: 0.2s;
-    border-top-color: #0acbe6;
-    width: 80%;
-    height: 80%;
-    top: 10%;
-    left: 10%;
-    stroke-width: 7px;
-    display: none;
-}
-
-.spinner-ring:nth-child(3) {
-    animation-delay: 0.4s;
-    border-top-color: var(--gold-six);
-    width: 60%;
-    height: 60%;
-    top: 20%;
-    left: 20%;
-    stroke-width: 7px;
-    display: none;
 }
 
 @keyframes spin {

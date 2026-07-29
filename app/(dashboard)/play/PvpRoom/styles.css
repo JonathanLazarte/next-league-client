@@ -76,7 +76,7 @@
     justify-content: space-around;
     height: 100%;
     width: 100%;
-    min-height: 80rem;
+    min-height: 70rem;
 }
 .room-user {
     display: flex;
@@ -84,7 +84,7 @@
     align-items: center;
     align-content: center;
     text-align: center;
-    width: clamp(250px, 38rem, 390px);
+    width: clamp(250px, 38rem, 365px);
     position: fixed;
     top: -7rem;
 }
@@ -103,6 +103,7 @@
 .banner-user-icon {
     position: relative;
     width: 17rem;
+    height: 17rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,14 +113,17 @@
     position: absolute;
     object-fit: cover;
     clip-path: circle();
-    width: 55%;
+    width: 52%;
     left: 50%;
     transform: translateX(-48%);
 }
 .banner-user-border {
     z-index: 1;
-    left: 50%;
-    width: 20rem;
+    width: 160%;
+    max-width: unset;
+    position: absolute;
+    transform: translateY(-10%);
+
 }
 .banner-user-level {
     position: absolute;

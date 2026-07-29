@@ -15,7 +15,6 @@
     align-content: flex-start;
     justify-content: flex-start;
     position: relative;
-    animation: appearance 1s;
 }
 
 .gradient-layer {

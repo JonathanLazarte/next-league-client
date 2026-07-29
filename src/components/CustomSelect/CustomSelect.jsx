@@ -3,14 +3,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './CustomSelect.css';
 
-const CustomSelect = ({ 
-  options = [], 
-  value, 
-  onChange, 
+const CustomSelect = ({
+  options = [],
+  value,
+  onChange,
   placeholder = "Seleccionar...",
   className = "",
   disabled = false,
-  ...props 
+  ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -52,7 +52,7 @@ const CustomSelect = ({
         if (!isOpen) {
           setIsOpen(true);
         } else {
-          setHighlightedIndex(prev => 
+          setHighlightedIndex(prev =>
             prev < options.length - 1 ? prev + 1 : 0
           );
         }
@@ -62,7 +62,7 @@ const CustomSelect = ({
         if (!isOpen) {
           setIsOpen(true);
         } else {
-          setHighlightedIndex(prev => 
+          setHighlightedIndex(prev =>
             prev > 0 ? prev - 1 : options.length - 1
           );
         }
@@ -100,7 +100,7 @@ const CustomSelect = ({
   }, [highlightedIndex, isOpen]);
 
   return (
-    <div 
+    <div
       ref={selectRef}
       className={`custom-select ${className} ${disabled ? 'disabled' : ''} ${isOpen ? 'open' : ''}`}
       {...props}
@@ -118,11 +118,11 @@ const CustomSelect = ({
         <span className="custom-select-value">
           {selectedOption ? selectedOption.label : placeholder}
         </span>
-        <span className={`custom-select-arrow ${isOpen ? 'open' : ''}`}>
+        {/*<span className={`custom-select-arrow ${isOpen ? 'open' : ''}`}>
           ▼
-        </span>
+        </span>*/}
       </div>
-      
+
       {isOpen && (
         <div className="custom-select-dropdown" role="listbox">
           {options.map((option, index) => (
@@ -149,4 +149,3 @@ const CustomSelect = ({
 };
 
 export default CustomSelect;
-

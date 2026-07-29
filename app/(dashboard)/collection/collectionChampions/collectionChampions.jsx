@@ -65,10 +65,6 @@ export default memo(function MainPage() {
       },
       isTooltipOpened: hoveredChampion !== null,
     });
-    /*setToolTipPos({
-            x: e.clientX,
-            y: e.clientY
-        })*/
   };
   const onHoverEnd = useCallback(() => {
     end(() => setHoveredChampion(null));
@@ -95,8 +91,6 @@ export default memo(function MainPage() {
       "No adquiridos": [],
     };
     allChamps?.map((campeon) => {
-      /*!acumulador['En colección'] ? acumulador['En colección'] = []
-            !acumulador['No adquiridos'] ? acumulador['No adquiridos'] = []*/
       userChampions.some((c) => c.id === campeon.id)
         ? byPossession["En colección"].push(campeon)
         : byPossession["No adquiridos"].push(campeon);
@@ -172,28 +166,7 @@ export default memo(function MainPage() {
     return result;
   }, [championsData, searchKeysWithDelay, inCollection, sortedBy, groupedBy]);
 
-  /*const RenderChampsWithSections = () => {
-        return Object.keys(groupedChampions)?.map((section, index) => (
-            <div key={index} className={`champion-section ${Object.keys(groupedChampions).length -1 == index ? null :"border-b border-white/10" }`}>
-                {section != 'Todos' ? <h1 className={`${ index === 0 ? 'mt-[0.6vh] mb-[3.2vh]' : 'mt-[2.3vh] mb-[2.3vh]'}  text-lg flex items-center content-center`}>{section.toUpperCase()}</h1> : null }
-                <main>
-                    {groupedChampions[section].length > 0 ? groupedChampions[section]?.map((c, index) => (
-                                <Card
-                                    key={c.id || index} // Usar poke.id si está disponible, de lo contrario, index
-                                    id={index}
-                                    champion={c}
-                                    adquired={ userChampions.some(uc => uc.id == c.id) }
-                                    onClick={handleChampionClick}
-                                    onHoverStart={onHoverStart}
-                                    onHoverEnd={onHoverEnd}
-                                    toolTipPosRef={toolTipPosRef}
-                                />
-                    )) : null }
-                </main>
-            </div>
-        ));
-    }*/
-  /*const checkboxStyle = inCollection ? {backgroundColor: "white"} : null;*/
+
   return (
     <div className="collection-champions-wrapper">
       <div
@@ -234,11 +207,11 @@ export default memo(function MainPage() {
               <div className="maestry-etern-levels">
                 <div className="amount-and-description">
                   <div className="amount">541</div>
-                  <div className="description">NIVEL TOTAL DE MAESTRIA</div>
+                  <div className="description">TOTAL MASTERY LEVEL</div>
                 </div>
                 <div className="amount-and-description">
                   <div className="amount">15</div>
-                  <div className="description">METAS DE ETERNOS</div>
+                  <div className="description">ETERNALS MILESTONES</div>
                 </div>
               </div>
             </div>
@@ -261,7 +234,7 @@ export default memo(function MainPage() {
                 <div className="custom-checkbox" type="checkbox">
                   {!inCollection ? <FaCheck className="check-icon" /> : null}
                 </div>
-                Mostrar no obtenidos
+                Show Unowned
               </div>
             ) : (
               <div style={{ height: "5.4rem" }} className="h-3"></div>
@@ -270,24 +243,24 @@ export default memo(function MainPage() {
             <CustomSelect
               className="select-filter"
               options={[
-                { value: "", label: "Todos los campeones" },
-                { value: "possession", label: "Posesión" },
-                { value: "role", label: "Rol" },
+                { value: "", label: "All Champions" },
+                { value: "possession", label: "Most Popular Posesition" },
+                { value: "role", label: "Role" },
               ]}
               value={groupedBy}
               onChange={setGroupedBy}
-              placeholder="Seleccionar agrupación..."
+              placeholder="Select Grouping..."
             />
 
             <CustomSelect
               className="select-filter"
               options={[
-                { value: "alphabetically", label: "Alfabético" },
-                { value: "championsMastery", label: "Maestria de campeones" },
+                { value: "alphabetically", label: "Alphabetical" },
+                { value: "championsMastery", label: "Champion Mastery" },
               ]}
               value={sortedBy}
               onChange={setSortedBy}
-              placeholder="Seleccionar orden..."
+              placeholder="Select Sorting..."
             />
           </div>
         </div>

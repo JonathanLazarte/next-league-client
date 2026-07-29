@@ -16,9 +16,7 @@ const Loading = memo(function Loading({
       aria-label={message}
     >
       <div className={`loading-spinner ${size}`}>
-        <div className="spinner-ring"></div>
-        <div className="spinner-ring"></div>
-        <div className="spinner-ring"></div>
+        <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
       </div>
       {message && (
         <p className="loading-message" aria-hidden="true">

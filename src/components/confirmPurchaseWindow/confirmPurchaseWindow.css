@@ -30,9 +30,8 @@
 }
 
 .confirm-purchase-window {
-    /*height: 70vh;*/
-    height: 67rem; /* 39.5vw → 63.2rem */
-    width: 67rem; /* 41.4vw → 66.24rem */
+    height: 67rem;
+    width: 67rem;
     border: 2px solid white;
     background-color: lightgray;
     z-index: 1;
@@ -46,7 +45,6 @@
     background-size: contain;
     background-position-y: 0px;
     background-color: var(--blue-five);
-    animation: appearance 0.4s;
 }
 
 .confirm-purchase-window-content {

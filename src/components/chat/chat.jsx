@@ -57,12 +57,12 @@ export default memo(function Chat({ socket }) {
   }, [selectedChat, isChatVisible, dispatch]);
 
   // Sonido al abrir el chat
-  useEffect(() => {
+  /*useEffect(() => {
     if (isChatVisible && selectedChat) {
       const sound = new Audio(`${RESOURCES_URL}general/menu-click.mp3`);
       sound.play().catch(() => {}); // Ignorar errores de autoplay
     }
-  }, [isChatVisible, selectedChat]);
+  }, [isChatVisible, selectedChat]);*/
 
   // Manejar indicador de escritura
   const handleTyping = (e) => {
@@ -142,6 +142,8 @@ export default memo(function Chat({ socket }) {
     }
   };
   const filterByUser = (msgs, selectedUser) => {
+    if(!msgs) return [];
+    
     return msgs.filter(
       (m) =>
         (m.from === selectedUser && m.to === alias) ||

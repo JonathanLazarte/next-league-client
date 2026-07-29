@@ -392,7 +392,11 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
           onLoadStart={() => setIsVideoLoading(true)}
         />
       ))}
-      <div className={`video-placeholder`} style={{ visibility: showLoading ? "visible" : "hidden" }}>Loading...</div>
+      <div className={`video-placeholder`} style={{ visibility: showLoading ? "visible" : "hidden" }}>
+        <div className={`loading-spinner medium`}>
+          <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
+        </div>
+      </div>
       <div className="spells-panel">
         <div className="sprites-container">
           <div className="passive-item">

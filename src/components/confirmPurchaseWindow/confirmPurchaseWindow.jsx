@@ -221,10 +221,8 @@ export default function ConfirmPurchaseWindow() {
                     }}
                   />
                   {!imageLoaded && <div className="loading-image">
-                    <div className={`loading-spinner small`}>
-                      <div className="spinner-ring"></div>
-                      <div className="spinner-ring"></div>
-                      <div className="spinner-ring"></div>
+                    <div className={`loading-spinner medium`}>
+                      <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
                     </div>
                   </div>}
                   <div className="gradient"></div>

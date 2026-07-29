@@ -1,25 +1,25 @@
 .collection-skins-section {
     height: 100%;
     width: 100%;
-    padding-left: 4rem; /* 2.5vw → 4rem */
+    padding-left: 4rem;
     padding-right: 0.5rem;
     display: flex;
     flex-direction: row;
-    --total-skins-width: 16.8rem; /* 10.5vw → 16.8rem */
+    --total-skins-width: 16.8rem;
     --total-skins-max-width: 160px;
     padding-top: 4.4rem;
 }
 
 .skins-panel {
-    width: 24.32rem; /* 15.2vw → 24.32rem */
-    margin-right: 8rem; /* 3.8vw → 6.08rem */
-    padding-top: 12rem; /* 5vw → 8rem */
+    width: 24.32rem;
+    margin-right: 8rem;
+    padding-top: 12rem;
     max-width: 250px;
 }
 
 .skins-panel-stats {
     width: 100%;
-    margin-bottom: clamp(15px, 2vh, 25px);
+    margin-bottom: 3rem;
     position: relative;
 }
 
@@ -33,7 +33,7 @@
 
 .total-skins-info {
     position: absolute;
-    top: -40%;
+    top: -45%;
     width: var(--total-skins-width);
     max-width: var(--total-skins-max-width);
     place-self: center;

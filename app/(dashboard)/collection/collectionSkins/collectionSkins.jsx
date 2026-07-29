@@ -469,7 +469,7 @@ export default memo(function CollectionSkins() {
             </svg>
             <div className="total-skins-info">
               <div className="amount">{userSkins?.length}</div>
-              <div className="description">TOTAL DE ASPECTOS EN COLECCIÓN</div>
+              <div className="description">TOTAL SKINS OWNED</div>
             </div>
             <svg
               className="skins-hextech-border"
