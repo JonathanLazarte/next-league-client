@@ -50,9 +50,9 @@ export const GAME_DATA = {
     },
     {
       name: "aram",
-      hoverImg: "sr-hover.png",
-      enabledImg: "sr-enabled.png",
-      disabledImg: "sr-desabled.png",
+      hoverImg: "aram-hover.png",
+      enabledImg: "aram-active.png",
+      disabledImg: "aram-default.png",
       subTitle: "5v5",
       title: "ARAM",
       queues: [
