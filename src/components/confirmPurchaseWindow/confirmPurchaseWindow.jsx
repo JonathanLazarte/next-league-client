@@ -7,7 +7,6 @@ import { useMemo } from "react";
 import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import "./confirmPurchaseWindow.css";
-import { OrbitProgress } from "react-loading-indicators";
 import {
   closeModal,
   confirmPurchase,
@@ -213,8 +212,8 @@ export default function ConfirmPurchaseWindow() {
                     className="product-image"
                     src={productImg}
                     alt={productInfo.name}
-                    width={600}
-                    height={600}
+                    sizes={'40rem'}
+                    fill
                     onLoad={() => setImageLoaded(true)}
                     style={{
                       visibility: imageLoaded ? "visible" : "hidden",
@@ -246,14 +245,10 @@ export default function ConfirmPurchaseWindow() {
                 {!showLoading ? (
                   <>{!showSuccess ? <DefaultBottom /> : <SuccessBottom />}</>
                 ) : (
-                  <div className="purchase-success-message">
-                    <OrbitProgress
-                      color="#0acbe6"
-                      size="small"
-                      text=""
-                      textColor=""
-                      style={{ fontSize: "1rem", marginBottom: "7rem" }}
-                    />
+                  <div className="purchase-loading-bottom">
+                    <div className={`loading-spinner small`}>
+                      <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
+                    </div>
                   </div>
                 )}
               </div>

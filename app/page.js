@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "@/hooks/useRouter";
 
 /*import { useSelector, useDispatch } from 'react-redux'
 import { logout, verifyToken, clearError } from '@/redux/slices/authSlice'*/
@@ -9,7 +7,6 @@ import { logout, verifyToken, clearError } from '@/redux/slices/authSlice'*/
 /*import Image from 'next/image'*/
 
 export default function HomePage() {
-  const router = useRouter();
   /*const dispatch = useDispatch()
   const { isAuthenticated, loading } = useSelector(state => state.auth)
   const localStoreToken = localStorage.getItem('item')*/
@@ -28,7 +25,4 @@ export default function HomePage() {
     }
   }, [isAuthenticated, loading, router, dispatch])*/
 
-  useEffect(() => {
-    router.push("/league");
-  }, []);
 }

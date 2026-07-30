@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { openPurchaseModal } from "@/redux/slices/purchaseSlice.js";
 import { preload } from "react-dom";
 import "./ChampionStore.css";
+import Image from 'next/image'
 
 const ChampionCard = ({ id, item: data }) => {
   const dispatch = useDispatch();
@@ -21,11 +22,13 @@ const ChampionCard = ({ id, item: data }) => {
     >
       {" "}
       {/* Unique key and card class */}
-      <img
+      <Image
         className="pokemon"
         id={id} // Set unique ID for potential usage
         src={`/tiles/${data.id}_0.jpg`}
         alt={`Sprite of ${data.name}`} // Add alt text for accessibility
+        sizes={'23rem'}
+        fill
       />
       <div className="product-info">
         <h4 className="card-name">{data.name}</h4>

@@ -174,11 +174,10 @@ export default memo(function RightNav({
     setMenuPosition({ x: e.clientX, y: e.clientY });
   };
   const handleLogout = () => {
-    /*dispatch(stopTrack())*/
     audioEngine.stopMusic();
     socket?.current.disconnect();
+    localStorage.removeItem("token");
     dispatch(logout());
-    router.push("login");
   };
   const inviteBox = (userName) => {
     const userRequest = battleRequest.find(

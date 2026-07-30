@@ -57,11 +57,7 @@ export default function ProvidersWrapper({ children }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [/*battleRequest,*/ setBattleRequest] = useState([]);
   const socket = useRef(null);
-  /*const newRoom = uuidv4()*/
   const { token } = useAuth();
-  /*const [roomId, setRoomId] = useState()*/
-  /*const [globalRoom, setGlobalRoom] = useState()*/
-  /*const [roomUsers, setRoomUsers] = useState([])*/
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { actualSection, isNavigating, userState } = useSelector(
@@ -69,18 +65,11 @@ export default function ProvidersWrapper({ children }) {
   );
   const { itemToBuy } = useSelector(selectPurchaseData);
 
-  /*const indexElementStyle = {
-      paddingRight: !showSideNav || userState === 'In explore match' ? `0px` : null,
-      paddingTop: (userState === 'In explore match' || userState === 'In normal match') ? '0px' : null
-    };*/
-  const [localStoreToken, setLocalStoreToken] = useState("loading");
+  const [localStoreToken, setLocalStoreToken] = useState();
   const pathname = usePathname();
 
   useEffect(() => {
     setLocalStoreToken(localStorage.getItem("token"));
-    /*if (typeof window !== 'undefined') {
-        setShowSideNav(window.innerWidth > 1200)
-      }*/
   }, []);
 
   useEffect(() => {
@@ -148,19 +137,19 @@ export default function ProvidersWrapper({ children }) {
   }, [token]);
 
   //--------------------------------------------------------------------------------
-  useEffect(() => {
+  /*useEffect(() => {
     if (localStoreToken != "loading" && !loading) {
       if (isAuthenticated) {
         console.log("nothing to do");
       } else if (localStoreToken) {
         // autentificar
         console.log("punto de verificacion correcto");
-        dispatch(verifyToken);
+        dispatch(verifyToken(localStoreToken));
       } else {
         router.push("/login");
       }
     }
-  }, [isAuthenticated, loading, router, localStoreToken]);
+  }, [isAuthenticated, loading, router, localStoreToken]);*/
   //----------------------------------------------------------------------------------
 
   /*useEffect(() => {
@@ -181,16 +170,6 @@ export default function ProvidersWrapper({ children }) {
 
   useEffect(() => {
     socket.current?.on("chat-message", (msg) => {
-      /*const message = {
-        id: Date.now().toString(),
-        from: msg.from,
-        to: msg.to,
-        content: msg.message.trim(),
-        timestamp: Date.now(),
-        type: "text",
-        isRead: false,
-        isDelivered: false,
-      };*/
       dispatch(addMessage(msg));
     });
     return () => socket.current?.off("chat-message");
@@ -199,7 +178,6 @@ export default function ProvidersWrapper({ children }) {
   useEffect(() => {
     if (!socket.current) return;
     socket.current?.on("user-list", (msg) => {
-      console.log(msg);
       //const actualUserIndex = msg.findIndex((u) => u.alias === user.alias);
       //msg.splice(actualUserIndex, 1);
       const friendFolders = [
@@ -231,19 +209,13 @@ export default function ProvidersWrapper({ children }) {
     );
   }
 
-  /*<link rel="preload" href="/images/section1.jpg" as="image" />
-  <link rel="preload" href="/images/section2.jpg" as="image" /> */
 
-  if (!isAuthenticated) {
+{/*if (!isAuthenticated) {
     return <img className="lol-logo-image" src="/LOL_Icon_Rendered.png" />; // No renderizar nada mientras redirige
   }
+*/}
 
   const layoutBackgroundImage = (actualSection) => {
-    /*if(actualSection === 'Home'){
-      return '/Jayce_34.jpg'
-    } else {
-      return '/magic_background.png'
-    }*/
     switch (actualSection) {
       case "league": {
         return "/Jayce_34.webp";

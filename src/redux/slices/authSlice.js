@@ -64,10 +64,8 @@ export const registerUser = createAsyncThunk(
 // Async thunk para verificar token
 export const verifyToken = createAsyncThunk(
   "auth/verifyToken",
-  async (_, { rejectWithValue }) => {
+  async (token, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-
       if (!token) {
         return rejectWithValue("No token found");
       }

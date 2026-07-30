@@ -35,7 +35,7 @@
     width: 110px;
 }
 .main-menu.register {
-    background-image: url("/riot_desktop_background_2x.jpg");
+    background-image: url("/riot_desktop_background_2x.webp");
     background-color: black;
     justify-content: flex-end;
 }
@@ -121,14 +121,35 @@
     margin-right: 5px;
     font-size: 15px;
 }
+.register .active-indicator-inner{
+    width: 100%;
+}
 .active-indicator {
     position: absolute;
     bottom: 0;
+    left: 0;
     height: 2px;
-    width: 60px;
-    background-color: #d53235;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
 }
-
+.active-indicator-inner {
+    width: 48%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+.active-indicator-inner::after {
+    content: "";
+    width: 50%;
+    height: 100%;
+    background-color: #d53235;
+    position: absolute;
+    place-self: center;
+    display: grid;
+    bottom: 0;
+}
 .error-box {
     width: 65%;
     height: 30px;
@@ -252,15 +273,15 @@
     text-transform: uppercase;
     margin-top: auto;
 }
-.actions-box a {
+.auth-link {
     text-decoration: none;
     cursor: pointer;
     color: #636363;
-    font-size: 9.5px;
+    font-size: 10px;
     letter-spacing: 1px;
     font-weight: 800;
 }
-.actions-box a:hover {
+.auth-link:hover {
     color: #555555;
 }
 .login-button {

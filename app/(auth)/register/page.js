@@ -10,6 +10,7 @@ import { registerUser } from "@/redux/slices/authSlice.js";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import "../auth.css";
+import { setUser } from "@/redux/slices/userSlice";
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState();
@@ -116,7 +117,10 @@ export default function Register() {
         theme: "dark",
       },
     };
-    dispatch(registerUser(body));
+    const userResult = await dispatch(registerUser(body)).unwrap();
+    console.log(userResult)
+    dispatch(setUser(userResult))
+
     // Redirigir al dashboard
   };
 
@@ -148,7 +152,7 @@ export default function Register() {
         </div>
         <div className="register-header">
           <h2 className="register-title">Register</h2>
-          <div className="active-indicator"></div>
+          <div className="active-indicator"><div className="active-indicator-inner"></div></div>
         </div>
         <div
           className="auth-loading-spinner"
@@ -206,7 +210,7 @@ export default function Register() {
           >
             <FaArrowRight />
           </button>
-          <a onClick={() => router.push("/login")}>Iniciar Sesión</a>
+          <a className="auth-link" onClick={() => router.push("/login")}>I have an account</a>
           <div className="disclaimer">
             <span className="disclaimer-line">
               THIS APP IS PROTECTED BY HCAPCHA AND ITS

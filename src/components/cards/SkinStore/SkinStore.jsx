@@ -20,7 +20,7 @@ export default function SkinStoreItem({ item : skin }){
                                   src={`/tiles/${skin.img}`}
                                   alt={skin.name}
                                   fill
-                                  sizes="23vw"
+                                  sizes="23rem"
                                   className="pokemon"
                                   style={{ objectFit: 'cover' }}
                                 />

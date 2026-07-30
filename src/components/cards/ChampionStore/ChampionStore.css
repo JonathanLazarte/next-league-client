@@ -28,7 +28,6 @@
 .pokemon {
     object-fit: cover;
     transition: all 0.2s;
-    background-color: rgba(0, 0, 0, 1);
     aspect-ratio: 1/ 1;
     padding: 0px;
     filter: brightness(0.8);

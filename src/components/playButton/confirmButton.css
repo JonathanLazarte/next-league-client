@@ -143,6 +143,7 @@
     position: absolute;
     padding-left: 2.4rem;
     padding-right: 0.5rem;
+    bottom: 25%;
 }
 
 /*.play-button::after {

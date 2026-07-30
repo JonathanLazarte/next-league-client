@@ -19,13 +19,8 @@ export default memo(function Login() {
   const { loading, error } = useSelector((state) => state.auth);
   const [loginOptionSelected, setLoginOptionSelected] = useState("login");
   const tabs = ["login", "guest"];
-  const tabStyles = {
-    position: "absolute",
-    bottom: "0",
-    left: `${loginOptionSelected === "login" ? "0" : "50%"}`,
-    transition: "left 0.5s ease",
-    /*transform: `${loginOptionSelected === "login" ? "translateX(0)" : "translateX(-50%)"}`,*/
-    margin: "0px 40px",
+  const indicatorStyle = {
+    transform: `${loginOptionSelected === "login" ? "translateX(0)" : "translateX(108.333%)"}`,
   };
 
   const initialValues = {
@@ -105,7 +100,7 @@ export default memo(function Login() {
           {tabs.map((tab, index) => (
             <div
               key={tab}
-              className={`switch-option ${loginOptionSelected === tab && "active"} ${loading && "disabled"}`}
+              className={`switch-option ${loginOptionSelected === tab && "active"} ${loading ? "disabled" : ""}`}
               onClick={() => (!loading ? setLoginOptionSelected(tab) : null)}
               ref={(el) => (tabRefs.current[index] = el)}
             >
@@ -114,7 +109,7 @@ export default memo(function Login() {
               <span>{tab === "login" ? "Sign-in" : "Guest"}</span>
             </div>
           ))}
-          <div style={tabStyles} className="active-indicator"></div>
+          <div className="active-indicator"><div style={indicatorStyle} className="active-indicator-inner"></div></div>
         </div>
         <div
           className="auth-loading-spinner"
@@ -178,7 +173,7 @@ export default memo(function Login() {
           >
             <FaArrowRight />
           </button>
-          <a onClick={() => router.push("/register")}>Create account</a>
+          <a className="auth-link" onClick={() => router.push("/register")}>Create account</a>
           <div className="disclaimer">
             <span className="disclaimer-line">
               THIS APP IS PROTECTED BY HCAPCHA AND ITS

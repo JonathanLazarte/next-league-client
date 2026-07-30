@@ -227,7 +227,7 @@
 .search-icon {
     color: var(--gold-one);
     font-size: 1.6rem;
-    margin-right: 0.5rem; /* 0.6vw → 0.96rem */
+    margin-right: 1rem;
 }
 
 

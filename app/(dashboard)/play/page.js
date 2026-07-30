@@ -25,7 +25,7 @@ export const GAME_DATA = {
       hoverImg: "sr-icon-hover.png",
       enabledImg: "sr-icon-active.png",
       disabledImg: "sr-icon-default.png",
-      subTitle: "1v1",
+      subTitle: "5v5",
       title: "SUMMONER'S RIFT",
       queues: [
         {
@@ -74,10 +74,10 @@ export const GAME_DATA = {
   CO_OP_VS_AI: [
     {
       name: "co-op vs ai",
-      hoverImg: "sr-hover.png",
-      enabledImg: "sr-enabled.png",
-      disabledImg: "sr-desabled.png",
-      subTitle: "1v1",
+      hoverImg: "sr-icon-hover.png",
+      enabledImg: "sr-icon-active.png",
+      disabledImg: "sr-icon-default.png",
+      subTitle: "5v5",
       title: "SUMMONER'S RIFT",
       queues: [
         {

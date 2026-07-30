@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "@/hooks/useRouter";
+/*import { useRouter } from "@/hooks/useRouter";*/
 import { useSelector } from "react-redux";
-import { useRouter as useNextRouter } from "next/navigation";
+import { useRouter as useNextRouter} from "next/navigation";
 import { preload } from "react-dom";
 
 export default function AuthLayout({ children }) {
-  const router = useRouter();
   const nextRouter = useNextRouter();
-  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   // Prefetch del dashboard mientras el usuario está en login/register
   // así el chunk ya está descargado cuando navega
@@ -18,11 +17,6 @@ export default function AuthLayout({ children }) {
     preload("LOADING/.webm", { as: "video", fetchPriority: "high" });
   }, []);
 
-  useEffect(() => {
-    if (!loading && isAuthenticated) {
-      router.push("/league");
-    }
-  }, [isAuthenticated, loading, router]);
 
   /*useEffect(() => {
       localStorage.setItem('token', null)
@@ -39,11 +33,7 @@ export default function AuthLayout({ children }) {
   }*/
 
   if (isAuthenticated) {
-    return (
-      <div>
-        <img className="lol-logo-image" src="/LOL_Icon_Rendered.png" />
-      </div>
-    ); // No renderizar nada mientras redirige
+    return; // No renderizar nada mientras redirige
   }
 
   return (

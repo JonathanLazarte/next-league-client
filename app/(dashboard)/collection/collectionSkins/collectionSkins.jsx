@@ -544,7 +544,7 @@ export default memo(function CollectionSkins() {
           <div className="search-filter">
             <FaSearch className="search-icon" />
             <input
-              placeholder="Buscar"
+              placeholder="Search"
               type="search"
               onChange={(event) => setSearchKeys(event.currentTarget.value)}
               aria-label="Buscar skins"
