@@ -3,7 +3,6 @@
 import "./rightNav.css";
 import { useState, memo, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
@@ -113,7 +112,6 @@ export default memo(function RightNav({
     "/" ||
     "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
   const dispatch = useDispatch();
-  const router = useRouter();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [showMenu, setShowMenu] = useState();
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });

@@ -25,7 +25,6 @@ import { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useRouter } from "@/hooks/useRouter";
 import Image from "next/image";
 
 import { setUser /*, setUserMessages*/ } from "@/redux/slices/userSlice";
@@ -43,16 +42,12 @@ import { setFriendsOnline } from "@/redux/slices/connectedUsersSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 /*import {Riple} from 'react-loading-indicators'*/
 import { useAuth } from "@/hooks/useAuth";
-import {
-  /*logout,*/ verifyToken /*, clearError*/,
-} from "@/redux/slices/authSlice";
 import { setMute, setVolume } from "@/redux/slices/soundSlice.js";
 import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
 import { addMessage, setMessages } from "@/redux/slices/chatSlice";
 
 export default function ProvidersWrapper({ children }) {
-  const router = useRouter();
-  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
   const [showSideNav, setShowSideNav] = useState(true);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [/*battleRequest,*/ setBattleRequest] = useState([]);

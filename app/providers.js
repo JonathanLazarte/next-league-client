@@ -5,14 +5,14 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import store from "@/redux/store";
 import { useRouter, usePathname } from "next/navigation";
-import { verifyToken } from "@/redux/slices/authSlice";
+//import { verifyToken } from "@/redux/slices/authSlice";
 import { useSelector } from "react-redux";
 
 
 export const AuthProvider = ({ children }) => {
   const localStoreToken = localStorage.getItem("token");
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  const dispatch = store.dispatch;
+  //const dispatch = store.dispatch;
   const router = useRouter();
   const pathname = usePathname();
 
