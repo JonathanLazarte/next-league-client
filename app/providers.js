@@ -10,14 +10,22 @@ import { useSelector } from "react-redux";
 
 
 export const AuthProvider = ({ children }) => {
-  const localStoreToken = localStorage.getItem("token");
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const  [localStorageToken, setLocalStorageToken ] = useState()
   //const dispatch = store.dispatch;
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log(localStoreToken)
+    if (typeof window !== 'undefined') {
+      const tokenFromLocalStorage = localStorage.getItem('token')
+      setLocalStorageToken(tokenFromLocalStorage)
+    }
+    console.log(localStorageToken)
+  }, [])
+
+  useEffect(() => {
+
     if (loading) return;
 
     if (isAuthenticated && (pathname === '/login' || pathname === '/register')) {

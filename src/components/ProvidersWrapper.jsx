@@ -59,13 +59,8 @@ export default function ProvidersWrapper({ children }) {
     selectUserInterfaceData,
   );
   const { itemToBuy } = useSelector(selectPurchaseData);
-
-  const [localStoreToken, setLocalStoreToken] = useState();
   const pathname = usePathname();
 
-  useEffect(() => {
-    setLocalStoreToken(localStorage.getItem("token"));
-  }, []);
 
   useEffect(() => {
     /*const sectionToSet = () => {
@@ -92,14 +87,14 @@ export default function ProvidersWrapper({ children }) {
   }, [pathname]);
 
   useEffect(() => {
-    if (localStoreToken) {
-      dispatch(getUserChampions(localStoreToken));
-      dispatch(getUserSkins(localStoreToken));
+    if (token) {
+      dispatch(getUserChampions(token));
+      dispatch(getUserSkins(token));
       try {
         fetch(`${API_URL}pokemons/users/getUserData`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token: localStoreToken }),
+          body: JSON.stringify({ token: token }),
         })
           .then((response) => response.json())
           .then((data) => {
@@ -121,7 +116,7 @@ export default function ProvidersWrapper({ children }) {
         throw new Error("error al autenticar" + error);
       }
     }
-  }, [localStoreToken]);
+  }, [token]);
 
   useEffect(() => {
     if (!token) return;

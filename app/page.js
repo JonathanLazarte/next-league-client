@@ -25,4 +25,6 @@ export default function HomePage() {
     }
   }, [isAuthenticated, loading, router, dispatch])*/
 
+  return <></>
+
 }
