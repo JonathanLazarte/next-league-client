@@ -46,7 +46,7 @@
     max-height: var(--total-skins-max-width);
     display: flex;
     flex-direction: column;
-    padding: 0 1.6rem; /* 1vw → 1.6rem */
+    padding: 0 1.6rem;
 }
 
 .total-skins-info .description {
@@ -124,7 +124,7 @@
     align-items: center;
     padding-top: 1.5rem;
     color: var(--grey-three);
-    font-size: 1.5rem; /* ya era variable, antes 0.8vw ≈ 1.28rem */
+    font-size: 1.5rem;
     padding-bottom: 1rem;
 }
 
@@ -136,7 +136,7 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    width: 3.2rem; /* 2vw → 3.2rem */
+    width: 3.2rem;
 }
 
 .chroma-item img,
@@ -155,21 +155,10 @@
 }
 
 .checkbox-container {
-    height: 9.28rem; /* 5.8vw → 9.28rem */
+    height: 9.28rem;
     display: flex;
     align-content: flex-start;
     justify-content: flex-start;
-}
-
-.apologize-message {
-    align-self: center;
-    justify-self: center;
-    place-self: center;
-    text-align: center;
-    margin: auto;
-    font-family: Bold;
-    font-size: var(--font-2xl); /* antes 1.2vw ≈ 1.92rem, pero es variable */
-    color: var(--color-secundary);
 }
 
 @media (max-width: 767px) {

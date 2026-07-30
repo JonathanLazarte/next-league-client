@@ -122,6 +122,7 @@ export default function Register() {
 
     if (!response.ok) {
       setErrorMessage("Usuario actualmente registrado");
+      return;
     }
 
     dispatch(setUser(response))

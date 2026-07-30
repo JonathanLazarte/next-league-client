@@ -45,8 +45,11 @@
     text-align: center;
     margin: auto;
     font-family: Bold;
-    font-size: var(--font-2xl); /* antes 1.2vw ≈ 1.92rem, pero es variable */
+    font-size: 1.8rem;
     color: var(--color-secundary);
+    inset: 0;
+    display: grid;
+    position: absolute;
 }
 
 .virtual-store-grid {

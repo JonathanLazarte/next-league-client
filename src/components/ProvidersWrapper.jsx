@@ -3,7 +3,7 @@
 import "$/(dashboard)/collection/collection.css";
 import "$/(dashboard)/store/store.css";
 import "$/(dashboard)/play/play.css";
-import "@/components/loadingOverlay/loadingOverlay.css"
+import "@/components/LoadingOverlay/LoadingOverlay.css"
 import ResponsiveHeader from "@/components/header";
 import RightNav from "@/components/rightNav/rightNav.jsx";
 /*import Chat from '@/components/chat/chat.jsx'*/
