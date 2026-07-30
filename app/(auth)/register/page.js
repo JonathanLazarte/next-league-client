@@ -117,11 +117,14 @@ export default function Register() {
         theme: "dark",
       },
     };
-    const userResult = await dispatch(registerUser(body)).unwrap();
-    console.log(userResult)
-    dispatch(setUser(userResult))
+    const response = await dispatch(registerUser(body)).unwrap();
+    console.log(response)
 
-    // Redirigir al dashboard
+    if (!response.ok) {
+      setErrorMessage("Usuario actualmente registrado");
+    }
+
+    dispatch(setUser(response))
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
