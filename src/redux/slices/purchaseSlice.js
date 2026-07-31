@@ -62,10 +62,10 @@ export const confirmPurchase = createAsyncThunk(
 
       const data = await response.json();
       return {
-        /*costBE: itemToBuy.price.be,
-        costRP: itemToBuy.price.rp,*/
         type: itemToBuy.type,
         newInventoryItem: data,
+        coin,
+        price,
       };
     } catch (error) {
       return rejectWithValue("Error en la transacción");

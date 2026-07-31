@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "@/redux/slices/authSlice.js";
+import { confirmPurchase } from '@/redux/slices/purchaseSlice'
 
 interface Rank {
   name: string;
@@ -110,6 +111,10 @@ const userSlice = createSlice({
         state.profile_background = action.payload.profile_background;
         state.rank = action.payload.rank;
         state.messages = action.payload.messages;
+      })
+      .addCase(confirmPurchase.fulfilled, (state, action) => {
+        const { coin, price } = action.payload
+        state[coin] = state[coin] - price;
       });
   },
 });
