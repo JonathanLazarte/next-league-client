@@ -101,7 +101,7 @@
 
 .gamemode-wrapper {
     width: 33rem;
-    height: 65rem;
+    height: 60rem;
     justify-content: flex-start;
     flex-direction: column;
     display: flex;
@@ -109,7 +109,7 @@
 .mode-title {
     font-size: 3.3rem;
     line-height: 1.1;
-    margin-top: 1.5%;
+    margin-top: 1rem%;
     color: #ccbd90;
     font-family: Bold;
     height: 7.5rem;

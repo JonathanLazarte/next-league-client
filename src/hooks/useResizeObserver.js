@@ -8,11 +8,14 @@ export function useResizeObserver(ref, cb) {
     if (!element) return;
 
     const observer = new ResizeObserver((entries) => {
-      // Usamos requestAnimationFrame para evitar el error: 
+      // Usamos requestAnimationFrame para evitar el error:
       // "ResizeObserver loop limit exceeded"
       window.requestAnimationFrame(() => {
         if (!entries.length) return;
-        cb(entries[0].contentRect.width);
+        //cb(entries[0].contentRect.width);
+        const width = element.getBoundingClientRect().width;
+
+        cb(width);
       });
 
     });

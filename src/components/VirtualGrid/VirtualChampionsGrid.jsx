@@ -36,7 +36,7 @@ export default memo(function VirtualSkinsGrid({
   const currentRem = getRem();
   const gapValue = currentRem * 2.3;
   const cardWidth = currentRem * 16;
-  const paddingRightValue = currentRem * 3.2;
+  const paddingRightValue = currentRem * 3.5;//parseFloat(styles.paddingRight);
   //const headerHeight = currentRem * 5;
 
   const getAmountOfColumns = useCallback(
@@ -52,12 +52,13 @@ export default memo(function VirtualSkinsGrid({
 
   useLayoutEffect(() => {
     if (parentRef.current) {
+      console.log(parentRef.current.clientWidth)
       const rect = parentRef?.current?.getBoundingClientRect();
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
       setColumns(initialContainerWidth);
       parentRef.current.addEventListener("scroll", throttledHandleScroll, {
-        pasive: true,
+        passive: true,
       });
     }
     return () =>
@@ -73,7 +74,6 @@ export default memo(function VirtualSkinsGrid({
     },
     [columns, getAmountOfColumns],
   );
-
   useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
