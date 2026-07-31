@@ -15,11 +15,6 @@ import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
 /*aspectos imports*/
 import { GiStripedSword } from "react-icons/gi";
 import { GrVulnerability } from "react-icons/gr";
-import { LuSwords } from "react-icons/lu";
-import { GiShield } from "react-icons/gi";
-import { PiSpiralBold } from "react-icons/pi";
-import { GiMetalBoot } from "react-icons/gi";
-import { IoMdTrophy } from "react-icons/io";
 import { GiPadlock } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
@@ -90,6 +85,7 @@ const ResumenTab = memo(function ResumenTab({
                   <img
                     className={styles.graphTraitIcon}
                     src={`/champion-details/${stat.hover_icon}.png`}
+                    key={index}
                   >
                   </img>
                 );
@@ -397,11 +393,10 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
       <div className="spells-panel">
         <div className="sprites-container">
           <div className="passive-item">
-            <div className={`passive-image-container ${selectedSpell === 0 ? "selected" : null}`}>
+            <div onClick={() => {
+              setSelectedSpell(0);
+            }} className={`passive-image-container ${selectedSpell === 0 ? "selected" : null}`}>
               <img
-                onClick={() => {
-                  setSelectedSpell(0);
-                }}
                 className='passive-image'
                 src={`/passive/${champion.passive.image.full}`}
                 />
