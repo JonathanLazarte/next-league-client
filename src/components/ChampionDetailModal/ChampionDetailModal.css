@@ -21,7 +21,7 @@
     height: 100%;
     align-content: end;
     position: relative;
-    animation: appearance 0.5s;
+    animation: appearance 0.7s;
 }
 .skin-background-image{
     width: 100%;
@@ -329,7 +329,7 @@
     height: 100%;
     width: 100%;
     position: relative;
-    animation: appearance 0.5s;
+    animation: appearance 0.7s;
     background: var(--blue-five);
 }
 

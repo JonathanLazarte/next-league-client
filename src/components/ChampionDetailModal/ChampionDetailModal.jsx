@@ -33,7 +33,12 @@ const ResumenTab = memo(function ResumenTab({
   const difficulty = champion?.info.difficulty;
 
   return (
-    <div style={{ backgroundImage: championImg }} className={styles.content}>
+    <div style={{ backgroundImage: `linear-gradient(
+        to right,
+        var(--blue-five) 0%,
+        var(--blue-five) 16%,
+        transparent 100%
+    ), ${championImg}` }} className={styles.content}>
       {/* Left Panel - Information */}
       <div className={styles.leftPanel}>
         <div className={styles.graphics}>
@@ -75,29 +80,21 @@ const ResumenTab = memo(function ResumenTab({
           <div className={styles.statsRadar}>
             <div className={styles.radarChart}>
               {[
-                { name: "Ataque", value: 13, icon: <LuSwords /> },
-                { name: "Defensa", value: 13, icon: <GiShield /> },
-                { name: "Utilidad", value: 13, icon: <PiSpiralBold /> },
-                { name: "Magia", value: 13, icon: <IoMdTrophy /> },
-                { name: "Movilidad", value: 13, icon: <GiMetalBoot /> },
+                { name: "damage", value: 13, hover_icon: 'cdp-graph-damage-hover' },
+                { name: "toughness", value: 13, hover_icon: 'cdp-graph-toughness-hover' },
+                { name: "crowd-control", value: 13, hover_icon: 'cdp-graph-crowd-control-hover' },
+                { name: "mobility", value: 13, hover_icon: 'cdp-graph-mobility-hover' },
+                { name: "utility", value: 13, hover_icon: 'cdp-graph-utility-hover' },
               ].map((stat, index) => {
-                const maxStatValue = 10;
-                const angle = index * 60 * (Math.PI / 180);
-                const radius = (stat.value / maxStatValue) * 60;
-                const x = 80 + radius * Math.cos(angle);
-                const y = 80 + radius * Math.sin(angle);
-
                 return (
-                  <div
-                    key={stat.name}
-                    className={styles.statPoint}
-                    style={{ left: x, top: y }}
+                  <img
+                    className={styles.graphTraitIcon}
+                    src={`/champion-details/${stat.hover_icon}.png`}
                   >
-                    <span className={styles.statIcon}>{stat.icon}</span>
-                  </div>
+                  </img>
                 );
               })}
-              <div className={styles.radarBackground}></div>
+              <img src='/champion-details/cdp_graph_backing.png' className={styles.radarBackground}></img>
             </div>
           </div>
         </div>

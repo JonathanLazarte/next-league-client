@@ -17,7 +17,6 @@
     justify-content: center;
     z-index: 20;
     background: var(--blue-five);
-    /*backdrop-filter: blur(5px);*/
 }
 .modal {
     /*background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);*/
@@ -166,6 +165,7 @@
     font-size: 2rem;
     right: 0;
     position: absolute;
+    border-radius: 50%;
 }
 .closeButton:hover {
     color: var(--color-secundary);
@@ -194,30 +194,23 @@
     background-repeat: no-repeat;
     background-position: var(--dashboard-sidebar-width);
     background-size: cover;
-    animation: appearance 0.5s;
+    animation: appearance 0.7s;
 }
 .leftPanel {
     padding-left: 4rem;
-    padding-bottom: 4rem; /* 5vh → 5 * 0.5625 = 2.8125vw */
-    /*background: linear-gradient(to right, var(--blue-five), var(--blue-five), var(--blue-five) 95%, transparent);*/
-    background: var(--blue-five);
+    padding-bottom: 4rem;
     display: flex;
     flex-direction: column;
     width: 50rem;
-    padding-top: 10rem; /* 10vh → 10 * 0.5625 = 5.625vw */
-    background: linear-gradient(
-        60deg,
-        rgba(1, 10, 19, 1) 75%,
-        rgba(1, 10, 19, 0.6) 100%
-    );
+    padding-top: 10rem;
     color: #a09b8c;
 }
 .graphics {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    justify-content: flex-start;
-    align-items: flex-end;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
     height: 20rem;
     margin-top: 5rem;
     margin-bottom: 2rem;
@@ -316,60 +309,19 @@
 }
 .radarChart {
     position: relative;
-    width: 13vw;
-    height: 13vw;
+    width: 22rem;
+    height: 22rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    display: none;
 }
 .radarBackground {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 2px solid #333;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(74, 158, 255, 0.1) 0%,
-        transparent 70%
-    );
 }
-.radarBackground::before {
-    content: "";
+.graphTraitIcon {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    border: 1px solid #444;
-    border-radius: 50%;
-}
-.radarBackground::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    height: 60%;
-    border: 1px solid #555;
-    border-radius: 50%;
-}
-.statPoint {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.statIcon {
-    font-size: 1.2rem;
-    text-shadow: 0 0 5px rgba(200, 155, 60, 0.5);
-}
-.statIcon:hover {
-    background: #f0e6d2;
 }
 .loreSection {
     width: 90%;
@@ -442,18 +394,6 @@
     background: linear-gradient(135deg, #d4af37 0%, #c89b3c 100%);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(200, 155, 60, 0.3);
-}
-.rightPanel {
-    overflow: hidden;
-    height: 100%;
-    flex-grow: 1;
-    right: 0px;
-    background: linear-gradient(
-        50deg,
-        var(--blue-five) 0%,
-        var(--blue-five) 16%,
-        transparent 100%
-    );
 }
 .championIllustration {
     position: relative;
