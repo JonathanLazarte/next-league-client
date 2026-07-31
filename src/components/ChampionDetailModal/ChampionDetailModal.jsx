@@ -13,8 +13,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
 import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
 /*aspectos imports*/
-import { GiStripedSword } from "react-icons/gi";
-import { GrVulnerability } from "react-icons/gr";
 import { GiPadlock } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
@@ -26,7 +24,7 @@ const ResumenTab = memo(function ResumenTab({
   onUnlockChampion,
 }) {
   const difficulty = champion?.info.difficulty;
-
+  console.log(champion)
   return (
     <div style={{ backgroundImage: `linear-gradient(
         to right,
@@ -45,29 +43,38 @@ const ResumenTab = memo(function ResumenTab({
             <div className={styles.styleSection}>
               <span className={styles.styleLabel}>STYLE:</span>
               <div className={styles.styleSlider}>
-                <span className={styles.meleeIcon}>
-                  <GiStripedSword />
-                </span>
+                <div className={styles.meleeIcon}>
+                  <img src="/champion-details/continuum_icon_attackspeed.png"></img>
+                </div>
                 <div className={styles.sliderTrack}>
                   <div
                     className={styles.sliderThumb}
                     style={{ left: "40%" }}
                   ></div>
                 </div>
-                <span className={styles.rangedIcon}>
-                  <GrVulnerability />
-                </span>
+                <div className={styles.rangedIcon}>
+                  <img src="/champion-details/continuum_icon_abilitypower_grey.png"></img>
+                </div>
               </div>
             </div>
             <div className={styles.difficultySection}>
               <span className={styles.difficultyLabel}>DIFFICULTY:</span>
               <div className={styles.difficultyBar}>
-                <div className={styles.difficultyLevelOne}></div>
-                {difficulty > 4 ? (
-                  <div className={styles.difficultyLevelTwo}></div>
+                {difficulty > 0 && difficulty <= 4 ? <img
+                  src="/champion-details/difficultygraph_difficulty1.png"
+                  className={styles.difficultyLevel}>
+                </img> : null}
+                {difficulty > 4 && difficulty <= 7 ? (
+                  <img
+                    className={styles.difficultyLevel}
+                    src="/champion-details/difficultygraph_difficulty2.png"
+                  ></img>
                 ) : null}
                 {difficulty > 7 ? (
-                  <div className={styles.difficultyLevelThree}></div>
+                  <img
+                    className={styles.difficultyLevel}
+                    src="/champion-details/difficultygraph_difficulty3.png"
+                  ></img>
                 ) : null}
               </div>
             </div>
@@ -75,19 +82,27 @@ const ResumenTab = memo(function ResumenTab({
           <div className={styles.statsRadar}>
             <div className={styles.radarChart}>
               {[
-                { name: "damage", value: 13, hover_icon: 'cdp-graph-damage-hover' },
-                { name: "toughness", value: 13, hover_icon: 'cdp-graph-toughness-hover' },
-                { name: "crowd-control", value: 13, hover_icon: 'cdp-graph-crowd-control-hover' },
-                { name: "mobility", value: 13, hover_icon: 'cdp-graph-mobility-hover' },
-                { name: "utility", value: 13, hover_icon: 'cdp-graph-utility-hover' },
+                { name: "damage", value: 3, hover_icon: 'cdp-graph-damage-hover' },
+                { name: "toughness", value: 2, hover_icon: 'cdp-graph-toughness-hover' },
+                { name: "crowd-control", value: 3, hover_icon: 'cdp-graph-crowd-control-hover' },
+                { name: "mobility", value: 1, hover_icon: 'cdp-graph-mobility-hover' },
+                { name: "utility", value: 2, hover_icon: 'cdp-graph-utility-hover' },
               ].map((stat, index) => {
+                const rotationDegree = index * 72
                 return (
-                  <img
-                    className={styles.graphTraitIcon}
-                    src={`/champion-details/${stat.hover_icon}.png`}
-                    key={index}
-                  >
-                  </img>
+                  <>
+                    <img
+                      className={styles.graphTraitIcon}
+                      src={`/champion-details/${stat.hover_icon}.png`}
+                      key={index}
+                    >
+                    </img>
+                    <img
+                      src={`/champion-details/cdp-graph-segment-l${stat.value}.png`}
+                      className={styles.graphSegmentLevel}
+                      style={{transform: `rotate(${rotationDegree}deg)`}}
+                    />
+                  </>
                 );
               })}
               <img src='/champion-details/cdp_graph_backing.png' className={styles.radarBackground}></img>
@@ -96,13 +111,7 @@ const ResumenTab = memo(function ResumenTab({
         </div>
         <div className={styles.loreSection}>
           <p className={styles.loreText}>
-            Entre los secretos guerreros jonios conocidos como los Kinkou, Shen
-            sirve como su líder, el Ojo del Crepúsculo. Desea mantenerse libre
-            de las confusiones que provocan la emoción, los prejuicios y el ego,
-            y camina por la senda oculta del juicio imparcial entre el mundo
-            espiritual y el mundo real. Al estar encargado del balance entre
-            ellos, Shen blande hojas de acero y energía arcana contra cualquiera
-            que lo amenace.
+            {champion.lore}
           </p>
         </div>
         <div className={styles.actionButtons}>
@@ -481,14 +490,14 @@ const ChampionDetailModal = ({ champion, onClose }) => {
             <div className={styles.championInfo}>
               <div className={styles.championIcon}>
                 <img
-                  src={`/roleicon/marskman.png`}
+                  src={`/champion-details/role-icon-${champion.tags[0].toLowerCase()}.png`}
                   alt={champion.name}
                   className={styles.iconImage}
                 />
               </div>
               <div className={styles.championText}>
                 <h1 className={styles.championName}>{champion.name}</h1>
-                <p className={styles.championTitle}>EL OJO DEL CREPÚSCULO</p>
+                <p className={styles.championTitle}>{champion.title.toUpperCase()}</p>
               </div>
             </div>
           </div>

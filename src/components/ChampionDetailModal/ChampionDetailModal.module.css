@@ -96,6 +96,7 @@
     margin: 0;
     font-family: Bold;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 .tabs {
     display: flex;
@@ -253,8 +254,7 @@
 }
 .meleeIcon,
 .rangedIcon {
-    font-size: 2.1rem;
-    color: #f0e6d2;
+    width: 2.2rem;
 }
 .sliderTrack {
     flex: 1;
@@ -267,8 +267,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 16px;
+    height: 16px;
     background: #0a96aa;
     border: 2px solid var(--blue-five);
     border-radius: 50%;
@@ -323,6 +323,11 @@
 .graphTraitIcon {
     position: absolute;
 }
+.graphSegmentLevel {
+    position: absolute;
+    z-index: 1;
+}
+
 .loreSection {
     width: 90%;
     margin: 10px 0;
