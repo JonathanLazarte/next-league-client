@@ -111,7 +111,7 @@ body {
     --height-lg: clamp(80px, 10vh, 120px);
 
     /* Dashboard Layout Variables */
-    --dashboard-header-height: 10.9rem;
+    --dashboard-header-height: 10.5rem;
     --dashboard-sidebar-width: clamp(
         27vh,
         17.5vw,
@@ -156,10 +156,10 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .general-button {
     position: relative;
-    height: 4rem; /* 2.5vw = 40px at 1600px */
-    width: 17.92rem; /* 11.2vw = 179.2px at 1600px */
+    height: 4rem;
+    width: 17.92rem;
     margin: 0px;
-    font-size: 1.7rem; /* 1vw = 16px at 1600px */
+    font-size: 1.65rem;
     border: 0.2rem solid gray;
     border-image: linear-gradient(
             to bottom,

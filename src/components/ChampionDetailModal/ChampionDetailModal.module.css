@@ -46,8 +46,8 @@
     align-content: center;
     height: 6rem; /* 6.4vh → 6.4 * (900/1600) = 3.6vw */
     width: 42rem;
-    border-bottom: 0.4rem solid var(--gold-six);
-    border-right: 0.4rem solid var(--gold-six);
+    border-bottom: 3px solid var(--gold-six);
+    border-right: 3px solid var(--gold-six);
     background: var(--blue-five);
     /*clip-path: polygon(0 0, 100% 0%, 78% 100%, 0% 100%);*/
 }
@@ -59,7 +59,7 @@
     z-index: 200;*/
 }
 .championIcon {
-    width: 5rem;
+    width: 4.5rem;
     height: 100%;
     overflow: hidden;
     background: #1a1a1a;
@@ -68,10 +68,9 @@
     justify-content: center;
 }
 .iconImage {
-    width: 100%;
+    width: 80%;
     height: 100%;
-    object-fit: cover;
-    display: none;
+    object-fit: contain;
 }
 .championText {
     display: flex;
@@ -85,7 +84,7 @@
 }
 .championName {
     color: var(--gold-one);
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin: 0;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
@@ -94,7 +93,7 @@
 }
 .championTitle {
     color: var(--gold-two);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin: 0;
     font-family: Bold;
     letter-spacing: 1px;
@@ -230,14 +229,14 @@
     height: 100%;
     width: 39%;
     margin-right: 2rem;
-    gap: 1.5rem;
+    gap: 1.4rem;
 }
 .damageLabel,
 .styleLabel,
 .difficultyLabel {
     font-size: 1.5rem;
     font-family: Bold;
-    letter-spacing: 0.1rem;
+    letter-spacing: 1px;
 }
 .damageType {
     display: flex;
@@ -245,7 +244,7 @@
 }
 .damageValue {
     color: var(--gold-one);
-    font-family: Regular;
+    font-family: Spiegel-Regular;
     font-size: 1.6rem;
     letter-spacing: 0.1rem;
 }
@@ -266,7 +265,7 @@
 }
 .sliderTrack {
     flex: 1;
-    height: 0.4rem;
+    height: 3px;
     background: #a09b8c;
     border-radius: 2px;
     position: relative;
@@ -288,7 +287,7 @@
     gap: 0.8rem;
 }
 .difficultyBar {
-    height: 0.55rem;
+    height: 5px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
@@ -377,7 +376,7 @@
     margin: 10px 0;
 }
 .loreText {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 1.4;
     font-family: Spiegel-Regular;
     color: #999487;

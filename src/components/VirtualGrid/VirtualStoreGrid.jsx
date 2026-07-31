@@ -26,14 +26,14 @@ export default memo(function VirtualSkinsGrid({
   const currentRem = getRem();
   const gapValue = currentRem * 1.3;
   const cardWidth = currentRem * 23.1;
-  const scrollBarWidth = currentRem * 0.8;
+  const paddingRightValue = currentRem * 2.85;
   //const headerHeight = currentRem * 5;
 
   const [columns, setColumns] = useState();
 
   const getAmountOfColumns = useCallback(
     (containerWidth) => {
-      const amount = (containerWidth + gapValue + scrollBarWidth) / (cardWidth + gapValue);
+      const amount = (containerWidth + gapValue + paddingRightValue) / (cardWidth + gapValue);
       return Math.floor(Math.max(amount, 1));
     },
     [gapValue, cardWidth],
@@ -81,7 +81,7 @@ export default memo(function VirtualSkinsGrid({
     getScrollElement: () => parentRef.current,
     // Altura dinámica según tipo
     estimateSize: () => {
-      return 300;
+      return 250;
     },
     measureElement: (el) => el.getBoundingClientRect().height,
     gap: gapValue,

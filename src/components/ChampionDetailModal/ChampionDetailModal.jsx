@@ -39,11 +39,11 @@ const ResumenTab = memo(function ResumenTab({
         <div className={styles.graphics}>
           <div className={styles.info}>
             <div className={styles.damageType}>
-              <span className={styles.damageLabel}>DAÑO:</span>
-              <span className={styles.damageValue}>Mixto</span>
+              <span className={styles.damageLabel}>DAMAGE:</span>
+              <span className={styles.damageValue}>Physical</span>
             </div>
             <div className={styles.styleSection}>
-              <span className={styles.styleLabel}>ESTILO:</span>
+              <span className={styles.styleLabel}>STYLE:</span>
               <div className={styles.styleSlider}>
                 <span className={styles.meleeIcon}>
                   <GiStripedSword />
@@ -60,7 +60,7 @@ const ResumenTab = memo(function ResumenTab({
               </div>
             </div>
             <div className={styles.difficultySection}>
-              <span className={styles.difficultyLabel}>DIFICULTAD:</span>
+              <span className={styles.difficultyLabel}>DIFFICULTY:</span>
               <div className={styles.difficultyBar}>
                 <div className={styles.difficultyLevelOne}></div>
                 {difficulty > 4 ? (
@@ -425,19 +425,19 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
                     src={`/spell/${spell.image.full}`}
                     />
                 </div>
-                {spellKeys[index]}
+                {spellKeys[index + 1]}
               </div>
             );
           })}
         </div>
-        <div className="spell-info">
-          <h3 className="name">
+        <div className="skill-info">
+          <h3 className="skill-name">
             {" "}
             {selectedSpell !== 0
               ? champion.spells[selectedSpell - 1].name
               : champion.passive.name}{" "}
           </h3>
-          <p className="spell-description">
+          <p className="skill-description">
             {selectedSpell !== 0
               ? champion.spells[selectedSpell - 1].description
               : champion.passive.description}
@@ -489,7 +489,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
             <div className={styles.championInfo}>
               <div className={styles.championIcon}>
                 <img
-                  src={`/tiles/${champion.id}_0.jpg`}
+                  src={`/roleicon/marskman.png`}
                   alt={champion.name}
                   className={styles.iconImage}
                 />
