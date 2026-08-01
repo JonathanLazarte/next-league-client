@@ -61,9 +61,6 @@ export default function PlayButton({ okButtonAction }) {
     setButtonState("idle")
   }
 
-  const isActive =
-    buttonState === 'disabled';
-
   useEffect(() => {
 
   }, [buttonState])
