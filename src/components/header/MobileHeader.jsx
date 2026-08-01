@@ -1,7 +1,7 @@
 'use client'
 
 import './mobileHeader.css'
-import HeaderMainButton from '@/components/playButton/HeaderMainButton/HeaderMainButton.jsx'
+import HeaderMainButton from '@/components/playButton/HeaderMainButton/HeaderMainButton'
 import { RiSidebarFoldFill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
 import { selectUserInterfaceData} from '@/redux/slices/userInterfaceSlice.ts'

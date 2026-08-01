@@ -1,7 +1,7 @@
 "use client";
 
 import "./header.css";
-import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton.jsx";
+import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton";
 import { /*useState,*/ memo, useState } from "react";
 import { GiStoneCrafting } from "react-icons/gi";
 import { shallowEqual, useSelector } from "react-redux";

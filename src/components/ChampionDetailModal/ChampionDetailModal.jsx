@@ -3,6 +3,7 @@
 
 
 import React, { useState, useEffect, memo, useRef } from "react";
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import useLoadingDelay from '@/hooks/useLoadingDelay'
 
@@ -14,8 +15,33 @@ import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
 import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
 /*aspectos imports*/
 import { GiPadlock } from "react-icons/gi";
-import { IoClose } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
+
+
+export const CloseModalButton = ({ onClose }) => {
+  const [buttonState, setButtonState] = useState('idle')
+  const handleMouseEnter = () => {
+    setButtonState('hovered');
+  }
+  const handleMouseLeave = () => {
+    setButtonState('idle');
+  }
+  const handleClick = () => {
+    setButtonState('pressed');
+    onClose();
+  }
+  return (<div
+    className={styles.closeButton}
+    onClick={handleClick}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    {buttonState === 'idle' && <img src='/general/button-x.png'></img>}
+    {buttonState === 'hovered' && <img src='/general/button-x-over.png'></img>}
+    {buttonState === 'pressed' && <img src='/general/button-x-down.png'></img>}
+  </div>)
+}
+
 
 const ResumenTab = memo(function ResumenTab({
   champion,
@@ -480,8 +506,9 @@ const ChampionDetailModal = ({ champion, onClose }) => {
   const handleUnlockChampion = () => {
     dispatch(openPurchaseModal({ itemId: champion.id, type: "champion" }));
   };
+
   if (!champion) return null;
-  return (
+  return typeof window !== 'undefined' && createPortal((
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         {/* Header */}
@@ -514,9 +541,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
             ))}
           </div>
 
-          <button className={styles.closeButton} onClick={onClose}>
-            <IoClose className="rounded-icon" />
-          </button>
+          <CloseModalButton onClose={onClose}></CloseModalButton>
         </div>
         {activeTab === "resumen" && (
           <ResumenTab
@@ -532,7 +557,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
         {activeTab === "habilidades" && <HabilidadesTab champion={champion} />}
       </div>
     </div>
-  );
+  ), document.body);
 };
 
 export default memo(ChampionDetailModal);

@@ -149,24 +149,14 @@
     align-content: center;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: var(--color-primary);
-    width: 3rem;
-    height: 3rem;
-    border: 2px solid gray;
-    border-image: linear-gradient(
-        to bottom,
-        var(--gold-four),
-        var(--gold-five)
-    )1;
-    background: var(--blue-six);
+    width: 3.5rem;
+    height: 3.5rem;
     cursor: pointer;
     z-index: 1;
     top: 0;
-    font-size: 2rem;
     right: 0;
     position: absolute;
-    border-radius: 50%;
+    transform: translateY(-50%);
 }
 .closeButton:hover {
     color: var(--color-secundary);

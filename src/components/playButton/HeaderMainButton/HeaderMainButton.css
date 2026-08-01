@@ -26,8 +26,8 @@
 .lol-main-button {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
-    border: 0.2rem solid rgba(47, 38, 29, 0.9);
     /*box-shadow: 1px 1px 1px black;*/
     border-bottom-left-radius: 30px;
     border-top-left-radius: 30px;
@@ -35,56 +35,38 @@
     border-bottom-left-radius: 25px;
     border-top-left-radius: 25px;
     /*width: 185px;*/
-    width: 21.1rem;
+    width: 22rem;
     /*height: 43px;*/
-    height: 5rem;
-    background-color: var(--blue-five);
+    height: 10rem;
     cursor: default;
-    padding-left: 0.1rem;
+    position: relative;
 }
-
-.lol-main-button__logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    background-color: white;
-    height: 95%;
-    aspect-ratio: 1/1;
-    clip-path: circle(50% at 50% 50%);
-    z-index: 2;
-    background: linear-gradient(
-        to bottom,
-        var(--gold-two),
-        var(--gold-four),
-        var(--gold-four),
-        var(--gold-five)
-    );
-}
-.lol-main-button__logo {
-    width: 92%;
-    aspect-ratio: 1/1;
-    /* Replace the linear-gradient with a repeating gradient for wave effect */
-    background-image: repeating-linear-gradient(
-        50deg,
-        #006477 0px,
-        #089db3 10px,
-        #09c2cc 0%,
-        #025e6d 0%,
-        #089db3 22px,
-        #006477 30px
-    );
-    background-size: 200% 200%; /* Larger size for smooth animation */
-    border: 3px solid rgba(25, 0, 0, 1);
-    border-radius: 50%;
-    clip-path: circle(50% at 50% 50%);
-    color: #efe5d1;
+.main-button-right-frame {
+    width: 90%;
+    position: relative;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    filter: brightness(1.2);
-    transition: filter 0.1s;
-    animation: wave 3s linear infinite; /* Animate the wave effect */
+    cursor: pointer;
+}
+.container-frame {
+    width: 100%;
+    position: absolute;
+    right: 0;
+}
+.play-frame, .play-button-effect-video {
+    position: absolute;
+    right: -3px;
+    z-index: 1;
+    width: 95%;
+}
+.videobg {
+    max-width: unset;
+    z-index: 3;
+    width: 37%;
+    left: -3%;
+    transform: translateY(-3%);
+    position: absolute;
 }
 @property --start-color1 {
     syntax: '<color>';
@@ -133,7 +115,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 .svg-border {
     fill: url("#myGradient");
@@ -202,38 +183,21 @@
 /* Efecto al hacer clic */
 
 /* Texto del botón */
-.lol-main-button__text {
+.main-button-text {
     font-family: Bold;
     color: #efe5d1;
-    position: relative;
-    z-index: 1; /* Asegura que el texto esté por encima del efecto de brillo */
-    font-size: 1.15vw;
+    position: absolute;
+    z-index: 4;
     font-size: 1.8rem;
     transition: color 0.1s;
+    left: 50%;
+    transform: translateX(-20%);
+}
+.main-button-text.disabled {
+    color: #5c5b57;
 }
 
-/*-----------------BUTTON SELECTED STYLES-----------------*/
 
-.lol-main-button__action-box.selected {
-}
-.lol-main-button__action-box.selected .main-button-gray-border {
-    animation: magic 1s;
-    fill: #5c5b57;
-}
-.lol-main-button__action-box.selected .svg-border {
-    fill: none;
-}
-.lol-main-button__action-border.selected {
-}
-.lol-main-button__action.selected {
-}
-.lol-main-button__action-box.selected .lol-main-button__text {
-    color: #3a3a3e;
-}
-.lol-main-button__action.selected:hover {
-}
-.lol-main-button__action.selected::before {
-}
 
 @media (max-width: 767px) {
     /* Wave animation */
