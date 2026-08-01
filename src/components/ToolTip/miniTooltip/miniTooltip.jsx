@@ -1,18 +1,14 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef} from "react";
 import ReactDOM from "react-dom";
 import "./miniTooltip.css";
 
 const MiniTooltip = ({
   content,
-  children,
-  position = "bottom",
-  delay = 500,
-  disabled,
 }) => {
-  const [visible, setVisible] = useState(false);
-  const [coords, setCoords] = useState({ top: 0, left: 0 });
+  const [visible, /*setVisible*/] = useState(false);
+    const [coords, /*setCoords*/] = useState({ top: 0, left: 0 });
   const tooltipRef = useRef(null);
 
 

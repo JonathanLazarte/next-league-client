@@ -64,24 +64,6 @@ export default function ProvidersWrapper({ children }) {
 
 
   useEffect(() => {
-    /*const sectionToSet = () => {
-      switch (pathname) {
-        case "/collection": {
-          return "Colección";
-        }
-        case "/store": {
-          return "Tienda";
-        }
-        case "/room": {
-          return "ModeSelection";
-        }
-        case "/league": {
-          return "Home";
-        }
-        default:
-          return null;
-      }
-    };*/
     const sectionName = pathname.split("/").pop();
 
     dispatch(setActualSection(sectionName));
@@ -163,7 +145,23 @@ export default function ProvidersWrapper({ children }) {
   }, []);
 
 
-
+  if (loading) {
+    return (
+      <div
+        style={{ width: "100vw" }}
+        className="flex items-center content-center justify-center w-screen min-h-screen"
+      >
+        <div className="text-center">
+          <Image
+            className="lol-logo-image"
+            src="/LOL_Icon_Rendered.png"
+            width={100}
+            height={100}
+          />
+        </div>
+      </div>
+    );
+  }
 
 {/*if (!isAuthenticated) {
     return <img className="lol-logo-image" src="/LOL_Icon_Rendered.png" />; // No renderizar nada mientras redirige
@@ -224,6 +222,6 @@ export default function ProvidersWrapper({ children }) {
       </section>
     </div>
   ) : (
-    <LoadingOverlay />
+    <></>
   );
 }

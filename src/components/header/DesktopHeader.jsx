@@ -77,7 +77,7 @@ export const Tab = ({ section }) => {
 
 export default memo(function DesktopHeader({ showSideNav }) {
   const user = useSelector((state) => state.user, shallowEqual);
-  const { actualSection, userState } = useSelector(selectUserInterfaceData);
+  const { /*actualSection,*/ userState } = useSelector(selectUserInterfaceData);
 
   return (
     <>
