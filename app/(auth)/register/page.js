@@ -10,7 +10,6 @@ import { registerUser } from "@/redux/slices/authSlice.js";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import "../auth.css";
-import { setUser } from "@/redux/slices/userSlice";
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState();
@@ -117,22 +116,16 @@ export default function Register() {
         theme: "dark",
       },
     };
+
     const response = await dispatch(registerUser(body)).unwrap();
     console.log(response)
-
-    if (!response.ok) {
-      setErrorMessage("Usuario actualmente registrado");
-      return;
-    }
-
-    dispatch(setUser(response))
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   const {
     handleChange,
     handleSubmit,
-    /*errors,*/ handleBlur,
+    errors, handleBlur,
     /*touched,*/ values,
   } = formik;
 
@@ -142,6 +135,12 @@ export default function Register() {
       setErrorMessage(null);
     }
   }, [values.password, values.userName]);
+
+  useEffect(() => {
+    if (error) {
+      setErrorMessage(error)
+    }
+  }, [error])
 
   return (
     <div className="main-menu register">
@@ -208,8 +207,8 @@ export default function Register() {
         <div className="actions-box">
           <button
             type="submit"
-            disabled={!values.password || !values.userName || loading}
-            className={`login-button ${!values.userName || !values.password || loading ? "disabled" : null}`}
+            disabled={!values.password || !values.userName || loading || errors.userName || errors.password  }
+            className={`login-button ${!values.userName || !values.password || loading || errors.userName || errors.password ? "disabled" : null}`}
             style={{ display: loading ? "none" : "flex" }}
           >
             <FaArrowRight />

@@ -470,4 +470,7 @@
         height: var(--dasboard-content-height-mobile);
         top: var(--dashboard-header-height-mobile);
     }
+    .leftPanel {
+        padding-left: 2.5rem;
+    }
 }

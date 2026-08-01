@@ -9,26 +9,22 @@
 .play-screen-container {
     overflow: hidden;
     position: relative;
-    /*background-image: url('/fullroom_background.png');
-    background-size: cover;
-    background-position-y: top;
-    transition: background-position-y 2s cubic-bezier(0,1.02,.25,.97);*/
+    height: 100%;
 }
 .play-selection-modes {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex-grow: 1;
     height: 100%;
     width: 100%;
     justify-content: flex-start;
     align-content: center;
     align-items: center;
-    padding-bottom: 1.8rem; /* 1.125vw → 1.8rem */
-    padding-right: 4.8rem; /* 3vw → 4.8rem */
-    padding-left: 4.8rem; /* 3vw → 4.8rem */
+    padding-bottom: 1.8rem;
+    padding-right: 4.8rem;
+    padding-left: 4.8rem;
     position: relative;
-    height: var(--dashboard-content-height);
     /*animation: vertical-slice 2s cubic-bezier(0,1.02,.25,.97);*/
 }
 
@@ -294,11 +290,9 @@
 
 @media (max-width: 767px) {
     .play-selection-modes {
-        height: var(--dashboard-content-height-mobile);
+        /*height: var(--dashboard-content-height-mobile);*/
     }
-    .game-mode-grid {
-        display: flex;
-        height: 270px;
+    .gamemodes-grid {
     }
     .gamemode-description {
     }

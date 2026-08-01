@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "@/redux/slices/authSlice.js";
+import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice.js";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
 
 interface Rank {
@@ -98,6 +98,21 @@ const userSlice = createSlice({
         state.messages = action.payload.messages;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
+        state.userName = action.payload.userName;
+        state.id = action.payload.id;
+        state.alias = action.payload.userName;
+        state.tag = action.payload.tag;
+        state.title = action.payload.title;
+        state.level = action.payload.level;
+        state.EXP = action.payload.EXP;
+        state.BE = action.payload.BE;
+        state.RP = action.payload.RP;
+        state.profile_icon = action.payload.profile_icon;
+        state.profile_background = action.payload.profile_background;
+        state.rank = action.payload.rank;
+        state.messages = action.payload.messages;
+      })
+      .addCase(verifyToken.fulfilled, (state, action) => {
         state.userName = action.payload.userName;
         state.id = action.payload.id;
         state.alias = action.payload.userName;

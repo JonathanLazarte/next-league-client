@@ -5,14 +5,14 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import store from "@/redux/store";
 import { useRouter, usePathname } from "next/navigation";
-//import { verifyToken } from "@/redux/slices/authSlice";
+import { verifyToken } from "@/redux/slices/authSlice";
 import { useSelector } from "react-redux";
 
 
 export const AuthProvider = ({ children }) => {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  const  [localStorageToken, setLocalStorageToken ] = useState()
-  //const dispatch = store.dispatch;
+  const  [localStorageToken, setLocalStorageToken ] = useState() // undefined | null | string
+  const dispatch = store.dispatch;
   const router = useRouter();
   const pathname = usePathname();
 
@@ -21,26 +21,28 @@ export const AuthProvider = ({ children }) => {
       const tokenFromLocalStorage = localStorage.getItem('token')
       setLocalStorageToken(tokenFromLocalStorage)
     }
-    console.log(localStorageToken)
-  }, [])
+  }, [isAuthenticated])
 
   useEffect(() => {
 
-    if (loading) return;
+    if (loading || localStorageToken === undefined) return;
 
-    if (isAuthenticated && (pathname === '/login' || pathname === '/register')) {
+    if (isAuthenticated && (pathname === '/login' || pathname === '/register' || pathname === '/')) {
       router.push("/league");
+      return;
     }
 
-    /*if (!isAuthenticated && (localStoreToken !== 'undefined' && localStorage)) {
-      dispatch(verifyToken(localStoreToken))
-    }*/
+    if (!isAuthenticated && (localStorageToken)) {
+      dispatch(verifyToken(localStorageToken))
+      return
+    }
 
     if (!isAuthenticated && (pathname !== '/login' && pathname !== '/register')) {
       router.push('/login');
+      return
     }
 
-  }, [isAuthenticated, loading, router]);
+  }, [isAuthenticated, loading, router, localStorageToken]);
 
   return (children)
 };

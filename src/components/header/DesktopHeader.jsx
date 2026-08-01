@@ -18,30 +18,6 @@ export default memo(function DesktopHeader({ showSideNav }) {
   const { play } = useSound("/general/menu-click.mp3");
   const router = useRouter();
 
-  /*const handleSound = (sound) => {
-    const menuClick = new Audio('/general/menu-click.mp3');
-    const buttonPlayClick = new Audio('/general/button-play-click.mp3');
-    const buttonPlayHover = new Audio('/general/button-play-hover.mp3');
-
-    if (sound === 'menu-click') menuClick.play();
-    if (sound === 'button-play-click') buttonPlayClick.play();
-    if (sound === 'button-play-hover') buttonPlayHover.play();
-  };*/
-
-  /*useEffect(() => {
-    if (tabsRef?.current) {
-      const tabs = ["collection", "store"];
-      if (tabs.includes(actualSection)) {
-        const puntualTabRef = tabsRef.current.get(actualSection);
-        const tabRect = puntualTabRef.getBoundingClientRect();
-        const pointerWidth = 90;
-        setPointerPosition({
-          x: tabRect?.left + tabRect?.width / 2 - pointerWidth / 2,
-          y: 0,
-        });
-      }
-    }
-  }, [actualSection]);*/
 
   const Tab = ({ section }) => {
     const [isMouseUp, setIsMouseUp] = useState();

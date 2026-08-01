@@ -127,26 +127,6 @@ export default function ProvidersWrapper({ children }) {
     };
   }, [token]);
 
-  //--------------------------------------------------------------------------------
-  /*useEffect(() => {
-    if (localStoreToken != "loading" && !loading) {
-      if (isAuthenticated) {
-        console.log("nothing to do");
-      } else if (localStoreToken) {
-        // autentificar
-        console.log("punto de verificacion correcto");
-        dispatch(verifyToken(localStoreToken));
-      } else {
-        router.push("/login");
-      }
-    }
-  }, [isAuthenticated, loading, router, localStoreToken]);*/
-  //----------------------------------------------------------------------------------
-
-  /*useEffect(() => {
-    user.id && socket.current.emit("authenticate", { id: user.id });
-    return () => socket.current.off("authenticate");
-  }, [user]);*/
 
   useEffect(() => {
     socket.current?.on("battle-mailbox", (msg) => {

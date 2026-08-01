@@ -1,7 +1,7 @@
 "use client";
 
 import "./FindMatchButton.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
@@ -15,8 +15,8 @@ export default function FindMatchButton({
   const router = useRouter();
 
   const [inQueue, setInQueue] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  /*const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);*/
 
   const { play: playHover } = useSound("/sfx/sfx-lobby-button-find-match-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-lobby-button-find-match-click.ogg");
@@ -29,7 +29,7 @@ export default function FindMatchButton({
   const [ buttonState, setButtonState ] = useState('idle')
 
   // Contador solo cuando está en cola
-  useEffect(() => {
+  /*useEffect(() => {
     if (!inQueue) {
       setSeconds(0);
       setMinutes(0);
@@ -44,7 +44,7 @@ export default function FindMatchButton({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [inQueue, seconds]);
+  }, [inQueue, seconds]);*/
 
   // Cancelar / Salir
   const handleCancel = () => {
@@ -74,8 +74,10 @@ export default function FindMatchButton({
     if (buttonState === 'disabled') return
     setButtonState("idle")
   }
+  //const timing = String(minutes).padStart(1, "0") + String(seconds).padStart(2, "0")
+
   const displayText = inQueue
-    ? `In Queue: ${String(minutes).padStart(1, "0")}:${String(seconds).padStart(2, "0")}`
+    ? `In Queue`
     : 'FIND MATCH';
 
 

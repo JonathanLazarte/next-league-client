@@ -9,7 +9,7 @@ export function middleware(request) {
     request.nextUrl.pathname.startsWith("/login") ||
     request.nextUrl.pathname.startsWith("/register");
   const isDashboardPage = request.nextUrl.pathname.startsWith("/dashboard");
-  const isRootPage = request.nextUrl.pathname === "/";
+  //const isRootPage = request.nextUrl.pathname === "/";
 
   // Si no hay token y está intentando acceder al dashboard
   if (!token && isDashboardPage) {
@@ -22,13 +22,13 @@ export function middleware(request) {
   }
 
   // Si está en la página raíz, redirigir según autenticación
-  if (isRootPage) {
+  /*if (isRootPage) {
     if (token) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     } else {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-  }
+  }*/
 
   return NextResponse.next();
 }

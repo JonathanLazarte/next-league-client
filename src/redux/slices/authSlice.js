@@ -55,9 +55,9 @@ export const registerUser = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
-    } finally {
-      console.log("simulator utility");
-    }
+    } /*finally {
+
+    }*/
   },
 );
 
@@ -84,10 +84,10 @@ export const verifyToken = createAsyncThunk(
           }),
         },
       );
+
       const data = await response.json();
 
       if (!response.ok) {
-        console.log("esto no deberia pasar");
         /*localStorage.removeItem('token')*/
         return rejectWithValue(data.message || "Token verification failed");
       }
@@ -95,7 +95,7 @@ export const verifyToken = createAsyncThunk(
       return data;
     } catch (error) {
       /*localStorage.removeItem('token')*/
-      console.log("esto tampoco deberia pasar");
+      console.log("error")
       return rejectWithValue(error.message);
     }
   },
@@ -118,7 +118,6 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
-      localStorage.removeItem("token");
     },
     clearError: (state) => {
       state.error = null;
@@ -168,7 +167,8 @@ const authSlice = createSlice({
       .addCase(verifyToken.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.token = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
         state.error = null;
         /*state.user = action.payload.user*/
       })
