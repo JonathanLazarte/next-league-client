@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
-import { HiOutlineX } from "react-icons/hi";
 
 export default function PlayButton({ type, activeButtonAction }) {
   const dispatch = useDispatch();
@@ -40,7 +39,9 @@ export default function PlayButton({ type, activeButtonAction }) {
       {/* Botón de cancelar/salir */}
       <div className="out-button-border">
         <div translate="no" onClick={handleCancel} className="out-button">
-          <HiOutlineX />
+          <svg style={{pointerEvents: 'none'}} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z" fill="#CDBE91"/>
+          </svg>
         </div>
       </div>
 

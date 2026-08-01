@@ -245,6 +245,7 @@
 .meleeIcon,
 .rangedIcon {
     width: 2.2rem;
+    height: 2.2rem;
 }
 .sliderTrack {
     flex: 1;

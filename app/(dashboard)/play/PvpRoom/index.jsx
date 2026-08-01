@@ -124,7 +124,6 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
       </div>
       <FindMatchButton
         type={"pvp-room"}
-        text={"BUSCAR PARTIDA"}
         socket={socket}
         setRoomId={setRoomId}
       ></FindMatchButton>

@@ -13,8 +13,8 @@ export default function PlayButton({ okButtonAction }) {
   const route = useRouter();
   const { actualSection, userState } = useSelector(selectUserInterfaceData);
   const [ buttonState, setButtonState ] = useState<Button>('idle')
-  const { play: playHover } = useSound("/general/find-match-button-hover.mp3");
-  const { play: playClick } = useSound("/general/find-match-button-click.mp3");
+  const { play: playHover } = useSound("/sfx/sfx-nav-button-play-hover.ogg");
+  const { play: playClick } = useSound("/sfx/sfx-nav-button-play-click.ogg");
   const videoRef = useRef({})
   const isUserInLobby = userState !== 'online'
 
@@ -35,10 +35,11 @@ export default function PlayButton({ okButtonAction }) {
   };
 
   const handleClick = () => {
-    if (actualSection === 'play') return;
+    if (buttonState === 'disabled') return;
 
-    if(buttonState !== 'disabled') playClick();
+    playClick();
     setButtonState('disabled');
+    videoRef.current['disabled'].play();
 
     // Si hay acción personalizada (por ejemplo desde el lobby PvP), usarla
     if (okButtonAction) {
@@ -71,6 +72,7 @@ export default function PlayButton({ okButtonAction }) {
       {/* Logo circular izquierdo */}
       <video
         src='/league-logo-loop-idle.webm'
+        playsInline
         autoPlay
         loop
         disablePictureInPicture
@@ -109,15 +111,29 @@ export default function PlayButton({ okButtonAction }) {
         />
         <video
           className="play-button-effect-video"
+          playsInline
           autoPlay
           loop
           disablePictureInPicture
+          muted
           controlsList="nodownload noplaybackrate noremoteplayback"
           src='/play-button/play-button-hover-loop.webm'
           ref={(el) => {
             videoRef.current['hover'] = el
           }}
-          style={{display: buttonState === 'hovered' ? 'block' : 'none'}}
+          style={{opacity: buttonState === 'hovered' ? 1 : 0}}
+        />
+        <video
+          className="play-button-effect-video"
+          playsInline
+          disablePictureInPicture
+          muted
+          controlsList="nodownload noplaybackrate noremoteplayback"
+          src='/play-button/lobby-button-release.webm'
+          ref={(el) => {
+            videoRef.current['disabled'] = el
+          }}
+          style={{ display: buttonState === 'disabled' ? "block" : "none"}}
         />
         <span className={`main-button-text ${buttonState === 'disabled' ? 'disabled' : ''}`}>{getButtonText()}</span>
       </div>

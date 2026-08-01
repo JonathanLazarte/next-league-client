@@ -30,7 +30,6 @@
     position: relative;
     height: var(--dashboard-content-height);
     /*animation: vertical-slice 2s cubic-bezier(0,1.02,.25,.97);*/
-    padding-top: 5rem;
 }
 
 /* El área específica de las tarjetas de modo de juego */
