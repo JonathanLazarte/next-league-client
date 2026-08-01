@@ -220,11 +220,13 @@ export default memo(function ItemsShop() {
           ))}
         </section>
       </div>
-
+      <div className="gradient-layer" />
       {/* Grid de skins */}
-      {filteredItems ? (
+      {filteredItems && sectionSelected === "ASPECTOS" ? (
         <VirtualStoreGrid items={filteredItems} StoreCard={SkinStoreCard} />
-      ) : null}
+      ) : (
+        <div className="text-red-800">Próximamente...</div>
+      )}
     </div>
   );
 });

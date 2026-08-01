@@ -162,23 +162,7 @@ export default function ProvidersWrapper({ children }) {
     return () => socket.current?.off("user-list");
   }, []);
 
-  if (loading) {
-    return (
-      <div
-        style={{ width: "100vw" }}
-        className="flex items-center content-center justify-center w-screen min-h-screen"
-      >
-        <div className="text-center">
-          <Image
-            className="lol-logo-image"
-            src="/LOL_Icon_Rendered.png"
-            width={100}
-            height={100}
-          />
-        </div>
-      </div>
-    );
-  }
+
 
 
 {/*if (!isAuthenticated) {
@@ -240,6 +224,6 @@ export default function ProvidersWrapper({ children }) {
       </section>
     </div>
   ) : (
-    <></>
+    <LoadingOverlay />
   );
 }

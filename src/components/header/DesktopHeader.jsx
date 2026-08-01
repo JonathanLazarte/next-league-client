@@ -12,78 +12,72 @@ import { useRouter } from "@/hooks/useRouter.js";
 import { flushSync } from "react-dom";
 import { FaPlus } from "react-icons/fa6";
 
+export const Tab = ({ section }) => {
+  const { play } = useSound("/general/menu-click.mp3");
+  const router = useRouter();
+  const [isMouseUp, setIsMouseUp] = useState();
+  const { actualSection } = useSelector(selectUserInterfaceData);
+
+  const isPointerVisible = actualSection === section;
+  const selectedStyle = {
+    background:
+      "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
+    color: "#F0E6D2",
+    cursor: "default",
+    pointerEvents: "none",
+  };
+
+  const handleClick = (section) => {
+    flushSync(() => {
+      setIsMouseUp(true);
+    });
+
+    setIsMouseUp(true);
+    play();
+    router.push(section);
+  };
+
+  if (section === "league")
+    return (
+      <div
+        onClick={() => handleClick("league")}
+        className="item-lol"
+        style={actualSection === "league" ? selectedStyle : null}
+      >
+        LEAGUE
+        <img
+          style={{
+            display: isPointerVisible ? "block" : "none",
+          }}
+          className="header-pointer"
+          src="/header-pointer.png"
+        />
+      </div>
+    );
+  return (
+      <div
+        className={`item ${isMouseUp ? "onMouseUp" : null}`}
+        style={actualSection === section ? selectedStyle : null}
+        onMouseUp={() => handleClick(section)}
+      >
+        <img
+          style={{
+            display: isPointerVisible ? "block" : "none",
+          }}
+          className="header-pointer"
+          src="/header-pointer.png"
+        />
+        <svg fill="currentColor">
+          <use href={`/icon.svg#${section}`} />
+          {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
+        </svg>
+      </div>
+  );
+};
+
 export default memo(function DesktopHeader({ showSideNav }) {
   const user = useSelector((state) => state.user, shallowEqual);
   const { actualSection, userState } = useSelector(selectUserInterfaceData);
-  const { play } = useSound("/general/menu-click.mp3");
-  const router = useRouter();
-
-
-  const Tab = ({ section }) => {
-    const [isMouseUp, setIsMouseUp] = useState();
-    const isPointerVisible = actualSection === section;
-    const selectedStyle = {
-      background:
-        "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
-      color: "#F0E6D2",
-      cursor: "default",
-      pointerEvents: "none",
-    };
-
-    const handleClick = (section) => {
-      flushSync(() => {
-        setIsMouseUp(true);
-      });
-
-      setIsMouseUp(true);
-      play();
-      router.push(section);
-    };
-
-    if (section === "league")
-      return (
-        <div
-          onClick={() => handleClick("league")}
-          className="item-lol"
-          style={actualSection === "league" ? selectedStyle : null}
-        >
-          LEAGUE
-          <img
-            style={{
-              display: isPointerVisible ? "block" : "none",
-            }}
-            className="header-pointer"
-            src="/header-pointer.png"
-          />
-        </div>
-      );
-    return (
-      <MiniTooltip
-        delay={100}
-        position="bottom"
-        content={section}
-        disabled={actualSection === section}
-      >
-        <div
-          className={`item ${isMouseUp ? "onMouseUp" : null}`}
-          style={actualSection === section ? selectedStyle : null}
-          onMouseUp={() => handleClick(section)}
-        >
-          <img
-            style={{
-              display: isPointerVisible ? "block" : "none",
-            }}
-            className="header-pointer"
-            src="/header-pointer.png"
-          />
-          <svg fill="currentColor">
-            <use href={`/icon.svg#${section}`} />
-            {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
-          </svg>
-        </div>
-      </MiniTooltip>
-    );
-  };
 
   return (
     <>
@@ -130,6 +124,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
             </div>
           </div>
         </div>
+        <MiniTooltip></MiniTooltip>
       </header>
     </>
   );
