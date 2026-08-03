@@ -27,12 +27,12 @@
     object-fit: cover;
     aspect-ratio: 1/ 1;
     padding: 0px;
-    filter: brightness(0.8);
+    filter: brightness(1);
     background: transparent;
 }
 
 .skin-store-item:hover .pokemon {
-    filter: brightness(1);
+    filter: brightness(1.2);
 }
 .skin-store-item:hover {
     /*border-image: linear-gradient(to bottom, #f0e6d2, #c8aa6e, var(--gold-two))

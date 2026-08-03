@@ -31,7 +31,7 @@ export const SORT_OPTIONS = {
 export const HOVER_DELAYS = {
   INITIAL: 250,
   FAST: 0,
-  RESET_AFTER: 600,
+  RESET_AFTER: 500,
 };
 
 export const API_ENDPOINTS = {

@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import SkinTooltip from "@/components/ToolTip/skinTooltip/skinTooltip.jsx";
+import SkinTooltip from "@/components/Tooltip/skinTooltip/skinTooltip.jsx";
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
 import useHoverIntent from "@/hooks/useHoverIntent.js";
 import { RARITY_LEVELS, HOVER_DELAYS } from "@/utils/constants.js";

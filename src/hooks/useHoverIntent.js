@@ -1,28 +1,29 @@
 import { useRef, useEffect, useState } from "react";
 
 export default function useHoverIntent({
-  initialDelay = 500,
+  initialDelay = 400,
   fastDelay = 0,
-  resetAfter = 700,
-}) {
+  resetAfter = 500,
+} = {}) {
   const timeoutRef = useRef(null);
-  const lastShownRef = useRef(0);
   const timeoutEndRef = useRef(null);
+  const lastShownRef = useRef(0);
+  const lastMouseLeaveRef = useRef(0)
   const [currentDelayType, setCurrentDelayType] = useState("initial");
 
   const start = ({ cb, isTooltipOpened }) => {
     const now = Date.now();
-    const timeSinceLast = now - lastShownRef.current;
+    const timeSinceLast = now - lastMouseLeaveRef.current;
+
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = null;
+    clearTimeout(timeoutEndRef.current);
+    timeoutEndRef.current = null;
 
     const delay =
       timeSinceLast < resetAfter
         ? fastDelay
-        : isTooltipOpened
-          ? fastDelay
           : initialDelay;
-
-    clearTimeout(timeoutRef.current);
-    clearTimeout(timeoutEndRef.current);
 
     timeoutRef.current = setTimeout(() => {
       lastShownRef.current = Date.now();
@@ -43,8 +44,12 @@ export default function useHoverIntent({
   };
 
   const end = (cb) => {
+    console.log("terminado")
     const now = Date.now();
+    lastMouseLeaveRef.current = now
     const timeSinceLast = now - lastShownRef.current;
+
+    clearTimeout(timeoutRef.current);
 
     const delay = timeSinceLast < resetAfter ? 100 : 0;
 

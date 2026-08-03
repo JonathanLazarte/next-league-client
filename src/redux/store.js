@@ -15,6 +15,7 @@ import profileReducer from './slices/profileSlice';
 import storeReducer from './slices/storeSlice';
 import matchmakingReducer from './slices/matchmakingSlice';
 import notificationsReducer from './slices/notificationsSlice';
+import tooltipReducer from './slices/tooltipSlice'
 
 
 const store = configureStore({
@@ -27,6 +28,7 @@ const store = configureStore({
     sound: soundReducer,
     settings: settingsReducer,
     purchase: purchaseReducer,
+    tooltip: tooltipReducer,
 
     connectedUsers: connectedUsersReducer,
     chat: chatReducer,

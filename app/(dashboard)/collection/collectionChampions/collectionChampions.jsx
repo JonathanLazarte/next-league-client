@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import Tooltip from "@/components/ToolTip/ToolTip.jsx";
+import Tooltip from "@/components/Tooltip/Tooltip.jsx";
 import ChampionDetailModal from "@/components/ChampionDetailModal/ChampionDetailModal.jsx";
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
 import useHoverIntent from "@/hooks/useHoverIntent.js";
@@ -206,11 +206,11 @@ export default memo(function MainPage() {
               </svg>
               <div className="maestry-etern-levels">
                 <div className="amount-and-description">
-                  <div className="amount">541</div>
+                  <div className="amount">0</div>
                   <div className="description">TOTAL MASTERY LEVEL</div>
                 </div>
                 <div className="amount-and-description">
-                  <div className="amount">15</div>
+                  <div className="amount">0</div>
                   <div className="description">ETERNALS MILESTONES</div>
                 </div>
               </div>

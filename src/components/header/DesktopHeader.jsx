@@ -6,13 +6,13 @@ import { /*useState,*/ memo, useState } from "react";
 import { GiStoneCrafting } from "react-icons/gi";
 import { shallowEqual, useSelector } from "react-redux";
 import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
-import MiniTooltip from "@/components/ToolTip/miniTooltip/miniTooltip.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { useRouter } from "@/hooks/useRouter.js";
 import { flushSync } from "react-dom";
 import { FaPlus } from "react-icons/fa6";
+import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
 
-export const Tab = ({ section }) => {
+export const Tab = ({ section, trigger }) => {
   const { play } = useSound("/general/menu-click.mp3");
   const router = useRouter();
   const [isMouseUp, setIsMouseUp] = useState();
@@ -59,6 +59,7 @@ export const Tab = ({ section }) => {
         className={`item ${isMouseUp ? "onMouseUp" : null}`}
         style={actualSection === section ? selectedStyle : null}
         onMouseUp={() => handleClick(section)}
+        {...trigger({content: section})}
       >
         <img
           style={{
@@ -78,6 +79,7 @@ export const Tab = ({ section }) => {
 export default memo(function DesktopHeader({ showSideNav }) {
   const user = useSelector((state) => state.user, shallowEqual);
   const { /*actualSection,*/ userState } = useSelector(selectUserInterfaceData);
+  const trigger = useTooltipTrigger()
 
   return (
     <>
@@ -92,12 +94,12 @@ export default memo(function DesktopHeader({ showSideNav }) {
         className="index-header"
       >
         <HeaderMainButton text="JUEGA" />
-        <Tab section="league" />
+        <Tab trigger={trigger} section="league" />
         <div className="header-sections">
-          <Tab section="collection" />
+          <Tab trigger={trigger} section="collection" />
           {/*<Tab section="Botín" />*/}
           <div className="icon-separator" />
-          <Tab section="store" />
+          <Tab trigger={trigger} section="store" />
           <div className="icon-separator" />
 
           <div className="account-coins">
@@ -124,7 +126,6 @@ export default memo(function DesktopHeader({ showSideNav }) {
             </div>
           </div>
         </div>
-        <MiniTooltip></MiniTooltip>
       </header>
     </>
   );

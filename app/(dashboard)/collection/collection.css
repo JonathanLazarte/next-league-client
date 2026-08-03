@@ -10,7 +10,8 @@
     height: var(--dashboard-content-height);
     width: 100%;
     overflow: hidden;
-    pposition: relative;
+    position: relative;
+    animation: appearance 0.8s ease;
 }
 .collection-header {
     display: flex;

@@ -40,7 +40,7 @@ export default function PlayButton({ type, activeButtonAction }) {
       <div className="out-button-border">
         <div translate="no" onClick={handleCancel} className="out-button">
           <svg style={{pointerEvents: 'none'}} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z" fill="#CDBE91"/>
+          <path fillRule="evenodd" clipRule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z" fill="#CDBE91"/>
           </svg>
         </div>
       </div>
@@ -86,8 +86,8 @@ export default function PlayButton({ type, activeButtonAction }) {
             id="confirmActiveBorderGradient"
             gradientTransform="rotate(90)"
           >
-            <stop offset="5%" stop-color="#0d3f4b" />
-            <stop offset="95%" stop-color="#025679" />
+            <stop offset="5%" stopColor="#0d3f4b" />
+            <stop offset="95%" stopColor="#025679" />
           </linearGradient>
         </defs>
         <g id="Capa_2-2" data-name="Capa 2">

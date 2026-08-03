@@ -27,36 +27,6 @@ export const getUserChampions = createAsyncThunk(
   },
 );
 
-/*export const addChampion = createAsyncThunk(
-  'userChampions/addChampion',
-  async ({ championId, coin, price }, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token');
-      const body = {
-        userID: token,
-        championId,
-        coin,
-        price,
-      };
-
-      const response = await fetch(`${API_URL}pokemons/users/addpokemon`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) throw new Error('Failed to add champion');
-
-      const data = await response.json();
-
-      return data;
-
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);*/
-
 export const sellPokemon = createAsyncThunk(
   "userChampions/sellPokemon",
   async ({ pokemonId }, { rejectWithValue }) => {

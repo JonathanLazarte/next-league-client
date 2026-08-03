@@ -268,6 +268,7 @@
     transition:
         transform 1s cubic-bezier(0.25, 0.8, 0.25, 1),
         opacity 0.8s ease-in-out;
+        filter: brightness(0.7);
 }
 .bg-lobby {
     transform: translateY(2px);

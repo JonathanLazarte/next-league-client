@@ -18,15 +18,17 @@
     background-color: #1a1c21;
     padding-right: 1.1rem;
     padding-left: 1.1rem;
-    height: 4.2rem; /* 2.6vw → 4.16rem */
+    height: 4.2rem;
     border: 2px solid;
     border-image: linear-gradient(to bottom, #7d5d29, var(--gold-six)) 1;
     color: var(--grey-three);
-    font-size: 1.5rem; /* 0.95vw → 1.52rem */
+    font-size: 1.45rem;
     font-family: Spiegel-Regular;
     white-space: nowrap;
     z-index: 55;
-    animation: appearance 0.5s;
+    animation: appearance 0.3s;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(1.5rem);
 }
 
 .mini-tooltip::after {
@@ -36,7 +38,7 @@
     left: calc(50% - 0.8rem); /* -0.5vw → -0.8rem */
     width: 1.4rem; /* 1vw → 1.6rem */
     height: 1.6rem; /* 1vw → 1.6rem */
-    background: var(--blue-six);
+    background: #1a1c21;
     border-right: 2px solid var(--gold-five);
     border-bottom: 2px solid var(--gold-five);
     transform: rotate(225deg);

@@ -24,17 +24,17 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/LOL_Icon_Rendered.png" />
         <link
           rel="preload"
-          href="/fonts/BeaufortforLOL-Bold.otf"
+          href="fonts/BeaufortforLOL-Bold.otf"
           as="font"
           type="font/otf"
-          crossorigin
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/BeaufortforLOL-Medium.otf"
+          href="fonts/BeaufortforLOL-Medium.otf"
           as="font"
           type="font/otf"
-          crossorigin
+          crossOrigin="anonymous"
         />
       </head>
 

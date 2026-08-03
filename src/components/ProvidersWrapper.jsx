@@ -20,6 +20,7 @@ const MusicPlayer = dynamic(() => import("@/components/Audio/MusicPlayer"), {
 import ConfirmPurchaseModal from "./confirmPurchaseWindow/confirmPurchaseWindow";
 /*import Loading from "@/components/Loading/Loading.jsx";*/
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
+import TooltipLayer from "./Tooltip/globalTooltip/TooltipLayer";
 import "$/(dashboard)/index.css";
 
 import { useState, useEffect, useRef } from "react";
@@ -217,8 +218,9 @@ export default function ProvidersWrapper({ children }) {
       />
       {itemToBuy && <ConfirmPurchaseModal />}
       <section className="dashboard">
-        {!isNavigating && children}
+        {children}
         {isNavigating && <LoadingOverlay />}
+        <TooltipLayer></TooltipLayer>
       </section>
     </div>
   ) : (

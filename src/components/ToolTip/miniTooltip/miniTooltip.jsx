@@ -6,16 +6,16 @@ import "./miniTooltip.css";
 
 const MiniTooltip = ({
   content,
+  position
 }) => {
-  const [visible, /*setVisible*/] = useState(false);
-    const [coords, /*setCoords*/] = useState({ top: 0, left: 0 });
+  const [visible, /*setVisible*/] = useState(true);
+  const [coords, /*setCoords*/] = useState({ top: 0, left: 0 });
   const tooltipRef = useRef(null);
 
-
   const TABS_STRINGS = {
-    collection: "Colección",
-    store: "Tienda",
-    loot: "Botín",
+    collection: "Collection",
+    store: "Store",
+    loot: "Loot",
   };
   return (
     <>
@@ -25,8 +25,8 @@ const MiniTooltip = ({
             className="mini-tooltip"
             ref={tooltipRef}
             style={{
-              top: coords.top,
-              left: coords.left,
+              top: position?.y | 0,
+              left: position?.x | 0,
               position: "fixed",
               visibility: visible ? "visible" : "hidden",
             }}
