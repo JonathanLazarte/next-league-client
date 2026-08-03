@@ -128,17 +128,16 @@
   position: absolute;
   width: 40%;
   border-radius: 50%;
+  transform: translateY(-8%);
 }
 
 .tooltip-user-border {
-    max-width: unset;
-  width: 25rem;
-  height: 30rem;
+max-width: unset;
+  width: 22rem;
+  height: 22rem;
   aspect-ratio: 1 / 1;
   z-index: 1;
   position: absolute;
-  bottom: 0rem;
-  transform: translateY(23%);
 }
 
 .tooltip-user-status {
