@@ -39,7 +39,7 @@ export default function LoadingOverlay() {
         <div className="loading-square-wrapper">
           <div className="loading-square"></div>
         </div>
-        {/* <p className="loading-text">Cargando, porfavor espere.</p>*/}
+        {/* <p className="loading-text">Loading, please wait.</p>*/}
       </div>
     </div>
   );

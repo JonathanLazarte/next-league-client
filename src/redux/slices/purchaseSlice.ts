@@ -30,7 +30,7 @@ export const confirmPurchase = createAsyncThunk(
     const body =
       itemToBuy.type === "champion"
         ? {
-            userID: token,
+            userId: token,
             championId: itemToBuy.id,
             coin,
             price,
@@ -42,7 +42,7 @@ export const confirmPurchase = createAsyncThunk(
             coin,
           };
     const apiRoute =
-      itemToBuy.type === "champion" ? "api/v1/user/addpokemon" : "shop/skin";
+      itemToBuy.type === "champion" ? "api/v1/store/champion" : "api/v1/store/skin";
     //const item = selectItemFromState(state, selectedItemId, itemType);
 
     if (!itemToBuy) return rejectWithValue("Ítem no encontrado");

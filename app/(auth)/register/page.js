@@ -106,6 +106,7 @@ export default function Register() {
       },
       profile_icon: "5909",
       profile_background: "Aatrox_30",
+      profile_border: 7,
       settings: {
         language: "en",
         sound: {
