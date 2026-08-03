@@ -6,7 +6,7 @@ import { useRouter } from "@/hooks/useRouter";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "@/redux/slices/authSlice.js";
+import { registerUser } from "@/redux/slices/authSlice";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import "../auth.css";

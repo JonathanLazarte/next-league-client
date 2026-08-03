@@ -23,13 +23,13 @@ import {
   /*selectChatData,*/
 } from "@/redux/slices/chatSlice";
 import UserTooltip from "@/components/Tooltip/userTooltip/userTooltip.jsx";
-import { logout } from "@/redux/slices/authSlice.js";
+import { logout } from "@/redux/slices/authSlice";
 import useHoverIntent from "@/hooks/useHoverIntent.js";
 import { useSmartHover } from "@/hooks/useSmartHover.js";
 import Settings from "@/components/Settings/Settings.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { audioEngine } from "@/engine/audioEngine.js";
-import {} from /*stopTrack,*/ /*switchTrack*/ "@/redux/slices/soundSlice.js";
+import {} from /*stopTrack,*/ /*switchTrack*/ "@/redux/slices/soundSlice";
 import { IoChatboxSharp } from "react-icons/io5";
 
 const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, userState }) => {

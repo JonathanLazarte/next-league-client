@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   createSelector,
 } from "@reduxjs/toolkit";
-import { confirmPurchase } from "./purchaseSlice.js";
+import { confirmPurchase } from "./purchaseSlice";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Thunks

@@ -12,7 +12,7 @@ import {
   useCallback,
 } from "react";
 import { useSelector } from "react-redux";
-import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
+import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import SkinTooltip from "@/components/Tooltip/skinTooltip/skinTooltip.jsx";
@@ -65,8 +65,7 @@ export default memo(function CollectionSkins() {
   }, [skins, userSkins]);
 
   const handleScroll = () => {
-    console.log("donedone");
-    setHoveredSkin(null);
+    if(hoveredSkin) setHoveredSkin(null);
   };
 
   const sortOptionsByMode = {

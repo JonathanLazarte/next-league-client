@@ -4,7 +4,7 @@ import { memo } from "react";
 import "./training.css";
 import ConfirmButton from "@/components/playButton/confirmButton.jsx";
 import { useDispatch } from "react-redux";
-import { setUserState } from "@/redux/slices/userInterfaceSlice.js";
+import { setUserState } from "@/redux/slices/userInterfaceSlice";
 
 export default memo(function Explore() {
   const dispatch = useDispatch();

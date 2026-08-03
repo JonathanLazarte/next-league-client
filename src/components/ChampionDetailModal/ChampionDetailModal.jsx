@@ -9,10 +9,10 @@ import useLoadingDelay from '@/hooks/useLoadingDelay'
 
 import styles from "./ChampionDetailModal.module.css";
 import "./ChampionDetailModal.css";
-import { openPurchaseModal } from "@/redux/slices/purchaseSlice.js";
+import { openPurchaseModal } from "@/redux/slices/purchaseSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
-import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
+import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
+import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
 /*aspectos imports*/
 import { GiPadlock } from "react-icons/gi";
 import { IoArrowForward } from "react-icons/io5";

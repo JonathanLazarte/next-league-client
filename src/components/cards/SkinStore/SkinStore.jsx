@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useDispatch } from 'react-redux'
-import { openPurchaseModal } from '@/redux/slices/purchaseSlice.js'
+import { openPurchaseModal } from '@/redux/slices/purchaseSlice'
 import './SkinStore.css'
 
 

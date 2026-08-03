@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useDispatch } from "react-redux";
-import { openPurchaseModal } from "@/redux/slices/purchaseSlice.js";
+import { openPurchaseModal } from "@/redux/slices/purchaseSlice";
 import { preload } from "react-dom";
 import "./ChampionStore.css";
 import Image from 'next/image'

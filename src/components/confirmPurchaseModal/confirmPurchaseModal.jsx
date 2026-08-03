@@ -11,7 +11,7 @@ import {
   closeModal,
   confirmPurchase,
   selectPurchaseData,
-} from "@/redux/slices/purchaseSlice.js";
+} from "@/redux/slices/purchaseSlice";
 import useSkins from "@/hooks/useSkins";
 import useChampions from "@/hooks/useChampions";
 

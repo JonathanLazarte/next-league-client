@@ -3,7 +3,7 @@
 import "./collectionChampions.css";
 import { useState, memo, useMemo, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
+import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import Tooltip from "@/components/Tooltip/Tooltip.jsx";
@@ -53,7 +53,7 @@ export default memo(function MainPage() {
   });
 
   const handleScroll = () => {
-    setHoveredChampion(null);
+    if(hoveredChampion) setHoveredChampion(null);
   };
 
   const onHoverStart = (champion, championCardRef) => {

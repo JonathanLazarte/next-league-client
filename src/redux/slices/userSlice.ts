@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice.js";
+import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
 
 interface Rank {

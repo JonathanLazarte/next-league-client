@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { confirmPurchase } from "@/redux/slices/purchaseSlice.js";
+import { confirmPurchase } from "@/redux/slices/purchaseSlice";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

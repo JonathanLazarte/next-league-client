@@ -35,16 +35,17 @@ import {
 } from "@/redux/slices/userInterfaceSlice.ts";
 import {
   getUserChampions,
-} from "@/redux/slices/userChampionsSlice.js";
+} from "@/redux/slices/userChampionsSlice";
 import {
   getUserSkins,
-} from "@/redux/slices/userSkinsSlice.js";
+} from "@/redux/slices/userSkinsSlice";
 import { setFriendsOnline } from "@/redux/slices/connectedUsersSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth } from "@/hooks/useAuth";
-import { setMute, setVolume } from "@/redux/slices/soundSlice.js";
+import { setMute, setVolume } from "@/redux/slices/soundSlice";
 import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
 import { addMessage, setMessages } from "@/redux/slices/chatSlice";
+import useLoadingDelay from "@/hooks/useLoadingDelay";
 
 export default function ProvidersWrapper({ children }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -61,6 +62,7 @@ export default function ProvidersWrapper({ children }) {
   const { itemToBuy } = useSelector(selectPurchaseData);
   const [showSideNav, setShowSideNav] = useState(true);
   const [setBattleRequest] = useState([])
+  const showLoading = useLoadingDelay(isNavigating)
 
 
 
@@ -219,7 +221,7 @@ export default function ProvidersWrapper({ children }) {
       {itemToBuy && <ConfirmPurchaseModal />}
       <section className="dashboard">
         {children}
-        {isNavigating && <LoadingOverlay />}
+        {showLoading && <LoadingOverlay />}
       </section>
     </div>
   ) : (

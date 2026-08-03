@@ -9,7 +9,7 @@ import { FaCheck } from "react-icons/fa6";
 import ChampionStoreCard from "@/components/cards/ChampionStore/ChampionStore.jsx";
 import VirtualStoreGrid from "@/components/VirtualGrid/VirtualStoreGrid.jsx";
 
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
+import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 import UseNearScreen from "@/services/UseNearScreen.js";
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
 import useChampions from "@/hooks/useChampions";

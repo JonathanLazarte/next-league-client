@@ -9,8 +9,8 @@ import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
 import SkinStoreCard from "@/components/cards/SkinStore/SkinStore.jsx";
 import VirtualStoreGrid from "@/components/VirtualGrid/VirtualStoreGrid.jsx";
 
-import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice.js";
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice.js";
+import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
+import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 import useSkins from "@/hooks/useSkins";
 
 import "./skinsStore.css";

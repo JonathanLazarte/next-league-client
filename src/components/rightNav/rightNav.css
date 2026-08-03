@@ -222,7 +222,7 @@
     place-items: center;*/
     left: 50%;
     transform: translateX(-50%);
-    bottom: 10%;
+    bottom: 0.9rem;
     z-index: 1;
 }
 .user-level {

@@ -7,7 +7,7 @@ import {
   setVolume,
   setMute,
   restoreDefaults,
-} from "@/redux/slices/soundSlice.js";
+} from "@/redux/slices/soundSlice";
 import { saveSettings } from "@/redux/slices/settingsSlice.ts";
 import { useDispatch, useSelector } from "react-redux";
 

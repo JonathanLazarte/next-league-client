@@ -1,13 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 
-export default function useLoadingDelay(loading: boolean, options = {}) {
+interface loadingDelayOptions {
+  delay?: number,
+  minDisplayTime?: number
+}
+
+export default function useLoadingDelay(loading: boolean, options: loadingDelayOptions = {}) {
   const {
-    delay = 300, // ms antes de mostrar
-    minDisplayTime = 300, // ms mínimo una vez mostrado
+    delay = 500, // ms antes de mostrar
+    minDisplayTime = 1500, // ms mínimo una vez mostrado
   } = options;
 
   const [isVisible, setIsVisible] = useState(false);
-  const timeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startTimeRef = useRef<number>(0);
 
   useEffect(() => {
