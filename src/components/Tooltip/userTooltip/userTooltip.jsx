@@ -4,12 +4,24 @@ import "./userTooltip.css";
 import { useRef, useState, useLayoutEffect } from "react";
 import Image from "next/image";
 
-export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
+export const ToolTip = ({ hoveredUser, tooltipPos }) => {
+  const {
+    profile_icon,
+    alias,
+    tag,
+    rank,
+    profile_border,
+    profile_background,
+    title
+  } = hoveredUser
   const ref = useRef();
   const [tooltipHeight, setTooltipHeight] = useState();
+
+
   useLayoutEffect(() => {
     setTooltipHeight(ref.current?.getBoundingClientRect().height);
   }, [tooltipPos]);
+
   const getRem = () => {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   };
@@ -21,14 +33,15 @@ export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
   const style = {
     position: "fixed",
     //width: windowPosition.width,
-    display: `${dataToRender ? "flex" : "none"}`,
+    display: `${hoveredUser ? "flex" : "none"}`,
     right: tooltipPos.x + currentRem * 2 | 0,
     top: tooltipPos.y - tooltipHeight / 2 | 0,
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url('${RESOURCES_URL}centered/${dataToRender?.profile_background}.jpg')`,
+    backgroundImage: `url('${RESOURCES_URL}centered/${profile_background}.jpg')`,
     pointerEvents: "none",
   };
+
   return (
     <div className="right-nav-user-tooltip" style={style} ref={ref}>
       <div className="tooltip-user-container">
@@ -44,22 +57,22 @@ export const ToolTip = ({ hoveredUser: dataToRender, tooltipPos }) => {
           <div className="tooltip-user-icon">
             <img
               className="tooltip-user-border"
-              src={`${RESOURCES_URL}profileborder/1.png`}
+              src={`${RESOURCES_URL}profileborder/${profile_border}.png`}
             />
             <Image
               className="tooltip-user-icon-img"
-              src={`${RESOURCES_URL}profileicon/${dataToRender?.profile_icon}.png`}
+              src={`${RESOURCES_URL}profileicon/${profile_icon}.png`}
               width={100}
               height={100}
             />
           </div>
           <div className="tooltip-user-info-text">
-            <h4>{dataToRender?.alias}</h4>
-            <h6 className="subname">#{dataToRender?.tag}</h6>
-            <span className="user-title">{dataToRender?.title}</span>
+            <h4>{alias}</h4>
+            <h6 className="subname">#{tag}</h6>
+            <span className="user-title">{title}</span>
             <div className="separator" />
             <span className="rank-and-points">
-              {dataToRender?.rank?.name} ({dataToRender?.rank?.points} pts)
+              {rank?.name} ({rank?.points} pts)
             </span>
           </div>
         </div>

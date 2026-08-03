@@ -252,7 +252,8 @@ export default memo(function RightNav({
   } = useSelector((state) => state.chat);
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
-  const onHoverStart = (user) => {
+  const onHoverStart = (hovereduser) => {
+    console.log(hovereduser)
     start({
       cb: () => {
         // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
@@ -260,7 +261,7 @@ export default memo(function RightNav({
           x: toolTipPosRef.current.x,
           y: toolTipPosRef.current.y,
         });
-        setHoveredUser(user);
+        setHoveredUser(hovereduser);
       },
     });
   };
@@ -312,6 +313,7 @@ export default memo(function RightNav({
                 userId: u.alias,
                 userName: u.alias,
                 profile_icon: u.profile_icon,
+                profile_border: u.profile_border,
                 status: u.status,
                 unreadCount: 0,
               }),
@@ -378,7 +380,7 @@ export default memo(function RightNav({
               handleContextMenu={(e) => handleContextMenu(e, u.alias)}
               inviteBox={inviteBox}
               toolTipPosRef={toolTipPosRef}
-              onHoverStart={onHoverStart}
+              onHoverStart={() => onHoverStart(u)}
               onHoverEnd={onHoverEnd}
             />
           ))}
@@ -453,7 +455,7 @@ export default memo(function RightNav({
         </button>
       </div>
       {isSettingsOpen && <Settings setIsSettingsOpen={setIsSettingsOpen} />}
-      <UserTooltip hoveredUser={hoveredUser} tooltipPos={toolTipPos} />
+      {hoveredUser && <UserTooltip hoveredUser={hoveredUser} tooltipPos={toolTipPos} />}
     </div>
   );
 });
