@@ -66,9 +66,6 @@ export const verifyToken = createAsyncThunk(
   "auth/verifyToken",
   async (token, { rejectWithValue }) => {
     try {
-      if (!token) {
-        return rejectWithValue("No token found");
-      }
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/verify`,
         {
@@ -94,8 +91,7 @@ export const verifyToken = createAsyncThunk(
 
       return data;
     } catch (error) {
-      /*localStorage.removeItem('token')*/
-      console.log("error")
+      localStorage.removeItem('token');
       return rejectWithValue(error.message);
     }
   },
@@ -174,9 +170,9 @@ const authSlice = createSlice({
       })
       .addCase(verifyToken.rejected, (state /*, action*/) => {
         state.loading = false;
-        //state.isAuthenticated = false
-        //state.user = null
-        //state.token = null
+        state.isAuthenticated = false
+        state.user = null
+        state.token = null
       });
   },
 });

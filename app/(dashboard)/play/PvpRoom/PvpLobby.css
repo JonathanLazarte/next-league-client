@@ -108,13 +108,13 @@
     align-items: center;
 }
 .banner-user-icon-img {
-    z-index: 0;
+    z-index: 1;
     position: absolute;
     object-fit: cover;
     clip-path: circle();
-    width: 52%;
+    width: 54%;
     left: 50%;
-    transform: translateX(-48%);
+    transform: translateX(-50%);
 }
 .banner-user-border {
     z-index: 1;
@@ -123,6 +123,13 @@
     position: absolute;
     transform: translateY(-10%);
 
+}
+.banner-user-border-magic {
+    position: absolute;
+    width: 160%;
+    max-width: unset;
+    transform: translateY(-10%);
+    z-index: 0;
 }
 .banner-user-level {
     position: absolute;

@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 /*import { v4 as uuidv4 } from 'uuid';*/
-import "./styles.css";
+import "./PvpLobby.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
 import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound"
@@ -100,6 +100,15 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
                 className="banner-user-icon-img"
                 src={`${RESOURCES_URL}profileicon/${user.profile_icon}.png`}
               ></img>
+              <video
+                className="banner-user-border-magic"
+                src="/profileborder/emblem-wings-magic-grandmaster.webm"
+                autoPlay
+                loop
+                muted
+                playsInline
+                disablePictureInPicture
+              ></video>
               <span className="banner-user-level">{user.level}</span>
             </div>
             <h2 className="banner-username">{user.alias}</h2>

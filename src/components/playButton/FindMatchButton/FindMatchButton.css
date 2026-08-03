@@ -21,7 +21,11 @@
     position: absolute;
     width: 100%;
 }
-
+.find-match-button-animation {
+    max-width: unset;
+    position: absolute;
+    width: 120%;
+}
 
 .find-match-button-text {
     /*color: #9ec2c2;*/

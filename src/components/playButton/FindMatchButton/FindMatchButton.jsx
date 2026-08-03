@@ -120,6 +120,18 @@ export default function FindMatchButton({
             className="find-match-button-image"
           style={{ opacity: buttonState === 'hovered' ? 1 : 0}}
         />
+        <video
+          className="find-match-button-animation"
+          src="/find-match-button/find-match-button-idle.webm"
+          autoPlay
+          loop
+          muted
+          playsInline
+          disablePictureInPicture
+          controlsList="nodownload noplaybackrate noremoteplayback"
+          style={{display: inQueue ? 'none' : 'block'}}
+        >
+        </video>
       </div>
       <img className="footer-wing left" src='/find-match-button/footer-wing.png'></img>
       <img className="footer-wing right" src='/find-match-button/footer-wing.png'></img>

@@ -123,10 +123,8 @@
     border-bottom: 1px solid var(--gold-six);
     align-items: center;
     width: 93%;
-    /*padding-bottom: 1.5vh;*/
-    padding-bottom: 1.44rem; /* 0.9vw → 1.44rem */
+    padding-bottom: 1.44rem;
     position: absolute;
-    bottom: 23vh;
     bottom: 34%;
 }
 

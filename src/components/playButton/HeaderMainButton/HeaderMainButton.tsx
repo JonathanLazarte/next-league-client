@@ -25,7 +25,11 @@ export default function PlayButton({ okButtonAction }) {
     if (actualSection !== "play" && !isUserInLobby && buttonState === 'disabled') {
       setButtonState('idle')
     }
-  }, [actualSection]);
+    if (actualSection === 'play' && buttonState !== 'disabled') {
+      setButtonState('disabled')
+      videoRef.current['disabled'].play();
+    }
+  }, [actualSection, isUserInLobby]);
   // Texto dinámico del botón
   const getButtonText = () => {
     if (userState !== "online") return "GROUP";
