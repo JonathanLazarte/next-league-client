@@ -9,7 +9,6 @@ const MiniTooltip = ({
   position
 }) => {
   const [visible, /*setVisible*/] = useState(true);
-  const [coords, /*setCoords*/] = useState({ top: 0, left: 0 });
   const tooltipRef = useRef(null);
 
   const TABS_STRINGS = {
