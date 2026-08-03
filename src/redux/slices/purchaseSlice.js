@@ -42,7 +42,7 @@ export const confirmPurchase = createAsyncThunk(
             coin,
           };
     const apiRoute =
-      itemToBuy.type === "champion" ? "pokemons/users/addpokemon" : "shop/skin";
+      itemToBuy.type === "champion" ? "api/v1/user/addpokemon" : "shop/skin";
     //const item = selectItemFromState(state, selectedItemId, itemType);
 
     if (!itemToBuy) return rejectWithValue("Ítem no encontrado");

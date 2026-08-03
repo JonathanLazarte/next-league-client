@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useMemo } from "react";
 import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
-import "./confirmPurchaseWindow.css";
+import "./confirmPurchaseModal.css";
 import {
   closeModal,
   confirmPurchase,

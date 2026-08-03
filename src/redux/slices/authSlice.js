@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}pokemons/auth/login`,
+        `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/login`,
         {
           method: "POST",
           headers: {
@@ -35,7 +35,7 @@ export const registerUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}pokemons/auth/register`,
+        `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/register`,
         {
           method: "POST",
           headers: {
@@ -70,7 +70,7 @@ export const verifyToken = createAsyncThunk(
         return rejectWithValue("No token found");
       }
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}pokemons/auth/verify`,
+        `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/verify`,
         {
           method: "POST" /*'GET'*/,
           /*headers: {

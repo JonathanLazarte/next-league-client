@@ -11,7 +11,7 @@ export const getUserChampions = createAsyncThunk(
   "userChampions/getUserChampions",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${API_URL}pokemons/users/pokemon`, {
+      const response = await fetch(`${API_URL}api/v1/user/champion-collection`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
@@ -37,7 +37,7 @@ export const sellPokemon = createAsyncThunk(
         pokemonIndex: pokemonId,
       };
 
-      const response = await fetch(`${API_URL}pokemons/users/sellpokemon`, {
+      const response = await fetch(`${API_URL}api/v1/user/sellpokemon`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

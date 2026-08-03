@@ -6,7 +6,7 @@ import "$/(dashboard)/play/play.css";
 import "@/components/LoadingOverlay/LoadingOverlay.css"
 import ResponsiveHeader from "@/components/header";
 import RightNav from "@/components/rightNav/rightNav.jsx";
-/*import Chat from '@/components/chat/chat.jsx'*/
+
 const Chat = dynamic(() => import("@/components/chat/chat.jsx"), {
   ssr: false,
 });
@@ -17,8 +17,7 @@ const MusicPlayer = dynamic(() => import("@/components/Audio/MusicPlayer"), {
   () => import("@/components/confirmPurchaseWindow/confirmPurchaseWindow.jsx"),
   { ssr: false },
 );*/
-import ConfirmPurchaseModal from "./confirmPurchaseWindow/confirmPurchaseWindow";
-/*import Loading from "@/components/Loading/Loading.jsx";*/
+import ConfirmPurchaseModal from "./confirmPurchaseModal/confirmPurchaseModal";
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import TooltipLayer from "./Tooltip/globalTooltip/TooltipLayer";
 import "$/(dashboard)/index.css";
@@ -29,44 +28,44 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-import { setUser /*, setUserMessages*/ } from "@/redux/slices/userSlice";
+import { setUser } from "@/redux/slices/userSlice";
 import {
   selectUserInterfaceData,
-  setActualSection /*, setUserState*/,
+  setActualSection,
 } from "@/redux/slices/userInterfaceSlice.ts";
 import {
-  getUserChampions /*, selectUserChampionsData*/,
+  getUserChampions,
 } from "@/redux/slices/userChampionsSlice.js";
 import {
-  getUserSkins /*, selectUserSkinsData*/,
+  getUserSkins,
 } from "@/redux/slices/userSkinsSlice.js";
 import { setFriendsOnline } from "@/redux/slices/connectedUsersSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
-/*import {Riple} from 'react-loading-indicators'*/
 import { useAuth } from "@/hooks/useAuth";
 import { setMute, setVolume } from "@/redux/slices/soundSlice.js";
 import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
 import { addMessage, setMessages } from "@/redux/slices/chatSlice";
 
 export default function ProvidersWrapper({ children }) {
-  const { loading } = useSelector((state) => state.auth);
-  const [showSideNav, setShowSideNav] = useState(true);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const [/*battleRequest,*/ setBattleRequest] = useState([]);
   const socket = useRef(null);
   const { token } = useAuth();
   const dispatch = useDispatch();
+  const pathname = usePathname();
+
   const user = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.auth);
   const { actualSection, isNavigating, userState } = useSelector(
     selectUserInterfaceData,
   );
   const { itemToBuy } = useSelector(selectPurchaseData);
-  const pathname = usePathname();
+  const [showSideNav, setShowSideNav] = useState(true);
+  const [setBattleRequest] = useState([])
+
 
 
   useEffect(() => {
     const sectionName = pathname.split("/").pop();
-
     dispatch(setActualSection(sectionName));
   }, [pathname]);
 
@@ -75,7 +74,7 @@ export default function ProvidersWrapper({ children }) {
       dispatch(getUserChampions(token));
       dispatch(getUserSkins(token));
       try {
-        fetch(`${API_URL}pokemons/users/getUserData`, {
+        fetch(`${API_URL}api/v1/user`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token: token }),
@@ -104,7 +103,9 @@ export default function ProvidersWrapper({ children }) {
 
   useEffect(() => {
     if (!token) return;
+
     socket.current = io(`${API_URL}`, { auth: { token } });
+
     return () => {
       socket.current?.disconnect();
     };
@@ -120,14 +121,15 @@ export default function ProvidersWrapper({ children }) {
       }, 7000);
     });
     return () => socket.current?.off("battle-mailbox");
-  }, []);
+  }, [token]);
 
   useEffect(() => {
+    if(!socket.current) return
     socket.current?.on("chat-message", (msg) => {
       dispatch(addMessage(msg));
     });
     return () => socket.current?.off("chat-message");
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (!socket.current) return;
@@ -143,7 +145,7 @@ export default function ProvidersWrapper({ children }) {
       dispatch(setFriendsOnline(friendFolders));
     });
     return () => socket.current?.off("user-list");
-  }, []);
+  }, [token]);
 
 
   if (loading) {
@@ -164,11 +166,6 @@ export default function ProvidersWrapper({ children }) {
     );
   }
 
-{/*if (!isAuthenticated) {
-    return <img className="lol-logo-image" src="/LOL_Icon_Rendered.png" />; // No renderizar nada mientras redirige
-  }
-*/}
-
   const layoutBackgroundImage = (actualSection) => {
     switch (actualSection) {
       case "league": {
@@ -184,12 +181,14 @@ export default function ProvidersWrapper({ children }) {
         return null;
     }
   };
-  const isQueueSelected =
+
+  const isInQueue =
     userState !== "online";
+
   return user.profile_icon ? (
     <div className="dashboard-layout w-screen min-h-screen">
       <div
-        className={`background-engine ${isQueueSelected && actualSection === "play" ? "in-room" : null}`}
+        className={`background-engine ${isInQueue && actualSection === "play" ? "in-room" : null}`}
         style={{
           backgroundImage: isNavigating
             ? "var(--blue-five)"
@@ -214,13 +213,13 @@ export default function ProvidersWrapper({ children }) {
       <RightNav setShowSideNav={setShowSideNav} showSideNav={showSideNav} />
       <Chat socket={socket.current} />
       <MusicPlayer
-        url="/music/Xin Zhao, the Seneschal of Demacia.mp3" /*'/music/Xin Zhao, the Seneschal of Demacia.mp3'*/
+        url="/music/Xin Zhao, the Seneschal of Demacia.mp3"
       />
+      <TooltipLayer></TooltipLayer>
       {itemToBuy && <ConfirmPurchaseModal />}
       <section className="dashboard">
         {children}
         {isNavigating && <LoadingOverlay />}
-        <TooltipLayer></TooltipLayer>
       </section>
     </div>
   ) : (

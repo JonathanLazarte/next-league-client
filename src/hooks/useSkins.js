@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const fetchSkins = async () => {
-  const res = await fetch(`${API_URL}pokemons/data/skins`);
+  const res = await fetch(`${API_URL}api/v1/data/skin`);
   return res.json();
 };
 

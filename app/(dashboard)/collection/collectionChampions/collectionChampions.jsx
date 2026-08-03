@@ -19,7 +19,7 @@ import { HOVER_DELAYS } from "@/utils/constants.js";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchChampionsFull = async () => {
-  const res = await fetch(`${API_URL}pokemons/data/championFull`);
+  const res = await fetch(`${API_URL}api/v1/data/champion-full`);
   return res.json();
 };
 

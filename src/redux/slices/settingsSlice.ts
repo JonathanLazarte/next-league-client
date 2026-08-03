@@ -4,7 +4,7 @@ export const saveSettings = createAsyncThunk(
   'settings/saveSettings',
   async ( { userId, settings }, { rejectWithValue } ) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}pokemons/users/saveSettings`, 
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}pokemons/user/save-settings`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},

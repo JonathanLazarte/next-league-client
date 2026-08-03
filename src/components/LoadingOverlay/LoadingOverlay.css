@@ -24,9 +24,12 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     z-index: 200;
     padding-right: var(--dashboard-sidebar-width);
+    background-color: black;
+    top: 0;
+    left: 0;
 }
 .loading-wrapper {
     width: 10rem;

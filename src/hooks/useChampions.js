@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchChampions = async () => {
-  const res = await fetch(`${API_URL}pokemons/data/getchamps`);
+  const res = await fetch(`${API_URL}api/v1/data/champion`);
   const data = await res.json();
   const champions = Object.values(data);
   return champions;

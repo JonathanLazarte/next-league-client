@@ -7,7 +7,7 @@ const CustomSelect = ({
   options = [],
   value,
   onChange,
-  placeholder = "Seleccionar...",
+  placeholder = "Select...",
   className = "",
   disabled = false,
   ...props

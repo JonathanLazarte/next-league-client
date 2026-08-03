@@ -4,8 +4,12 @@ import { setTooltip, hideTooltip } from '@/redux/slices/tooltipSlice'
 export function useTooltip() {
   const dispatch = useDispatch()
 
+  const handleSet = (payload) => dispatch(setTooltip(payload))
+
+  const handleHide = () => dispatch(hideTooltip())
+
   return {
-    set: (payload) => dispatch(setTooltip(payload)),
-    hide: () => dispatch(hideTooltip())
+    set: handleSet,
+    hide: handleHide
   }
 }

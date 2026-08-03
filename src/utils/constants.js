@@ -35,7 +35,7 @@ export const HOVER_DELAYS = {
 };
 
 export const API_ENDPOINTS = {
-  SKINS: "pokemons/data/skins",
-  POKEMON: "pokemons/data",
-  USERS: "users",
+  SKINS: "api/v1/data/skin",
+  DATA: "api/v1/data",
+  USERS: "api/v1/user",
 };

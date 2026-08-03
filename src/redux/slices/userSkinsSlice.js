@@ -8,7 +8,7 @@ export const getUserSkins = createAsyncThunk(
   "userSkins/getUserSkins",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${API_URL}pokemons/users/skins`, {
+      const response = await fetch(`${API_URL}api/v1/user/skin-collection`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userID: id }),
