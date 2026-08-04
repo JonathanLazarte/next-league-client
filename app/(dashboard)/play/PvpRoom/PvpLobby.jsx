@@ -1,5 +1,6 @@
 import { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Image from 'next/image'
 /*import { v4 as uuidv4 } from 'uuid';*/
 import "./PvpLobby.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
@@ -83,23 +84,43 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
           </g>
         </svg>
         <div className="header-queue-info">
-          <img className="header-map-icon" src={`${RESOURCES_URL}general/mini-sr.png`} />
+          <Image
+            width={42}
+            height={42}
+            className="header-map-icon"
+            src={`${RESOURCES_URL}general/mini-sr.png`}
+            alt="Map mini icon"
+          />
           <h3 className="room-title">{lobbyName[roomTitle]}</h3>
         </div>
       </div>
       <div className="room-users">
         <div className="room-user">
-          <img className="user-banner" src="/banner/official (27).png" />
+          <Image
+            className="user-banner"
+            src="/banner/official (27).png"
+            sizes={"38rem"}
+            width={580}
+            height={1480}
+            alt="User banner"
+          />
           <div className="user-banner-info-container">
             <div className="banner-user-icon">
-              <img
+              <Image
                 className="banner-user-border"
                 src={`${RESOURCES_URL}profileborder/8.png`}
+                sizes={"25rem"}
+                width={500}
+                height={600}
+                alt="User border from banner"
               />
-              <img
+              <Image
                 className="banner-user-icon-img"
                 src={`${RESOURCES_URL}profileicon/${user.profile_icon}.png`}
-              ></img>
+                width={300}
+                height={300}
+                alt="User icon from banner"
+              />
               <video
                 className="banner-user-border-magic"
                 src="/profileborder/emblem-wings-magic-grandmaster.webm"

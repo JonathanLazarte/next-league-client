@@ -2,7 +2,8 @@
 
 import { memo, useRef } from "react";
 import { GiPadlock } from "react-icons/gi";
-/*import { useSmartHover } from "@/hooks/useSmartHover.js";*/
+import Image from 'next/image'
+
 import "./skin.css";
 
 export default memo(function SkinCard({
@@ -100,13 +101,15 @@ export default memo(function SkinCard({
         </svg>
       ) : null}
       {
-        <img
+        <Image
           className={`skin-card-image ${isObtained ? "" : "not-obtained"}`}
           src={`/loading/${skin.img}`}
           alt={`${skin.name} skin`}
           loading="lazy"
           clipPath="url(#card-shape)"
           preserveAspectRatio="xMidYMid slice"
+          width={308}
+          height={560}
         />
       }
       {isObtained ? (

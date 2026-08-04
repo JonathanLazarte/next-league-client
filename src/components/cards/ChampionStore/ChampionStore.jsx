@@ -15,7 +15,7 @@ const ChampionCard = ({ id, item: data }) => {
   return (
     <article
       id={id}
-      className="pokemon-card"
+      className="store-champion-item"
       onClick={() => {
         handleClick();
       }}
@@ -23,7 +23,7 @@ const ChampionCard = ({ id, item: data }) => {
       {" "}
       {/* Unique key and card class */}
       <Image
-        className="pokemon"
+        className="store-champion-image"
         id={id} // Set unique ID for potential usage
         src={`/tiles/${data.id}_0.jpg`}
         alt={`Sprite of ${data.name}`} // Add alt text for accessibility

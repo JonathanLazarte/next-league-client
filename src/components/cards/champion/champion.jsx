@@ -1,5 +1,6 @@
 "use client";
 import { memo, useRef, useCallback } from "react";
+import Image from 'next/image'
 import "./champion.css";
 import { GiPadlock } from "react-icons/gi";
 
@@ -141,8 +142,10 @@ const ChampionCard = ({
         }}
         onMouseLeave={onHoverEnd}
       >
-        <img
+        <Image
           className="champion-image"
+          width={308}
+          height={560}
           src={`/loading/${champion.id}_0.jpg`}
           alt={`${champion.name} sprite`}
           loading="lazy"

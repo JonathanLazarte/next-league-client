@@ -94,6 +94,16 @@ const RenderGameMode = ({ gameMode, selectedMap, hoveredMap, setSelectedMap, set
             alt={gameMode.title}
             style={{opacity: gameMode.title === selectedMap ? 1 : 0}}
           />
+          {/*<video
+            className="gamemode-active-animation"
+            src="/gamemode-selection/game-select-icon-active.webm"
+            autoPlay
+            loop
+            muted
+            playsInline
+            disablePictureInPicture
+            style={{opacity: gameMode.title === selectedMap ? 1 : 0}}
+          ></video>*/}
         </div>
         <span className="mode-subtitle">{gameMode.subTitle}</span>
         <h1 className="mode-title">{gameMode.title}</h1>

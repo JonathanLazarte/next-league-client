@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       const tokenFromLocalStorage = localStorage.getItem('token')
       setLocalStorageToken(tokenFromLocalStorage)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, loading])
 
   useEffect(() => {
 
