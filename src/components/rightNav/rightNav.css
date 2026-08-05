@@ -276,7 +276,6 @@
     cursor: pointer;
     font-size: 1.5rem;
 }
-
 .status-icon {
     width: 1rem;
     aspect-ratio: 1/1;
@@ -284,6 +283,13 @@
     border: 2px solid #36d786;
     border-radius: 10px;
     margin-right: 0.6rem;
+}
+.user-status.active-queue {
+    color: lightskyblue;
+}
+.user-status.active-queue .status-icon{
+    background-color: lightblue;
+    border: lightskyblue;
 }
 
 .showPerfilSpan {
@@ -337,15 +343,13 @@
 }
 
 .friendlist-username {
-    font-size: 1.7rem;
-    letter-spacing: 0.05rem;
+    font-size: 1.8rem;
     line-height: 1;
-    margin-bottom: 0.1rem;
     font-family: Spiegel-Regular;
 }
 
 .friendlist-status {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     color: #00a03f;
     font-family: Spiegel-Regular;
 }

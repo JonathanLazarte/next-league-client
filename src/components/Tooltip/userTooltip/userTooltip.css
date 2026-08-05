@@ -40,7 +40,6 @@
 }
 
 .tooltip-user-level {
-  height: 50%;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -62,56 +61,58 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  /*font-size: 20px;*/
+  flex-grow: 1;
   color: #fafafa;
-  margin-bottom: 1%;
+  align-items: flex-end;
 }
 
 .tooltip-user-info-text {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  gap: 0.2rem;
   align-items: flex-start;
   align-content: flex-start;
-  height: 91%;
+  height: 100%;
   flex-grow: 1;
-  padding-top: 10px;
+  padding-bottom: 1rem;
   line-height: 1;
 }
 
 .tooltip-user-info-text h4 {
-  font-size: var(--font-2xl);                      /* antes ~1.3vw ≈ 2.08rem */
-  font-family: Bold;
-  text-wrap: nowrap;
-  margin-bottom: 1%;
+    font-size: 2.2rem;                      /* antes ~1.3vw ≈ 2.08rem */
+    font-family: Bold;
+    text-wrap: nowrap;
+    margin-bottom: 1%;
+    color: #f2e8d4;
 }
 
 .subname {
-  font-size: var(--font-md);                       /* antes ~0.95vw ≈ 1.52rem */
-  font-family: Medium;
+    font-size: 1.5rem;                       /* antes ~0.95vw ≈ 1.52rem */
+  font-family: Spiegel-SemiBold;
   color: #5B5A56;
   margin: 0;
   margin-bottom: 1%;
+  letter-spacing: 1px;
 }
 
 .user-title {
   margin-bottom: 1%;
-  font-size: var(--font-lg);                       /* antes ~1vw ≈ 1.6rem */
-  font-family: Bold;
+  font-size: 1.6rem;
+  font-family: Spiegel-RegularItalic;
+  color: #908b7f;
 }
 
 .separator {
-  height: 1px;
-  width: 100%;
-  background-color: dimgray;
-  margin-top: 1%;
-  margin-bottom: 2%;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(250, 250, 250, 0.05);
 }
-
 .rank-and-points {
-  font-size: var(--font-lg);                       /* antes ~1vw ≈ 1.6rem */
-  color: #A09B8C;
+  font-size: 1.5rem;
+  color: #908b7f;
   font-family: Spiegel-Regular;
+  margin-top: 0.5rem;
 }
 
 .tooltip-user-icon {
@@ -120,32 +121,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10rem;
+  height: 70%;
 }
 
 .tooltip-user-icon-img {
   z-index: 0;
   position: absolute;
-  width: 40%;
+  width: 38%;
   border-radius: 50%;
   transform: translateY(-8%);
 }
 
 .tooltip-user-border {
 max-width: unset;
-  width: 22rem;
-  height: 22rem;
+  width: 21rem;
+  height: 21rem;
   aspect-ratio: 1 / 1;
   z-index: 1;
   position: absolute;
 }
 
 .tooltip-user-status {
-  height: 15%;
+  height: 14%;
   border-top: 1px solid rgba(250, 250, 250, 0.05);
   padding-left: 15px;
   display: flex;
-  align-items: center;
+  align-items: last baseline;
   font-size: var(--font-md);
   line-height: 1;
+  padding-bottom: 1.2rem;
 }

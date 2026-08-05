@@ -70,24 +70,24 @@ export default memo(function CollectionSkins() {
 
   const sortOptionsByMode = {
     collection: [
-      { value: "purchaseDate", label: "Fecha de compra" },
-      { value: "releaseDate", label: "Fecha de lanzamiento" },
-      { value: "alphabetical", label: "Alfabético" },
+      { value: "purchaseDate", label: "Adquisition Date" },
+      { value: "releaseDate", label: "Release Date" },
+      { value: "alphabetical", label: "Alphabetical" },
     ],
     all: [
-      { value: "releaseDate", label: "Fecha de lanzamiento" },
-      { value: "alphabetical", label: "Alfabético" },
+      { value: "releaseDate", label: "Release Date" },
+      { value: "alphabetical", label: "Alphabetical" },
     ],
     champion: [
-      { value: "mastery", label: "Maestría" },
-      { value: "mostOwned", label: "Más en colección" },
-      { value: "alphabetical", label: "Alfabético" },
+      { value: "mastery", label: "Mastery" },
+      { value: "mostOwned", label: "Most Owned" },
+      { value: "alphabetical", label: "Alphabetical" },
     ],
     set: [
-      { value: "mostOwned", label: "Más en colección" },
-      { value: "alphabetical", label: "Alfabético" },
+      { value: "mostOwned", label: "Most Owned" },
+      { value: "alphabetical", label: "Alphabetical" },
     ],
-    level: [{ value: "rarity", label: "Nivel (por defecto)" }],
+    level: [{ value: "rarity", label: "Rarity (By default)" }],
   };
 
   const countRarity = userSkinsFull
@@ -576,11 +576,11 @@ export default memo(function CollectionSkins() {
           <CustomSelect
             className="select-filter"
             options={[
-              { value: "collection", label: "Mi colección" },
-              { value: "all", label: "Todos" },
-              { value: "champion", label: "Campeón" },
+              { value: "collection", label: "My collection" },
+              { value: "all", label: "All" },
+              { value: "champion", label: "Champion" },
               { value: "set", label: "Set" },
-              { value: "level", label: "Nivel" },
+              { value: "level", label: "Tier" },
             ]}
             value={groupedBy}
             onChange={setGroupedBy}

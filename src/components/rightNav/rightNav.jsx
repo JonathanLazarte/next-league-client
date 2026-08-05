@@ -54,6 +54,7 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
     beginner: 'Beginner',
     intermediate: "Intermediate",
   }
+  const { queueStatus } = useSelector(selectUserInterfaceData)
 
   const toggleState = () => {};
   return (
@@ -136,9 +137,9 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
         {!iconIsInHover && (
           <>
             <h3 className="right-nav-username">{user.userName}</h3>
-            <div className="user-status" onClick={toggleState}>
+            <div className={`user-status ${queueStatus !== 'idle' ? 'active-queue' : ''}`} onClick={toggleState}>
               <div className="status-icon"></div>
-              { userState !== 'online' && '1/5 '}{userStateLabel[userState]}
+              {queueStatus === 'idle' ?<>{userState !== 'online' && '1/5 '}{userStateLabel[userState]}</> : 'In Queue'}
             </div>
           </>
         )}
@@ -207,7 +208,7 @@ export const FriendRow = memo(function FriendRow({
       </div>
 
       <div className="user-box-data">
-        <span className="friendlist-username">{u.alias}</span>
+        <span className="friendlist-username">fellow struggler</span>
         <span className="friendlist-status">Online</span>
         {/*chatUsers[u.alias]?.unreadCount > 0 && (
           <span className="unread-badge">

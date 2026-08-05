@@ -18,7 +18,18 @@ The project focuses on:
 * Reusable component design
 * Desktop-like user experience in the browser
 
+## Engineering Highlights
+
+• 8+ Feature Modules
+• 15 Redux Toolkit Slices
+• 14 Custom Hooks
+• 1,800+ Virtualized Items
+• Application-wide Tooltip Infrastructure
+• Real-time Communication with Socket.io
+• SSR + Middleware Route Protection
+
 ## Features
+
 
 ### User Interface
 

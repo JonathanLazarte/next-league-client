@@ -387,17 +387,17 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 @font-face {
-    font-family: Spiegel-Regularitalic;
+    font-family: Spiegel-RegularItalic;
     src: url("/fonts/Spiegel-Regularitalic.otf");
 }
 
 @font-face {
     font-family: Spiegel-SemiBold;
-    src: url("/fonts/Spiegel-OTF/Spiegel-SemiBold.otf");
+    src: url("/fonts/Spiegel-SemiBold.otf");
 }
 
 @font-face {
-    font-family: Spiegel-SemiBolditalic;
+    font-family: Spiegel-SemiBoldItalic;
     src: url("/fonts/Spiegel-SemiBolditalic.otf");
 }
 

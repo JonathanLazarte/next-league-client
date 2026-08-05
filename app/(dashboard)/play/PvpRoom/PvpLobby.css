@@ -51,6 +51,13 @@
 .header-arrow:hover .header-arrow-border {
     fill: url('#active-hextech-metal-gradient');
 }
+.header-arrow.disabled {
+    pointer-events: none;
+}
+.header-arrow.disabled .header-arrow-border {
+    fill: gray;
+}
+
 .header-queue-info {
     border-left: 1px solid rgba(70, 70, 70, 1);
     padding-left: 2rem;

@@ -41,7 +41,7 @@ export default function PlayButton({ okButtonAction }) {
   const handleClick = () => {
     if (buttonState === 'disabled') return;
 
-    playClick();
+    !isUserInLobby && playClick();
     setButtonState('disabled');
     videoRef.current['disabled'].play();
 

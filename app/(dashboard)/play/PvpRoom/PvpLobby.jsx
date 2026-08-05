@@ -4,7 +4,7 @@ import Image from 'next/image'
 /*import { v4 as uuidv4 } from 'uuid';*/
 import "./PvpLobby.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
-import { setUserState } from "@/redux/slices/userInterfaceSlice.ts";
+import { setUserState, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound"
 
 export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
@@ -14,6 +14,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
   const [, /*roomId*/ setRoomId] = useState();
   /*const newRoom = uuidv4()*/
   const user = useSelector((state) => state.user);
+  const { queueStatus } = useSelector(selectUserInterfaceData)
   const dispatch = useDispatch();
   const lobbyName = {
     'ranked_solo_duo': 'SR · Ranked Solo/Duo · Draft',
@@ -26,7 +27,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     'intermediate': 'SR · Intermediate · Blind',
   }
   const { play: playTransToGameselect} = useSound('/sfx/sfx-lobby-trans-to-gameselect.ogg')
-
+  console.log(queueStatus)
   useEffect(() => {
     socket?.current.on("USER JOINED", ({ room, roomId }) => {
       setRoomId(roomId);
@@ -62,11 +63,12 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     playTransToGameselect();
     dispatch(setUserState("online"));
   }
+
   return (
     <section className="pvp-room">
       <div className="room-header">
         <svg
-          className="header-arrow"
+          className={`header-arrow ${ queueStatus !== 'idle' ? 'disabled' : ''}`}
           id="Capa_2"
           data-name="Capa 2"
           xmlns="http://www.w3.org/2000/svg"
@@ -156,6 +158,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
         type={"pvp-room"}
         socket={socket}
         setRoomId={setRoomId}
+        queueStatus={queueStatus}
       ></FindMatchButton>
     </section>
   );
