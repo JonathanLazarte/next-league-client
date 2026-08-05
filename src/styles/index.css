@@ -149,6 +149,20 @@ input[type="search"]::-webkit-search-cancel-button {
 .app-page {
     background-color: black;
 }
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 1fr var(--dashboard-sidebar-width);
+    grid-template-rows: var(--dashboard-header-height) 1fr;
+    grid-template-areas:
+        "topbar sidebar"
+        "main   sidebar";
+    min-height: 100vh;
+    background: var(--blue-five);
+    position: relative;
+}
+.dashboard-layout-background {
+
+}
 .lol-logo-image {
     width: 20rem;
 }

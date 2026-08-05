@@ -150,18 +150,19 @@ export default function ProvidersWrapper({ children }) {
   }, [token]);
 
 
-  if (loading) {
+  if (loading || !user.profile_icon) {
     return (
       <div
-        style={{ width: "100vw" }}
-        className="flex items-center content-center justify-center w-screen min-h-screen"
+        className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >
-        <div className="text-center">
+        <img src="/loading-golden.png"></img>
+        <div className="text-center absolute">
           <Image
             className="lol-logo-image"
             src="/LOL_Icon_Rendered.png"
-            width={100}
-            height={100}
+            style={{width: "190px"}}
+            width={200}
+            height={200}
           />
         </div>
       </div>
@@ -180,14 +181,14 @@ export default function ProvidersWrapper({ children }) {
         return "/collection_background.webp";
       }
       default:
-        return null;
+        return "/img.jpg";
     }
   };
 
   const isInQueue =
     queue !== null;
 
-  return user.profile_icon ? (
+  return (
     <div className="dashboard-layout w-screen min-h-screen">
       <div
         className={`background-engine ${isInQueue && actualSection === "play" ? "in-room" : null}`}
@@ -224,7 +225,5 @@ export default function ProvidersWrapper({ children }) {
         {showLoading && <LoadingOverlay />}
       </section>
     </div>
-  ) : (
-    <></>
   );
 }

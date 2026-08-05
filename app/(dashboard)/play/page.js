@@ -105,7 +105,7 @@ export default memo(function ModeSelection({
   roomUsers,
   setRoomUsers,
 }) {
-  const { userState, queue } = useSelector((state) => state.userInterface);
+  const { queue } = useSelector((state) => state.userInterface);
   const [ categorySelected, setCategorySelected ] = useState("PVP");
   const { play: playMenuClick } = useSound("/general/menu-click.mp3");
 

@@ -1,21 +1,12 @@
-.dashboard-layout {
-    display: grid;
-    grid-template-columns: 1fr var(--dashboard-sidebar-width);
-    grid-template-rows: var(--dashboard-header-height) 1fr;
-    grid-template-areas:
-        "topbar sidebar"
-        "main   sidebar";
-    min-height: 100vh;
-    background: var(--blue-five);
-    position: relative;
-}
 .dashboard {
     grid-area: main;
     overflow: hidden;
     z-index: 1;
 }
+.dashboard-loading-screen {
+    background-color: var(--blue-five);
+}
 .index {
-    background-image: green;
     font-family: "Bold";
     background-repeat: no-repeat;
     background-size: cover;
