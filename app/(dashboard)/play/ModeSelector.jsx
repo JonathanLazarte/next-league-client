@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUserState } from '@/redux/slices/userInterfaceSlice.ts';
+import { setQueue } from '@/redux/slices/userInterfaceSlice.ts';
 import ConfirmButton from '@/components/playButton/confirmButton.jsx';
 import { useSound } from '@/hooks/useSound';
 
@@ -20,7 +20,7 @@ const QueueName = {
 
 
 const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
-  const [queueSelected, setQueueSelected] = useState(gameMode.queues[0]);
+  const [ queueSelected, setQueueSelected ] = useState(gameMode.queues[0]);
   const { play: playQueueClick } = useSound('/sfx/sfx-soc-ui-click-generic.ogg');
 
   const handleClick = (queue) => {
@@ -121,7 +121,7 @@ export default function ModeSelector({ data : gameModes }){
   const [selectedQueueGlobal, setSelectedQueueGlobal] = useState(gameModes[0].queues[0].name);
 
   const handleConfirm = () => {
-    dispatch(setUserState(selectedQueueGlobal));
+    dispatch(setQueue(selectedQueueGlobal));
   };
 
   useEffect(() => {

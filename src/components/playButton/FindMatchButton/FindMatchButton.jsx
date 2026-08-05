@@ -4,7 +4,7 @@ import "./FindMatchButton.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setQueueStatus } from "@/redux/slices/userInterfaceSlice.ts";
+import { setQueue, setQueueStatus } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
 
 export default function FindMatchButton({
@@ -51,10 +51,13 @@ export default function FindMatchButton({
   const handleCancel = () => {
     playQuitClick();
 
+    if (queueStatus === 'idle') { router.push("league"); dispatch(setQueue(null)) }
+    else {
       socket?.current?.emit("leave-room");
       setRoomId?.(null);
       dispatch(setQueueStatus("idle"));
-      router.push("league");
+      setButtonState("idle")
+    }
 
   };
 
@@ -93,7 +96,7 @@ export default function FindMatchButton({
           className="find-match-out-button"
         >
           <svg style={{pointerEvents: 'none'}} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z" fill="#CDBE91"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z"/>
           </svg>
         </div>
       </div>
@@ -108,7 +111,7 @@ export default function FindMatchButton({
         <img
           src='/find-match-button/button-find-match-disabled.png'
           className="find-match-button-image"
-          style={{ opacity: buttonState === 'disabled' ? 1 : 0}}
+          style={{ opacity: buttonState === 'disabled' || inQueue ? 1 : 0}}
         />
         <img
           src='/find-match-button/button-find-match-down.png'

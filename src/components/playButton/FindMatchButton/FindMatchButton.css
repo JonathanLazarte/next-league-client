@@ -51,9 +51,8 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    background-color: white;
-    height: 3.75rem;                     /* 2.6vw → 4.16rem */
-    width: 3.75rem;                      /* 2.6vw → 4.16rem */
+    height: 3.75rem;
+    width: 3.75rem;
     clip-path: circle(50% at 50% 50%);
     background: linear-gradient(to bottom, var(--gold-four), var(--gold-five));
     position: absolute;
@@ -69,17 +68,30 @@
     cursor: pointer;
     filter: brightness(1.2);
     transition: filter 0.1s;
-    color: var(--color-primary);
+    color: #CDBE91;
     font-size: 1.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
 }
-
+.find-match-out-button svg{
+    width: 10rem;
+    position: absolute;
+    fill: #CDBE91;
+}
 .find-match-out-button-border:hover {
     filter: brightness(1.2);
     background: linear-gradient(to bottom, var(--gold-one), var(--gold-two), var(--gold-four));
+}
+.find-match-out-button-border:active{
+    background: linear-gradient(to bottom, #443616, #6a4f24);
+}
+.find-match-out-button-border:active .find-match-out-button{
+    background-color: #1e2328;
+}
+.find-match-out-button-border:active .find-match-out-button svg{
+    fill: #785a28;
 }
 
 .find-match-out-button:hover {

@@ -80,6 +80,7 @@ export const {
   setActualSection,
   setUserState,
   setIsNavigating,
+  setQueue,
   setQueueStatus
 } = userInterfaceSlice.actions;
 
@@ -89,6 +90,8 @@ export const selectUserInterfaceState = (state) =>
   state.userInterface.userState;
 export const selectUserInterfaceIsNavigating = (state) =>
   state.userInterface.isNavigating;
+export const selectQueue = (state) =>
+  state.userInterface.queue;
 export const selectQueueStatus = (state) =>
   state.userInterface.queueStatus;
 
@@ -97,12 +100,14 @@ export const selectUserInterfaceData = createSelector(
     selectUserInterfaceState,
     selectUserInterfaceActualSection,
     selectUserInterfaceIsNavigating,
+    selectQueue,
     selectQueueStatus
   ],
-  (userState, actualSection, isNavigating, queueStatus) => ({
+  (userState, actualSection, isNavigating, queue, queueStatus) => ({
     userState,
     actualSection,
     isNavigating,
+    queue,
     queueStatus
   }),
 );

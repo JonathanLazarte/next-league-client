@@ -3,9 +3,9 @@
     position: relative;
     display: inline-block;
     width: 100%;
-    margin-bottom: 1.6rem; /* 0.8vw → 1.28rem */
+    margin-bottom: 1.6rem;
     width: 100%;
-    height: 4.2rem; /* 2.45vw → 3.92rem */
+    height: 4.1rem;
     background: var(--blue-four);
     color: var(--grey-three);
     font-family: Spiegel-Regular;

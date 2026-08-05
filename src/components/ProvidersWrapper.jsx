@@ -56,7 +56,7 @@ export default function ProvidersWrapper({ children }) {
 
   const user = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.auth);
-  const { actualSection, isNavigating, userState } = useSelector(
+  const { actualSection, isNavigating, queue } = useSelector(
     selectUserInterfaceData,
   );
   const { itemToBuy } = useSelector(selectPurchaseData);
@@ -126,7 +126,7 @@ export default function ProvidersWrapper({ children }) {
   }, [token]);
 
   useEffect(() => {
-    if(!socket.current) return
+    if (!socket.current) return
     socket.current?.on("chat-message", (msg) => {
       dispatch(addMessage(msg));
     });
@@ -185,7 +185,7 @@ export default function ProvidersWrapper({ children }) {
   };
 
   const isInQueue =
-    userState !== "online";
+    queue !== null;
 
   return user.profile_icon ? (
     <div className="dashboard-layout w-screen min-h-screen">

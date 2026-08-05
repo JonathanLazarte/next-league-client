@@ -235,14 +235,7 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 1.5rem;
     letter-spacing: 1.5px;
     color: #c5b78c;
-    transition: color 0.1s;
     font-family: var(--font-medium);
-}
-.subheader-tab:active {
-    color: var(--gold-four);
-}
-.active-subheader-tab:active {
-    color: #f0e6d2;
 }
 .subheader-tab:hover {
     color: var(--gold-one);
@@ -250,7 +243,12 @@ input[type="search"]::-webkit-search-cancel-button {
 .active-subheader-tab {
     color: #f0e6d2;
 }
-
+.subheader-tab:active {
+    color: var(--gold-four);
+}
+.active-subheader-tab:active {
+    color: #f0e6d2;
+}
 .active-subheader-tab::after {
     content: "";
     position: absolute;

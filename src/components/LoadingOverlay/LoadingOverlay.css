@@ -16,7 +16,7 @@
     position: absolute;
     z-index: 200;
     padding-right: var(--dashboard-sidebar-width);
-    background-color: black;
+    background-color: var(--blue-five);
     top: 0;
     left: 0;
 }

@@ -11,37 +11,35 @@ type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
 export default function LobbyPlayButton({ okButtonAction, setSectionTabSelected }) {
   const route = useRouter();
-  const { actualSection, userState } = useSelector(selectUserInterfaceData);
+  const { actualSection, queue } = useSelector(selectUserInterfaceData);
   const [ buttonState, setButtonState ] = useState<Button>('idle')
   const { play: playHover } = useSound("/sfx/sfx-nav-button-play-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-nav-button-play-click.ogg");
   const videoRef = useRef({})
-  const isUserInLobby = userState !== 'online'
+  const isUserInParty = queue !== null
 
   useEffect(() => {
-    if (actualSection !== "play" && isUserInLobby && buttonState === 'disabled') {
+    if (actualSection !== "play" && isUserInParty && buttonState === 'disabled') {
       setButtonState('lobby')
     }
-    if (actualSection !== "play" && !isUserInLobby && buttonState === 'disabled') {
+    if (actualSection !== "play" && !isUserInParty && buttonState === 'disabled') {
       setButtonState('idle')
     }
     if (actualSection === 'play' && buttonState !== 'disabled') {
       setButtonState('disabled')
       videoRef.current['disabled'].play();
     }
-  }, [actualSection, isUserInLobby]);
+  }, [actualSection, isUserInParty]);
   // Texto dinámico del botón
   const getButtonText = () => {
-    if (userState !== "online") return "GROUP";
-    if (userState.includes("match") || userState === "in game")
-      return "EN PARTIDA";
+    if (isUserInParty) return "PARTY";
     return "PLAY";
   };
 
   const handleClick = () => {
     if (buttonState === 'disabled') return;
 
-    !isUserInLobby && playClick();
+    !isUserInParty && playClick();
     setButtonState('disabled');
     videoRef.current['disabled'].play();
     setSectionTabSelected('play')

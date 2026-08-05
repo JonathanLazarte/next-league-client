@@ -4,7 +4,7 @@ import Image from 'next/image'
 /*import { v4 as uuidv4 } from 'uuid';*/
 import "./PvpLobby.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
-import { setUserState, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
+import { setQueue, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound"
 
 export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
@@ -27,7 +27,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     'intermediate': 'SR · Intermediate · Blind',
   }
   const { play: playTransToGameselect} = useSound('/sfx/sfx-lobby-trans-to-gameselect.ogg')
-  console.log(queueStatus)
+
   useEffect(() => {
     socket?.current.on("USER JOINED", ({ room, roomId }) => {
       setRoomId(roomId);
@@ -61,7 +61,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
 
   const handleBack = () => {
     playTransToGameselect();
-    dispatch(setUserState("online"));
+    dispatch(setQueue(null));
   }
 
   return (
@@ -132,7 +132,6 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
                 playsInline
                 disablePictureInPicture
               ></video>
-              <span className="banner-user-level">{user.level}</span>
             </div>
             <h2 className="banner-username">{user.alias}</h2>
             <span className="banner-alias">{user.title}</span>

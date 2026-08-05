@@ -105,8 +105,8 @@ export default memo(function ModeSelection({
   roomUsers,
   setRoomUsers,
 }) {
-  const { userState } = useSelector((state) => state.userInterface);
-  const [categorySelected, setCategorySelected] = useState("PVP");
+  const { userState, queue } = useSelector((state) => state.userInterface);
+  const [ categorySelected, setCategorySelected ] = useState("PVP");
   const { play: playMenuClick } = useSound("/general/menu-click.mp3");
 
   const handleCategoryChange = (category) => {
@@ -142,8 +142,8 @@ export default memo(function ModeSelection({
   };
 
   const isQueueSelected =
-    userState !== "online";
-    const activeGameMode = Object.keys(GAME_DATA).find(key => GAME_DATA[key]?.some(map => map.queues?.some(q => q.name === userState)));
+    queue !== null;
+    const activeGameMode = Object.keys(GAME_DATA).find(key => GAME_DATA[key]?.some(map => map.queues?.some(q => q.name === queue)));
 
   return (
     <div className="play-screen-container">
@@ -154,7 +154,7 @@ export default memo(function ModeSelection({
           connectedUsers={connectedUsers}
           roomUsers={roomUsers}
           setRoomUsers={setRoomUsers}
-          roomTitle={userState}
+          roomTitle={queue}
         />
       )}
       {activeGameMode === "CO_OP_VS_AI" &&
@@ -163,7 +163,7 @@ export default memo(function ModeSelection({
           connectedUsers={connectedUsers}
           roomUsers={roomUsers}
           setRoomUsers={setRoomUsers}
-          roomTitle={userState}
+          roomTitle={queue}
         />}
     </div>
   );
