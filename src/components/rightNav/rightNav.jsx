@@ -208,7 +208,7 @@ export const FriendRow = memo(function FriendRow({
       </div>
 
       <div className="user-box-data">
-        <span className="friendlist-username">fellow struggler</span>
+        <span className="friendlist-username">{u.alias}</span>
         <span className="friendlist-status">Online</span>
         {/*chatUsers[u.alias]?.unreadCount > 0 && (
           <span className="unread-badge">

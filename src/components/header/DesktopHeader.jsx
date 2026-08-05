@@ -12,13 +12,14 @@ import { flushSync } from "react-dom";
 import { FaPlus } from "react-icons/fa6";
 import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
 
-export const Tab = ({ section, trigger }) => {
+export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelected, actualSection }) => {
   const { play } = useSound("/general/menu-click.mp3");
   const router = useRouter();
   const [isMouseUp, setIsMouseUp] = useState();
-  const { actualSection } = useSelector(selectUserInterfaceData);
 
-  const isPointerVisible = actualSection === section;
+  console.log(actualSection)
+
+  const isPointerVisible = sectionTabSelected === section;
   const selectedStyle = {
     background:
       "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
@@ -31,7 +32,7 @@ export const Tab = ({ section, trigger }) => {
     flushSync(() => {
       setIsMouseUp(true);
     });
-
+    setSectionTabSeleceted(section)
     setIsMouseUp(true);
     play();
     router.push(section);
@@ -42,7 +43,7 @@ export const Tab = ({ section, trigger }) => {
       <div
         onClick={() => handleClick("league")}
         className="item-lol"
-        style={actualSection === "league" ? selectedStyle : null}
+        style={sectionTabSelected === "league" ? selectedStyle : null}
       >
         LEAGUE
         <img
@@ -57,7 +58,7 @@ export const Tab = ({ section, trigger }) => {
   return (
       <div
         className={`item ${isMouseUp ? "onMouseUp" : null}`}
-        style={actualSection === section ? selectedStyle : null}
+        style={sectionTabSelected === section ? selectedStyle : null}
         onMouseUp={() => handleClick(section)}
         {...trigger({content: section})}
       >
@@ -78,28 +79,43 @@ export const Tab = ({ section, trigger }) => {
 
 export default memo(function DesktopHeader({ showSideNav }) {
   const user = useSelector((state) => state.user, shallowEqual);
-  const { /*actualSection,*/ userState } = useSelector(selectUserInterfaceData);
+  const { actualSection } = useSelector(selectUserInterfaceData);
   const trigger = useTooltipTrigger()
+  const [ sectionTabSelected, setSectionTabSeleceted ] = useState()
 
   return (
     <>
       <header
         style={{
           marginRight: !showSideNav ? "0px" : null,
-          marginTop:
-            userState === "In explore match" || userState === "In normal match"
-              ? "-110px"
-              : "0px",
         }}
         className="index-header"
       >
-        <HeaderMainButton text="JUEGA" />
-        <Tab trigger={trigger} section="league" />
+        <HeaderMainButton setSectionTabSelected={setSectionTabSeleceted} />
+        <Tab
+          setSectionTabSeleceted={setSectionTabSeleceted}
+          sectionTabSelected={sectionTabSelected}
+          actualSection={actualSection}
+          trigger={trigger}
+          section="league"
+        />
         <div className="header-sections">
-          <Tab trigger={trigger} section="collection" />
+          <Tab
+            trigger={trigger}
+            section="collection"
+            setSectionTabSeleceted={setSectionTabSeleceted}
+            sectionTabSelected={sectionTabSelected}
+            actualSection={actualSection}
+          />
           {/*<Tab section="Botín" />*/}
           <div className="icon-separator" />
-          <Tab trigger={trigger} section="store" />
+          <Tab
+            trigger={trigger}
+            section="store"
+            setSectionTabSeleceted={setSectionTabSeleceted}
+            actualSection={actualSection}
+            sectionTabSelected={sectionTabSelected}
+          />
           <div className="icon-separator" />
 
           <div className="account-coins">

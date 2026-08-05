@@ -9,7 +9,7 @@ import { useSound } from "@/hooks/useSound.js";
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
-export default function PlayButton({ okButtonAction }) {
+export default function LobbyPlayButton({ okButtonAction, setSectionTabSelected }) {
   const route = useRouter();
   const { actualSection, userState } = useSelector(selectUserInterfaceData);
   const [ buttonState, setButtonState ] = useState<Button>('idle')
@@ -44,6 +44,7 @@ export default function PlayButton({ okButtonAction }) {
     !isUserInLobby && playClick();
     setButtonState('disabled');
     videoRef.current['disabled'].play();
+    setSectionTabSelected('play')
 
     // Si hay acción personalizada (por ejemplo desde el lobby PvP), usarla
     if (okButtonAction) {
