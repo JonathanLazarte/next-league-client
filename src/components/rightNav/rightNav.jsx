@@ -447,7 +447,7 @@ export default memo(function RightNav({
         <button className="right-nav-buttom-button">
           <FaMicrophone />
         </button>
-        <span className="actual-version">26.13</span>
+        <span className="actual-version">1.1</span>
         <button className="right-nav-buttom-button bug-report-button">
           <MdBugReport />
         </button>

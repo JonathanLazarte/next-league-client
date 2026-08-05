@@ -1,3 +1,11 @@
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 .dashboard {
     grid-area: main;
     overflow: hidden;
@@ -5,6 +13,30 @@
 }
 .dashboard-loading-screen {
     background-color: var(--blue-five);
+}
+.hextech-loading-svg{
+    position: absolute;
+    width: 39.5%;
+    animation: rotation 30s linear infinite;
+}
+.hextech-loading-svg .cls-1 {
+    fill: none;
+    opacity: .25;
+    stroke: #cdbe91;
+    stroke-dasharray: 1 5;
+    stroke-miterlimit: 10;
+    stroke-width: 14px;
+
+}
+.lol-logo-image {
+    width: 23rem;
+}
+.loading-underlogo {
+    color: var(--gold-two);
+    font-family: Bold;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    line-height: 1.2;
 }
 .index {
     font-family: "Bold";

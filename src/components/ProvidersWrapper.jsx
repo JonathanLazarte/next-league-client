@@ -1,5 +1,6 @@
 "use client";
 
+import "$/(dashboard)/dashboard.css";
 import "$/(dashboard)/collection/collection.css";
 import "$/(dashboard)/store/store.css";
 import "$/(dashboard)/play/play.css";
@@ -20,7 +21,7 @@ const MusicPlayer = dynamic(() => import("@/components/Audio/MusicPlayer"), {
 import ConfirmPurchaseModal from "./confirmPurchaseModal/confirmPurchaseModal";
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import TooltipLayer from "./Tooltip/globalTooltip/TooltipLayer";
-import "$/(dashboard)/index.css";
+
 
 import { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
@@ -150,24 +151,28 @@ export default function ProvidersWrapper({ children }) {
   }, [token]);
 
 
-  if (loading || !user.profile_icon) {
-    return (
+
+    if( loading || !user.profile_icon ){return (
       <div
         className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >
-        <img src="/loading-golden.png"></img>
+        <img style={{width: "100%"}} src="/loading-golden.png"></img>
+          <svg id="Capa_2" className="hextech-loading-svg" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 769.62 776.17">
+            <g id="Lines">
+              <ellipse className="cls-1" cx="384.81" cy="388.09" rx="377.81" ry="381.09"/>
+            </g>
+          </svg>
         <div className="text-center absolute">
           <Image
             className="lol-logo-image"
             src="/LOL_Icon_Rendered.png"
-            style={{width: "190px"}}
-            width={200}
-            height={200}
+            width={240}
+            height={240}
           />
+          <div className="loading-underlogo"> LOADING </div>
         </div>
       </div>
-    );
-  }
+    );}
 
   const layoutBackgroundImage = (actualSection) => {
     switch (actualSection) {
