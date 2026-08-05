@@ -54,7 +54,7 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
     beginner: 'Beginner',
     intermediate: "Intermediate",
   }
-  const { queueStatus } = useSelector(selectUserInterfaceData)
+  const { queue, queueStatus } = useSelector(selectUserInterfaceData)
 
   const toggleState = () => {};
   return (
@@ -139,7 +139,7 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
             <h3 className="right-nav-username">{user.userName}</h3>
             <div className={`user-status ${queueStatus !== 'idle' ? 'active-queue' : ''}`} onClick={toggleState}>
               <div className="status-icon"></div>
-              {queueStatus === 'idle' ?<>{userState !== 'online' && '1/5 '}{userStateLabel[userState]}</> : 'In Queue'}
+              {queueStatus === 'idle' ?<>{queue !== null && '1/5 '}{userStateLabel[queue !== null ? queue : userState]}</> : 'In Queue'}
             </div>
           </>
         )}
@@ -245,10 +245,7 @@ export default memo(function RightNav({
   const { start, cancel } = useHoverIntent({ initialDelay: 400 });
   const {
     selectedChat,
-    /*isChatVisible,*/
-    /*chatUsers,*/
     unreadCount,
-    /*activeChats*/
     isChatVisible,
   } = useSelector((state) => state.chat);
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
