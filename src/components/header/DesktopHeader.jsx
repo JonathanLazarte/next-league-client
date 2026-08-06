@@ -8,7 +8,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
 import { useRouter } from "@/hooks/useRouter.js";
-import { flushSync } from "react-dom";
+/*import { flushSync } from "react-dom";*/
 import { FaPlus } from "react-icons/fa6";
 import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
 /*import { color } from "framer-motion";*/
@@ -46,23 +46,23 @@ export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelect
       </div>
     );
   return (
-      <div
-        className={`header-tab ${actualSection === section ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
-        onMouseUp={() => handleClick(section)}
-        {...trigger({content: section})}
-      >
-        <img
-          style={{
-            display: isPointerVisible ? "block" : "none",
-          }}
-          className="header-pointer"
-          src="/header-pointer.png"
-        />
-        <svg fill="currentColor">
-          <use href={`/icon.svg#${section}`} />
-          {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
-        </svg>
-      </div>
+    <div
+      className={`header-tab ${actualSection === section ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
+      onMouseUp={() => handleClick(section)}
+      {...trigger({content: section})}
+    >
+      <img
+        style={{
+          display: isPointerVisible ? "block" : "none",
+        }}
+        className="header-pointer"
+        src="/header-pointer.png"
+      />
+      <svg fill="currentColor">
+        <use href={`/icon.svg#${section}`} />
+        {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
+      </svg>
+    </div>
   );
 };
 
