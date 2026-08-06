@@ -198,7 +198,7 @@ export default function ProvidersWrapper({ children }) {
       <div
         className={`background-engine ${isInQueue && actualSection === "play" ? "in-room" : null}`}
         style={{
-          backgroundImage: isNavigating
+          backgroundImage: showLoading
             ? "var(--blue-five)"
             : `url(${layoutBackgroundImage(actualSection)})`,
           backgroundRepeat: "no-repeat",
