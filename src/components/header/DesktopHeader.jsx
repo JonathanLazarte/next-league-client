@@ -16,16 +16,15 @@ import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger
 export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelected, actualSection }) => {
   const { play } = useSound("/general/menu-click.mp3");
   const router = useRouter();
-  const [/*isMouseUp,*/ setIsMouseUp] = useState();
+  /*const [isMouseUp, setIsMouseUp] = useState();*/
 
   const isPointerVisible = sectionTabSelected === section;
 
   const handleClick = (section) => {
-    flushSync(() => {
+    /*flushSync(() => {
       setIsMouseUp(true);
-    });
+    });*/
     setSectionTabSeleceted(section)
-    setIsMouseUp(true);
     play();
     router.push(section);
   };
