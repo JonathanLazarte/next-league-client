@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
-type UserState = "online" | "offline" | "ingame" | "away" | string
+type UserState = "online" | "offline" | "ingame" | "away" |string
 type Section = "home" | "matchmaking" | "lobby" | "champselect" | "game" | "play" | "store" | "collection"
 type Queue = "solo_duo" | "flex" | "aram" | null | "aram_mayhem" | "tutorial" | "swiftplay"
 

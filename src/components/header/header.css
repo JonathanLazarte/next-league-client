@@ -29,7 +29,7 @@
     grid-area: topbar;
     width: 100%;
     height: var(--dashboard-header-height);
-    padding-left: 4.1rem; /* 1.8vw → 2.88rem */
+    padding-left: 4.1rem;
     align-items: center;
     border-bottom: 1px solid rgba(200, 200, 200, 0.3);
     border-top: 2px solid rgb(120, 90, 40);
@@ -57,31 +57,40 @@
     justify-content: flex-end;
     height: 100%;
     flex-grow: 1;
-    margin-right: 4.48rem; /* 2.8vw → 4.48rem */
+    margin-right: 4.48rem;
 }
-
-.header-sections .item {
-    width: 6.4rem; /* 4vw → 6.4rem */
+@property --gradient-one {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+}
+.header-tab {
+    width: 6.4rem;
+    height: 100%;
     font-size: 1.4rem;
     color: var(--color-primary);
     align-items: center;
     display: flex;
     justify-content: center;
     position: relative;
+    cursor: pointer;
+    background: linear-gradient(transparent 35%, var(--gradient-one));
+    transition: --gradient-one 0.5s;
 }
 
-.header-sections .item svg {
+.header-tab svg {
     width: 2.8rem;
+    height: 50px;
 }
 
-.item-lol {
-    width: fit-content; /* 4.2vw → 6.72rem */
+.header-tab.league {
+    width: fit-content;
     padding: 0px 1.3rem;
-    font-size: 1.9rem; /* antes ~1.1vw ≈ 1.76rem */
+    font-size: 1.9rem;
     letter-spacing: 1px;
     color: var(--color-primary);
     font-family: Bold;
-    margin-left: 3.5rem; /* 1.8vw → 2.88rem */
+    margin-left: 3.5rem;
     height: 100%;
     align-items: center;
     align-content: center;
@@ -93,26 +102,24 @@
     display: flex;
 }
 
-.header-sections .item:hover,
-.item-lol:hover {
-    background: linear-gradient(
-        to bottom,
-        transparent 30%,
-        rgba(212, 175, 120, 0.5)
-    );
+.header-tab:hover,
+.header-tab.league:hover {
+    --gradient-one:  rgba(202, 187, 143, 0.3);
     color: #f0e6d2;
 }
-
-.header-sections .item:active,
-.item-lol:active {
-    animation-name: brightnes;
-    animation-duration: 0.5s;
+.header-tab.selected {
+    background:
+    linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(202, 187, 143, 0.3));
+    color: #F0E6D2;
+    cursor: default;
+    pointer-events: none;
 }
-
-.header-sections .item:active svg {
-    animation-name: reduction;
-    animation-duration: 0.5s;
-    /*box-shadow: 0 0 30px 15px rgba(0, 255, 255, 0.7);*/
+.header-tab.actual-section {
+    background:
+      linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(202, 187, 143, 0.3));
+      pointer-events: none;
+      cursor: default;
+      color: #F0E6D2;
 }
 
 /*.item::after {

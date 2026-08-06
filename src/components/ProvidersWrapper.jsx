@@ -152,7 +152,7 @@ export default function ProvidersWrapper({ children }) {
 
 
 
-    if( loading || !user.profile_icon ){return (
+    if( !user.profile_icon  || loading){ return (
       <div
         className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >

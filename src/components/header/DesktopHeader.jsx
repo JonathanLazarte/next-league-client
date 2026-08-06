@@ -11,22 +11,14 @@ import { useRouter } from "@/hooks/useRouter.js";
 import { flushSync } from "react-dom";
 import { FaPlus } from "react-icons/fa6";
 import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
+/*import { color } from "framer-motion";*/
 
 export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelected, actualSection }) => {
   const { play } = useSound("/general/menu-click.mp3");
   const router = useRouter();
-  const [isMouseUp, setIsMouseUp] = useState();
-
-  console.log(actualSection)
+  const [/*isMouseUp,*/ setIsMouseUp] = useState();
 
   const isPointerVisible = sectionTabSelected === section;
-  const selectedStyle = {
-    background:
-      "linear-gradient(rgba(9, 17, 30, 0) 35%, rgba(212, 175, 120, 0.5))",
-    color: "#F0E6D2",
-    cursor: "default",
-    pointerEvents: "none",
-  };
 
   const handleClick = (section) => {
     flushSync(() => {
@@ -42,8 +34,7 @@ export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelect
     return (
       <div
         onClick={() => handleClick("league")}
-        className="item-lol"
-        style={sectionTabSelected === "league" ? selectedStyle : null}
+        className={`header-tab league ${actualSection === "league" ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
       >
         LEAGUE
         <img
@@ -57,8 +48,7 @@ export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelect
     );
   return (
       <div
-        className={`item ${isMouseUp ? "onMouseUp" : null}`}
-        style={sectionTabSelected === section ? selectedStyle : null}
+        className={`header-tab ${actualSection === section ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
         onMouseUp={() => handleClick(section)}
         {...trigger({content: section})}
       >

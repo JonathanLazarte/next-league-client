@@ -32,7 +32,7 @@ export default function ConfirmPurchaseWindow() {
   const { itemToBuy, /*selectedCurrency, */ status } =
     useSelector(selectPurchaseData);
   const isProcessing = status === "processing";
-  const showLoading = useLoadingDelay(isProcessing);
+  const showLoading = useLoadingDelay(isProcessing, { delay: 500, minDisplayTime: 5000 });
   const showSuccess = status === "success" && !showLoading;
 
   const productInfo = useMemo(() => {
@@ -190,7 +190,8 @@ export default function ConfirmPurchaseWindow() {
       </div>
     );
   };
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+  const delayedImageLoading = useLoadingDelay(imageLoading)
 
   return (
     typeof window !== "undefined" &&
@@ -214,12 +215,12 @@ export default function ConfirmPurchaseWindow() {
                     alt={productInfo.name}
                     sizes={'40rem'}
                     fill
-                    onLoad={() => setImageLoaded(true)}
+                    onLoad={() => setImageLoading(false)}
                     style={{
-                      visibility: imageLoaded ? "visible" : "hidden",
+                      visibility: !delayedImageLoading ? "visible" : "hidden",
                     }}
                   />
-                  {!imageLoaded && <div className="loading-image">
+                  {delayedImageLoading && <div className="loading-image">
                     <div className={`loading-spinner medium`}>
                       <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
                     </div>
