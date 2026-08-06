@@ -3,6 +3,7 @@
 import React, { useState, useRef} from "react";
 import ReactDOM from "react-dom";
 import "./miniTooltip.css";
+import { SECTION_LABELS } from '@/utils/constants'
 
 const MiniTooltip = ({
   content,
@@ -11,11 +12,6 @@ const MiniTooltip = ({
   const [visible, /*setVisible*/] = useState(true);
   const tooltipRef = useRef(null);
 
-  const TABS_STRINGS = {
-    collection: "Collection",
-    store: "Store",
-    loot: "Loot",
-  };
   return (
     <>
       {typeof window !== "undefined" &&
@@ -30,7 +26,7 @@ const MiniTooltip = ({
               visibility: visible ? "visible" : "hidden",
             }}
           >
-            {TABS_STRINGS[content] || "??"}
+            { SECTION_LABELS[content] || "??" }
           </div>,
           document.body,
         )}

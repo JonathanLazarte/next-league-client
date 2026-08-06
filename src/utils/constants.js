@@ -39,3 +39,9 @@ export const API_ENDPOINTS = {
   DATA: "api/v1/data",
   USERS: "api/v1/user",
 };
+
+export const SECTION_LABELS = {
+  collection: "Collection",
+  store: "Store",
+  league: "LEAGUE"
+}

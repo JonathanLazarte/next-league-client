@@ -10,13 +10,14 @@ import Loading from "@/components/Loading/Loading";
 import "./championsStore/championsStore.css";
 import "./skinsStore/skinsStore.css";
 
-const ChampionsStore = dynamic(
+/*const ChampionsStore = dynamic(
   () => import("./championsStore/championsStore"),
   {
     loading: () => <Loading />,
     ssr: false,
   },
-);
+);*/
+import ChampionsStore from './championsStore/championsStore'
 const SkinsStore = dynamic(() => import("./skinsStore/skinsStore.jsx"), {
   loading: () => <Loading />,
   ssr: false,

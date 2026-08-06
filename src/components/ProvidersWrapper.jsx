@@ -56,7 +56,7 @@ export default function ProvidersWrapper({ children }) {
   const pathname = usePathname();
 
   const user = useSelector((state) => state.user);
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, isAuthenticated } = useSelector((state) => state.auth);
   const { actualSection, isNavigating, queue } = useSelector(
     selectUserInterfaceData,
   );
@@ -152,7 +152,7 @@ export default function ProvidersWrapper({ children }) {
 
 
 
-    if( !user.profile_icon  || loading){ return (
+    if( !user.profile_icon  || loading || !isAuthenticated ){ return (
       <div
         className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >

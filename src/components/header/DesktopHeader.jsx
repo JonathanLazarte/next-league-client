@@ -2,8 +2,7 @@
 
 import "./header.css";
 import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton";
-import { /*useState,*/ memo, useState } from "react";
-import { GiStoneCrafting } from "react-icons/gi";
+import { memo, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound.js";
@@ -32,10 +31,11 @@ export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelect
   if (section === "league")
     return (
       <div
-        onClick={() => handleClick("league")}
-        className={`header-tab league ${actualSection === "league" ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
+        onMouseUp={() => handleClick("league")}
+        className={`header-tab ${actualSection === section ? "actual-section" : sectionTabSelected === section ? "selected" : ''} main`}
+        data-testid={`tab-${section}`}
       >
-        LEAGUE
+        {section.toUpperCase()}
         <img
           style={{
             display: isPointerVisible ? "block" : "none",
@@ -49,7 +49,8 @@ export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelect
     <div
       className={`header-tab ${actualSection === section ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
       onMouseUp={() => handleClick(section)}
-      {...trigger({content: section})}
+      {...trigger({ content: section })}
+      data-testid={`tab-${section}`}
     >
       <img
         style={{
@@ -60,7 +61,6 @@ export const Tab = ({ section, trigger, setSectionTabSeleceted, sectionTabSelect
       />
       <svg fill="currentColor">
         <use href={`/icon.svg#${section}`} />
-        {section === "Botín" && <GiStoneCrafting fontSize="1.4rem" />}
       </svg>
     </div>
   );

@@ -5,13 +5,14 @@ import { useState, memo } from "react";
 import { useSound } from "@/hooks/useSound.js";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
-const ChampionsSection = dynamic(
+/*const ChampionsSection = dynamic(
   () => import("./collectionChampions/collectionChampions.jsx"),
   {
     loading: () => <Loading />,
     ssr: false,
   },
-);
+);*/
+import ChampionsSection from './collectionChampions/collectionChampions'
 const SkinsSection = dynamic(
   () => import("./collectionSkins/collectionSkins.jsx"),
   {
