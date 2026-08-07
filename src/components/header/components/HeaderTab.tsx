@@ -57,4 +57,4 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
       </svg>
     </div>
   );
-};
+}

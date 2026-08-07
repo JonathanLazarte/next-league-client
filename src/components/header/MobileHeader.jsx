@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 
 
 
-export default function MobileHeader({/*showSideNav,*/ setShowSideNav}){
+export default function MobileHeader(){
   const {actualSection, changeSection, toggleNavigation} = useUserInterface();
   const route = useRouter()
   const selectedStyle = {/*background: "linear-gradient(rgb(9, 17, 30) 50%, rgb(47, 50, 52))",*/ color: "#F0E6D2"}
