@@ -25,7 +25,7 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
     return (
       <div
         onMouseUp={() => handleClick("league")}
-        className={`header-tab ${(actualSection === section && !isNavigating) ? "actual-section" : sectionTabSelected === section ? "selected" : ''} main`}
+        className={`header-tab ${(actualSection === section && !isNavigating) ? "actual-section" : (!isNavigating && sectionTabSelected === section) ? "selected" : ''} main`}
         data-testid={`tab-${section}`}
       >
         {section.toUpperCase()}
@@ -40,7 +40,7 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
     );
   return (
     <div
-      className={`header-tab ${(actualSection === section && !isNavigating) ? "actual-section" : sectionTabSelected === section ? "selected" : null}`}
+      className={`header-tab ${(actualSection === section && !isNavigating) ? "actual-section" : (!isNavigating && sectionTabSelected === section) ? "selected" : null}`}
       onMouseUp={() => handleClick(section)}
       {...trigger({ content: section })}
       data-testid={`tab-${section}`}
