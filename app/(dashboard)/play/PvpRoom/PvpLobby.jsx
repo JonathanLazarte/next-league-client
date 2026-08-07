@@ -153,6 +153,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
                     })
                     */}
       </div>
+      <div className="party-chat"><input type="text" placeholder="Type here..."></input></div>
       <FindMatchButton
         type={"pvp-room"}
         socket={socket}
