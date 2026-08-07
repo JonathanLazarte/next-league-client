@@ -1,20 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef, memo, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addMessage,
-  markAllAsRead,
-  /*closeChat,
-  minimizeChat,*/
-  toggleChatVisibility,
-} from "@/redux/slices/chatSlice";
 import { /*PiXBold,*/ PiMinus } from "react-icons/pi";
 import "./chat.css";
 import { useSound } from "@/hooks/useSound.js";
+import { useChat } from "@/hooks/useChat";
+import { useUser } from "@/hooks/useUser";
 
 export default memo(function Chat({ socket }) {
-  const dispatch = useDispatch();
   const RESOURCES_URL =
     "/" ||
     "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
@@ -24,7 +17,7 @@ export default memo(function Chat({ socket }) {
   const typingTimeoutRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  const { alias } = useSelector((state) => state.user);
+  const { alias } = useUser();
   const {
     selectedChat,
     isChatVisible,
@@ -34,7 +27,10 @@ export default memo(function Chat({ socket }) {
     showTimestamps,
     autoScroll,
     messages,
-  } = useSelector((state) => state.chat);
+    addMessage,
+    markAllAsRead,
+    toggleChatVisibility,
+  } = useChat();
   const selectedChatUser = selectedChat ? chatUsers[selectedChat] : null;
   //const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
   const isUserTyping = selectedChat
@@ -52,9 +48,9 @@ export default memo(function Chat({ socket }) {
   // Marcar mensajes como leídos al abrir el chat
   useEffect(() => {
     if (selectedChat && isChatVisible) {
-      dispatch(markAllAsRead(selectedChat));
+      markAllAsRead(selectedChat);
     }
-  }, [selectedChat, isChatVisible, dispatch]);
+  }, [selectedChat, isChatVisible, markAllAsRead]);
 
   // Sonido al abrir el chat
   /*useEffect(() => {
@@ -102,7 +98,7 @@ export default memo(function Chat({ socket }) {
     };
     socket?.current?.emit("chat-message", message);
 
-    dispatch(addMessage(message));
+    addMessage(message);
     setChatInput("");
 
     if (isTyping) {
@@ -112,11 +108,10 @@ export default memo(function Chat({ socket }) {
   };
 
   // Cerrar / Minimizar chat
-  /*const handleCloseChat = () =>
-    selectedChat && dispatch(closeChat(selectedChat));*/
+  /*const handleCloseChat = () => selectedChat && closeChat(selectedChat);*/
   const handleMinimizeChat = () => {
     playClickSound();
-    dispatch(toggleChatVisibility());
+    toggleChatVisibility();
   };
 
   // Formatear hora

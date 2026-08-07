@@ -9,10 +9,9 @@ import useLoadingDelay from '@/hooks/useLoadingDelay'
 
 import styles from "./ChampionDetailModal.module.css";
 import "./ChampionDetailModal.css";
-import { openPurchaseModal } from "@/redux/slices/purchaseSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
-import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
+import { usePurchase } from "@/hooks/usePurchase";
+import { useUserChampions } from "@/hooks/useUserChampions";
+import { useUserSkins } from "@/hooks/useUserSkins";
 /*aspectos imports*/
 import { GiPadlock } from "react-icons/gi";
 import { IoArrowForward } from "react-icons/io5";
@@ -180,14 +179,14 @@ const ResumenTab = memo(function ResumenTab({
 
 const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
   const [selectedSkin, setSelectedSkin] = useState(0);
-  const { userSkins } = useSelector(selectUserSkinsData);
+  const { userSkins } = useUserSkins();
   const totalSkins = champion.skins.length;
   const [isBackgroundImageLoaded, setIsBackgroundImageLoaded] = useState(false);
 
   const isSkinInCollection =
     selectedSkin === 0 ||
     userSkins.some((us) => us.key == champion.skins[selectedSkin]?.id);
-  const dispatch = useDispatch();
+  const { openPurchaseModal } = usePurchase();
 
   const isThisSkinInCollection = (skinContextIndex) => {
     return (
@@ -197,7 +196,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
   };
   const handleUnlockSkin = () => {
     const selectedSkinId = champion?.skins[selectedSkin]?.id;
-    dispatch(openPurchaseModal({ itemId: selectedSkinId, type: "skin" }));
+    openPurchaseModal({ itemId: selectedSkinId, type: "skin" });
   };
   const getVisibleSkins = () => {
     const visibleSkins = [];
@@ -477,8 +476,8 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
 
 const ChampionDetailModal = ({ champion, onClose }) => {
   const [activeTab, setActiveTab] = useState("resumen");
-  const { userChampions } = useSelector(selectUserChampionsData);
-  const dispatch = useDispatch();
+  const { userChampions } = useUserChampions();
+  const { openPurchaseModal } = usePurchase();
 
   if (!champion) return null;
 
@@ -504,7 +503,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
   const championImg = `url('/${activeTab === "resumen" ? "centered" : "splash"}/${champion.id}_0.jpg')`;
   /*const skinFileName = `${champion.id}_`*/
   const handleUnlockChampion = () => {
-    dispatch(openPurchaseModal({ itemId: champion.id, type: "champion" }));
+    openPurchaseModal({ itemId: champion.id, type: "champion" });
   };
 
   if (!champion) return null;

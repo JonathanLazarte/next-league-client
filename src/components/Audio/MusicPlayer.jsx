@@ -2,10 +2,10 @@
 'use client';
 import { useEffect } from 'react';
 import { audioEngine } from '@/engine/audioEngine';
-import { useSelector } from 'react-redux'
+import { useSoundState } from '@/hooks/useSoundState'
 
 export default function MusicPlayer() {
-  const { master, music, sfx, currentTrack } = useSelector(state => state.sound);
+  const { master, music, sfx, currentTrack } = useSoundState();
 
   // 1. Reaccionar a cambios de Música (Volumen/Mute)
   useEffect(() => {

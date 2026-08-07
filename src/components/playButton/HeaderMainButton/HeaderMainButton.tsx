@@ -2,16 +2,15 @@
 
 import "./HeaderMainButton.css";
 import { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import { useRouter } from "@/hooks/useRouter.js";
-import { selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice";
+import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound.js";
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
 export default function LobbyPlayButton({ okButtonAction, setSectionTabSelected }) {
   const route = useRouter();
-  const { actualSection, queue } = useSelector(selectUserInterfaceData);
+  const { actualSection, queue } = useUserInterface();
   const [ buttonState, setButtonState ] = useState<Button>('idle')
   const { play: playHover } = useSound("/sfx/sfx-nav-button-play-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-nav-button-play-click.ogg");

@@ -50,8 +50,6 @@ export default function VirtualSkinsGrid({
       const rect = parentRef?.current?.getBoundingClientRect();
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
-      console.log(getAmountOfColumns(rectWidth))
-      console.log(rectWidth)
       setColumns(initialContainerWidth);
       parentRef.current.addEventListener("scroll", throttledHandleScroll, {
         pasive: true,

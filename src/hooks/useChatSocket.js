@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
-import { addMessage, setTyping, updateUserStatus } from '@/redux/slices/chatSlice'
+import { useChat } from '@/hooks/useChat'
 
 export function useChatSocket(socket) {
-  const dispatch = useDispatch()
+  const { addMessage, setTyping, updateUserStatus } = useChat()
   const typingTimeouts = useRef({})
 
   useEffect(() => {
@@ -22,12 +21,12 @@ export function useChatSocket(socket) {
         isDelivered: true
       }
 
-      dispatch(addMessage(message))
+      addMessage(message)
     }
 
     // Handle typing indicators
     const handleTyping = (data) => {
-      dispatch(setTyping({ userId: data.from, isTyping: data.isTyping }))
+      setTyping({ userId: data.from, isTyping: data.isTyping })
       
       // Clear existing timeout
       if (typingTimeouts.current[data.from]) {
@@ -37,32 +36,32 @@ export function useChatSocket(socket) {
       // Set timeout to stop typing indicator
       if (data.isTyping) {
         typingTimeouts.current[data.from] = setTimeout(() => {
-          dispatch(setTyping({ userId: data.from, isTyping: false }))
+          setTyping({ userId: data.from, isTyping: false })
         }, 3000)
       }
     }
 
     // Handle user status updates
     const handleUserStatusUpdate = (data) => {
-      dispatch(updateUserStatus({ 
+      updateUserStatus({ 
         userId: data.userId, 
         status: data.status 
-      }))
+      })
     }
 
     // Handle user online/offline
     const handleUserOnline = (data) => {
-      dispatch(updateUserStatus({ 
+      updateUserStatus({ 
         userId: data.userName, 
         status: 'online' 
-      }))
+      })
     }
 
     const handleUserOffline = (data) => {
-      dispatch(updateUserStatus({ 
+      updateUserStatus({ 
         userId: data.userName, 
         status: 'offline' 
-      }))
+      })
     }
 
     // Register event listeners
@@ -88,7 +87,7 @@ export function useChatSocket(socket) {
       })
       typingTimeouts.current = {}
     }
-  }, [socket, dispatch])
+  }, [socket, addMessage, setTyping, updateUserStatus])
 
   // Function to emit typing indicator
   const emitTyping = (to, isTyping) => {

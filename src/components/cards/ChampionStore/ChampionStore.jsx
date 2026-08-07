@@ -1,16 +1,15 @@
 import { memo } from "react";
-import { useDispatch } from "react-redux";
-import { openPurchaseModal } from "@/redux/slices/purchaseSlice";
+import { usePurchase } from "@/hooks/usePurchase";
 import { preload } from "react-dom";
 import "./ChampionStore.css";
 import Image from 'next/image'
 
 const ChampionCard = ({ id, item: data }) => {
-  const dispatch = useDispatch();
+  const { openPurchaseModal } = usePurchase();
 
   const handleClick = async () => {
     await preload(`/splash/${data.id}.jpg`, { as: "image" });
-    dispatch(openPurchaseModal({ itemId: data.id, type: "champion" }));
+    openPurchaseModal({ itemId: data.id, type: "champion" });
   };
   return (
     <article

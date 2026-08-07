@@ -4,8 +4,7 @@ import './mobileHeader.css'
 import HeaderMainButton from '@/components/playButton/HeaderMainButton/HeaderMainButton'
 import { RiSidebarFoldFill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
-import { selectUserInterfaceData} from '@/redux/slices/userInterfaceSlice.ts'
-import { useSelector } from 'react-redux'
+import { useUserInterface} from '@/hooks/useUserInterface'
 import { useState } from 'react'
 import { GiStoneCrafting } from "react-icons/gi";
 import { useRouter } from 'next/navigation'
@@ -13,7 +12,7 @@ import { useRouter } from 'next/navigation'
 
 
 export default function MobileHeader({/*showSideNav,*/ setShowSideNav}){
-  const {actualSection/*, userState*/} = useSelector(selectUserInterfaceData);
+  const {actualSection, changeSection, toggleNavigation} = useUserInterface();
   const route = useRouter()
   const selectedStyle = {/*background: "linear-gradient(rgb(9, 17, 30) 50%, rgb(47, 50, 52))",*/ color: "#F0E6D2"}
   const [isNavigationOpen, setIsNavigationOpen] = useState(false)
@@ -30,6 +29,7 @@ export default function MobileHeader({/*showSideNav,*/ setShowSideNav}){
   const handleClick = (section) => {
       handleSound('menu-click');
       setIsNavigationOpen(false)
+      changeSection(section)
       route.push(section)
     }
   const Tab = ({section}) => {
@@ -47,7 +47,7 @@ export default function MobileHeader({/*showSideNav,*/ setShowSideNav}){
     <HeaderMainButton/>
     <div className="mobile-header-tabs">
       <div className="item" onClick={()=>setIsNavigationOpen(prev=>!prev)}><TiThMenu /></div>
-      <div className="item" onClick={()=>setShowSideNav(prev=>!prev)}><RiSidebarFoldFill /></div>
+      <div className="item" onClick={()=>toggleNavigation()}><RiSidebarFoldFill /></div>
     </div>
     { isNavigationOpen && <div className="mobile-navigation-window">
       <Tab onClick={() => setIsNavigationOpen(false)} section="collection"/>

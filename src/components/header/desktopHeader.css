@@ -140,7 +140,7 @@
     animation-duration: 1s;
 }*/
 
-.icon-separator {
+.tab-separator {
     width: 0.25rem; /*algunos tienen que ir con 2px*/
     height: 75%;
     background: linear-gradient(

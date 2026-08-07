@@ -45,3 +45,29 @@ export const SECTION_LABELS = {
   store: "Store",
   league: "LEAGUE"
 }
+
+export const SECTIONS = {
+  LEAGUE: {
+    id: 'league',
+    label: 'LEAGUE',
+    type: 'text',
+    path: '/league'
+  },
+  COLLECTION: {
+    id: 'collection',
+    label: 'Collection',
+    icon: 'collection',
+    type: 'icon',
+    hasSeparator: true
+  },
+  STORE: {
+    id: 'store',
+    label: 'Store',
+    icon: 'store',
+    type: 'icon',
+    hasSeparator: false
+  }
+};
+
+export const LEFT_HEADER_TABS = [SECTIONS.LEAGUE];
+export const RIGHT_HEADER_TABS = [SECTIONS.COLLECTION, SECTIONS.STORE];

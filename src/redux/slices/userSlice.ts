@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
 
@@ -136,4 +136,15 @@ const userSlice = createSlice({
 
 export const { setUser, updateUser, setUserMessages, updateCoins } =
   userSlice.actions;
+
+export const selectRP = (state) => state.user.RP;
+export const selectBE = (state) => state.user.RP;
+
+export const selectUserData = createSelector(
+  [selectRP, selectBE],
+  (RP, BE) => ({
+    RP,
+    BE
+  }))
+
 export default userSlice.reducer;

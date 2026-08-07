@@ -2,12 +2,11 @@
 
 import { useRouter as useNextRouter } from "next/navigation";
 import { useCallback } from "react";
-import { setIsNavigating } from "@/redux/slices/userInterfaceSlice.ts";
-import { useDispatch } from "react-redux";
+import { useUserInterface } from "@/hooks/useUserInterface";
 
 export function useRouter() {
   const router = useNextRouter();
-  const dispatch = useDispatch();
+  const { setNavigating } = useUserInterface();
 
   const push = useCallback(
     (href, options) => {
@@ -17,10 +16,10 @@ export function useRouter() {
       ) {
         document.documentElement.classList.add("navigating");
       }
-      dispatch(setIsNavigating(true));
+      setNavigating(true);
       router.push(href, options);
     },
-    [router, dispatch],
+    [router, setNavigating],
   );
 
   const replace = useCallback(
@@ -28,10 +27,10 @@ export function useRouter() {
       if (typeof document !== "undefined") {
         document.documentElement.classList.add("navigating");
       }
-      dispatch(setIsNavigating(true));
+      setNavigating(true);
       router.replace(href, options);
     },
-    [router, dispatch],
+    [router, setNavigating],
   );
 
   return { ...router, push, replace };

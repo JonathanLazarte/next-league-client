@@ -2,9 +2,8 @@
 
 import "./FindMatchButton.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setQueue, setQueueStatus } from "@/redux/slices/userInterfaceSlice.ts";
+import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound.js";
 
 export default function FindMatchButton({
@@ -12,8 +11,8 @@ export default function FindMatchButton({
   socket,
   queueStatus
 }) {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const { updateQueue, updateQueueStatus } = useUserInterface();
 
   const inQueue = queueStatus !== 'idle'
   /*const [seconds, setSeconds] = useState(0);
@@ -51,11 +50,11 @@ export default function FindMatchButton({
   const handleCancel = () => {
     playQuitClick();
 
-    if (queueStatus === 'idle') { router.push("league"); dispatch(setQueue(null)) }
+    if (queueStatus === 'idle') { router.push("league"); updateQueue(null) }
     else {
       socket?.current?.emit("leave-room");
       setRoomId?.(null);
-      dispatch(setQueueStatus("idle"));
+      updateQueueStatus("idle");
       setButtonState("idle")
     }
 
@@ -63,7 +62,7 @@ export default function FindMatchButton({
 
   // Acción principal del botón
   const handleClick = () => {
-    dispatch(setQueueStatus('searching'));
+    updateQueueStatus('searching');
     playClick();
     setButtonState('disabled')
     socket?.current?.emit("find-opponent");

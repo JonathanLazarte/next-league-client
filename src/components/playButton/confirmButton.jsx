@@ -1,14 +1,13 @@
 "use client";
 
 import "./confirmButton.css";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setQueue } from "@/redux/slices/userInterfaceSlice.ts";
+import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound.js";
 
 export default function PlayButton({ type, activeButtonAction }) {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const { updateQueue } = useUserInterface();
   const text = "CONFIRM"
 
   const { play: playHover } = useSound("/sfx/sfx-gameselect-button-confirm-hover.ogg");
@@ -20,7 +19,7 @@ export default function PlayButton({ type, activeButtonAction }) {
   // Cancelar / Salir
   const handleCancel = () => {
     playCancel();
-    dispatch(setQueue(null));
+    updateQueue(null);
     router.push("league");
   };
 

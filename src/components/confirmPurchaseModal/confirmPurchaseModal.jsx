@@ -1,36 +1,28 @@
 "use client";
 import ReactDOM from "react-dom";
 import { useState } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Image from "next/image";
 import { useMemo } from "react";
 import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import "./confirmPurchaseModal.css";
-import {
-  closeModal,
-  confirmPurchase,
-  selectPurchaseData,
-} from "@/redux/slices/purchaseSlice";
+import { usePurchase } from "@/hooks/usePurchase";
 import useSkins from "@/hooks/useSkins";
 import useChampions from "@/hooks/useChampions";
 
 // Custom hook for purchase window logic
 export default function ConfirmPurchaseWindow() {
-  const dispatch = useDispatch();
-  const { RP: walletRP, BE: walletBE } = useSelector(
-    (state) => ({
-      RP: state.user.RP,
-      BE: state.user.BE,
-    }),
-    shallowEqual,
-  );
+  const {
+    wallet: { RP: walletRP, BE: walletBE },
+    itemToBuy,
+    status,
+    closeModal,
+    confirmPurchase,
+  } = usePurchase();
   //const token = localStorage.getItem("token");
   //const [ chapionsData, setChampionsData ] = useState()
   const { championsData } = useChampions();
   const { skinsData } = useSkins();
-  const { itemToBuy, /*selectedCurrency, */ status } =
-    useSelector(selectPurchaseData);
   const isProcessing = status === "processing";
   const showLoading = useLoadingDelay(isProcessing, { delay: 500, minDisplayTime: 5000 });
   const showSuccess = status === "success" && !showLoading;
@@ -85,10 +77,10 @@ export default function ConfirmPurchaseWindow() {
 
   // Optimized purchase function
   const buyProduct = (coin, price) => {
-    dispatch(confirmPurchase({ coin, price })).unwrap();
+    confirmPurchase({ coin, price }).unwrap();
   };
   const closeWindow = () => {
-    dispatch(closeModal());
+    closeModal();
   };
 
   const DefaultBottom = () => {
@@ -182,7 +174,7 @@ export default function ConfirmPurchaseWindow() {
           for some quick tips on how to play {productInfo.name}. GLHF!{" "}
         </span>
         <div
-          onClick={() => dispatch(closeModal())}
+          onClick={closeModal}
           className="general-button done-purchase-modal-button"
         >
           Done

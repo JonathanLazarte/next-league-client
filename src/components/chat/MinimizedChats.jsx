@@ -1,23 +1,27 @@
 import { memo } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { restoreChat, closeChat, selectChat } from '@/redux/slices/chatSlice'
+import { useChat } from '@/hooks/useChat'
 import { PiXBold } from "react-icons/pi"
 import './MinimizedChats.css'
 
 export default memo(function MinimizedChats() {
-  const dispatch = useDispatch()
-  const { minimizedChats, chatUsers/*, unreadCount*/ } = useSelector(state => state.chat)
+  const {
+    minimizedChats,
+    chatUsers,
+    restoreChat,
+    closeChat,
+    selectChat,
+  } = useChat()
 
   const handleRestoreChat = (chatId) => {
-    dispatch(restoreChat(chatId))
+    restoreChat(chatId)
   }
 
   const handleCloseChat = (chatId) => {
-    dispatch(closeChat(chatId))
+    closeChat(chatId)
   }
 
   const handleSelectChat = (chatId) => {
-    dispatch(selectChat(chatId))
+    selectChat(chatId)
   }
 
   if (minimizedChats.length === 0) {

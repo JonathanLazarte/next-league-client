@@ -1,14 +1,13 @@
 import Image from 'next/image'
-import { useDispatch } from 'react-redux'
-import { openPurchaseModal } from '@/redux/slices/purchaseSlice'
+import { usePurchase } from '@/hooks/usePurchase'
 import './SkinStore.css'
 
 
 export default function SkinStoreItem({ item : skin }){
-  const dispatch = useDispatch();
+  const { openPurchaseModal } = usePurchase();
 
   const handleClick = () => {
-    dispatch(openPurchaseModal({ itemId: skin.id, type: 'skin'}))
+    openPurchaseModal({ itemId: skin.id, type: 'skin'})
   }
   return(
     <article

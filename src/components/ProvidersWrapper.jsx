@@ -29,53 +29,46 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-import { setUser } from "@/redux/slices/userSlice";
-import {
-  selectUserInterfaceData,
-  setActualSection,
-} from "@/redux/slices/userInterfaceSlice.ts";
-import {
-  getUserChampions,
-} from "@/redux/slices/userChampionsSlice";
-import {
-  getUserSkins,
-} from "@/redux/slices/userSkinsSlice";
-import { setFriendsOnline } from "@/redux/slices/connectedUsersSlice.ts";
-import { useSelector, useDispatch } from "react-redux";
+import { useUserInterface } from "@/hooks/useUserInterface";
 import { useAuth } from "@/hooks/useAuth";
-import { setMute, setVolume } from "@/redux/slices/soundSlice";
-import { selectPurchaseData } from "@/redux/slices/purchaseSlice";
-import { addMessage, setMessages } from "@/redux/slices/chatSlice";
+import { useUser } from "@/hooks/useUser";
+import { useUserChampions } from "@/hooks/useUserChampions";
+import { useUserSkins } from "@/hooks/useUserSkins";
+import { useConnectedUsers } from "@/hooks/useConnectedUsers";
+import { useSoundState } from "@/hooks/useSoundState";
+import { usePurchase } from "@/hooks/usePurchase";
+import { useChat } from "@/hooks/useChat";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 
 export default function ProvidersWrapper({ children }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const socket = useRef(null);
-  const { token } = useAuth();
-  const dispatch = useDispatch();
+  const { token, loading, isAuthenticated } = useAuth();
   const pathname = usePathname();
 
-  const user = useSelector((state) => state.user);
-  const { loading, isAuthenticated } = useSelector((state) => state.auth);
-  const { actualSection, isNavigating, queue } = useSelector(
-    selectUserInterfaceData,
-  );
-  const { itemToBuy } = useSelector(selectPurchaseData);
+  const { user, setUser } = useUser();
+  const { getUserChampions } = useUserChampions();
+  const { getUserSkins } = useUserSkins();
+  const { setFriendsOnline } = useConnectedUsers();
+  const { setMute, setVolume } = useSoundState();
+  const { itemToBuy } = usePurchase();
+  const { addMessage, setMessages } = useChat();
+  const { actualSection, isNavigating, queue, changeSection } = useUserInterface();
   const [showSideNav, setShowSideNav] = useState(true);
-  const [setBattleRequest] = useState([])
+  const [battleRequest, setBattleRequest] = useState([])
   const showLoading = useLoadingDelay(isNavigating)
 
 
 
   useEffect(() => {
     const sectionName = pathname.split("/").pop();
-    dispatch(setActualSection(sectionName));
-  }, [pathname]);
+    changeSection(sectionName);
+  }, [pathname, changeSection]);
 
   useEffect(() => {
     if (token) {
-      dispatch(getUserChampions(token));
-      dispatch(getUserSkins(token));
+      getUserChampions(token);
+      getUserSkins(token);
       try {
         fetch(`${API_URL}api/v1/user`, {
           method: "POST",
@@ -85,15 +78,15 @@ export default function ProvidersWrapper({ children }) {
           .then((response) => response.json())
           .then((data) => {
             if (data.message !== "Usuario no encontrado") {
-              dispatch(setUser(data));
+              setUser(data);
               const { master, sfx, music } = data.settings.sound;
-              dispatch(setVolume({ type: "master", val: master.volume }));
-              dispatch(setVolume({ type: "sfx", val: sfx.volume }));
-              dispatch(setVolume({ type: "music", val: music.volume }));
-              dispatch(setMute({ type: "master", muted: master.muted }));
-              dispatch(setMute({ type: "sfx", muted: sfx.muted }));
-              dispatch(setMute({ type: "music", muted: music.muted }));
-              dispatch(setMessages(data.messages));
+              setVolume({ type: "master", val: master.volume });
+              setVolume({ type: "sfx", val: sfx.volume });
+              setVolume({ type: "music", val: music.volume });
+              setMute({ type: "master", muted: master.muted });
+              setMute({ type: "sfx", muted: sfx.muted });
+              setMute({ type: "music", muted: music.muted });
+              setMessages(data.messages);
             } else {
               // Token inválido, redirigir al login
             }
@@ -102,7 +95,7 @@ export default function ProvidersWrapper({ children }) {
         throw new Error("error al autenticar" + error);
       }
     }
-  }, [token]);
+  }, [API_URL, getUserChampions, getUserSkins, setMessages, setMute, setUser, setVolume, token]);
 
   useEffect(() => {
     if (!token) return;
@@ -112,7 +105,7 @@ export default function ProvidersWrapper({ children }) {
     return () => {
       socket.current?.disconnect();
     };
-  }, [token]);
+  }, [API_URL, token]);
 
 
   useEffect(() => {
@@ -129,10 +122,10 @@ export default function ProvidersWrapper({ children }) {
   useEffect(() => {
     if (!socket.current) return
     socket.current?.on("chat-message", (msg) => {
-      dispatch(addMessage(msg));
+      addMessage(msg);
     });
     return () => socket.current?.off("chat-message");
-  }, [token]);
+  }, [addMessage, token]);
 
   useEffect(() => {
     if (!socket.current) return;
@@ -145,10 +138,10 @@ export default function ProvidersWrapper({ children }) {
           users: msg,
         },
       ];
-      dispatch(setFriendsOnline(friendFolders));
+      setFriendsOnline(friendFolders);
     });
     return () => socket.current?.off("user-list");
-  }, [token]);
+  }, [setFriendsOnline, token]);
 
 
 
@@ -218,7 +211,11 @@ export default function ProvidersWrapper({ children }) {
         setShowSideNav={setShowSideNav}
         showSideNav={showSideNav}
       />
-      <RightNav setShowSideNav={setShowSideNav} showSideNav={showSideNav} />
+      <RightNav
+        battleRequest={battleRequest}
+        setShowSideNav={setShowSideNav}
+        showSideNav={showSideNav}
+      />
       <Chat socket={socket.current} />
       <MusicPlayer
         url="/music/Xin Zhao, the Seneschal of Demacia.mp3"

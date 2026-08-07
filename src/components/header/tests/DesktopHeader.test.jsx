@@ -1,4 +1,4 @@
-/*import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit'; // Importar configureStore
 import DesktopHeader from '../DesktopHeader';
@@ -17,6 +17,19 @@ jest.mock('@/hooks/useRouter.js', () => ({
 
 jest.mock('@/hooks/useSound.js', () => ({
   useSound: jest.fn(),
+}));
+// Creamos un mock de la función que devuelve las props (getTriggerProps)
+const mockGetTriggerProps = jest.fn().mockImplementation(({ content }) => ({
+  onMouseEnter: jest.fn(),
+  onMouseLeave: jest.fn(),
+  ref: { current: null },
+  'data-content-mock': content, // Opcional: para debuggear
+}));
+
+// Mockeamos el hook por defecto
+jest.mock('@/components/Tooltip/globalTooltip/TooltipTrigger', () => ({
+  __esModule: true,
+  default: () => mockGetTriggerProps,
 }));
 
 describe('DesktopHeader', () => {
@@ -142,27 +155,37 @@ describe('DesktopHeader', () => {
     expect(screen.getByText('9000')).toBeInTheDocument();
   });
 
-  // Al principio de tu archivo de test, junto a los otros mocks:
-  const mockTriggerFn = jest.fn().mockReturnValue({}); // Simula la función que retorna las props del trigger
+  // src/components/header/tests/DesktopHeader.test.jsx
 
-  jest.mock('@/components/Tooltip/globalTooltip/TooltipTrigger', () => ({
-    __esModule: true,
-    default: () => mockTriggerFn,
-  }));
 
-  // Y en tu test:
-  it('calls the tooltip trigger with the correct content on render/hover', () => {
+
+
+  it('configures the tooltip triggers with the correct content for each tab', () => {
     render(
       <Provider store={store}>
         <DesktopHeader showSideNav={false} />
       </Provider>
     );
 
-    // Verificamos que el Header inicializó los triggers solicitando tooltips para sus secciones
-    expect(mockTriggerFn).toHaveBeenCalledWith({ content: 'collection' });
-    expect(mockTriggerFn).toHaveBeenCalledWith({ content: 'store' });
+    // Verificamos que el Header llamó a la función para configurar las pestañas
+    // DesktopHeader llama a trigger({ section: 'league' }) y otros
+
+    // Para la pestaña de colección
+    expect(mockGetTriggerProps).toHaveBeenCalledWith(
+      expect.objectContaining({ content: 'collection' })
+    );
+
+    // Para la pestaña de tienda
+    expect(mockGetTriggerProps).toHaveBeenCalledWith(
+      expect.objectContaining({ content: 'store' })
+    );
+
+    // Para la pestaña de league
+    expect(mockGetTriggerProps).not.toHaveBeenCalledWith(
+      expect.objectContaining({ content: 'league' })
+    );+
   });
 
 
 
-});*/
+});
