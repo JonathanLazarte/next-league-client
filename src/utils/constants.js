@@ -1,7 +1,9 @@
 /**
  * Constantes globales de la aplicación
  */
-
+export const RESOURCES_URL =
+   "/" ||
+   "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
 export const RARITY_LEVELS = [
   "Signature",
   "Hall",
@@ -65,7 +67,7 @@ export const SECTIONS = {
     label: 'Store',
     icon: 'store',
     type: 'icon',
-    hasSeparator: false
+    hasSeparator: true
   }
 };
 

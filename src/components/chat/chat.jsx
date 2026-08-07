@@ -138,7 +138,7 @@ export default memo(function Chat({ socket }) {
   };
   const filterByUser = (msgs, selectedUser) => {
     if(!msgs) return [];
-    
+
     return msgs.filter(
       (m) =>
         (m.from === selectedUser && m.to === alias) ||

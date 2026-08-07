@@ -291,6 +291,13 @@
     background-color: lightblue;
     border: lightskyblue;
 }
+.user-status.offline {
+    color: darkred;
+}
+.user-status.offline .status-icon{
+    background-color: darkred;
+    border: darkred;
+}
 
 .showPerfilSpan {
     color: var(--color-primary);

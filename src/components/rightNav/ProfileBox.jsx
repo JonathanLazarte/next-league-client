@@ -5,11 +5,10 @@ import { useUserInterface } from "@/hooks/useUserInterface";
 import { IoIosSettings } from "react-icons/io";
 import { MdMinimize, MdOutlineQuestionMark } from "react-icons/md";
 import { PiXBold } from "react-icons/pi";
+import { RESOURCES_URL } from '@/utils/constants'
 
 const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, userState }) => {
-  const RESOURCES_URL =
-    "/" ||
-    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
+  const { queue, queueStatus, updateUserState } = useUserInterface();
   const [iconIsInHover, setIconIsInHover] = useState(false);
   const showPerfilSpanStyle = iconIsInHover
     ? { marginLeft: "1rem", visibility: "visible" }
@@ -28,9 +27,11 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
     beginner: "Beginner",
     intermediate: "Intermediate",
   };
-  const { queue, queueStatus } = useUserInterface();
 
-  const toggleState = () => {};
+  const toggleState = () => {
+    const statusToSet = userState === 'online' ? 'offline' : 'online'
+    updateUserState(statusToSet)
+  };
   return (
     <div style={{ position: "relative" }} className="user-info">
       <div
@@ -107,7 +108,7 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
           <>
             <h3 className="right-nav-username">{user.userName}</h3>
             <div
-              className={`user-status ${queueStatus !== "idle" ? "active-queue" : ""}`}
+              className={`user-status ${queueStatus !== "idle" ? "active-queue" : userState === "offline" ? "offline" : ""}`}
               onClick={toggleState}
             >
               <div className="status-icon"></div>

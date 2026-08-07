@@ -122,6 +122,7 @@ export default function ProvidersWrapper({ children }) {
   useEffect(() => {
     if (!socket.current) return
     socket.current?.on("chat-message", (msg) => {
+      console.log(msg)
       addMessage(msg);
     });
     return () => socket.current?.off("chat-message");
@@ -216,7 +217,7 @@ export default function ProvidersWrapper({ children }) {
         setShowSideNav={setShowSideNav}
         showSideNav={showSideNav}
       />
-      <Chat socket={socket.current} />
+      <Chat socket={socket} />
       <MusicPlayer
         url="/music/Xin Zhao, the Seneschal of Demacia.mp3"
       />

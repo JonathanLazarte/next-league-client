@@ -24,7 +24,7 @@ export default function ConfirmPurchaseWindow() {
   const { championsData } = useChampions();
   const { skinsData } = useSkins();
   const isProcessing = status === "processing";
-  const showLoading = useLoadingDelay(isProcessing, { delay: 500, minDisplayTime: 5000 });
+  const showLoading = useLoadingDelay(isProcessing, { delay: 300, minDisplayTime: 1000 });
   const showSuccess = status === "success" && !showLoading;
 
   const productInfo = useMemo(() => {
