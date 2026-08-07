@@ -1,6 +1,30 @@
-import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export const fetchUser = createAsyncThunk(
+  "user/set-user",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${API_URL}api/v1/user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token }),
+      })
+      if (!response.ok) {
+        throw new Error('No se pudo obtener el usuario')
+      }
+
+      const userData = await response.json()
+
+      return { userData }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
 
 interface Rank {
   name: string;
@@ -58,8 +82,6 @@ const userSlice = createSlice({
       Object.assign(state, action.payload);
     },
     updateUser: (/*state, action*/) => {
-      // Aquí puedes añadir reducers para actualizar otros campos del usuario
-      // Por ejemplo:
       // state.level = action.payload.level;
       // state.EXP = action.payload.EXP;
     },
@@ -82,6 +104,9 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        Object.assign(state, action.payload.userData)
+      })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.userName = action.payload.userName;
         state.id = action.payload.id;

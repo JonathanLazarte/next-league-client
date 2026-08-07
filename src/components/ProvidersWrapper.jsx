@@ -6,7 +6,7 @@ import "$/(dashboard)/store/store.css";
 import "$/(dashboard)/play/play.css";
 import "@/components/LoadingOverlay/LoadingOverlay.css"
 import ResponsiveHeader from "@/components/header";
-import RightNav from "@/components/rightNav/rightNav.jsx";
+import SideNav from "@/components/rightNav/rightNav.jsx";
 
 const Chat = dynamic(() => import("@/components/chat/chat.jsx"), {
   ssr: false,
@@ -54,11 +54,8 @@ export default function ProvidersWrapper({ children }) {
   const { itemToBuy } = usePurchase();
   const { addMessage, setMessages } = useChat();
   const { actualSection, isNavigating, queue, changeSection } = useUserInterface();
-  const [showSideNav, setShowSideNav] = useState(true);
-  const [battleRequest, setBattleRequest] = useState([])
+  const [/*partyRequest,*/ setPartyRequest] = useState([])
   const showLoading = useLoadingDelay(isNavigating)
-
-
 
   useEffect(() => {
     const sectionName = pathname.split("/").pop();
@@ -69,33 +66,20 @@ export default function ProvidersWrapper({ children }) {
     if (token) {
       getUserChampions(token);
       getUserSkins(token);
-      try {
-        fetch(`${API_URL}api/v1/user`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token: token }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.message !== "Usuario no encontrado") {
-              setUser(data);
-              const { master, sfx, music } = data.settings.sound;
-              setVolume({ type: "master", val: master.volume });
-              setVolume({ type: "sfx", val: sfx.volume });
-              setVolume({ type: "music", val: music.volume });
-              setMute({ type: "master", muted: master.muted });
-              setMute({ type: "sfx", muted: sfx.muted });
-              setMute({ type: "music", muted: music.muted });
-              setMessages(data.messages);
-            } else {
-              // Token inválido, redirigir al login
-            }
-          });
-      } catch (error) {
-        throw new Error("error al autenticar" + error);
-      }
+      setUser(token)
     }
   }, [API_URL, getUserChampions, getUserSkins, setMessages, setMute, setUser, setVolume, token]);
+
+
+  /*setUser(data);
+  const { master, sfx, music } = data.settings.sound;
+  setVolume({ type: "master", val: master.volume });
+  setVolume({ type: "sfx", val: sfx.volume });
+  setVolume({ type: "music", val: music.volume });
+  setMute({ type: "master", muted: master.muted });
+  setMute({ type: "sfx", muted: sfx.muted });
+  setMute({ type: "music", muted: music.muted });
+  setMessages(data.messages); */
 
   useEffect(() => {
     if (!token) return;
@@ -111,9 +95,9 @@ export default function ProvidersWrapper({ children }) {
   useEffect(() => {
     socket.current?.on("battle-mailbox", (msg) => {
       const request = [{ roomId: msg.roomId, from: msg.from, to: msg.from }];
-      setBattleRequest(request);
+      setPartyRequest(request);
       setTimeout(() => {
-        setBattleRequest([]);
+        setPartyRequest([]);
       }, 7000);
     });
     return () => socket.current?.off("battle-mailbox");
@@ -146,7 +130,8 @@ export default function ProvidersWrapper({ children }) {
 
 
 
-    if( !user.profile_icon  || loading || !isAuthenticated ){ return (
+  if (!user.profile_icon || loading || !isAuthenticated) {
+    return (
       <div
         className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >
@@ -166,7 +151,8 @@ export default function ProvidersWrapper({ children }) {
           <div className="loading-underlogo"> LOADING </div>
         </div>
       </div>
-    );}
+    )
+  }
 
   const layoutBackgroundImage = (actualSection) => {
     switch (actualSection) {
@@ -208,15 +194,8 @@ export default function ProvidersWrapper({ children }) {
           className={`bg-layer bg-room`}
         ></div>
       </div>
-      <ResponsiveHeader
-        setShowSideNav={setShowSideNav}
-        showSideNav={showSideNav}
-      />
-      <RightNav
-        battleRequest={battleRequest}
-        setShowSideNav={setShowSideNav}
-        showSideNav={showSideNav}
-      />
+      <ResponsiveHeader/>
+      <SideNav />
       <Chat socket={socket} />
       <MusicPlayer
         url="/music/Xin Zhao, the Seneschal of Demacia.mp3"

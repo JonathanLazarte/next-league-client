@@ -15,7 +15,7 @@ export const getUserSkins = createAsyncThunk(
       });
 
       if (!response.ok) {
-        console.log("SE ESTA EJECUTANDO EL ERROR");
+        console.log("error ejecutandose");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -23,7 +23,7 @@ export const getUserSkins = createAsyncThunk(
 
       return { userSkins }; // Return the data to be used in the reducer
     } catch (error) {
-      return rejectWithValue(error.message); // Handle errors
+      return rejectWithValue(error.message);
     }
   },
 );

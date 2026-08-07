@@ -9,6 +9,8 @@ interface UserInterfaceState {
   userState: UserState;
   actualSection: Section;
   isNavigating: boolean;
+  showSideNav: boolean; // Add this
+  sectionTabSelected: string | null; // Add this
   queue: Queue;
   queueStatus: string;
   searchTime: number;
@@ -29,6 +31,8 @@ const initialState: UserInterfaceState = {
   // Navegación
   actualSection: "home",
   isNavigating: false,
+  showSideNav: true, // Initial state
+  sectionTabSelected: null, // Initial state
 
   // Matchmaking
   queue: null, // SoloQ, Flex, ARAM, etc.
@@ -67,6 +71,12 @@ const userInterfaceSlice = createSlice({
     setIsNavigating: (state, action) => {
       state.isNavigating = action.payload;
     },
+    toggleSideNav: (state) => { // Add this reducer
+      state.showSideNav = !state.showSideNav;
+    },
+    setSectionTabSelected: (state, action) => { // Add this reducer
+      state.sectionTabSelected = action.payload;
+    },
     setQueue: (state, action) => {
       state.queue = action.payload;
     },
@@ -80,6 +90,8 @@ export const {
   setActualSection,
   setUserState,
   setIsNavigating,
+  toggleSideNav, // Export this
+  setSectionTabSelected, // Export this
   setQueue,
   setQueueStatus
 } = userInterfaceSlice.actions;
@@ -90,6 +102,10 @@ export const selectUserInterfaceState = (state) =>
   state.userInterface.userState;
 export const selectUserInterfaceIsNavigating = (state) =>
   state.userInterface.isNavigating;
+export const selectUserInterfaceShowSideNav = (state) => // Add this selector
+  state.userInterface.showSideNav;
+export const selectUserInterfaceSectionTabSelected = (state) => // Add this selector
+  state.userInterface.sectionTabSelected;
 export const selectQueue = (state) =>
   state.userInterface.queue;
 export const selectQueueStatus = (state) =>
@@ -100,13 +116,17 @@ export const selectUserInterfaceData = createSelector(
     selectUserInterfaceState,
     selectUserInterfaceActualSection,
     selectUserInterfaceIsNavigating,
+    selectUserInterfaceShowSideNav, // Add this
+    selectUserInterfaceSectionTabSelected, // Add this
     selectQueue,
     selectQueueStatus
   ],
-  (userState, actualSection, isNavigating, queue, queueStatus) => ({
+  (userState, actualSection, isNavigating, showSideNav, sectionTabSelected, queue, queueStatus) => ({
     userState,
     actualSection,
     isNavigating,
+    showSideNav,
+    sectionTabSelected,
     queue,
     queueStatus
   }),

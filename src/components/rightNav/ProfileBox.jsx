@@ -7,7 +7,7 @@ import { MdMinimize, MdOutlineQuestionMark } from "react-icons/md";
 import { PiXBold } from "react-icons/pi";
 import { RESOURCES_URL } from '@/utils/constants'
 
-const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, userState }) => {
+const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, toggleSideNav, userState }) => {
   const { queue, queueStatus, updateUserState } = useUserInterface();
   const [iconIsInHover, setIconIsInHover] = useState(false);
   const showPerfilSpanStyle = iconIsInHover
@@ -94,7 +94,7 @@ const ProfileBox = ({ user, handleLogout, setIsSettingsOpen, setShowSideNav, use
           <MdOutlineQuestionMark className="accountOptionIcon" onClick={() => {}} />
           <MdMinimize
             onClick={() => {
-              window.innerWidth < 1200 ? setShowSideNav(false) : null;
+              window.innerWidth < 1200 ? toggleSideNav() : null;
             }}
             className="accountOptionIcon"
           />

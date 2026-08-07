@@ -12,7 +12,7 @@ import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants.js'
 
 export default memo(function DesktopHeader({ showSideNav }) {
   const { actualSection } = useUserInterface();
-  const [ sectionTabSelected, setSectionTabSelected] = useState()
+  const [ sectionTabSelected, setSectionTabSelected ] = useState()
   const trigger = useTooltipTrigger()
 
   return (

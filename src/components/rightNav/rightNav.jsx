@@ -3,6 +3,8 @@
 import "./rightNav.css";
 import { useState, memo, useEffect, useRef } from "react";
 import Image from "next/image";
+
+
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
 import { RiFilePaper2Fill } from "react-icons/ri";
@@ -11,14 +13,17 @@ import { MdBugReport } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { FaMicrophone } from "react-icons/fa6";
 import { VscTriangleRight } from "react-icons/vsc";
+import { IoChatboxSharp } from "react-icons/io5";
+
+
 import UserTooltip from "@/components/Tooltip/userTooltip/userTooltip.jsx";
+import Settings from "@/components/Settings/Settings.jsx";
+import ProfileBox from "./ProfileBox.jsx";
+
 import useHoverIntent from "@/hooks/useHoverIntent.js";
 import { useSmartHover } from "@/hooks/useSmartHover.js";
-import Settings from "@/components/Settings/Settings.jsx";
 import { useSound } from "@/hooks/useSound.js";
 import { audioEngine } from "@/engine/audioEngine.js";
-import { IoChatboxSharp } from "react-icons/io5";
-import ProfileBox from "./ProfileBox.jsx";
 import { useUser } from "@/hooks/useUser";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
@@ -30,7 +35,6 @@ export const FriendRow = memo(function FriendRow({
   user,
   RESOURCES_URL,
   battleRequest,
-  /*chatUsers,*/
   handleUserClick,
   handleContextMenu,
   inviteBox,
@@ -98,8 +102,6 @@ export default memo(function RightNav({
   socket,
   battleRequest,
   handleEmitBattleRequest,
-  showSideNav,
-  setShowSideNav,
 }) {
   const RESOURCES_URL =
     "/" ||
@@ -108,7 +110,7 @@ export default memo(function RightNav({
   const [showMenu, setShowMenu] = useState();
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const { user } = useUser();
-  const { actualSection, userState } = useUserInterface();
+  const { actualSection, userState, showSideNav, toggleSideNav } = useUserInterface();
   const { friendsOnline } = useConnectedUsers();
   const [hoveredUser, setHoveredUser] = useState(null);
   const toolTipPosRef = useRef({ x: 0, y: 0 });
@@ -268,7 +270,7 @@ export default memo(function RightNav({
       className={`right-nav`}
       onClick={() => setShowMenu(false)}
     >
-      <ProfileBox handleLogout={handleLogout} user={user} setIsSettingsOpen={setIsSettingsOpen} setShowSideNav={setShowSideNav} userState={userState} />
+      <ProfileBox handleLogout={handleLogout} user={user} setIsSettingsOpen={setIsSettingsOpen} toggleSideNav={toggleSideNav} userState={userState} />
 
       <div className="online-users">
         {showMenu && (
