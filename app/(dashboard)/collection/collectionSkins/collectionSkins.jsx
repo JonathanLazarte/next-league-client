@@ -21,7 +21,7 @@ import useHoverIntent from "@/hooks/useHoverIntent.js";
 import { RARITY_LEVELS, HOVER_DELAYS } from "@/utils/constants.js";
 import VirtualSkinsGrid from "@/components/VirtualGrid/VirtualSkinsGrid.jsx";
 import useSkins from "@/hooks/useSkins.js";
-import useTooltipTrigger from '@/components/Tooltip/globalTooltip/tooltipTrigger'
+import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
 
 export default memo(function CollectionSkins() {
   /*const API_URL = process.env.NEXT_PUBLIC_API_URL;*/
