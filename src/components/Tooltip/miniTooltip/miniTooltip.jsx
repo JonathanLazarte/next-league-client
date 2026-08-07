@@ -26,7 +26,7 @@ const MiniTooltip = ({
               visibility: visible ? "visible" : "hidden",
             }}
           >
-            { SECTION_LABELS[content] || "??" }
+            { SECTION_LABELS[content] || content || '??' }
           </div>,
           document.body,
         )}

@@ -52,7 +52,6 @@ export default memo(function VirtualSkinsGrid({
 
   useLayoutEffect(() => {
     if (parentRef.current) {
-      console.log(parentRef.current.clientWidth)
       const rect = parentRef?.current?.getBoundingClientRect();
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);

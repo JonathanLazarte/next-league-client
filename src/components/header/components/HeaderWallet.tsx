@@ -1,10 +1,10 @@
 import { useUser } from '@/hooks/useUser'
-export default function HeaderWallet() {
+export default function HeaderWallet({ trigger }) {
   const { RP, BE } = useUser()
 
   return (<>
     <div className="account-coins">
-      <div className="riot-points">
+      <div {...trigger({ content: `${RP} Riot points` })} className="riot-points">
         <img src="/general/RP_icon.png" alt="RP" />
         <div className="RP">
           {RP > 10000
@@ -17,7 +17,7 @@ export default function HeaderWallet() {
           </div>
         </div>
       </div>
-      <div className="blue-essences">
+      <div {...trigger({ content: `${BE} Blue essences` })} className="blue-essences">
         <img src="/general/BE_icon.png" alt="BE" />
         <div className="BE">
           {BE > 10000

@@ -44,7 +44,6 @@ export default function useHoverIntent({
   };
 
   const end = (cb) => {
-    console.log("terminado")
     const now = Date.now();
     lastMouseLeaveRef.current = now
     const timeSinceLast = now - lastShownRef.current;

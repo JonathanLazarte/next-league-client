@@ -21,6 +21,7 @@ import useHoverIntent from "@/hooks/useHoverIntent.js";
 import { RARITY_LEVELS, HOVER_DELAYS } from "@/utils/constants.js";
 import VirtualSkinsGrid from "@/components/VirtualGrid/VirtualSkinsGrid.jsx";
 import useSkins from "@/hooks/useSkins.js";
+import useTooltipTrigger from '@/components/Tooltip/globalTooltip/tooltipTrigger'
 
 export default memo(function CollectionSkins() {
   /*const API_URL = process.env.NEXT_PUBLIC_API_URL;*/
@@ -42,6 +43,7 @@ export default memo(function CollectionSkins() {
     fastDelay: HOVER_DELAYS.FAST,
     resetAfter: HOVER_DELAYS.RESET_AFTER,
   });
+  const trigger = useTooltipTrigger()
 
   useLayoutEffect(() => {
     if (!skins && !userSkins) return;
@@ -349,89 +351,8 @@ export default memo(function CollectionSkins() {
     deferredSearch,
   ]);
 
-  /*const [flatList, setFlatList] = useState();
-
-    useEffect(() => {
-    const local = []
-    groupedSkins.forEach(([section, skins]) => {
-      if (section !== 'Todos') {
-        local.push({
-          type: 'header',
-          section,
-        });
-      }
-
-      skins.forEach((skin) => {
-        local.push({
-          type: 'skin',
-          skin,
-        });
-      });
-    });
-    setFlatList(local)
-    }, [groupedSkins])*/
-
-  /*function buildVirtualRows(groupedSkins, columns) {
-      const rows = [];
-
-      groupedSkins.forEach(([section, skins]) => {
-        if (section !== 'Todos') {
-          rows.push({
-            type: 'header',
-            section,
-          });
-        }
-
-        for (let i = 0; i < skins.length; i += columns) {
-          rows.push({
-            type: 'row',
-            skins: skins.slice(i, i + columns),
-          });
-        }
-      });
-
-      return rows;
-    }
-    const rows = buildVirtualRows(groupedSkins, 5)*/
   const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
   const tooltipRef = useRef();
-  /*const RenderSkinsBySections = () => {
-        return groupedSkins.map(([section, skins], index) => (
-            <div
-                key={section}
-                className={`skins-section ${
-                    groupedSkins.length - 1 === index ? "" : "border-b border-white/10"
-                }`}
-            >
-                {section !== "Todos" ? (
-                    <h1
-                        className={`${
-                            index === 0 ? "mt-[0.6vh] mb-[3.7vh]" : "mt-[2.3vh] mb-[2.3vh]"
-                        } text-lg flex items-center content-center`}
-                    >
-                        {sortedBy === 'purchaseDate' ? 'ADQUIRIDO EL '
-                            : sortedBy === 'releaseDate' ? 'LANZADO EL '
-                                : null}
-                        {section.toUpperCase()}
-                    </h1>
-                ) : null}
-                <div className="skins-grid">
-                    {skins.map((skin) => (
-                        <SkinCard
-                            key={skin.id || `${skin.name}-${skin.champion}`}
-                            onHoverStart={onHoverStart}
-                            onHoverEnd={onHoverEnd}
-                            skin={skin}
-                            isSkinInCollection={isSkinInCollection}
-                            setToolTipPos={setToolTipPos}
-                            toolTipPosRef={toolTipPosRef}
-                            groupedSkins={groupedSkins}
-                        />
-                    ))}
-                </div>
-            </div>
-        ));
-    };*/
 
   return (
     <section className="collection-skins-section">
@@ -505,7 +426,7 @@ export default memo(function CollectionSkins() {
             <div className="rarity-icons-container">
               <div className="rarity-icons">
                 {raritys.map((rarity) => (
-                  <div key={rarity} className="rarity-item">
+                  <div key={rarity} className="rarity-item" {...trigger({content: rarity})}>
                     <img
                       className="rarity-image"
                       src={`/raritys/${rarity}.png`}
@@ -517,7 +438,7 @@ export default memo(function CollectionSkins() {
                 ))}
               </div>
               <div className="legacy-chromas-icons">
-                <div className="legacy-item">
+                <div className="legacy-item" {...trigger({ content: "Legacy" })}>
                   <img
                     className="rariry-image w-7"
                     src="/raritys/Legacy.png"
@@ -526,7 +447,7 @@ export default memo(function CollectionSkins() {
                   />
                   {countRarity["NoRarity"] || "0"}
                 </div>
-                <div className="chroma-item">
+                <div className="chroma-item" {...trigger({content: "Chromas"})}>
                   <img
                     className="rariry-image w-7"
                     src="/raritys/Chroma.png"

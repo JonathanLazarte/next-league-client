@@ -48,7 +48,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
               {section.hasSeparator && <div className="tab-separator"></div>}
             </>
           ))}
-          <HeaderWallet />
+          <HeaderWallet trigger={trigger} />
         </div>
       </header>
     </>
