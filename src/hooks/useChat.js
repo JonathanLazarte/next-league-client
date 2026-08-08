@@ -12,6 +12,7 @@ import {
   openChat,
   restoreChat,
   selectChat,
+  selectUser,
   setChatPosition,
   setMessages,
   setTyping,
@@ -29,6 +30,7 @@ export function useChat() {
   const handleMinimizeChat = useCallback((payload) => dispatch(minimizeChat(payload)), [dispatch]);
   const handleRestoreChat = useCallback((payload) => dispatch(restoreChat(payload)), [dispatch]);
   const handleSelectChat = useCallback((payload) => dispatch(selectChat(payload)), [dispatch]);
+  const handleSelectUser = useCallback((payload) => dispatch(selectUser(payload)), [dispatch]);
   const handleAddMessage = useCallback((payload) => dispatch(addMessage(payload)), [dispatch]);
   const handleSetMessages = useCallback((payload) => dispatch(setMessages(payload)), [dispatch]);
   const handleMarkMessageAsRead = useCallback((payload) => dispatch(markMessageAsRead(payload)), [dispatch]);
@@ -51,6 +53,7 @@ export function useChat() {
     minimizeChat: handleMinimizeChat,
     restoreChat: handleRestoreChat,
     selectChat: handleSelectChat,
+    selectUser: handleSelectUser,
     addMessage: handleAddMessage,
     setMessages: handleSetMessages,
     markMessageAsRead: handleMarkMessageAsRead,

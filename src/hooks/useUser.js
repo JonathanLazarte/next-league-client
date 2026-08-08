@@ -6,7 +6,7 @@ function useUser() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const setUserData = useCallback((payload) => dispatch(fetchUser(payload)), [dispatch]);
+  const fetchUserData = useCallback((payload) => dispatch(fetchUser(payload)), [dispatch]);
   const updateUserData = useCallback((payload) => dispatch(updateUser(payload)), [dispatch]);
   const addUserMessage = useCallback((payload) => dispatch(setUserMessages(payload)), [dispatch]);
   const updateUserCoins = useCallback((payload) => dispatch(updateCoins(payload)), [dispatch]);
@@ -14,7 +14,7 @@ function useUser() {
   return {
     ...user,
     user,
-    setUser: setUserData,
+    fetchUser: fetchUserData,
     updateUser: updateUserData,
     setUserMessages: addUserMessage,
     updateCoins: updateUserCoins,

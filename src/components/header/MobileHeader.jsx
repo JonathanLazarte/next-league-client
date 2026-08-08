@@ -8,26 +8,19 @@ import { useUserInterface} from '@/hooks/useUserInterface'
 import { useState } from 'react'
 import { GiStoneCrafting } from "react-icons/gi";
 import { useRouter } from 'next/navigation'
+import { useSound } from '@/hooks/useSound';
 
 
 
 export default function MobileHeader(){
-  const {actualSection, changeSection, toggleNavigation} = useUserInterface();
+  const { actualSection, changeSection, updateSideNav } = useUserInterface();
   const route = useRouter()
   const selectedStyle = {/*background: "linear-gradient(rgb(9, 17, 30) 50%, rgb(47, 50, 52))",*/ color: "#F0E6D2"}
   const [isNavigationOpen, setIsNavigationOpen] = useState(false)
+  const { play : playMenuClick} = useSound('/sfx/menu-click.mp3')
 
-  const handleSound = (sound) => {
-      const buttonPlayClick = new Audio('/general/button-play-click.mp3');
-      const buttonPlayHover = new Audio('/general/button-play-hover.mp3');
-      const menuClick = new Audio('/general/menu-click.mp3')
-
-      sound == "menu-click" && menuClick.play();
-      sound == "button-play-click" && buttonPlayClick.play();
-      sound == "button-play-hover" && buttonPlayHover.play()
-    }
   const handleClick = (section) => {
-      handleSound('menu-click');
+      playMenuClick()
       setIsNavigationOpen(false)
       changeSection(section)
       route.push(section)
@@ -47,12 +40,14 @@ export default function MobileHeader(){
     <HeaderMainButton/>
     <div className="mobile-header-tabs">
       <div className="item" onClick={()=>setIsNavigationOpen(prev=>!prev)}><TiThMenu /></div>
-      <div className="item" onClick={()=>toggleNavigation()}><RiSidebarFoldFill /></div>
+      <div className="item" onClick={()=>updateSideNav()}><RiSidebarFoldFill /></div>
     </div>
-    { isNavigationOpen && <div className="mobile-navigation-window">
-      <Tab onClick={() => setIsNavigationOpen(false)} section="collection"/>
+    {isNavigationOpen &&
+      <div className="mobile-navigation-window">
+        <Tab onClick={() => setIsNavigationOpen(false)} section="collection"/>
         {/*<Tab onClick={() => setIsNavigationOpen(false)} section="Botín" />*/}
         <Tab onClick={() => setIsNavigationOpen(false)} section="store" />
-    </div>}
+      </div>
+    }
   </header>
 }

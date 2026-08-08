@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
+import { fetchUser } from '@/redux/slices/userSlice'
 
 export interface Message {
   id: string;
@@ -40,12 +41,15 @@ export interface ChatState {
 
   // Messages management
   messagesByRoom: Record<string, Message[]>;
+  messagesByUser: Object;
+  messages: string[];
 
   // Users management
   chatUsers: Record<string, ChatUser>;
 
   // UI State
-  selectedChat: string | null;
+  selectedChat: string | Object | null;
+  selectedUser: string | Object | null;
   isChatVisible: boolean;
   isTyping: Record<string, boolean>; // userId -> isTyping
 
@@ -65,7 +69,8 @@ const initialState: ChatState = {
   chatRooms: {},
   messagesByRoom: {},
   chatUsers: {},
-  selectedChat: null,
+  selectedChat: {},
+  selectedUser: null,
   isChatVisible: false,
   isTyping: {},
   unreadCount: 0,
@@ -74,6 +79,7 @@ const initialState: ChatState = {
   showTimestamps: true,
   autoScroll: true,
   messagesByUser: {},
+  messages: [],
 };
 
 const chatSlice = createSlice({
@@ -89,7 +95,7 @@ const chatSlice = createSlice({
         profile_icon: number;
       }>,
     ) => {
-      const { userId, userName /*, profile_icon*/ } = action.payload;
+      const { userId, userName } = action.payload;
 
       // Create chat room if it doesn't exist
       if (!state.chatRooms[userId]) {
@@ -155,6 +161,11 @@ const chatSlice = createSlice({
         state.chatRooms[userId].isMinimized = false;
         state.selectedChat = userId;
       }
+    },
+
+    selectUser: (state, action: PayloadAction<unknown>) => {
+      state.selectedUser = action.payload
+      state.isChatVisible = true;
     },
 
     selectChat: (state, action: PayloadAction<string>) => {
@@ -294,6 +305,12 @@ const chatSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.
+      addCase(fetchUser.fulfilled, (state, action: PayloadAction<Object>) => {
+        state.messages = action.payload.userData.messages
+      })
+  }
 });
 
 export const isChatVisible = (state) => state.chat.isChatVisible;
@@ -309,6 +326,7 @@ export const {
   minimizeChat,
   restoreChat,
   selectChat,
+  selectUser,
   setMessages,
   addMessage,
   markMessageAsRead,

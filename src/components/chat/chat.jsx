@@ -19,10 +19,10 @@ export default memo(function Chat({ socket }) {
 
   const { alias } = useUser();
   const {
-    selectedChat,
+    selectedUser,
     isChatVisible,
     /*messagesByRoom,*/
-    chatUsers,
+    /*chatUsers,*/
     isTyping: typingUsers,
     showTimestamps,
     autoScroll,
@@ -31,10 +31,11 @@ export default memo(function Chat({ socket }) {
     markAllAsRead,
     toggleChatVisibility,
   } = useChat();
-  const selectedChatUser = selectedChat ? chatUsers[selectedChat] : null;
+  console.log(messages)
+  const selectedChatUser = selectedUser ? selectedUser : null;
   //const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
-  const isUserTyping = selectedChat
-    ? typingUsers[selectedChat] || false
+  const isUserTyping = selectedChatUser
+    ? typingUsers[selectedUser?.alias] || false
     : false;
 
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
@@ -47,10 +48,10 @@ export default memo(function Chat({ socket }) {
 
   // Marcar mensajes como leídos al abrir el chat
   useEffect(() => {
-    if (selectedChat && isChatVisible) {
-      markAllAsRead(selectedChat);
+    if (selectedUser && isChatVisible) {
+      markAllAsRead(selectedUser?.alias);
     }
-  }, [selectedChat, isChatVisible, markAllAsRead]);
+  }, [selectedUser, isChatVisible, markAllAsRead]);
 
   // Sonido al abrir el chat
   /*useEffect(() => {
@@ -67,7 +68,7 @@ export default memo(function Chat({ socket }) {
 
     if (value.trim() && !isTyping) {
       setIsTyping(true);
-      socket?.current?.emit("typing", { to: selectedChat, isTyping: true });
+      socket?.current?.emit("typing", { to: selectedUser?.alias, isTyping: true });
     }
 
     if (typingTimeoutRef.current) {
@@ -77,19 +78,19 @@ export default memo(function Chat({ socket }) {
     typingTimeoutRef.current = setTimeout(() => {
       if (isTyping) {
         setIsTyping(false);
-        socket?.current?.emit("typing", { to: selectedChat, isTyping: false });
+        socket?.current?.emit("typing", { to: selectedUser?.alias, isTyping: false });
       }
     }, 1000);
   };
   // Enviar mensaje
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!chatInput.trim() || !selectedChat) return;
+    if (!chatInput.trim() || !selectedUser?.alias) return;
 
     const message = {
       id: Date.now().toString(),
       from: alias,
-      to: selectedChat,
+      to: selectedUser?.alias,
       content: chatInput.trim(),
       timestamp: Date.now(),
       type: "text",
@@ -103,7 +104,7 @@ export default memo(function Chat({ socket }) {
 
     if (isTyping) {
       setIsTyping(false);
-      socket?.current?.emit("typing", { to: selectedChat, isTyping: false });
+      socket?.current?.emit("typing", { to: selectedUser?.alias, isTyping: false });
     }
   };
 
@@ -147,20 +148,22 @@ export default memo(function Chat({ socket }) {
   };
 
   const filteredMessages = useMemo(() => {
-    const result = filterByUser(messages, selectedChat);
+    const result = filterByUser(messages, selectedUser?.alias);
     return result;
-  }, [messages, selectedChat]);
+  }, [messages, selectedUser]);
 
   if (!isChatVisible) return null;
+
+  console.log(selectedUser)
 
   return (
     <div className="chat">
       {/* Header */}
       <div className="chatHead">
         {selectedChatUser && (
-          <div style={{ marginRight: "10px" }} className="icon-border mini">
+          <div style={{ marginRight: "10px" }} className="chat-user-icon-container">
             <img
-              className="user-icon mini"
+              className="chat-user-icon"
               src={`${RESOURCES_URL}profileicon/${selectedChatUser.profile_icon}.png`}
               alt={selectedChatUser.alias}
             />
@@ -175,7 +178,7 @@ export default memo(function Chat({ socket }) {
 
         <div className="chat-header-info">
           <span className="chat-username">
-            {selectedChatUser?.alias || selectedChat || "Seleccione un chat"}
+            {selectedChatUser?.alias || selectedUser?.alias || "Seleccione un chat"}
           </span>
           <span className="chat-status">
             {selectedChatUser?.alias} {selectedChatUser?.tag}

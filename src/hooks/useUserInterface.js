@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import {
   setActualSection,
   setIsNavigating,
+  toggleSideNav,
   setQueue,
   setQueueStatus,
   setUserState,
@@ -37,6 +38,10 @@ export const useUserInterface = () => {
     dispatch(setQueueStatus(status));
   }, [dispatch]);
 
+  const updateSideNav = useCallback(() => {
+    dispatch(toggleSideNav())
+  }, [dispatch])
+
   return {
     // Estado
     ...uiState,
@@ -46,6 +51,7 @@ export const useUserInterface = () => {
     setNavigating,
     updateUserState,
     updateQueue,
-    updateQueueStatus
+    updateQueueStatus,
+    updateSideNav
   };
 };

@@ -43,7 +43,13 @@
     flex: 1;
     line-height: 1.1;
 }
-
+.chat-user-icon-container {
+    width: 3.5rem;
+    position: relative;
+}
+.chat-user-icon {
+    border-radius: 50%;
+}
 .chat-username {
     font-size: 1.7rem;
     font-family: Spiegel-Regular;

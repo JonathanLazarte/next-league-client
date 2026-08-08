@@ -5,7 +5,7 @@ import { useUserInterface } from '@/hooks/useUserInterface';
 /*import { flushSync } from "react-dom";*/
 
 export default function HeaderTab({ section, trigger, setSectionTabSeleceted, sectionTabSelected, actualSection }) {
-  const { play } = useSound("/general/menu-click.mp3");
+  const { play } = useSound("/sfx/menu-click.mp3");
   const router = useRouter();
   const { isNavigating } = useUserInterface()
   /*const [isMouseUp, setIsMouseUp] = useState();*/

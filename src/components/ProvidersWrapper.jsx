@@ -43,10 +43,10 @@ import useLoadingDelay from "@/hooks/useLoadingDelay";
 export default function ProvidersWrapper({ children }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const socket = useRef(null);
-  const { token, loading, isAuthenticated } = useAuth();
   const pathname = usePathname();
 
-  const { user, setUser } = useUser();
+  const { token, loading, isAuthenticated } = useAuth();
+  const { user, fetchUser } = useUser();
   const { getUserChampions } = useUserChampions();
   const { getUserSkins } = useUserSkins();
   const { setFriendsOnline } = useConnectedUsers();
@@ -54,7 +54,7 @@ export default function ProvidersWrapper({ children }) {
   const { itemToBuy } = usePurchase();
   const { addMessage, setMessages } = useChat();
   const { actualSection, isNavigating, queue, changeSection } = useUserInterface();
-  const [/*partyRequest,*/ setPartyRequest] = useState([])
+  const [ /*partyRequest,*/ setPartyRequest] = useState([])
   const showLoading = useLoadingDelay(isNavigating)
 
   useEffect(() => {
@@ -66,9 +66,9 @@ export default function ProvidersWrapper({ children }) {
     if (token) {
       getUserChampions(token);
       getUserSkins(token);
-      setUser(token)
+      fetchUser(token)
     }
-  }, [API_URL, getUserChampions, getUserSkins, setMessages, setMute, setUser, setVolume, token]);
+  }, [API_URL, getUserChampions, getUserSkins, setMessages, setMute, fetch, setVolume, token]);
 
 
   /*setUser(data);

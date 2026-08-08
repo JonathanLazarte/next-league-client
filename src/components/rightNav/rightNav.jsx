@@ -110,7 +110,7 @@ export default memo(function RightNav({
   const [showMenu, setShowMenu] = useState();
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const { user } = useUser();
-  const { actualSection, userState, showSideNav, toggleSideNav } = useUserInterface();
+  const { actualSection, userState, showSideNav, updateSideNav } = useUserInterface();
   const { friendsOnline } = useConnectedUsers();
   const [hoveredUser, setHoveredUser] = useState(null);
   const toolTipPosRef = useRef({ x: 0, y: 0 });
@@ -120,7 +120,7 @@ export default memo(function RightNav({
     selectedChat,
     unreadCount,
     isChatVisible,
-    openChat,
+    selectUser,
     selectChat,
     updateChatUser,
     toggleChatVisibility,
@@ -129,7 +129,6 @@ export default memo(function RightNav({
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
   const onHoverStart = (hovereduser) => {
-    console.log(hovereduser)
     start({
       cb: () => {
         // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
@@ -198,26 +197,11 @@ export default memo(function RightNav({
     }
   }, [friendsOnline, user.alias, updateChatUser]);
 
-  const handleUserClick = (userName) => {
+  const handleUserClick = (user) => {
     // Find the user in friendsOnline to get their profileIcon
     playClickSound();
-    let profileIcon = 1;
-    if (friendsOnline) {
-      for (const folder of friendsOnline) {
-        const foundUser = folder.users.find((u) => u.userName === userName);
-        if (foundUser) {
-          profileIcon = foundUser.profile_icon;
-          break;
-        }
-      }
-    }
-
     // Open chat with the selected user
-    openChat({
-        userId: userName,
-        userName: userName,
-        profile_icon: profileIcon,
-      });
+    selectUser(user);
   };
 
   const handleChatButtonClick = () => {
@@ -248,7 +232,7 @@ export default memo(function RightNav({
               user={user}
               RESOURCES_URL={RESOURCES_URL}
               battleRequest={battleRequest}
-              handleUserClick={handleUserClick}
+              handleUserClick={() => handleUserClick(u)}
               handleContextMenu={(e) => handleContextMenu(e, u.alias)}
               inviteBox={inviteBox}
               toolTipPosRef={toolTipPosRef}
@@ -270,7 +254,7 @@ export default memo(function RightNav({
       className={`right-nav`}
       onClick={() => setShowMenu(false)}
     >
-      <ProfileBox handleLogout={handleLogout} user={user} setIsSettingsOpen={setIsSettingsOpen} toggleSideNav={toggleSideNav} userState={userState} />
+      <ProfileBox handleLogout={handleLogout} user={user} setIsSettingsOpen={setIsSettingsOpen} updateSideNav={updateSideNav} userState={userState} />
 
       <div className="online-users">
         {showMenu && (

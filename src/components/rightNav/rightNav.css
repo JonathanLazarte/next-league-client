@@ -207,13 +207,6 @@
     fill: url('#hextech-metal-gradient');
 }
 
-.user-icon {
-    height: 91%;
-    width: 91%;
-    border-radius: 50%;
-    background-color: black;
-    display: none;
-}
 .user-level-wrapper {
     position: absolute;
     /*inset: 0;
@@ -396,6 +389,33 @@
     height: 1.5rem;
     border-radius: 10px;
     background: radial-gradient(green, green, springgreen, springgreen);
+}
+.custom-menu {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: rgba(20, 0, 0, 1);
+    height: 80px;
+    width: 200px;
+    border: 1px solid rgba(150, 0, 0, 0.3);
+    display: none;
+}
+.custom-menu h5 {
+    margin: 0;
+    border: 0px;
+    height: 50%;
+    align-content: center;
+}
+.custom-menu h5:hover {
+    background-color: rgba(40, 0, 0, 1);
+}
+.custom-menu .blocked {
+    opacity: 0.3;
+    cursor: default;
+}
+.custom-menu .blocked:hover {
+    background-color: rgba(20, 0, 0, 1);
 }
 
 .invitation-box {
