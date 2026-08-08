@@ -86,7 +86,6 @@ const settingsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ userData }>) => {
-        console.log(action.payload)
       state.sound = action.payload.userData.settings.sound;
       state.loading = false;
       state.error = null;

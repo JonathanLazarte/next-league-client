@@ -31,7 +31,6 @@ export default memo(function Chat({ socket }) {
     markAllAsRead,
     toggleChatVisibility,
   } = useChat();
-  console.log(messages)
   const selectedChatUser = selectedUser ? selectedUser : null;
   //const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
   const isUserTyping = selectedChatUser

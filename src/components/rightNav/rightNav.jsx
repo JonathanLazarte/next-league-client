@@ -2,7 +2,6 @@
 
 import "./rightNav.css";
 import { useState, memo, useEffect, useRef } from "react";
-import Image from "next/image";
 
 
 import { FaUserPlus } from "react-icons/fa6";
@@ -19,144 +18,44 @@ import { IoChatboxSharp } from "react-icons/io5";
 import UserTooltip from "@/components/Tooltip/userTooltip/userTooltip.jsx";
 import Settings from "@/components/Settings/Settings.jsx";
 import ProfileBox from "./ProfileBox.jsx";
+import Friend from './Friend'
 
 import useHoverIntent from "@/hooks/useHoverIntent.js";
-import { useSmartHover } from "@/hooks/useSmartHover.js";
-import { useSound } from "@/hooks/useSound.js";
-import { audioEngine } from "@/engine/audioEngine.js";
-import { useUser } from "@/hooks/useUser";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
-import { useAuth } from "@/hooks/useAuth";
 
-export const FriendRow = memo(function FriendRow({
-  u,
-  user,
-  RESOURCES_URL,
-  battleRequest,
-  handleUserClick,
-  handleContextMenu,
-  inviteBox,
-  toolTipPosRef,
-  onHoverStart,
-  onHoverEnd,
-}) {
-  const ref = useRef(null);
 
-  useSmartHover({
-    ref,
-    onEnter: () => {
-      if (!ref.current) return;
-
-      const rect = ref.current.getBoundingClientRect();
-
-      toolTipPosRef.current = {
-        x: rect.width,
-        y: rect.top + rect.height / 2,
-      };
-
-      onHoverStart(u);
-    },
-    onLeave: onHoverEnd,
-  });
-
-  if (u.alias === user.alias) return null;
-
-  if (battleRequest?.find((br) => br.from === u.alias)) {
-    return inviteBox(u.alias);
-  }
-
-  return (
-    <li
-      ref={ref}
-      className="user-box"
-      key={u.alias}
-      onClick={() => handleUserClick(u.alias)}
-      onContextMenu={handleContextMenu}
-    >
-      <div className="friendlist-profile-icon">
-        <Image
-          className="friendlist-profile-icon-image"
-          src={`${RESOURCES_URL}profileicon/${u.profile_icon}.png`}
-          width={150}
-          height={150}
-        />
-        <div className="box-status-icon" />
-      </div>
-
-      <div className="user-box-data">
-        <span className="friendlist-username">{u.alias}</span>
-        <span className="friendlist-status">Online</span>
-        {/*chatUsers[u.alias]?.unreadCount > 0 && (
-          <span className="unread-badge">
-            {chatUsers[u?.alias]?.unreadCount}
-          </span>
-        )*/}
-      </div>
-    </li>
-  );
-});
-
-export default memo(function RightNav({
-  socket,
-  battleRequest,
-  handleEmitBattleRequest,
-}) {
-  const RESOURCES_URL =
-    "/" ||
-    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+export const SocialPanel = ({ tooltipPosRef, onHoverEnd, onHoverStart }) => {
   const [showMenu, setShowMenu] = useState();
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-  const { user } = useUser();
-  const { actualSection, userState, showSideNav, updateSideNav } = useUserInterface();
+  //const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [isFolderOpen, setIsFolderOpen] = useState(true);
+  const iconStyle = isFolderOpen ? { transform: "rotate(90deg)" } : null;
+  const folderStyle = !isFolderOpen ? { display: "none" } : null;
   const { friendsOnline } = useConnectedUsers();
-  const [hoveredUser, setHoveredUser] = useState(null);
-  const toolTipPosRef = useRef({ x: 0, y: 0 });
-  const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
-  const { start, cancel } = useHoverIntent({ initialDelay: 400 });
   const {
-    selectedChat,
-    unreadCount,
-    isChatVisible,
-    selectUser,
-    selectChat,
     updateChatUser,
-    toggleChatVisibility,
+    battleRequest
   } = useChat();
-  const { logout } = useAuth();
-  const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
 
-  const onHoverStart = (hovereduser) => {
-    start({
-      cb: () => {
-        // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
-        setToolTipPos({
-          x: toolTipPosRef.current.x,
-          y: toolTipPosRef.current.y,
+  // Update chat users when friends list changes
+  useEffect(() => {
+    if (friendsOnline) {
+      friendsOnline.forEach((folder) => {
+        folder.users.forEach((u) => {
+            updateChatUser({
+                userId: u.alias,
+                userName: u.alias,
+                profile_icon: u.profile_icon,
+                profile_border: u.profile_border,
+                status: u.status,
+                unreadCount: 0,
+              });
         });
-        setHoveredUser(hovereduser);
-      },
-    });
-  };
-  const onHoverEnd = () => {
-    setHoveredUser(null);
-    cancel();
-  };
-  const handleContextMenu = (e, username) => {
-    e.preventDefault();
-    const userName = username;
-    selectChat(userName);
-    setShowMenu(true);
-    setMenuPosition({ x: e.clientX, y: e.clientY });
-  };
-  const handleLogout = () => {
-    audioEngine.stopMusic();
-    socket?.current.disconnect();
-    localStorage.removeItem("token");
-    logout();
-  };
+      });
+    }
+  }, [friendsOnline, updateChatUser]);
+
   const inviteBox = (userName) => {
     const userRequest = battleRequest.find(
       (request) => request.from == userName,
@@ -176,108 +75,32 @@ export default memo(function RightNav({
       )
     );
   };
-
-  // Update chat users when friends list changes
-  useEffect(() => {
-    if (friendsOnline) {
-      friendsOnline.forEach((folder) => {
-        folder.users.forEach((u) => {
-          if (u.alias !== user.alias) {
-            updateChatUser({
-                userId: u.alias,
-                userName: u.alias,
-                profile_icon: u.profile_icon,
-                profile_border: u.profile_border,
-                status: u.status,
-                unreadCount: 0,
-              });
-          }
-        });
-      });
-    }
-  }, [friendsOnline, user.alias, updateChatUser]);
-
-  const handleUserClick = (user) => {
-    // Find the user in friendsOnline to get their profileIcon
-    playClickSound();
-    // Open chat with the selected user
-    selectUser(user);
-  };
-
-  const handleChatButtonClick = () => {
-    toggleChatVisibility();
-  };
-
-  const UserFriendList = () => {
-    const [isFolderOpen, setIsFolderOpen] = useState(true);
-    const iconStyle = isFolderOpen ? { transform: "rotate(90deg)" } : null;
-    const folderStyle = !isFolderOpen ? { display: "none" } : null;
-
-    return friendsOnline?.map((folder) => (
-      <ul className="general-user-list" key={folder.name}>
-        <div
-          className="user-folder-name"
-          onClick={() => setIsFolderOpen((p) => !p)}
-        >
-          <VscTriangleRight style={iconStyle} className="triangle" />
-          {folder.name.toUpperCase() + " "}({folder.users.length}/
-          {folder.users.length})
-        </div>
-
-        <div style={folderStyle}>
-          {folder.users.map((u) => (
-            <FriendRow
-              key={u.alias}
-              u={u}
-              user={user}
-              RESOURCES_URL={RESOURCES_URL}
-              battleRequest={battleRequest}
-              handleUserClick={() => handleUserClick(u)}
-              handleContextMenu={(e) => handleContextMenu(e, u.alias)}
-              inviteBox={inviteBox}
-              toolTipPosRef={toolTipPosRef}
-              onHoverStart={() => onHoverStart(u)}
-              onHoverEnd={onHoverEnd}
-            />
-          ))}
-        </div>
-      </ul>
-    ));
-  };
-
-  return (
-    <div
+  /*const Menu = () => {
+    return <div
+      className="custom-menu"
       style={{
-        right: `${!showSideNav ? "-260px" : "0"}`,
-        background: `${actualSection === "store" ? "linear-gradient(to top, var(--blue-five), #07161e 90%, var(--blue-five))" : "var(--blue-five)"}`,
+        position: "fixed",
+        left: menuPosition.x,
+        top: menuPosition.y,
       }}
-      className={`right-nav`}
-      onClick={() => setShowMenu(false)}
     >
-      <ProfileBox handleLogout={handleLogout} user={user} setIsSettingsOpen={setIsSettingsOpen} updateSideNav={updateSideNav} userState={userState} />
+      <h5
+        className={selectedChat == user.userName ? "blocked" : null}
+        onClick={() => {
+          setShowMenu(false);
+          selectedChat != user.userName && handleEmitBattleRequest();
+        }}
+      >
+        Invitar a una partida
+      </h5>
+      <h5 onClick={() => setShowMenu(false)}>Ver perfil</h5>
+    </div>
+  }*/
 
-      <div className="online-users">
-        {showMenu && (
-          <div
-            className="custom-menu"
-            style={{
-              position: "fixed",
-              left: menuPosition.x,
-              top: menuPosition.y,
-            }}
-          >
-            <h5
-              className={selectedChat == user.userName ? "blocked" : null}
-              onClick={() => {
-                setShowMenu(false);
-                selectedChat != user.userName && handleEmitBattleRequest();
-              }}
-            >
-              Invitar a una partida
-            </h5>
-            <h5 onClick={() => setShowMenu(false)}>Ver perfil</h5>
-          </div>
-        )}
+  return friendsOnline?.map((folder) => (
+    <>
+      <div onClick={() => setShowMenu(false)} className="online-users">
+        {showMenu && (null/*<Menu></Menu>*/) }
         <div className="social-menu">
           SOCIAL
           <div className="social-icons">
@@ -287,8 +110,88 @@ export default memo(function RightNav({
             <FaSearch className="social-icon" />
           </div>
         </div>
-        {UserFriendList()}
       </div>
+    <ul className="general-user-list" key={folder.name}>
+      <div
+        className="user-folder-name"
+        onClick={() => setIsFolderOpen((p) => !p)}
+      >
+        <VscTriangleRight style={iconStyle} className="triangle" />
+        {folder.name.toUpperCase() + " "}({folder.users.length}/
+        {folder.users.length})
+      </div>
+
+      <div style={folderStyle}>
+        {folder.users.map((u) => (
+          <Friend
+            user={u}
+            key={u.alias}
+            battleRequest={battleRequest}
+            inviteBox={inviteBox}
+            toolTipPosRef={tooltipPosRef}
+            onHoverStart={() => onHoverStart(u)}
+            onHoverEnd={onHoverEnd}
+          />
+        ))}
+      </div>
+      </ul>
+    </>
+  ));
+};
+
+
+export default memo(function RightNav() {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const { actualSection, userState, showSideNav, updateSideNav } = useUserInterface();
+  const [hoveredUser, setHoveredUser] = useState(null);
+  const toolTipPosRef = useRef({ x: 0, y: 0 });
+  const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
+  const { start, cancel } = useHoverIntent({ initialDelay: 400 });
+
+  const {
+    unreadCount,
+    isChatVisible,
+    toggleChatVisibility,
+  } = useChat();
+
+  const onHoverStart = (hovereduser) => {
+    start({
+      cb: () => {
+        // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
+        setToolTipPos({
+          x: toolTipPosRef.current.x,
+          y: toolTipPosRef.current.y,
+        });
+        setHoveredUser(hovereduser);
+      },
+    });
+  };
+  const onHoverEnd = () => {
+    setHoveredUser(null);
+    cancel();
+  };
+
+
+
+
+
+
+
+  const handleChatButtonClick = () => {
+    toggleChatVisibility();
+  };
+
+  return (
+    <div
+      style={{
+        right: `${!showSideNav ? "-260px" : "0"}`,
+        background: `${actualSection === "store" ? "linear-gradient(to top, var(--blue-five), #07161e 90%, var(--blue-five))" : "var(--blue-five)"}`,
+      }}
+      className="right-nav"
+    >
+      <ProfileBox setIsSettingsOpen={setIsSettingsOpen} updateSideNav={updateSideNav} userState={userState} />
+      <SocialPanel onHoverEnd={onHoverEnd} onHoverStart={onHoverStart} tooltipPosRef={toolTipPosRef} ></SocialPanel>
+
       <div className="right-nav-buttom-buttons">
         <button
           onClick={handleChatButtonClick}
@@ -311,7 +214,7 @@ export default memo(function RightNav({
         </button>
       </div>
       {isSettingsOpen && <Settings setIsSettingsOpen={setIsSettingsOpen} />}
-      {hoveredUser && <UserTooltip hoveredUser={hoveredUser} tooltipPos={toolTipPos} />}
+      {hoveredUser && <UserTooltip hoveredUser={hoveredUser} tooltipPosRef={toolTipPosRef} tooltipPos={toolTipPos} />}
     </div>
   );
 });

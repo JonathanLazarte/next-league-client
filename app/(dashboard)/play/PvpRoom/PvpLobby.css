@@ -108,8 +108,8 @@
 }
 .banner-user-icon {
     position: relative;
-    width: 17rem;
-    height: 17rem;
+    width: 16rem;
+    height: 16rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,7 +167,7 @@
     bottom: 3.2rem;
     width: 42rem;
     height: 4.3rem;
-    background-color: var(--blue-five);
+    background: var(--blue-five);
     border: 1px solid #3c3c41;
     font-family: Spiegel-Regular;
     vertical-align: center;
@@ -180,6 +180,7 @@
     padding-left: 1.5rem;
     pointer-events: none;
     cursor: default;
+    background: none;
 }
 .party-chat input::placeholder {
     color: #5b5a56;
