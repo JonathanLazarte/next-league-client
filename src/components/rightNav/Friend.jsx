@@ -55,7 +55,7 @@ export default (function Friend({
       ref={ref}
       className="user-box"
       key={user?.alias}
-      onClick={() => handleUserClick(user?.alias)}
+      onClick={() => handleUserClick(user)}
       onContextMenu={handleContextMenu}
     >
       <div className="friendlist-profile-icon">
