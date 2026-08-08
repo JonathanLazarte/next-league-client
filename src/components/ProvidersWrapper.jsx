@@ -38,6 +38,10 @@ import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { usePurchase } from "@/hooks/usePurchase";
 import { useChat } from "@/hooks/useChat";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
+import BackgroundEngine from "@/components/BackgroundEngine/BackgroundEngine";
+
+
+
 
 export default function ProvidersWrapper({ children }) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -52,28 +56,28 @@ export default function ProvidersWrapper({ children }) {
   const { itemToBuy } = usePurchase();
   const { addMessage } = useChat();
   const { actualSection, isNavigating, queue, changeSection } = useUserInterface();
-  const [ /*partyRequest,*/ setPartyRequest] = useState([])
+  const [ ,setPartyRequest] = useState([])
   const showLoading = useLoadingDelay(isNavigating, { delay: 100 })
+  const isInQueue = queue !== null;
 
   useEffect(() => {
-    const sectionName = pathname.split("/").pop();
-    changeSection(sectionName);
+    const section = pathname.split("/").pop();
+    changeSection(section);
   }, [pathname, changeSection]);
 
   useEffect(() => {
-    if (token) {
-      getUserChampions(token);
-      getUserSkins(token);
-      fetchUser(token)
-    }
-  }, [API_URL, getUserChampions, getUserSkins, fetch, token]);
+    if (!token) return
+
+    getUserChampions(token);
+    getUserSkins(token);
+    fetchUser(token)
+
+  }, [API_URL, getUserChampions, getUserSkins, fetchUser, token]);
 
 
   useEffect(() => {
     if (!token) return;
-
     socket.current = io(`${API_URL}`, { auth: { token } });
-
     return () => {
       socket.current?.disconnect();
     };
@@ -89,7 +93,7 @@ export default function ProvidersWrapper({ children }) {
       }, 7000);
     });
     return () => socket.current?.off("battle-mailbox");
-  }, [token]);
+  }, [setPartyRequest]);
 
   useEffect(() => {
     if (!socket.current) return
@@ -116,7 +120,7 @@ export default function ProvidersWrapper({ children }) {
       setFriendsOnline(friendFolders);
     });
     return () => socket.current?.off("user-list");
-  }, [setFriendsOnline, token]);
+  }, [setFriendsOnline, token, user.alias]);
 
 
 
@@ -125,7 +129,7 @@ export default function ProvidersWrapper({ children }) {
       <div
         className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >
-        <img style={{ width: "100%" }} src="/loading-golden.png"></img>
+        <img style={{ width: "100%" }} src="/loading-golden.png"/>
         <svg id="Capa_2" className="hextech-loading-svg" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 769.62 776.17">
           <g id="Lines">
             <ellipse className="cls-1" cx="384.81" cy="388.09" rx="377.81" ry="381.09" />
@@ -137,6 +141,7 @@ export default function ProvidersWrapper({ children }) {
             src="/LOL_Icon_Rendered.png"
             width={240}
             height={240}
+            alt="League of Legends logo"
           />
           <div className="loading-underlogo"> LOADING </div>
         </div>
@@ -144,58 +149,19 @@ export default function ProvidersWrapper({ children }) {
     )
   }
 
-  const layoutBackgroundImage = (actualSection) => {
-    switch (actualSection) {
-      case "league": {
-        return "/Jayce_34.webp";
-      }
-      case "store": {
-        return "/store_background.webp";
-      }
-      case "collection": {
-        return "/collection_background.webp";
-      }
-      default:
-        return "/img.jpg";
-    }
-  };
-
-  const isInQueue =
-    queue !== null;
 
   return (
     <div className="dashboard-layout w-screen min-h-screen">
-      <div
-        className={`background-engine ${isInQueue && actualSection === "play" ? "in-room" : null}`}
-        style={{
-          backgroundImage: showLoading
-            ? "var(--blue-five)"
-            : `url(${layoutBackgroundImage(actualSection)})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        <div
-          style={{ visibility: actualSection === "play" ? "visible" : "hidden" }}
-          className="bg-layer bg-lobby"
-        ></div>
-        <div
-          style={{ visibility: actualSection === "play" ? "visible" : "hidden" }}
-          className={`bg-layer bg-room`}
-        ></div>
-      </div>
+      <section className="dashboard">
+        {children} {showLoading && <LoadingOverlay />}
+      </section>
+      <BackgroundEngine isInQueue={isInQueue} actualSection={actualSection} showLoading={showLoading}></BackgroundEngine>
       <ResponsiveHeader />
       <SideNav />
       <Chat socket={socket} />
-      <MusicPlayer
-        url="/music/Xin Zhao, the Seneschal of Demacia.mp3"
-      />
+      <MusicPlayer url="/music/Xin Zhao, the Seneschal of Demacia.mp3" />
       <TooltipLayer></TooltipLayer>
       {itemToBuy && <ConfirmPurchaseModal />}
-      <section className="dashboard">
-        {children}
-        {showLoading && <LoadingOverlay />}
-      </section>
     </div>
   );
 }

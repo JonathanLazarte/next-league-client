@@ -6,55 +6,55 @@ import { useState, useEffect } from "react";
 import store from "@/redux/store";
 import { useRouter, usePathname } from "next/navigation";
 import { verifyToken } from "@/redux/slices/authSlice";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 
 export const AuthProvider = ({ children }) => {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  const [localStorageToken, setLocalStorageToken] = useState() // undefined | null | string
-  const [explicitLogout, setExplicitLogout] = useState()
-  const dispatch = store.dispatch;
+  const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const tokenFromLocalStorage = localStorage.getItem('token')
-      tokenFromLocalStorage ? setLocalStorageToken(tokenFromLocalStorage) : setLocalStorageToken(null)
+    const initAuth = async () => {
+      const token = localStorage.getItem('token');
+      const explicitLogout = localStorage.getItem('explicit-logout') === 'true';
 
-      const explicitLogoutLocalStorage = localStorage.getItem('explicit-logout')
-      explicitLogoutLocalStorage ? setExplicitLogout(true) : setExplicitLogout(false)
+      if (isAuthenticated) {
+        setIsInitialized(true);
+        return;
+      }
 
-    }
-  }, [])
+      if (token) {
+        await dispatch(verifyToken(token));
+      } else if (!explicitLogout) {
+        // Invitado
+        await dispatch(verifyToken("8bd66836-d9d6-4c42-9e24-fda3d2e3a10d"));
+      }
+
+      setIsInitialized(true);
+    };
+
+    initAuth();
+  }, [dispatch, isAuthenticated]);
 
   useEffect(() => {
+    if (!isInitialized || loading) return;
 
-    if (loading || localStorageToken === undefined || explicitLogout === undefined) return;
+    const isPublicPage = pathname === '/login' || pathname === '/register';
 
-    if (isAuthenticated && (pathname === '/login' || pathname === '/register' || pathname === '/')) {
-      router.push("/league");
-      return;
+    if (isAuthenticated) {
+      if (isPublicPage || pathname === '/') {
+        router.push("/league");
+      }
+    } else {
+      if (!isPublicPage) {
+        router.push('/login');
+      }
     }
+  }, [isAuthenticated, loading, isInitialized, pathname, router]);
 
-    if (!isAuthenticated && (localStorageToken)) {
-      dispatch(verifyToken(localStorageToken))
-      return
-    }
-
-    if (!isAuthenticated && !localStorageToken && !explicitLogout) {
-      localStorage.setItem("token", "8bd66836-d9d6-4c42-9e24-fda3d2e3a10d")
-      setLocalStorageToken("8bd66836-d9d6-4c42-9e24-fda3d2e3a10d")
-      return
-    }
-
-    if (!isAuthenticated && (pathname !== '/login' && pathname !== '/register')) {
-      router.push('/login');
-      return
-    }
-  }, [isAuthenticated, loading, router, localStorageToken, explicitLogout]);
-
-  console.log(localStorageToken)
 
   return (children)
 };

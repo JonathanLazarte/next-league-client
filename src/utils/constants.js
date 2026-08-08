@@ -73,3 +73,9 @@ export const SECTIONS = {
 
 export const LEFT_HEADER_TABS = [SECTIONS.LEAGUE];
 export const RIGHT_HEADER_TABS = [SECTIONS.COLLECTION, SECTIONS.STORE];
+
+export const BACKGROUND_URLS = {
+  league: "/Jayce_34.webp",
+  store: "/store_background.webp",
+  collection: "/collection_background.webp",
+}

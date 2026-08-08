@@ -120,7 +120,6 @@ const authSlice = createSlice({
     },
     setToken: (state, action) => {
       state.token = action.payload;
-      state.isAuthenticated = true;
     },
   },
   extraReducers: (builder) => {
@@ -168,11 +167,12 @@ const authSlice = createSlice({
         state.error = null;
         /*state.user = action.payload.user*/
       })
-      .addCase(verifyToken.rejected, (state /*, action*/) => {
+      .addCase(verifyToken.rejected, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = false
-        state.user = null
-        state.token = null
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+        state.error = action.payload;
       });
   },
 });

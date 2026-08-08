@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "@/hooks/useRouter";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, verifyToken, clearError } from "@/redux/slices/authSlice";
+import { logout, clearError } from "@/redux/slices/authSlice";
 
 export function useAuth() {
   const router = useRouter();
@@ -21,22 +20,6 @@ export function useAuth() {
   const clearAuthError = () => {
     dispatch(clearError());
   };
-
-  // Verificar token al cargar la aplicación
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token && !isAuthenticated) {
-      dispatch(verifyToken());
-    }
-  }, [dispatch, isAuthenticated]);
-
-  // Verificar si el usuario está autenticado en cada render
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token && isAuthenticated) {
-      dispatch(logout());
-    }
-  }, [dispatch, isAuthenticated]);
 
   return {
     isAuthenticated,
