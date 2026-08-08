@@ -1,12 +1,12 @@
 import { useSound } from '@/hooks/useSound.js'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/hooks/useRouter'
 import { useUserInterface } from '@/hooks/useUserInterface';
 /*import { color } from "framer-motion";*/
 /*import { flushSync } from "react-dom";*/
 
 export default function HeaderTab({ section, trigger, setSectionTabSeleceted, sectionTabSelected, actualSection }) {
   const { play } = useSound("/sfx/menu-click.mp3");
-  const router = useRouter();
+  const { push } = useRouter()
   const { isNavigating } = useUserInterface()
   /*const [isMouseUp, setIsMouseUp] = useState();*/
 
@@ -18,7 +18,7 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
     });*/
     setSectionTabSeleceted(section)
     play();
-    router.push(section);
+    push(section);
   };
 
   if (section === "league")
