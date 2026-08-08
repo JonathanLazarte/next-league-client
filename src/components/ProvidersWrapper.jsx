@@ -35,7 +35,6 @@ import { useUser } from "@/hooks/useUser";
 import { useUserChampions } from "@/hooks/useUserChampions";
 import { useUserSkins } from "@/hooks/useUserSkins";
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
-import { useSoundState } from "@/hooks/useSoundState";
 import { usePurchase } from "@/hooks/usePurchase";
 import { useChat } from "@/hooks/useChat";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
@@ -50,12 +49,11 @@ export default function ProvidersWrapper({ children }) {
   const { getUserChampions } = useUserChampions();
   const { getUserSkins } = useUserSkins();
   const { setFriendsOnline } = useConnectedUsers();
-  const { setMute, setVolume } = useSoundState();
   const { itemToBuy } = usePurchase();
-  const { addMessage, setMessages } = useChat();
+  const { addMessage } = useChat();
   const { actualSection, isNavigating, queue, changeSection } = useUserInterface();
   const [ /*partyRequest,*/ setPartyRequest] = useState([])
-  const showLoading = useLoadingDelay(isNavigating)
+  const showLoading = useLoadingDelay(isNavigating, { delay: 100 })
 
   useEffect(() => {
     const sectionName = pathname.split("/").pop();
@@ -68,18 +66,8 @@ export default function ProvidersWrapper({ children }) {
       getUserSkins(token);
       fetchUser(token)
     }
-  }, [API_URL, getUserChampions, getUserSkins, setMessages, setMute, fetch, setVolume, token]);
+  }, [API_URL, getUserChampions, getUserSkins, fetch, token]);
 
-
-  /*setUser(data);
-  const { master, sfx, music } = data.settings.sound;
-  setVolume({ type: "master", val: master.volume });
-  setVolume({ type: "sfx", val: sfx.volume });
-  setVolume({ type: "music", val: music.volume });
-  setMute({ type: "master", muted: master.muted });
-  setMute({ type: "sfx", muted: sfx.muted });
-  setMute({ type: "music", muted: music.muted });
-  setMessages(data.messages); */
 
   useEffect(() => {
     if (!token) return;
@@ -106,7 +94,6 @@ export default function ProvidersWrapper({ children }) {
   useEffect(() => {
     if (!socket.current) return
     socket.current?.on("chat-message", (msg) => {
-      console.log(msg)
       addMessage(msg);
     });
     return () => socket.current?.off("chat-message");

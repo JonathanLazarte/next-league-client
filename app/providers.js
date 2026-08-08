@@ -11,7 +11,8 @@ import { useSelector } from "react-redux";
 
 export const AuthProvider = ({ children }) => {
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  const  [localStorageToken, setLocalStorageToken ] = useState() // undefined | null | string
+  const [localStorageToken, setLocalStorageToken] = useState() // undefined | null | string
+  const [explicitLogout, setExplicitLogout] = useState()
   const dispatch = store.dispatch;
   const router = useRouter();
   const pathname = usePathname();
@@ -19,13 +20,17 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const tokenFromLocalStorage = localStorage.getItem('token')
-      setLocalStorageToken(tokenFromLocalStorage)
+      tokenFromLocalStorage ? setLocalStorageToken(tokenFromLocalStorage) : setLocalStorageToken(null)
+
+      const explicitLogoutLocalStorage = localStorage.getItem('explicit-logout')
+      explicitLogoutLocalStorage ? setExplicitLogout(true) : setExplicitLogout(false)
+
     }
-  }, [isAuthenticated, loading])
+  }, [])
 
   useEffect(() => {
 
-    if (loading || localStorageToken === undefined) return;
+    if (loading || localStorageToken === undefined || explicitLogout === undefined) return;
 
     if (isAuthenticated && (pathname === '/login' || pathname === '/register' || pathname === '/')) {
       router.push("/league");
@@ -37,12 +42,19 @@ export const AuthProvider = ({ children }) => {
       return
     }
 
+    if (!isAuthenticated && !localStorageToken && !explicitLogout) {
+      localStorage.setItem("token", "8bd66836-d9d6-4c42-9e24-fda3d2e3a10d")
+      setLocalStorageToken("8bd66836-d9d6-4c42-9e24-fda3d2e3a10d")
+      return
+    }
+
     if (!isAuthenticated && (pathname !== '/login' && pathname !== '/register')) {
       router.push('/login');
       return
     }
+  }, [isAuthenticated, loading, router, localStorageToken, explicitLogout]);
 
-  }, [isAuthenticated, loading, router, localStorageToken]);
+  console.log(localStorageToken)
 
   return (children)
 };

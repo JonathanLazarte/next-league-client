@@ -37,6 +37,7 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
     audioEngine.stopMusic();
     socket?.current.disconnect();
     localStorage.removeItem("token");
+    localStorage.setItem("explicit-logout", true)
     logout();
   };
 
@@ -104,7 +105,7 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
 
       <div className="user-state">
         <div className="user-options">
-          <MdOutlineQuestionMark className="accountOptionIcon" onClick={() => {}} />
+          <MdOutlineQuestionMark className="accountOptionIcon" onClick={() => { }} />
           <MdMinimize
             onClick={() => {
               window.innerWidth < 1200 ? updateSideNav() : null;
