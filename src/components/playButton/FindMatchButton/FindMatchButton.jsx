@@ -2,7 +2,7 @@
 
 import "./FindMatchButton.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound.js";
 
@@ -11,9 +11,8 @@ export default function FindMatchButton({
   socket,
   queueStatus
 }) {
-  const router = useRouter();
   const { updateQueue, updateQueueStatus } = useUserInterface();
-
+  const { push } = useRouter()
   const inQueue = queueStatus !== 'idle'
   /*const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);*/
@@ -26,7 +25,7 @@ export default function FindMatchButton({
   const { play: playQuitHover } = useSound(
     "/sfx/sfx-lobby-button-quit-hover.ogg",
   );
-  const [ buttonState, setButtonState ] = useState('idle')
+  const [buttonState, setButtonState] = useState('idle')
 
   // Contador solo cuando está en cola
   /*useEffect(() => {
@@ -50,7 +49,7 @@ export default function FindMatchButton({
   const handleCancel = () => {
     playQuitClick();
 
-    if (queueStatus === 'idle') { router.push("league"); updateQueue(null) }
+    if (queueStatus === 'idle') { push("league"); updateQueue(null) }
     else {
       socket?.current?.emit("leave-room");
       setRoomId?.(null);
@@ -94,8 +93,8 @@ export default function FindMatchButton({
           onMouseEnter={() => playQuitHover()}
           className="find-match-out-button"
         >
-          <svg style={{pointerEvents: 'none'}} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z"/>
+          <svg style={{ pointerEvents: 'none' }} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7143 4L4.00001 5.71429L8.28573 10L4 14.2858L5.71429 16L10 11.7143L14.2857 16L16 14.2857L11.7143 10L16 5.7143L14.2857 4.00001L10 8.28573L5.7143 4Z" />
           </svg>
         </div>
       </div>
@@ -103,24 +102,24 @@ export default function FindMatchButton({
       {/* Botón principal */}
       <div className="find-match-button" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
         <img
-        src='/find-match-button/button-find-match.png'
-        className="find-match-button-image"
-        style={{ opacity: buttonState === 'idle' ? 1 : 0}}
+          src='/find-match-button/button-find-match.png'
+          className="find-match-button-image"
+          style={{ opacity: buttonState === 'idle' ? 1 : 0 }}
         />
         <img
           src='/find-match-button/button-find-match-disabled.png'
           className="find-match-button-image"
-          style={{ opacity: buttonState === 'disabled' || inQueue ? 1 : 0}}
+          style={{ opacity: buttonState === 'disabled' || inQueue ? 1 : 0 }}
         />
         <img
           src='/find-match-button/button-find-match-down.png'
           className="find-match-button-image"
-          style={{ opacity: buttonState === 'pressed' ? 1 : 0}}
+          style={{ opacity: buttonState === 'pressed' ? 1 : 0 }}
         />
         <img
-            src='/find-match-button/button-find-match-over.png'
-            className="find-match-button-image"
-          style={{ opacity: buttonState === 'hovered' ? 1 : 0}}
+          src='/find-match-button/button-find-match-over.png'
+          className="find-match-button-image"
+          style={{ opacity: buttonState === 'hovered' ? 1 : 0 }}
         />
         <video
           className="find-match-button-animation"
@@ -131,7 +130,7 @@ export default function FindMatchButton({
           playsInline
           disablePictureInPicture
           controlsList="nodownload noplaybackrate noremoteplayback"
-          style={{display: inQueue ? 'none' : 'block'}}
+          style={{ display: inQueue ? 'none' : 'block' }}
         >
         </video>
       </div>

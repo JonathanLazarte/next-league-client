@@ -7,7 +7,7 @@ interface loadingDelayOptions {
 
 export default function useLoadingDelay(loading: boolean, options: loadingDelayOptions = {}) {
   const {
-    delay = 300, // ms antes de mostrar
+    delay = 200, // ms antes de mostrar
     minDisplayTime = 1000, // ms mínimo una vez mostrado
   } = options;
 

@@ -138,12 +138,12 @@ export default function ProvidersWrapper({ children }) {
       <div
         className="dashboard-loading-screen flex items-center content-center justify-center w-screen min-h-screen"
       >
-        <img style={{width: "100%"}} src="/loading-golden.png"></img>
-          <svg id="Capa_2" className="hextech-loading-svg" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 769.62 776.17">
-            <g id="Lines">
-              <ellipse className="cls-1" cx="384.81" cy="388.09" rx="377.81" ry="381.09"/>
-            </g>
-          </svg>
+        <img style={{ width: "100%" }} src="/loading-golden.png"></img>
+        <svg id="Capa_2" className="hextech-loading-svg" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 769.62 776.17">
+          <g id="Lines">
+            <ellipse className="cls-1" cx="384.81" cy="388.09" rx="377.81" ry="381.09" />
+          </g>
+        </svg>
         <div className="text-center absolute">
           <Image
             className="lol-logo-image"
@@ -197,7 +197,7 @@ export default function ProvidersWrapper({ children }) {
           className={`bg-layer bg-room`}
         ></div>
       </div>
-      <ResponsiveHeader/>
+      <ResponsiveHeader />
       <SideNav />
       <Chat socket={socket} />
       <MusicPlayer
