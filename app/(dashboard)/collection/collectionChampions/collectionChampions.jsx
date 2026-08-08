@@ -53,7 +53,7 @@ export default memo(function MainPage() {
   });
 
   const handleScroll = () => {
-    if(hoveredChampion) setHoveredChampion(null);
+    if (hoveredChampion) setHoveredChampion(null);
   };
 
   const onHoverStart = (champion, championCardRef) => {
@@ -175,35 +175,9 @@ export default memo(function MainPage() {
       >
         <div className="filter-nav">
           <div className="left-place">
-            <div className="maestry-etern-levels-container">
-              <svg
-                className="hextech-border"
-                id="Capa_2"
-                data-name="Capa 2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 243.62 224.22"
-              >
-                <g id="Containers">
-                  <g>
-                    <path
-                      class="cls-1"
-                      d="M1,7.93c4.73,0,8.56-3.1,8.56-6.93h224.49c0,3.83,3.83,6.93,8.56,6.93"
-                    />
-                    <path
-                      class="cls-1"
-                      d="M16.5,218.88c-2.22-5.21-8.31-8.95-15.5-8.95V14.57c7.19,0,13.28-3.74,15.5-8.95"
-                    />
-                    <path
-                      class="cls-1 resalted"
-                      d="M242.62,216.29c-4.73,0-8.56,3.1-8.56,6.93H9.56c0-3.83-3.83-6.93-8.56-6.93"
-                    />
-                    <path
-                      class="cls-1"
-                      d="M227.12,5.33c2.22,5.21,8.31,8.95,15.5,8.95v195.36c-7.19,0-13.28,3.74-15.5,8.95"
-                    />
-                  </g>
-                </g>
-              </svg>
+            <div className="square-hextech">
+              <img className="square-hextech-frame top" src="/collection/square-hextech-frame-top.png"></img>
+              <img className="square-hextech-frame bot" src="/collection/square-hextech-frame-bot.png"></img>
               <div className="maestry-etern-levels">
                 <div className="amount-and-description">
                   <div className="amount">0</div>
@@ -279,9 +253,9 @@ export default memo(function MainPage() {
           <></>
         )}
         {!loading &&
-        !isLoadingChampionsData &&
-        championsData &&
-        Object.keys(groupedChampions).length == 0 ? (
+          !isLoadingChampionsData &&
+          championsData &&
+          Object.keys(groupedChampions).length == 0 ? (
           <span className="apologize-message">
             We are sorry, no collectible matches your search criteria
           </span>
