@@ -3,13 +3,15 @@
     width: 100%;
     aspect-ratio: 16 / 23.5;
     position: relative;
-    border-radius: 20px;
     cursor: pointer;
     /*contain: layout paint;
     transform: translateZ(0);
     pointer-events: auto;
     contain: strict;
     will-change: transform;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .skin-card-border {
     position: absolute;
@@ -18,9 +20,11 @@
     fill: var(--gold-five);
     stroke-width: 0.2pt;
     z-index: 1;
-    width: 100%;
-    top: -4%;
-    left: -0.3%;
+    width: 101%;
+    object-fit: contain;
+    bottom: 0;
+    transform: translateY(12%);
+    max-width: unset;
 }
 .skin-card:hover .skin-card-image {
     filter: brightness(1.1);
@@ -31,14 +35,14 @@
     height: 100%;
     object-fit: cover;
     object-position: top;
-    border-radius: 16px;
+    border-radius: 20px;
     filter: brightness(0.8);
 }
 
 .skin-card-rarity-image {
     width: 2.7rem;
     position: absolute;
-    place-self: center;
+    bottom: -2%;
     z-index: 1;
 }
 
@@ -66,16 +70,8 @@
 
 @media (max-width: 767px) {
     .skin-card-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 0px;
-        filter: brightness(0.8);
     }
 
     .skin-card-rarity-image {
-        width: 20px;
-        position: absolute;
-        place-self: center;
     }
 }
