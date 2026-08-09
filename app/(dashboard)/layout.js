@@ -1,5 +1,5 @@
-import ProvidersWrapper from "@/components/ProvidersWrapper";
+import DashboardShell from "@/layout/DashboardShell";
 
 export default function DashboardLayout({ children }) {
-  return <ProvidersWrapper>{children}</ProvidersWrapper>;
+  return <DashboardShell>{children}</DashboardShell>;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, memo, useMemo } from "react";
-import { /*PiXBold,*/ PiMinus } from "react-icons/pi";
+import { PiMinus } from "react-icons/pi";
 import "./chat.css";
 import { useSound } from "@/hooks/useSound.js";
 import { useChat } from "@/hooks/useChat";
@@ -21,8 +21,6 @@ export default memo(function Chat({ socket }) {
   const {
     selectedUser,
     isChatVisible,
-    /*messagesByRoom,*/
-    /*chatUsers,*/
     isTyping: typingUsers,
     showTimestamps,
     autoScroll,
@@ -32,7 +30,7 @@ export default memo(function Chat({ socket }) {
     toggleChatVisibility,
   } = useChat();
   const selectedChatUser = selectedUser ? selectedUser : null;
-  //const messages = selectedChat ? messagesByRoom[selectedChat] || [] : [];
+
   const isUserTyping = selectedChatUser
     ? typingUsers[selectedUser?.alias] || false
     : false;
@@ -52,13 +50,6 @@ export default memo(function Chat({ socket }) {
     }
   }, [selectedUser, isChatVisible, markAllAsRead]);
 
-  // Sonido al abrir el chat
-  /*useEffect(() => {
-    if (isChatVisible && selectedChat) {
-      const sound = new Audio(`${RESOURCES_URL}general/menu-click.mp3`);
-      sound.play().catch(() => {}); // Ignorar errores de autoplay
-    }
-  }, [isChatVisible, selectedChat]);*/
 
   // Manejar indicador de escritura
   const handleTyping = (e) => {
@@ -108,7 +99,6 @@ export default memo(function Chat({ socket }) {
   };
 
   // Cerrar / Minimizar chat
-  /*const handleCloseChat = () => selectedChat && closeChat(selectedChat);*/
   const handleMinimizeChat = () => {
     playClickSound();
     toggleChatVisibility();
@@ -153,7 +143,6 @@ export default memo(function Chat({ socket }) {
 
   if (!isChatVisible) return null;
 
-  console.log(selectedUser)
 
   return (
     <div className="chat">

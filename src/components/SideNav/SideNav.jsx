@@ -1,6 +1,6 @@
 "use client";
 
-import "./rightNav.css";
+import "./sideNav.css";
 import { useState, memo,useRef } from "react";
 
 
