@@ -8,17 +8,33 @@ import Friend from './Friend'
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
 
+export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onHoverStart }) => {
+  console.log(group)
+  return <ul key={group} className="general-user-list">
+  <div style={groupStyle}>
+    {group?.users?.map((u, index) => (
+      <Friend
+        user={u}
+        toolTipPosRef={tooltipPosRef}
+        onHoverStart={() => onHoverStart(u)}
+        onHoverEnd={onHoverEnd}
+        key={index}
+      />
+    ))}
+    </div>
+  </ul>
+}
+
 
 export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }) {
   const [showMenu, setShowMenu] = useState();
   //const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [isFolderOpen, setIsFolderOpen] = useState(true);
   const iconStyle = isFolderOpen ? { transform: "rotate(90deg)" } : null;
-  const folderStyle = !isFolderOpen ? { display: "none" } : null;
+  const groupStyle = !isFolderOpen ? { display: "none" } : null;
   const { friendsOnline } = useConnectedUsers();
   const {
-    updateChatUser,
-    battleRequest
+    updateChatUser
   } = useChat();
 
   // Update chat users when friends list changes
@@ -39,16 +55,16 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
     }
   }, [friendsOnline, updateChatUser]);
 
-  const inviteBox = (userName) => {
+  /*const inviteBox = (userName) => {
     const userRequest = battleRequest.find(
       (request) => request.from == userName,
     );
     return (
       userRequest && (
-        <div /*styles={{height:'200px'}}*/ className="invitation-box">
+        <div className="invitation-box">
           <span>{userName} te ha invitado a un enfrentamiento</span>
           <div>
-            <button /*onClick={()=>handleEmitAcceptBattleRequest(userRequest.roomId)}*/
+            <button
             >
               Aceptar
             </button>
@@ -57,7 +73,8 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
         </div>
       )
     );
-  };
+  };*/
+
   /*const Menu = () => {
     return <div
       className="custom-menu"
@@ -80,7 +97,8 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
     </div>
   }*/
 
-  return friendsOnline?.map((folder) => (
+
+  return (
     <>
       <div onClick={() => setShowMenu(false)} className="online-users">
         {showMenu && (null/*<Menu></Menu>*/) }
@@ -93,31 +111,16 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
             <FaSearch className="social-icon" />
           </div>
         </div>
-      </div>
-    <ul className="general-user-list" key={folder.name}>
-      <div
-        className="user-folder-name"
-        onClick={() => setIsFolderOpen((p) => !p)}
-      >
-        <VscTriangleRight style={iconStyle} className="triangle" />
-        {folder.name.toUpperCase() + " "}({folder.users.length}/
-        {folder.users.length})
-      </div>
+        <div
+          className="user-folder-name"
+          onClick={() => setIsFolderOpen((p) => !p)}
+        >
+          <VscTriangleRight style={iconStyle} className="triangle" />
+          {`GENERAL ${friendsOnline[0]?.users.length}/${friendsOnline[0]?.users.length})`}
 
-      <div style={folderStyle}>
-        {folder.users.map((u) => (
-          <Friend
-            user={u}
-            key={u.alias}
-            battleRequest={battleRequest}
-            inviteBox={inviteBox}
-            toolTipPosRef={tooltipPosRef}
-            onHoverStart={() => onHoverStart(u)}
-            onHoverEnd={onHoverEnd}
-          />
-        ))}
+        </div>
+        <FriendsGroup tooltipPosRef={tooltipPosRef} onHoverEnd={onHoverEnd} onHoverStart={onHoverStart} group={friendsOnline[0]} groupStyle={groupStyle}></FriendsGroup>
       </div>
-      </ul>
     </>
-  ));
+  );
 }
