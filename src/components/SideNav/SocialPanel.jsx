@@ -116,7 +116,7 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
           onClick={() => setIsFolderOpen((p) => !p)}
         >
           <VscTriangleRight style={iconStyle} className="triangle" />
-          {`GENERAL ${friendsOnline[0]?.users.length}/${friendsOnline[0]?.users.length})`}
+          {`GENERAL ${friendsOnline[0]?.users.length || 0}/${friendsOnline[0]?.users.length || 0})`}
 
         </div>
         <FriendsGroup tooltipPosRef={tooltipPosRef} onHoverEnd={onHoverEnd} onHoverStart={onHoverStart} group={friendsOnline[0]} groupStyle={groupStyle}></FriendsGroup>
