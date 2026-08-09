@@ -17,7 +17,7 @@
     height: 100%;
     padding-left: 4.4rem;       /* 2.75vw → 4.4rem */
     padding-right: 0.32rem;          /* 0.2vw → 0.32rem */
-    margin-top: 5.6rem;
+    padding-top: 5.6rem;
 }
 
 .unlock-skin-icon {
