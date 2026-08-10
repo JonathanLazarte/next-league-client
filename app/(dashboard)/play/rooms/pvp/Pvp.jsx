@@ -2,7 +2,7 @@ import { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from 'next/image'
 /*import { v4 as uuidv4 } from 'uuid';*/
-import "./Pvp.css";
+import "./pvp.css";
 import FindMatchButton from "@/components/playButton/FindMatchButton/FindMatchButton.jsx";
 import { setQueue, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound"
