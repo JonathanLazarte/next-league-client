@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
 import { fetchUser, setUserMessages, updateCoins, updateUser } from "@/redux/slices/userSlice";
 
 function useUser() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user, shallowEqual);
 
   const fetchUserData = useCallback((payload) => dispatch(fetchUser(payload)), [dispatch]);
   const updateUserData = useCallback((payload) => dispatch(updateUser(payload)), [dispatch]);

@@ -106,16 +106,6 @@
     stroke: var(--gold-five);
 }
 
-main {
-    display: grid;
-    grid-column-gap: 2.24rem;
-    /* 1.4vw → 2.24rem */
-    grid-template-columns: repeat(auto-fill,
-            minmax(14.56rem, 1fr));
-    /* 9.1vw → 14.56rem */
-    width: 100%;
-}
-
 option {
     background-color: rgba(20, 0, 0, 0) !important;
 }

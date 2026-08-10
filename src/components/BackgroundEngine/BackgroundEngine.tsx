@@ -1,6 +1,12 @@
 import { BACKGROUND_URLS } from '@/utils/constants'
+import { useUserInterface } from "@/hooks/useUserInterface";
+import useLoadingDelay from "@/hooks/useLoadingDelay";
 
-export default function BackgroundEngine ({ isInQueue, actualSection, showLoading }) {
+export default function BackgroundEngine() {
+  const { actualSection, isNavigating, queue } = useUserInterface();
+  const showLoading = useLoadingDelay(isNavigating)
+  const isInQueue = queue !== null;
+
   return <div
     className={`background-engine ${isInQueue && actualSection === "play" ? "in-room" : null}`}
     style={{

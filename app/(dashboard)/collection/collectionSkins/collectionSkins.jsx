@@ -66,6 +66,67 @@ export const RaritysCount = ({ raritys, trigger, countRarity }) => {
   </div>
 }
 
+export const Filters = ({ showNotObtained, setShowNotObtained, groupedBy, setGroupedBy, sortedBy, setSortedBy, sortOptionsByMode }) => {
+
+
+  return <div>
+  <div className="search-filter">
+    <FaSearch className="search-icon" />
+    <input
+      placeholder="Search"
+      type="search"
+      onChange={(event) => setSearchKeys(event.currentTarget.value)}
+      aria-label="Buscar skins"
+    />
+  </div>
+  <div className="checkbox-container">
+    {groupedBy !== "collection" ? (
+      <div
+        className="checkbox"
+        onClick={() => setShowNotObtained((prevState) => !prevState)}
+        role="checkbox"
+        aria-checked={showNotObtained}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setShowNotObtained((prevState) => !prevState);
+          }
+        }}
+      >
+        <div className="custom-checkbox" aria-hidden="true">
+          {showNotObtained ? <FaCheck className="check-icon" /> : null}
+        </div>
+        Mostrar no obtenidos
+      </div>
+    ) : (
+      <div className="h-3" aria-hidden="true"></div>
+    )}
+  </div>
+  <CustomSelect
+    className="select-filter"
+    options={[
+      { value: "collection", label: "My collection" },
+      { value: "all", label: "All" },
+      { value: "champion", label: "Champion" },
+      { value: "set", label: "Set" },
+      { value: "level", label: "Tier" },
+    ]}
+    value={groupedBy}
+    onChange={setGroupedBy}
+    placeholder="Seleccionar agrupación..."
+  />
+  <CustomSelect
+    className="select-filter"
+    options={sortOptionsByMode[groupedBy] || []}
+    value={sortedBy}
+    onChange={setSortedBy}
+    placeholder="Seleccionar orden..."
+    />
+
+</div>
+}
+
 
 export default memo(function CollectionSkins() {
   /*const API_URL = process.env.NEXT_PUBLIC_API_URL;*/
@@ -81,13 +142,35 @@ export default memo(function CollectionSkins() {
   const [hoveredSkinCardRef, setHoveredSkinCardRef] = useState(null);
   const toolTipPosRef = useRef({ x: 0, y: 0 });
   const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
+  const trigger = useTooltipTrigger()
   const { skinsData: skins /*, isLoadingSkinsData*/ } = useSkins();
   const { start, cancel, end, currentDelayType } = useHoverIntent({
     initialDelay: HOVER_DELAYS.INITIAL,
     fastDelay: HOVER_DELAYS.FAST,
     resetAfter: HOVER_DELAYS.RESET_AFTER,
   });
-  const trigger = useTooltipTrigger()
+
+  const sortOptionsByMode = {
+    collection: [
+      { value: "purchaseDate", label: "Adquisition Date" },
+      { value: "releaseDate", label: "Release Date" },
+      { value: "alphabetical", label: "Alphabetical" },
+    ],
+    all: [
+      { value: "releaseDate", label: "Release Date" },
+      { value: "alphabetical", label: "Alphabetical" },
+    ],
+    champion: [
+      { value: "mastery", label: "Mastery" },
+      { value: "mostOwned", label: "Most Owned" },
+      { value: "alphabetical", label: "Alphabetical" },
+    ],
+    set: [
+      { value: "mostOwned", label: "Most Owned" },
+      { value: "alphabetical", label: "Alphabetical" },
+    ],
+    level: [{ value: "rarity", label: "Rarity (By default)" }],
+  };
 
   useLayoutEffect(() => {
     if (!skins && !userSkins) return;
@@ -114,27 +197,6 @@ export default memo(function CollectionSkins() {
     if(hoveredSkin) setHoveredSkin(null);
   };
 
-  const sortOptionsByMode = {
-    collection: [
-      { value: "purchaseDate", label: "Adquisition Date" },
-      { value: "releaseDate", label: "Release Date" },
-      { value: "alphabetical", label: "Alphabetical" },
-    ],
-    all: [
-      { value: "releaseDate", label: "Release Date" },
-      { value: "alphabetical", label: "Alphabetical" },
-    ],
-    champion: [
-      { value: "mastery", label: "Mastery" },
-      { value: "mostOwned", label: "Most Owned" },
-      { value: "alphabetical", label: "Alphabetical" },
-    ],
-    set: [
-      { value: "mostOwned", label: "Most Owned" },
-      { value: "alphabetical", label: "Alphabetical" },
-    ],
-    level: [{ value: "rarity", label: "Rarity (By default)" }],
-  };
 
   const countRarity = userSkinsFull
     ? userSkinsFull?.reduce((acc, skin) => {
@@ -409,66 +471,6 @@ export default memo(function CollectionSkins() {
 
 
 
-  const Filters = () => {
-    return <div>
-
-    <div className="search-filter">
-      <FaSearch className="search-icon" />
-      <input
-        placeholder="Search"
-        type="search"
-        onChange={(event) => setSearchKeys(event.currentTarget.value)}
-        aria-label="Buscar skins"
-      />
-    </div>
-    <div className="checkbox-container">
-      {groupedBy !== "collection" ? (
-        <div
-          className="checkbox"
-          onClick={() => setShowNotObtained((prevState) => !prevState)}
-          role="checkbox"
-          aria-checked={showNotObtained}
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              setShowNotObtained((prevState) => !prevState);
-            }
-          }}
-        >
-          <div className="custom-checkbox" aria-hidden="true">
-            {showNotObtained ? <FaCheck className="check-icon" /> : null}
-          </div>
-          Mostrar no obtenidos
-        </div>
-      ) : (
-        <div className="h-3" aria-hidden="true"></div>
-      )}
-    </div>
-    <CustomSelect
-      className="select-filter"
-      options={[
-        { value: "collection", label: "My collection" },
-        { value: "all", label: "All" },
-        { value: "champion", label: "Champion" },
-        { value: "set", label: "Set" },
-        { value: "level", label: "Tier" },
-      ]}
-      value={groupedBy}
-      onChange={setGroupedBy}
-      placeholder="Seleccionar agrupación..."
-    />
-    <CustomSelect
-      className="select-filter"
-      options={sortOptionsByMode[groupedBy] || []}
-      value={sortedBy}
-      onChange={setSortedBy}
-      placeholder="Seleccionar orden..."
-      />
-
-  </div>
-  }
-
   return (
     <section className="collection-skins-section">
       <div className="side-panel">
@@ -478,6 +480,15 @@ export default memo(function CollectionSkins() {
           <RaritysCount raritys={raritys} trigger={trigger} countRarity={countRarity} ></RaritysCount>
           <img src="/collection/control-panel-frame-bot.png" className="control-panel-frame-bot" />
         </div>
+        <Filters
+          showNotObtained={showNotObtained}
+          setShowNotObtained={setShowNotObtained}
+          sortedBy={sortedBy}
+          setSortedBy={setSortedBy}
+          groupedBy={groupedBy}
+          setGroupedBy={setGroupedBy}
+          sortOptionsByMode={sortOptionsByMode}
+        />
       </div>
 
       {groupedSkins?.length > 0 ? (

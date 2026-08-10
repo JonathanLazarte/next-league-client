@@ -49,6 +49,7 @@ interface UserState {
   rank: Rank;
   profile_icon: string;
   profile_background: string;
+  loading: boolean;
 }
 
 const initialState: UserState = {
@@ -72,6 +73,7 @@ const initialState: UserState = {
   },
   profile_icon: "",
   profile_background: "",
+  loading: false,
 };
 
 const userSlice = createSlice({
@@ -81,9 +83,7 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<UserState>) => {
       Object.assign(state, action.payload);
     },
-    updateUser: (/*state, action*/) => {
-      // state.level = action.payload.level;
-      // state.EXP = action.payload.EXP;
+    updateUser: () => {
     },
     setUserMessages: (state, action: PayloadAction<string>) => {
       state.messages.push(action.payload);
@@ -104,8 +104,12 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchUser.pending, (state) => {
+        state.loading = true
+      })
       .addCase(fetchUser.fulfilled, (state, action) => {
         Object.assign(state, action.payload.userData)
+        state.loading = false
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.userName = action.payload.userName;
