@@ -54,7 +54,7 @@ const SkinTooltip = ({
               {content.skinRarity !== "NoRarity" ? (
                 <img
                   className="tooltip-rarity-icon"
-                  src={`/raritys/${content.skinRarity}.png`}
+                  src={`/collection/rarity-gem-icons/${content.skinRarity.toLowerCase()}.png`}
                 ></img>
               ) : null}
               <h2 className="tooltip-skin-name">{content.skinName}</h2>

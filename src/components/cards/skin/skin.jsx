@@ -84,7 +84,7 @@ export default memo(function SkinCard({
         skin.rarity !== "NoRarity" && (
           <img
             className="skin-card-rarity-image"
-            src={`/collection/rarity-gem-icons/${skin.rarity}.png`}
+            src={`/collection/rarity-gem-icons/${skin.rarity.toLowerCase()}.png`}
             alt={`Rareza ${skin.rarity}`}
             loading="lazy"
             aria-hidden="true"

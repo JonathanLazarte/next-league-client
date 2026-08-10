@@ -32,7 +32,7 @@ export const RaritysCount = ({ raritys, trigger, countRarity }) => {
           <div key={rarity} className="rarity-item" {...trigger({content: rarity})}>
             <img
               className="rarity-image"
-              src={`/collection/rarity-gem-icons/${rarity === 'Signature' ? 'transcendent' : rarity === 'Hall' ? 'exalted' : rarity}.png`}
+              src={`/collection/rarity-gem-icons/${rarity === 'Signature' ? 'transcendent' : rarity === 'Hall' ? 'exalted' : rarity.toLowerCase()}.png`}
               alt={`Rareza ${rarity}`}
               loading="lazy"
             />
@@ -518,7 +518,7 @@ export default memo(function CollectionSkins() {
             skinName: hoveredSkin?.name || null,
             purchaseDate: hoveredSkin?.purchaseDate || null,
             chromas: hoveredSkin?.chromas || null,
-            skinRarity: hoveredSkin?.rarity || null,
+            skinRarity: hoveredSkin?.rarity.toLowerCase() || null,
             inCollection: isSkinInCollection(hoveredSkin?.id) || null,
             value: hoveredSkin?.value || null,
           }}
