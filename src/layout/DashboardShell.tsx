@@ -32,7 +32,7 @@ import { useRouteSync } from '@/hooks/useRouteSync'
 
 export default function ProvidersWrapper({ children }) {
   const { token, loading : authLoading, isAuthenticated } = useAuth();
-  const { user, loading : userLoading } = useUser();
+  const { user } = useUser();
   const { itemToBuy } = usePurchase();
   const { isNavigating } = useUserInterface();
   const socket = useSocket(token);
