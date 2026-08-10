@@ -74,7 +74,7 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
               height="1"
             >
               <image
-                href={`${RESOURCES_URL}profileicon/${user.profile_icon}.png`}
+                href={`${RESOURCES_URL}profileicon/${user.profile_icon || 5}.png`}
                 width="750"
                 height="750"
                 x="2%"
