@@ -23,6 +23,50 @@ import VirtualSkinsGrid from "@/components/VirtualGrid/VirtualSkinsGrid.jsx";
 import useSkins from "@/hooks/useSkins.js";
 import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
 
+
+export const RaritysCount = ({ raritys, trigger, countRarity }) => {
+  return <div className="rarity-icons-container">
+
+      <div className="rarity-icons">
+        {raritys?.map((rarity) => (
+          <div key={rarity} className="rarity-item" {...trigger({content: rarity})}>
+            <img
+              className="rarity-image"
+              src={`/collection/rarity-gem-icons/${rarity === 'Signature' ? 'transcendent' : rarity === 'Hall' ? 'exalted' : rarity}.png`}
+              alt={`Rareza ${rarity}`}
+              loading="lazy"
+            />
+            {countRarity[rarity] ? countRarity[rarity] : "0"}
+          </div>
+        ))}
+      </div>
+
+      <div className="legacy-chromas-icons">
+        <div className="legacy-item" {...trigger({ content: "Legacy" })}>
+          <img
+            className="rariry-image w-7"
+            src="/raritys/Legacy.png"
+            alt="Legacy"
+            loading="lazy"
+          />
+          {countRarity["NoRarity"] || "0"}
+        </div>
+
+        <div className="chroma-item" {...trigger({content: "Chromas"})}>
+          <img
+            className="rariry-image w-7"
+            src="/raritys/Chroma.png"
+            alt="Chroma"
+            loading="lazy"
+            />
+            0
+        </div>
+
+    </div>
+  </div>
+}
+
+
 export default memo(function CollectionSkins() {
   /*const API_URL = process.env.NEXT_PUBLIC_API_URL;*/
   const { userSkins, loading } = useSelector(selectUserSkinsData);
@@ -354,168 +398,88 @@ export default memo(function CollectionSkins() {
   const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
   const tooltipRef = useRef();
 
+  const TotalSkinsCount = () => {
+    return <div className="total-skins-count">
+      <div className="total-skins-info">
+        <div className="amount">{userSkins?.length}</div>
+        <div className="description">TOTAL SKINS OWNED</div>
+      </div>
+    </div>
+  }
+
+
+
+  const Filters = () => {
+    return <div>
+
+    <div className="search-filter">
+      <FaSearch className="search-icon" />
+      <input
+        placeholder="Search"
+        type="search"
+        onChange={(event) => setSearchKeys(event.currentTarget.value)}
+        aria-label="Buscar skins"
+      />
+    </div>
+    <div className="checkbox-container">
+      {groupedBy !== "collection" ? (
+        <div
+          className="checkbox"
+          onClick={() => setShowNotObtained((prevState) => !prevState)}
+          role="checkbox"
+          aria-checked={showNotObtained}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setShowNotObtained((prevState) => !prevState);
+            }
+          }}
+        >
+          <div className="custom-checkbox" aria-hidden="true">
+            {showNotObtained ? <FaCheck className="check-icon" /> : null}
+          </div>
+          Mostrar no obtenidos
+        </div>
+      ) : (
+        <div className="h-3" aria-hidden="true"></div>
+      )}
+    </div>
+    <CustomSelect
+      className="select-filter"
+      options={[
+        { value: "collection", label: "My collection" },
+        { value: "all", label: "All" },
+        { value: "champion", label: "Champion" },
+        { value: "set", label: "Set" },
+        { value: "level", label: "Tier" },
+      ]}
+      value={groupedBy}
+      onChange={setGroupedBy}
+      placeholder="Seleccionar agrupación..."
+    />
+    <CustomSelect
+      className="select-filter"
+      options={sortOptionsByMode[groupedBy] || []}
+      value={sortedBy}
+      onChange={setSortedBy}
+      placeholder="Seleccionar orden..."
+      />
+
+  </div>
+  }
+
   return (
     <section className="collection-skins-section">
-      <div className="skins-panel">
-        <div className="left-place">
-          <div className="skins-panel-stats ">
-            <svg
-              className="hextech-rounded-border"
-              id="Capa_2"
-              data-name="Capa 2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 184 211.41"
-            >
-              <g id="Meters">
-                <g>
-                  <path
-                    className="cls-3"
-                    d="M97.78,35.63l-5.78,5.78-5.78-5.78C42.53,38.61,8,74.97,8,119.41s37.61,84,84,84,84-37.61,84-84-34.53-80.81-78.22-83.78Z"
-                  />
-                  <path
-                    className="cls-2"
-                    d="M104.19,29.23l-12.19,12.19-12.19-12.19C35.32,35.18,1,73.29,1,119.41c0,50.26,40.74,91,91,91s91-40.74,91-91c0-46.13-34.32-84.23-78.81-90.19Z"
-                  />
-                  <rect
-                    className="cls-1"
-                    x="88.46"
-                    y="17.88"
-                    width="7.07"
-                    height="7.07"
-                    transform="translate(11.8 71.33) rotate(-45)"
-                  />
-                </g>
-              </g>
-            </svg>
-            <div className="total-skins-info">
-              <div className="amount">{userSkins?.length}</div>
-              <div className="description">TOTAL SKINS OWNED</div>
-            </div>
-            <svg
-              className="skins-hextech-border"
-              id="Capa_2"
-              data-name="Capa 2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 170.3 192.39"
-            >
-              <defs></defs>
-              <g id="Containers">
-                <g>
-                  <g>
-                    <path
-                      className="cls-1"
-                      d="M.5,6.47c3.31,0,6-2.67,6-5.97h157.3c0,3.3,2.69,5.97,6,5.97"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M11.36,188.16c-1.55-4.48-5.82-7.71-10.86-7.71V12.19c5.04,0,9.31-3.22,10.86-7.71"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M169.8,185.92c-3.31,0-6,2.67-6,5.97H6.5c0-3.3-2.69-5.97-6-5.97"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M158.95,4.23c1.55,4.48,5.82,7.71,10.86,7.71v168.26c-5.04,0-9.31,3.22-10.86,7.71"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
-
-            <div className="rarity-icons-container">
-              <div className="rarity-icons">
-                {raritys.map((rarity) => (
-                  <div key={rarity} className="rarity-item" {...trigger({content: rarity})}>
-                    <img
-                      className="rarity-image"
-                      src={`/raritys/${rarity}.png`}
-                      alt={`Rareza ${rarity}`}
-                      loading="lazy"
-                    />
-                    {countRarity[rarity] ? countRarity[rarity] : "0"}
-                  </div>
-                ))}
-              </div>
-              <div className="legacy-chromas-icons">
-                <div className="legacy-item" {...trigger({ content: "Legacy" })}>
-                  <img
-                    className="rariry-image w-7"
-                    src="/raritys/Legacy.png"
-                    alt="Legacy"
-                    loading="lazy"
-                  />
-                  {countRarity["NoRarity"] || "0"}
-                </div>
-                <div className="chroma-item" {...trigger({content: "Chromas"})}>
-                  <img
-                    className="rariry-image w-7"
-                    src="/raritys/Chroma.png"
-                    alt="Chroma"
-                    loading="lazy"
-                  />
-                  0
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="right-place">
-          <div className="search-filter">
-            <FaSearch className="search-icon" />
-            <input
-              placeholder="Search"
-              type="search"
-              onChange={(event) => setSearchKeys(event.currentTarget.value)}
-              aria-label="Buscar skins"
-            />
-          </div>
-          <div className="checkbox-container">
-            {groupedBy !== "collection" ? (
-              <div
-                className="checkbox"
-                onClick={() => setShowNotObtained((prevState) => !prevState)}
-                role="checkbox"
-                aria-checked={showNotObtained}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setShowNotObtained((prevState) => !prevState);
-                  }
-                }}
-              >
-                <div className="custom-checkbox" aria-hidden="true">
-                  {showNotObtained ? <FaCheck className="check-icon" /> : null}
-                </div>
-                Mostrar no obtenidos
-              </div>
-            ) : (
-              <div className="h-3" aria-hidden="true"></div>
-            )}
-          </div>
-          <CustomSelect
-            className="select-filter"
-            options={[
-              { value: "collection", label: "My collection" },
-              { value: "all", label: "All" },
-              { value: "champion", label: "Champion" },
-              { value: "set", label: "Set" },
-              { value: "level", label: "Tier" },
-            ]}
-            value={groupedBy}
-            onChange={setGroupedBy}
-            placeholder="Seleccionar agrupación..."
-          />
-          <CustomSelect
-            className="select-filter"
-            options={sortOptionsByMode[groupedBy] || []}
-            value={sortedBy}
-            onChange={setSortedBy}
-            placeholder="Seleccionar orden..."
-          />
+      <div className="side-panel">
+        <div className="control-panel">
+          <img src="/collection/control-panel-frame-top.png" className="control-panel-frame-top" />
+          <TotalSkinsCount></TotalSkinsCount>
+          <RaritysCount raritys={raritys} trigger={trigger} countRarity={countRarity} ></RaritysCount>
+          <img src="/collection/control-panel-frame-bot.png" className="control-panel-frame-bot" />
         </div>
       </div>
+
       {groupedSkins?.length > 0 ? (
         <VirtualSkinsGrid
           onHoverStart={onHoverStart}
