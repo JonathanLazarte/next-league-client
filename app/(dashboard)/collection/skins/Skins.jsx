@@ -66,7 +66,7 @@ export const RaritysCount = ({ raritys, trigger, countRarity }) => {
   </div>
 }
 
-export const Filters = ({ showNotObtained, setShowNotObtained, groupedBy, setGroupedBy, sortedBy, setSortedBy, sortOptionsByMode }) => {
+export const Filters = ({setSearchKeys, showNotObtained, setShowNotObtained, groupedBy, setGroupedBy, sortedBy, setSortedBy, sortOptionsByMode }) => {
 
 
   return <div>
@@ -488,6 +488,7 @@ export default memo(function CollectionSkins() {
           groupedBy={groupedBy}
           setGroupedBy={setGroupedBy}
           sortOptionsByMode={sortOptionsByMode}
+          setSearchKeys={setSearchKeys}
         />
       </div>
 
