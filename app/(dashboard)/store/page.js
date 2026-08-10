@@ -7,8 +7,8 @@ import { IoIosGift } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { useSound } from "@/hooks/useSound.js";
 import Loading from "@/components/Loading/Loading";
-import "./championsStore/championsStore.css";
-import "./skinsStore/skinsStore.css";
+import "./champions/Champions.css";
+import "./skins/Skins.css";
 
 /*const ChampionsStore = dynamic(
   () => import("./championsStore/championsStore"),
@@ -17,8 +17,8 @@ import "./skinsStore/skinsStore.css";
     ssr: false,
   },
 );*/
-import ChampionsStore from './championsStore/championsStore'
-const SkinsStore = dynamic(() => import("./skinsStore/skinsStore.jsx"), {
+import ChampionsStore from './champions/Champions'
+const SkinsStore = dynamic(() => import("./skins/Skins.jsx"), {
   loading: () => <Loading />,
   ssr: false,
 });

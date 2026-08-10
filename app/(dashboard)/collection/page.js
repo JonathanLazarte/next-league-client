@@ -12,9 +12,9 @@ import Loading from "@/components/Loading/Loading";
     ssr: false,
   },
 );*/
-import ChampionsSection from './collectionChampions/collectionChampions'
+import ChampionsSection from './champions/Champions'
 const SkinsSection = dynamic(
-  () => import("./collectionSkins/collectionSkins.jsx"),
+  () => import("./skins/Skins.jsx"),
   {
     loading: () => <Loading />,
     ssr: false,

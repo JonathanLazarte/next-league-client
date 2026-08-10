@@ -13,7 +13,7 @@ import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 import useSkins from "@/hooks/useSkins";
 
-import "./skinsStore.css";
+import "./skins.css";
 
 export default memo(function ItemsShop() {
   const { skinsData /*, isLoadingSkinsData*/ } = useSkins();
@@ -225,7 +225,9 @@ export default memo(function ItemsShop() {
       {filteredItems && sectionSelected === "ASPECTOS" ? (
         <VirtualStoreGrid items={filteredItems} StoreCard={SkinStoreCard} />
       ) : (
-        <div className="text-red-800">Próximamente...</div>
+        <div className="poro-apologizes flex justify-center items-center grow">
+          <img src="/global/poro_sad.png" alt="Poro sad"></img>
+        </div>
       )}
     </div>
   );

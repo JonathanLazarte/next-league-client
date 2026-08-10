@@ -1,6 +1,6 @@
 "use client";
 
-import "./championsStore.css";
+import "./champions.css";
 import { useState, useEffect, memo, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
@@ -213,7 +213,9 @@ export default memo(function PokemonShop() {
           StoreCard={ChampionStoreCard}
         />
       ) : (
-        <div className="text-red-800">Próximamente...</div>
+          <div className="poro-apologizes flex justify-center items-center grow">
+            <img src="/global/poro_sad.png" alt="Poro sad"></img>
+          </div>
       )}
     </div>
   );

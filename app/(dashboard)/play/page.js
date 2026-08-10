@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useSound } from "@/hooks/useSound.js";
 
 import ModeSelector from "./ModeSelector.jsx";
-import Pvp from "./PvpRoom/PvpLobby.jsx";
+import Pvp from "./rooms/pvp/Pvp.jsx";
 /*import dynamic from "next/dynamic";
 const Pvp = dynamic(() => import("./PvpRoom/index.jsx"), {
   ssr: false

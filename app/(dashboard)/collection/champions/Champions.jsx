@@ -1,6 +1,6 @@
 "use client";
 
-import "./collectionChampions.css";
+import "./champions.css";
 import { useState, memo, useMemo, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";

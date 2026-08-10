@@ -36,6 +36,13 @@ export default function RootLayout({ children }) {
           type="font/otf"
           crossOrigin="anonymous"
         />
+        <link
+          rel="preload"
+          href="fonts/Spiegel-SemiBold.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
       </head>
 
       <body className={`${inter.variable} ${medium.variable}`}>

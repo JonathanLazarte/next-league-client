@@ -1,6 +1,6 @@
 "use client";
 
-import "./collectionSkins.css";
+import "./skins.css";
 import {
   useState,
   useEffect,
