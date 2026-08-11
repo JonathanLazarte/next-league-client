@@ -14,7 +14,7 @@ import UseNearScreen from "@/services/UseNearScreen.js";
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
 import useChampions from "@/hooks/useChampions";
 
-export default memo(function PokemonShop() {
+export default memo(function Champions() {
   const [searchKeys, setSearchKeys] = useState("");
   const [inCollection, setInCollection] = useState(false);
   const { championsData /* , isLoadingChampions*/ } = useChampions();
@@ -209,13 +209,13 @@ export default memo(function PokemonShop() {
       {sectionSelected === "CAMPEONES" ? (
         <VirtualStoreGrid
           items={championsFiltered}
-          handleClick={() => {}}
+          handleClick={() => { }}
           StoreCard={ChampionStoreCard}
         />
       ) : (
-          <div className="poro-apologizes flex justify-center items-center grow">
-            <img src="/global/poro_sad.png" alt="Poro sad"></img>
-          </div>
+        <div className="poro-apologizes flex justify-center items-center grow">
+          <img src="/global/poro_sad.png" alt="Poro sad"></img>
+        </div>
       )}
     </div>
   );

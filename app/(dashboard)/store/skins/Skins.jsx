@@ -15,7 +15,7 @@ import useSkins from "@/hooks/useSkins";
 
 import "./skins.css";
 
-export default memo(function ItemsShop() {
+export default memo(function Skins() {
   const { skinsData /*, isLoadingSkinsData*/ } = useSkins();
   const [searchKeys, setSearchKeys] = useState("");
   const [inCollection, setInCollection] = useState(false);

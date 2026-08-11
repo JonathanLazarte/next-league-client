@@ -107,7 +107,6 @@ export default function useChampionsFilter() {
         loading,
         championFull,
         championsData,
-        isLoadingChampionsData,
         filterState: {
             searchKeys,
             inCollection,
