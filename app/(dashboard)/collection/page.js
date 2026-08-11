@@ -2,7 +2,7 @@
 
 import "./collection.css";
 import { useState, memo } from "react";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
 /*const ChampionsSection = dynamic(
@@ -14,28 +14,25 @@ import Loading from "@/components/Loading/Loading";
 );*/
 import ChampionsSection from './champions/Champions'
 const SkinsSection = dynamic(
-  () => import("./skins/Skins.jsx"),
+  () => import("./skins/Skins"),
   {
     loading: () => <Loading />,
     ssr: false,
   },
 );
 
-export default memo(function Bag() {
-  const [actualSection, setLocalSection] = useState("campeones");
+export default memo(function Collection() {
+  const [actualSubSection, setActualSubSection] = useState("campeones");
   const sections = [
     "campeones",
     "aspectos",
-    /*"gestos",
-    "runas",
-    "hechizos",
-    "objetos",
-    "íconos",
-    "centinelas",
-    "chromas",
-    "remates",*/
   ];
-  const { play } = useSound("/general/menu-click.mp3");
+  const { play } = useSound("/sfx/menu-click.mp3");
+
+  const handleClick = (section) => {
+    play();
+    setActualSubSection(section);
+  }
 
   return (
     <section className="collection">
@@ -43,18 +40,15 @@ export default memo(function Bag() {
         {sections.map((section) => (
           <div
             key={section}
-            className={`subheader-tab ${actualSection === section ? "active-subheader-tab" : null}`}
-            onClick={() => {
-              play();
-              setLocalSection(section);
-            }}
+            className={`subheader-tab ${actualSubSection === section ? "active-subheader-tab" : null}`}
+            onClick={() => handleClick(section)}
           >
             {section.toUpperCase()}
           </div>
         ))}
       </header>
-      {actualSection == "aspectos" && <SkinsSection></SkinsSection>}
-      {actualSection == "campeones" && <ChampionsSection></ChampionsSection>}
+      {actualSubSection == "aspectos" && <SkinsSection></SkinsSection>}
+      {actualSubSection == "campeones" && <ChampionsSection></ChampionsSection>}
     </section>
   );
 });

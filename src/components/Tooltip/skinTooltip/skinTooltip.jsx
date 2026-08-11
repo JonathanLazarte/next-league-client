@@ -9,8 +9,9 @@ const SkinTooltip = ({
   cords,
   currentDelayType,
   hoveredSkinCardRef,
+  inCollection
 }) => {
-  /*const [visible, setVisible] = useState(true);*/
+
   const [coords, setCoords] = useState(cords);
   const [tooltipDirection, setTooltipDirection] = useState("up");
   const ref = useRef();
@@ -51,16 +52,16 @@ const SkinTooltip = ({
             }}
           >
             <div className="tooltip-header">
-              {content.skinRarity !== "NoRarity" ? (
+              {content.rarity !== "NoRarity" ? (
                 <img
                   className="tooltip-rarity-icon"
-                  src={`/collection/rarity-gem-icons/${content.skinRarity.toLowerCase()}.png`}
+                  src={`/collection/rarity-gem-icons/${content.rarity.toLowerCase()}.png`}
                 ></img>
               ) : null}
-              <h2 className="tooltip-skin-name">{content.skinName}</h2>
+              <h2 className="tooltip-skin-name">{content.name}</h2>
             </div>
             <div className="purchase-date-chroma-section">
-              {content.inCollection ? (
+              {inCollection ? (
                 `Adquirido en ${new Date(content.purchaseDate).toLocaleDateString("es-ES")}`
               ) : (
                 <>

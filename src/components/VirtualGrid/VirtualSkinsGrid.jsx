@@ -125,6 +125,8 @@ export default function VirtualSkinsGrid({
     overscan: 6,
   });
 
+  if(!groupedSkins) return <></>
+
   return (
     <div ref={parentRef} className="skins-grid-container">
       <div

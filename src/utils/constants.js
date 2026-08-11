@@ -79,3 +79,25 @@ export const BACKGROUND_URLS = {
   store: "/store_background.webp",
   collection: "/collection_background.webp",
 }
+
+export const FILTER_OPTIONS_BY_GROUPING = {
+  collection: [
+    { value: "purchaseDate", label: "Adquisition Date" },
+    { value: "releaseDate", label: "Release Date" },
+    { value: "alphabetical", label: "Alphabetical" },
+  ],
+  all: [
+    { value: "releaseDate", label: "Release Date" },
+    { value: "alphabetical", label: "Alphabetical" },
+  ],
+  champion: [
+    { value: "mastery", label: "Mastery" },
+    { value: "mostOwned", label: "Most Owned" },
+    { value: "alphabetical", label: "Alphabetical" },
+  ],
+  set: [
+    { value: "mostOwned", label: "Most Owned" },
+    { value: "alphabetical", label: "Alphabetical" },
+  ],
+  level: [{ value: "rarity", label: "Rarity (By default)" }],
+};
