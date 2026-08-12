@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 
-import ChampionStoreCard from "@/components/cards/ChampionStore/ChampionStore.jsx";
-import VirtualStoreGrid from "@/components/VirtualGrid/VirtualStoreGrid.jsx";
+import ChampionCard from "@/components/cards/store/Champion/Champion.jsx";
+import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
 
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 import UseNearScreen from "@/services/UseNearScreen.js";
@@ -210,7 +210,7 @@ export default memo(function Champions() {
         <VirtualStoreGrid
           items={championsFiltered}
           handleClick={() => { }}
-          StoreCard={ChampionStoreCard}
+          StoreCard={ChampionCard}
         />
       ) : (
         <div className="poro-apologizes flex justify-center items-center grow">

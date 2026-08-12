@@ -1,11 +1,11 @@
 "use client";
 
-import "./desktopHeader.css";
-import HeaderMainButton from "@/components/playButton/HeaderMainButton/HeaderMainButton";
+import "./DesktopHeader.css";
+import PlayLobbyButton from "@/components/buttons/PlayLobby/PlayLobby";
 import { memo } from "react";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useState } from 'react'
-import useTooltipTrigger from '@/components/Tooltip/globalTooltip/TooltipTrigger'
+import useTooltipTrigger from '@/components/tooltips/GlobalTooltip/TooltipTrigger'
 import HeaderTab from './components/HeaderTab'
 import HeaderWallet from './components/HeaderWallet'
 import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants.js'
@@ -23,7 +23,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
         }}
         className="index-header"
       >
-        <HeaderMainButton setSectionTabSelected={setSectionTabSelected} />
+        <PlayLobbyButton setSectionTabSelected={setSectionTabSelected} />
         {LEFT_HEADER_TABS.map(section => (
           <HeaderTab
             key={section.id}

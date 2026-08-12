@@ -3,22 +3,15 @@ import { audioEngine } from "@/engine/audioEngine.js";
 import ReactDOM from "react-dom";
 import { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
-import {
-  setVolume,
-  setMute,
-  restoreDefaults,
-} from "@/redux/slices/soundSlice";
-import { saveSettings } from "@/redux/slices/settingsSlice.ts";
-import { useDispatch, useSelector } from "react-redux";
+import { useSoundState } from "@/hooks/useSoundState";
+import { useSettings } from "@/hooks/useSettings";
 
 function SoundControl({ label, checkLabel, type, isMasterMuted }) {
   // Estado local solo para visualización inmediata en UI
   const [localVolume, setLocalVolume] = useState(0.5); // Valor inicial debería venir de config
   const [isLocalMuted, setIsLocalMuted] = useState(false);
-  const { volume: globalVolume, muted: globalMuted } = useSelector(
-    (state) => state.sound[type],
-  );
-  const dispatch = useDispatch();
+  const soundState = useSoundState();
+  const { volume: globalVolume, muted: globalMuted } = soundState[type];
 
   const handleSlider = (e) => {
     const val = e.target.value;
@@ -27,11 +20,11 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }) {
   };
   const handleCommit = (e) => {
     const val = e.target.value;
-    dispatch(setVolume({ type, val }));
+    soundState.setVolume({ type, val });
   };
 
   const handleCheck = () => {
-    dispatch(setMute({ type, muted: !isLocalMuted }));
+    soundState.setMute({ type, muted: !isLocalMuted });
   };
 
   useEffect(() => setLocalVolume(globalVolume), [globalVolume]);
@@ -84,10 +77,8 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }) {
 function AudioSettings() {
   const [localVolume, setLocalVolume] = useState(0.5); // Valor inicial debería venir de config
   const [isMasterMuted, setIsMasterMuted] = useState(false);
-  const { volume: globalVolume, muted: globalMuted } = useSelector(
-    (state) => state.sound.master,
-  );
-  const dispatch = useDispatch();
+  const soundState = useSoundState();
+  const { volume: globalVolume, muted: globalMuted } = soundState.master;
 
   const handleSlider = (e) => {
     const val = e.target.value;
@@ -96,11 +87,11 @@ function AudioSettings() {
   };
   const handleCommit = (e) => {
     const val = e.target.value;
-    dispatch(setVolume({ type: "master", val }));
+    soundState.setVolume({ type: "master", val });
   };
 
   const handleCheck = () => {
-    dispatch(setMute({ type: "master", muted: !isMasterMuted }));
+    soundState.setMute({ type: "master", muted: !isMasterMuted });
   };
 
   useEffect(() => setLocalVolume(globalVolume), [globalVolume]);
@@ -157,15 +148,15 @@ function AudioSettings() {
 
 export default function Settings({ setIsSettingsOpen }) {
   const [settingSelected, setSettingSelected] = useState("sound");
-  const userSettings = useSelector((state) => state.settings);
-  const dispatch = useDispatch();
+  const { settings, saveSettings } = useSettings();
+  const { restoreDefaults } = useSoundState();
 
   const handleRestoreDefaults = () => {
-    dispatch(restoreDefaults());
+    restoreDefaults();
   };
   const handleSaveSettings = () => {
     const updatedUserSettings = {
-      ...userSettings,
+      ...settings,
       sound: {
         master: {
           volume: audioEngine.channels.master.volume,
@@ -182,7 +173,7 @@ export default function Settings({ setIsSettingsOpen }) {
       },
     };
     const token = localStorage.getItem("token");
-    dispatch(saveSettings({ userId: token, settings: updatedUserSettings }));
+    saveSettings({ userId: token, settings: updatedUserSettings });
   };
   return (
     typeof window !== "undefined" &&

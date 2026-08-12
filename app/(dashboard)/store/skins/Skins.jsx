@@ -6,8 +6,8 @@ import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
-import SkinStoreCard from "@/components/cards/SkinStore/SkinStore.jsx";
-import VirtualStoreGrid from "@/components/VirtualGrid/VirtualStoreGrid.jsx";
+import SkinCard from "@/components/cards/store/Skin/Skin.jsx";
+import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
 
 import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
 import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
@@ -223,7 +223,7 @@ export default memo(function Skins() {
       <div className="gradient-layer" />
       {/* Grid de skins */}
       {filteredItems && sectionSelected === "ASPECTOS" ? (
-        <VirtualStoreGrid items={filteredItems} StoreCard={SkinStoreCard} />
+        <VirtualStoreGrid items={filteredItems} StoreCard={SkinCard} />
       ) : (
         <div className="poro-apologizes flex justify-center items-center grow">
           <img src="/global/poro_sad.png" alt="Poro sad"></img>

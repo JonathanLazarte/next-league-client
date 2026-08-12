@@ -2,9 +2,9 @@
 
 import "./champions.css";
 import { useState, memo } from "react";
-import Tooltip from "@/components/Tooltip/Tooltip.jsx";
+import Tooltip from "@/components/tooltips/ChampionTooltip/ChampionTooltip.jsx";
 import ChampionDetailModal from "@/components/ChampionDetailModal/ChampionDetailModal.jsx";
-import VirtualChampionsGrid from "@/components/VirtualGrid/VirtualChampionsGrid.jsx";
+import VirtualChampionsGrid from "@/components/virtual-grids/VirtualChampionsGrid.jsx";
 import Filters from './components/Filters'
 import EmptyChampionsState from "./components/EmptyChampionsState";
 import useChampionHoverTooltip from "./hooks/useChampionHoverTooltip";

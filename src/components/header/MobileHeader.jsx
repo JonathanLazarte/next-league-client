@@ -1,7 +1,7 @@
 'use client'
 
-import './mobileHeader.css'
-import HeaderMainButton from '@/components/playButton/HeaderMainButton/HeaderMainButton'
+import './MobileHeader.css'
+import PlayLobbyButton from "@/components/buttons/PlayLobby/PlayLobby";
 import { RiSidebarFoldFill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
 import { useUserInterface} from '@/hooks/useUserInterface'
@@ -37,7 +37,7 @@ export default function MobileHeader(){
     }
 
   return <header className="mobile-header">
-    <HeaderMainButton/>
+    <PlayLobbyButton/>
     <div className="mobile-header-tabs">
       <div className="item" onClick={()=>setIsNavigationOpen(prev=>!prev)}><TiThMenu /></div>
       <div className="item" onClick={()=>updateSideNav()}><RiSidebarFoldFill /></div>

@@ -1,6 +1,6 @@
 "use client";
 
-import "./sideNav.css";
+import "./SideNav.css";
 import { useState, memo,useRef } from "react";
 
 
@@ -13,9 +13,9 @@ import { FaMicrophone } from "react-icons/fa6";
 
 import { IoChatboxSharp } from "react-icons/io5";
 
-import UserTooltip from "@/components/Tooltip/userTooltip/userTooltip.jsx";
-import Settings from "@/components/Settings/Settings.jsx";
-import ProfileBox from "./ProfileBox.jsx";
+import UserTooltip from "@/components/tooltips/UserTooltip/UserTooltip";
+import Settings from "@/components/Settings/Settings";
+import ProfileBox from "./ProfileBox";
 import SocialPanel from "./SocialPanel";
 
 

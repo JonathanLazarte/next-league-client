@@ -3,9 +3,9 @@
 import { memo } from "react";
 import "./skins.css";
 
-import SkinTooltip from "@/components/Tooltip/skinTooltip/skinTooltip";
-import VirtualSkinsGrid from "@/components/VirtualGrid/VirtualSkinsGrid";
-import useTooltipTrigger from "@/components/Tooltip/globalTooltip/TooltipTrigger";
+import SkinTooltip from "@/components/tooltips/SkinTooltip/SkinTooltip";
+import VirtualSkinsGrid from "@/components/virtual-grids/VirtualSkinsGrid";
+import useTooltipTrigger from "@/components/tooltips/GlobalTooltip/TooltipTrigger";
 
 import Filters from "./components/Filters";
 import ControlPanel from "./components/ControlPanel";

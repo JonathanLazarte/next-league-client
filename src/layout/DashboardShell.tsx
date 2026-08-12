@@ -6,13 +6,13 @@ import "$/(dashboard)/store/store.css";
 import "$/(dashboard)/play/play.css";
 import "@/components/LoadingOverlay/LoadingOverlay.css"
 
-import ResponsiveHeader from "@/components/header";
+import ResponsiveHeader from "@/components/Header";
 import SideNav from "@/components/SideNav/SideNav";
-import Chat from "@/components/chat/chat.jsx"
+import Chat from "@/components/Chat/Chat.jsx"
 import MusicPlayer from "@/components/Audio/MusicPlayer"
-import ConfirmPurchaseModal from "@/components/confirmPurchaseModal/confirmPurchaseModal";
+import ConfirmPurchaseModal from "@/components/ConfirmPurchaseModal/ConfirmPurchaseModal";
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
-import TooltipLayer from "@/components/Tooltip/globalTooltip/TooltipLayer";
+import TooltipLayer from "@/components/tooltips/GlobalTooltip/TooltipLayer";
 import BackgroundEngine from "@/components/BackgroundEngine/BackgroundEngine";
 import DashboardLoading from '@/components/Loading/DashboardLoading'
 
