@@ -46,9 +46,6 @@ export default memo(function Champions() {
 
 
 
-
-
-
   return (
     <div className="collection-champions-wrapper">
       <div

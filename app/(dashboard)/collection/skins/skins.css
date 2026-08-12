@@ -77,10 +77,10 @@
     justify-content: flex-end;
     padding:
         0 9px,
-        1.12rem;
-    font-family: Spiegel-Regular;
+        0;
     border: solid var(--gold-six);
     border-width: 0 2px;
+    font-family: Spiegel-Regular;
 }
 
 .rarity-icons {
@@ -107,17 +107,15 @@
 }
 
 .legacy-chromas-icons {
-    height: 33%;
+    height: 7rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 1.5rem;
     align-content: center;
     align-items: center;
-    padding-top: 1.5rem;
     color: var(--grey-three);
     font-size: 1.5rem;
-    padding-bottom: 1rem;
 }
 
 .chroma-item,
@@ -130,13 +128,12 @@
     flex-direction: column;
     width: 3.2rem;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
 .chroma-item img,
 .legacy-item img {
     width: 3rem;
-    margin-bottom: 0.4rem;
-    margin-top: 0.2rem;
 }
 
 .collection-skins-section .search-filter {

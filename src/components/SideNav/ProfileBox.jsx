@@ -120,7 +120,7 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
         </div>
         {!iconIsInHover && (
           <>
-            <h3 className="right-nav-username">{user.userName}</h3>
+            <h3 className="right-nav-username">{user.alias}</h3>
             <div
               className={`user-status ${queueStatus !== "idle" ? "active-queue" : userState === "offline" ? "offline" : ""}`}
               onClick={toggleState}
