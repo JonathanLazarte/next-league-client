@@ -167,7 +167,7 @@ export const { setUser, updateUser, setUserMessages, updateCoins } =
   userSlice.actions;
 
 export const selectRP = (state) => state.user.RP;
-export const selectBE = (state) => state.user.RP;
+export const selectBE = (state) => state.user.BE;
 
 export const selectUserData = createSelector(
   [selectRP, selectBE],

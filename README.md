@@ -1,132 +1,239 @@
 # Next League Client
 
-A large-scale web application inspired by the League of Legends desktop client, built with React, Next.js, TypeScript, Redux, Node.js, MongoDB, and Socket.io.
+A high-fidelity recreation of the League of Legends desktop client, rebuilt as a modern web application with Next.js and React.
 
-The goal of this project is to recreate the complexity, responsiveness, and visual quality of a modern desktop game client within a browser environment while maintaining scalable architecture and a polished user experience.
+The project focuses on reproducing the original client's interface, navigation flows, interactive systems, animations, and real-time features while exploring frontend architecture, state management, performance optimization, and reusable UI infrastructure.
+
+> This repository contains the client application. The backend is maintained separately.
+
+## Live Demo
+
+https://next-league-client.vercel.app
 
 ## Overview
 
-Next League Client reproduces many of the systems and workflows found in the original League of Legends client, including collections, store functionality, social features, chat systems, game mode navigation, settings management, and interactive overlays.
+Next League Client is a personal full-stack project centered around recreating a complex desktop application inside the browser.
 
-The project focuses on:
+Rather than being a static UI recreation, the project implements interconnected application flows such as:
 
-* Complex frontend architecture
-* Real-time communication
-* Scalable state management
-* High-fidelity UI implementation
-* Performance optimization
-* Reusable component design
-* Desktop-like user experience in the browser
+- Authentication
+- Champion and skin collections
+- Champion detail views
+- Store and purchase flows
+- Game mode selection
+- PvP and Co-op vs. AI flows
+- Lobby interfaces
+- Real-time chat
+- User presence
+- Application settings
+- Dynamic tooltips
+- Virtualized collections
+- Loading and navigation states
+- Animations and transitions
 
-## Engineering Highlights
-
-• 8+ Feature Modules
-• 15 Redux Toolkit Slices
-• 14 Custom Hooks
-• 1,800+ Virtualized Items
-• Application-wide Tooltip Infrastructure
-• Real-time Communication with Socket.io
-• SSR + Middleware Route Protection
+The project currently contains the frontend/client application, which communicates with a separately maintained Node.js/Express backend through REST APIs and Socket.io.
 
 ## Features
 
+### Collection
 
-### User Interface
+- Champion collection
+- Skin collection
+- Filtering and navigation
+- Support for 1,800+ skin items
+- Virtualized rendering for large collections
+- Champion detail modal
+- Champion overview, abilities, and skins
 
-* Pixel-perfect recreation of League Client inspired interfaces
-* Responsive layouts
-* Animated overlays and modal systems
-* Dynamic navigation and transitions
-* Advanced micro-interactions
+### Store
+
+- Champion store
+- Skin store
+- Reusable store cards
+- Purchase confirmation modal
+- Shared state for purchases and owned content
+
+### Game Modes
+
+- PvP mode selection
+- Co-op vs. AI
+- Map selection
+- Summoner's Rift
+- ARAM
+- Queue selection
+- Lobby flow
+
+### Real-Time Communication
+
+- Real-time chat
+- Connected-user presence
+- Socket.io communication
+- Centralized client state synchronization
+
+### UI Systems
+
+- Reusable modal architecture
+- Loading states and overlays
+- Responsive navigation
+- Custom select components
+- Global tooltip system
+- Specialized tooltip variants
+- Animated transitions and overlays
+- Audio and sound management
+
+## Technical Highlights
+
+### Application Architecture
+
+The application is organized around Next.js App Router routes and a shared `src` layer containing reusable components, hooks, Redux state, services, utilities, and UI systems.
+
+The project separates route-level features from reusable application infrastructure, making components such as tooltips, virtualized grids, navigation, chat, modals, and loading states available across multiple parts of the application.
 
 ### State Management
 
-* Centralized Redux architecture
-* Cross-module state synchronization
-* Optimized rendering workflows
-* Predictable application state management
+Redux Toolkit is used for centralized client-side state.
 
-### Real-Time Systems
+The application contains separate slices for areas such as:
 
-* Socket.io integration
-* Live chat functionality
-* Real-time social interactions
-* Client-server communication
+- Authentication
+- Chat
+- Connected users
+- Matchmaking
+- Notifications
+- Profile
+- Purchases
+- Settings
+- Sound
+- Store
+- Tooltips
+- User champions
+- User skins
+- User interface state
 
-### Application Modules
+This allows independent features to communicate through shared application state without tightly coupling their components.
 
-* Store
-* Collections
-* Game Modes
-* Social Panel
-* Chat System
-* Settings
-* User Profiles
-* Interactive Overlays
+### Data Fetching
 
-## Tech Stack
+TanStack React Query is used for server-state management and asynchronous data fetching.
 
-### Frontend
+Custom hooks encapsulate data access and application behavior, including:
 
-* Next.js
-* React
-* TypeScript
-* Redux Toolkit
-* Framer Motion
-* Tailwind CSS
+- `useChampions`
+- `useSkins`
+- `useAuth`
+- `useChatSocket`
+- `useTooltip`
+- `useHoverIntent`
+- `useResizeObserver`
+- `useContainerSize`
+- `useDebounce`
+- `useThrottle`
+- `useSound`
 
-### Backend
+### Virtualized Rendering
 
-* Node.js
-* Express
-* Socket.io
+Large collections are rendered through reusable virtualized grid components.
 
-### Database
+The project includes specialized grids for:
 
-* MongoDB
+- Champions
+- Skins
+- Store content
 
-## Installation
+Virtualization reduces the number of DOM elements rendered simultaneously, which is particularly useful when working with large collections such as the project's 1,800+ skin dataset.
 
-Install dependencies:
+### Global Tooltip Infrastructure
 
-```bash
-npm install
-```
+One of the more involved reusable UI systems in the project is the global tooltip architecture.
 
-Run the development server:
+The system supports multiple tooltip variants while sharing common infrastructure for:
 
-```bash
-npm run dev
-```
+- Portal-based rendering
+- Adaptive positioning
+- Hover intent
+- Tooltip triggers
+- Tooltip layers
+- Tooltip arrows
+- Shared tooltip state
+- Specialized content
 
-Open:
+The tooltip infrastructure is used throughout the application rather than being implemented independently inside individual components.
+
+### Real-Time Architecture
+
+Real-time communication is handled through Socket.io between the client and the separate Node.js/Express backend.
+
+The client encapsulates socket behavior through reusable hooks and integrates incoming events with the application's centralized state.
+
+This architecture is used for features such as:
+
+- Chat
+- Connected-user presence
+- Real-time status updates
+- Matchmaking-related state
+
+## Performance
+
+Performance considerations have been part of the project from the beginning because several views operate on large collections and highly interactive interfaces.
+
+Current approaches include:
+
+- Virtualized lists and grids
+- Reusable rendering infrastructure
+- Debounced and throttled interactions
+- Responsive resize observation
+- Lazy/conditional rendering
+- Shared UI systems
+- Optimized interactive components
+
+The project also includes custom hooks for container sizing, resize observation, hover intent, debouncing, throttling, and loading behavior.
+
+## UI & Animation
+
+Framer Motion is used for:
+
+- Page transitions
+- Overlays
+- Modal animations
+- Interactive states
+- Micro-interactions
+- Navigation feedback
+
+The goal is not only to reproduce static visuals but also to reproduce the behavior and interaction patterns of the original desktop client.
+
+## Project Structure
 
 ```text
-http://localhost:3000
-```
-
-## Available Scripts
-
-```bash
-npm run dev
-npm run build
-```
-
-## Project Goals
-
-This project was created to explore how modern large-scale applications can be structured and implemented using React ecosystem technologies.
-
-Special attention was given to:
-
-* Frontend architecture
-* State management patterns
-* Real-time systems
-* Performance optimization
-* UI/UX implementation
-* Code maintainability
-
-## Disclaimer
-
-This project is an independent educational and portfolio project inspired by the League of Legends client.
-
-League of Legends and all related intellectual property belong to Riot Games.
+next-league-client/
+│
+├── app/
+│   ├── auth/
+│   │   ├── login/
+│   │   └── register/
+│   │
+│   └── dashboard/
+│       ├── collection/
+│       ├── league/
+│       ├── play/
+│       └── store/
+│
+├── src/
+│   ├── components/
+│   │   ├── ChampionDetailModal/
+│   │   ├── Tooltip/
+│   │   ├── VirtualGrid/
+│   │   ├── chat/
+│   │   ├── cards/
+│   │   ├── header/
+│   │   └── ...
+│   │
+│   ├── engine/
+│   ├── hooks/
+│   ├── redux/
+│   │   └── slices/
+│   ├── services/
+│   ├── styles/
+│   ├── svg/
+│   └── utils/
+│
+└── public/
