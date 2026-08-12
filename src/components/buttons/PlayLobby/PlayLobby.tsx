@@ -8,7 +8,7 @@ import { useSound } from "@/hooks/useSound.js";
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
-export default function LobbyPlayButton({ okButtonAction, setSectionTabSelected }) {
+export default function LobbyPlayButton({ setSectionTabSelected }) {
   const route = useRouter();
   const { actualSection, queue } = useUserInterface();
   const [ buttonState, setButtonState ] = useState<Button>('idle')
@@ -43,12 +43,6 @@ export default function LobbyPlayButton({ okButtonAction, setSectionTabSelected 
     videoRef.current['disabled'].play();
     setSectionTabSelected('play')
 
-    // Si hay acción personalizada (por ejemplo desde el lobby PvP), usarla
-    if (okButtonAction) {
-      okButtonAction();
-      return;
-    }
-
     // Comportamiento por defecto: abrir selección de modos
       route.push("play");
   };
@@ -64,9 +58,6 @@ export default function LobbyPlayButton({ okButtonAction, setSectionTabSelected 
     setButtonState("idle")
   }
 
-  useEffect(() => {
-
-  }, [buttonState])
 
   return (
     <div className="lol-main-button">

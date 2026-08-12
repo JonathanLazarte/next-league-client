@@ -3,7 +3,6 @@
 import "./DesktopHeader.css";
 import PlayLobbyButton from "@/components/buttons/PlayLobby/PlayLobby";
 import { memo } from "react";
-import { useUserInterface } from "@/hooks/useUserInterface";
 import { useState } from 'react'
 import useTooltipTrigger from '@/components/tooltips/GlobalTooltip/TooltipTrigger'
 import HeaderTab from './components/HeaderTab'
@@ -11,7 +10,6 @@ import HeaderWallet from './components/HeaderWallet'
 import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants.js'
 
 export default memo(function DesktopHeader({ showSideNav }) {
-  const { actualSection } = useUserInterface();
   const [ sectionTabSelected, setSectionTabSelected ] = useState()
   const trigger = useTooltipTrigger()
 
@@ -29,7 +27,6 @@ export default memo(function DesktopHeader({ showSideNav }) {
             key={section.id}
             setSectionTabSeleceted={setSectionTabSelected}
             sectionTabSelected={sectionTabSelected}
-            actualSection={actualSection}
             section={section.id}
             type={section.type}
           />
@@ -42,7 +39,6 @@ export default memo(function DesktopHeader({ showSideNav }) {
                 section={section.id}
                 setSectionTabSeleceted={setSectionTabSelected}
                 sectionTabSelected={sectionTabSelected}
-                actualSection={actualSection}
                 type={section.type}
               />
               {section.hasSeparator && <div className="tab-separator"></div>}

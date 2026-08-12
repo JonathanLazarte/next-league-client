@@ -4,10 +4,10 @@ import { useUserInterface } from '@/hooks/useUserInterface';
 /*import { color } from "framer-motion";*/
 /*import { flushSync } from "react-dom";*/
 
-export default function HeaderTab({ section, trigger, setSectionTabSeleceted, sectionTabSelected, actualSection }) {
+export default function HeaderTab({ section, trigger, setSectionTabSeleceted, sectionTabSelected }) {
   const { play } = useSound("/sfx/menu-click.mp3");
   const { push } = useRouter()
-  const { isNavigating } = useUserInterface()
+  const { isNavigating, actualSection } = useUserInterface()
   /*const [isMouseUp, setIsMouseUp] = useState();*/
 
   const isPointerVisible = sectionTabSelected === section;
@@ -16,16 +16,16 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
     /*flushSync(() => {
       setIsMouseUp(true);
     });*/
-    setSectionTabSeleceted(section)
     play();
-    push(section);
+    setSectionTabSeleceted(section)
+    push(`/${section}`)
   };
 
   if (section === "league")
     return (
       <div
         onMouseUp={() => handleClick("league")}
-        className={`header-tab ${(actualSection === section && !isNavigating) ? "actual-section" : (!isNavigating && sectionTabSelected === section) ? "selected" : ''} main`}
+        className={`header-tab ${(actualSection === section && !isNavigating) ? "actual-section" : (sectionTabSelected === section) ? "selected" : ''} main`}
         data-testid={`tab-${section}`}
       >
         {section.toUpperCase()}
