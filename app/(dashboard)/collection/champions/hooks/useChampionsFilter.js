@@ -60,7 +60,7 @@ export default function useChampionsFilter() {
     const filterChampions = (
         allChamps,
         searchKeysWithDelay,
-        inCollection /*, sortedBy, groupedBy, page*/,
+        inCollection,
     ) => {
         var championsFiltered = allChamps?.filter((champ) => {
             const inCollectionFilter = inCollection

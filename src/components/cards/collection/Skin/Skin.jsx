@@ -10,7 +10,7 @@ export default memo(function SkinCard({
   onHoverStart,
   onHoverEnd,
   skin,
-  isSkinInCollection,
+  isAdquired,
   toolTipPosRef,
 }) {
   const ref = useRef(null);
@@ -19,32 +19,14 @@ export default memo(function SkinCard({
   };
   const currentRem = getRem();
 
-  /*useSmartHover({
-    ref,
-    onEnter: () => {
-      if (!ref.current) return;
-
-      const rect = ref.current.getBoundingClientRect();
-      // Actualizar el ref directamente sin causar re-render
-      if (toolTipPosRef) {
-        toolTipPosRef.current = {
-          x: rect.right - rect.width / 2,
-          y: window.innerHeight - rect.top + currentRem * 3,
-        };
-      }
-      onHoverStart(skin, ref);
-    },
-    onLeave: onHoverEnd,
-  });*/
-  const isObtained = isSkinInCollection(skin.id);
 
   return (
     <div
-      className={`skin-card ${isObtained ? "" : "not-obtained"}`}
+      className={`skin-card ${isAdquired ? "" : "not-obtained"}`}
       ref={ref}
       role="button"
       tabIndex={0}
-      aria-label={`Skin ${skin.name}${isObtained ? " - Obtenido" : " - No obtenido"}`}
+      aria-label={`Skin ${skin.name}${isAdquired ? " - Obtenido" : " - No obtenido"}`}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -65,12 +47,12 @@ export default memo(function SkinCard({
       }}
       onMouseLeave={onHoverEnd}
     >
-      {isObtained ? (
+      {isAdquired ? (
         <img className="skin-card-border" src={`/collection/borders/borders_normal.png`}></img>
       ) : null}
       {
         <Image
-          className={`skin-card-image ${isObtained ? "" : "not-obtained"}`}
+          className={`skin-card-image ${isAdquired ? "" : "not-obtained"}`}
           src={`/loading/${skin.img}`}
           alt={`${skin.name} skin`}
           loading="lazy"
@@ -80,7 +62,7 @@ export default memo(function SkinCard({
           height={560}
         />
       }
-      {isObtained ? (
+      {isAdquired ? (
         skin.rarity !== "NoRarity" && (
           <img
             className="skin-card-rarity-image"

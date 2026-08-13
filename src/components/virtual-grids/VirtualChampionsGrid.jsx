@@ -26,9 +26,7 @@ export default memo(function VirtualSkinsGrid({
   handleScroll,
 }) {
   const parentRef = useRef(null);
-  //const { width : containerWidth } = useContainerSize(parentRef);
   const [columns, setColumns] = useState();
-  //const [ rowHeight, setRowHeight ] = useState(100);
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -36,8 +34,11 @@ export default memo(function VirtualSkinsGrid({
   const currentRem = getRem();
   const gapValue = currentRem * 2.3;
   const cardWidth = currentRem * 16;
-  const paddingRightValue = currentRem * 3.5;//parseFloat(styles.paddingRight);
-  //const headerHeight = currentRem * 5;
+  const paddingRightValue = currentRem * 3.5;
+  const acquiredChampionIds = useMemo(
+    () => new Set(userChampions.map((uc) => uc.id)),
+    [userChampions]
+  );
 
   const getAmountOfColumns = useCallback(
     (containerWidth) => {
@@ -101,15 +102,6 @@ export default memo(function VirtualSkinsGrid({
     return result;
   }, [groupedChampions, columns, groupedBy]);
 
-  /*useResizeObserver(parentRef, width => {
-
-  setCardHeight(getRowHeight())
-  const newCols = getColumns(width)
-    if (newCols > 0 && newCols !== columns) {
-      setColumns(newCols);
-    }
-
-  })*/
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
@@ -183,7 +175,7 @@ export default memo(function VirtualSkinsGrid({
                       key={c.id || index} // Usar poke.id si está disponible, de lo contrario, index
                       id={index}
                       champion={c}
-                      adquired={userChampions.some((uc) => uc.id == c.id)}
+                      adquired={acquiredChampionIds.has(c.id)}
                       onClick={handleChampionClick}
                       onHoverStart={onHoverStart}
                       onHoverEnd={onHoverEnd}

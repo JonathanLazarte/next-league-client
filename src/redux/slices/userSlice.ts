@@ -34,7 +34,6 @@ interface Rank {
 
 interface UserState {
   userName: string;
-  password: string;
   id: string;
   alias: string;
   tag: string;
@@ -54,7 +53,6 @@ interface UserState {
 
 const initialState: UserState = {
   userName: "",
-  password: "",
   id: "",
   alias: "",
   tag: "",

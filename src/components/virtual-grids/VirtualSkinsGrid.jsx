@@ -19,10 +19,11 @@ export default function VirtualSkinsGrid({
   handleScroll,
 }) {
   const parentRef = useRef(null);
-  /*const { width : containerWidth } = useContainerSize(parentRef);*/
   const [columns, setColumns] = useState();
-  const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
-  console.log(columns)
+  const acquiredSkinsIds = useMemo(
+    () => new Set(userSkins.map((uc) => uc.id)),
+    [userSkins]
+  );
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -32,7 +33,6 @@ export default function VirtualSkinsGrid({
   const columnGap = currentRem * 3.8;
   const paddingRightValue = currentRem * 3.3;
   const cardWidth = getRem() * 16;
-  //const headerHeight = currentRem * 5;
 
   const getAmountOfColumns = useCallback(
     (containerWidth) => {
@@ -97,15 +97,6 @@ export default function VirtualSkinsGrid({
     return result;
   }, [groupedSkins, columns]);
 
-  /*useResizeObserver(parentRef, width => {
-
-  setCardHeight(getRowHeight())
-  const newCols = getColumns(width)
-    if (newCols > 0 && newCols !== columns) {
-      setColumns(newCols);
-    }
-
-  })*/
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
@@ -125,7 +116,7 @@ export default function VirtualSkinsGrid({
     overscan: 6,
   });
 
-  if(!groupedSkins) return <></>
+  if (!groupedSkins) return <></>
 
   return (
     <div ref={parentRef} className="skins-grid-container">
@@ -170,13 +161,13 @@ export default function VirtualSkinsGrid({
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
-                  {row.skins.map((skin) => (
+                  {row.skins.map((skin, index) => (
                     <SkinCard
-                      key={skin.id || `${skin.name}-${skin.champion}`}
+                      key={skin.id || index}
                       onHoverStart={onHoverStart}
                       onHoverEnd={onHoverEnd}
                       skin={skin}
-                      isSkinInCollection={isSkinInCollection}
+                      isAdquired={acquiredSkinsIds.has(skin.id)}
                       toolTipPosRef={toolTipPosRef}
                     />
                   ))}

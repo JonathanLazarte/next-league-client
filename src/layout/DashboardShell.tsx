@@ -24,27 +24,27 @@ import { usePurchase } from "@/hooks/usePurchase";
 import { useSocket } from '@/socket/useSocket'
 import { useUserListSocket } from '@/socket/useUserListSocket'
 import { useChatSocket } from '@/socket/useChatSocket'
-import { useAppHydration } from "@/hooks/useAppHydratation";
+import { useAppHydration } from "@/hooks/useAppHydration";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import { useRouteSync } from '@/hooks/useRouteSync'
 
 
 
 export default function ProvidersWrapper({ children }) {
-  const { token, loading : authLoading, isAuthenticated } = useAuth();
+  const { token, loading: authLoading, isAuthenticated } = useAuth();
   const { user } = useUser();
   const { itemToBuy } = usePurchase();
   const { isNavigating } = useUserInterface();
   const socket = useSocket(token);
   const showLoading = useLoadingDelay(isNavigating, { delay: 100 })
-  const isReady = user?.name || authLoading || !isAuthenticated
+  const isReady = !user.alias || authLoading || !isAuthenticated
 
   useAppHydration(token)
   useUserListSocket(socket, user)
   useChatSocket(socket)
   useRouteSync()
 
-  if ( isReady ) { return <DashboardLoading /> }
+  if (isReady) { return <DashboardLoading /> }
 
 
   return (
@@ -57,7 +57,7 @@ export default function ProvidersWrapper({ children }) {
       <TooltipLayer />
       {itemToBuy && <ConfirmPurchaseModal />}
       <main className="dashboard">
-      {children} {showLoading && <LoadingOverlay />}
+        {children} {showLoading && <LoadingOverlay />}
       </main>
     </div>
   );

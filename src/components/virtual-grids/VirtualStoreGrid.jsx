@@ -18,7 +18,6 @@ export default memo(function VirtualSkinsGrid({
   StoreCard,
 }) {
   const parentRef = useRef(null);
-  //const { width : containerWidth } = useContainerSize(parentRef);
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -27,7 +26,6 @@ export default memo(function VirtualSkinsGrid({
   const gapValue = currentRem * 1.3;
   const cardWidth = currentRem * 23.1;
   const paddingRightValue = currentRem * 2.85;
-  //const headerHeight = currentRem * 5;
 
   const [columns, setColumns] = useState();
 
@@ -119,7 +117,6 @@ export default memo(function VirtualSkinsGrid({
                     display: "grid",
                     gap: `${gapValue}px`,
                     gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                    /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
                   {row.skins.map((item, index) => (

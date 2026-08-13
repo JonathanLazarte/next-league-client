@@ -7,17 +7,15 @@ export const fetchChampions = async () => {
   const data = await res.json();
   const champions = Object.values(data);
   return champions;
-  /*const adquiredChamps = champs.filter(c => userChampions.some(uc => uc.id === c.id))
-          setRenderData({ 'Todos': adquiredChamps}); */
 };
 
 export default function useChampions() {
-  const { data: championsData, isLoadingChampionsData } = useQuery({
+  const { data: championsData } = useQuery({
     queryKey: ["champions"],
     queryFn: fetchChampions,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
 
-  return { championsData, isLoadingChampionsData };
+  return { championsData };
 }
