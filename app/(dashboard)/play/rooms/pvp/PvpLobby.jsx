@@ -26,7 +26,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     'beginner': 'SR · BEGINNER · BLIND',
     'intermediate': 'SR · Intermediate · Blind',
   }
-  const { play: playTransToGameselect} = useSound('/sfx/sfx-lobby-trans-to-gameselect.ogg')
+  const { play: playTransToGameselect } = useSound('/sfx/sfx-lobby-trans-to-gameselect.ogg')
 
   useEffect(() => {
     socket?.current.on("USER JOINED", ({ room, roomId }) => {
@@ -68,7 +68,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
     <section className="pvp-room">
       <div className="room-header">
         <svg
-          className={`header-arrow ${ queueStatus !== 'idle' ? 'disabled' : ''}`}
+          className={`header-arrow ${queueStatus !== 'idle' ? 'disabled' : ''}`}
           id="Capa_2"
           data-name="Capa 2"
           xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
             <div className="banner-user-icon">
               <Image
                 className="banner-user-border"
-                src={`${RESOURCES_URL}profileborder/8.png`}
+                src={`${RESOURCES_URL}ranked-emblem/wings/wings_grandmaster_plate.png`}
                 sizes={"25rem"}
                 width={500}
                 height={600}
@@ -125,7 +125,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
               />
               <video
                 className="banner-user-border-magic"
-                src="/profileborder/emblem-wings-magic-grandmaster.webm"
+                src="/ranked-emblem/anim/emblem-wings-magic-grandmaster.webm"
                 autoPlay
                 loop
                 muted
@@ -137,21 +137,6 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
             <span className="banner-alias">{user.title}</span>
           </div>
         </div>
-        {/*roomUsers?.map((roomUserId, index)=>{
-                    const roomUser = connectedUsers?.find(cu => cu.socketID == roomUserId)
-                    return <div className="room-user">
-                        <img className="user-banner" src="/general/banner.png"/>
-                        <div className="user-banner-info-container">
-                            <div className="banner-user-icon">
-                                <img className="banner-user-border" src="/general/EoG_Border_150_4k.png"/>
-                                <img className="banner-user-icon-img" src={`https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/profileicon/${roomUser?.profileIcon}.png`}></img>
-                            </div>
-                            <h2></h2>
-                            <span></span>
-                        </div>
-                    </div>
-                    })
-                    */}
       </div>
       <div className="party-chat"><input type="text" placeholder="Type here..."></input></div>
       <FindMatchButton

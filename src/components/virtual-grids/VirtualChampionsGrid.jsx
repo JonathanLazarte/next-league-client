@@ -36,6 +36,7 @@ export default memo(function VirtualSkinsGrid({
   const cardWidth = currentRem * 16;
   const paddingRightValue = currentRem * 3.5;
   const acquiredChampionIds = useMemo(
+    // eslint-disable-next-line no-undef
     () => new Set(userChampions.map((uc) => uc.id)),
     [userChampions]
   );

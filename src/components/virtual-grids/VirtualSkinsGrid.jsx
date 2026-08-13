@@ -21,6 +21,7 @@ export default function VirtualSkinsGrid({
   const parentRef = useRef(null);
   const [columns, setColumns] = useState();
   const acquiredSkinsIds = useMemo(
+    // eslint-disable-next-line no-undef
     () => new Set(userSkins.map((uc) => uc.id)),
     [userSkins]
   );
@@ -73,7 +74,6 @@ export default function VirtualSkinsGrid({
 
   //-----------------------------------------------------------------------------------------------
 
-  // Construimos filas
   const rows = useMemo(() => {
     const result = [];
 
