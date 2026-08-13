@@ -57,7 +57,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
           <div className="tooltip-user-icon">
             <img
               className="tooltip-user-border"
-              src={`${RESOURCES_URL}profileborder/${profile_border}.png`}
+              src={`${RESOURCES_URL}level-border/${profile_border}.png`}
             />
             <Image
               className="tooltip-user-icon-img"
