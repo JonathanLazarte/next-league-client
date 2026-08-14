@@ -17,15 +17,8 @@ export default memo(function Champions() {
 
   const { userChampions/*, loading*/ } = useSelector(selectUserChampionsData);
   const { championsData } = useChampions();
-  const itemCategories = [
-    "Assassin",
-    "Marksman",
-    "Fighter",
-    "Tank",
-    "Support",
-    "Mage",
-  ];
-  const [itemCategoryChecked, setItemCategoryChecked] = useState({
+
+  const [categoryChecked, setCategoryChecked] = useState({
     Assassin: false,
     Fighter: false,
     Mage: false,
@@ -38,14 +31,23 @@ export default memo(function Champions() {
     filters
   } = useFilterLogic({
     items: championsData,
-    itemCategoryChecked: itemCategoryChecked,
+    itemCategoryChecked: categoryChecked,
     adquiredItems: userChampions,
   })
 
 
 
   const subsections = ["CHAMPIONS", "ETERNALS", "PACKS"];
-
+  const sortOptions = [
+    { value: "", label: "Release Date ↓" },
+    { value: "ReleaseAscend", label: "Release Date ↑" },
+    { value: "PriceRpDescend", label: "Price (RP) ↓" },
+    { value: "PriceRpAscend", label: "Price (RP) ↑" },
+    { value: "PriceBeDescend", label: "Price (EA) ↓" },
+    { value: "PriceBeAscend", label: "Price (EA) ↑" },
+    { value: "AlphabeticallyDescend", label: "Alphabetical (A-Z)" },
+    { value: "AlphabeticallyAscend", label: "Alphabetical (Z-A)" },
+  ]
 
 
 
@@ -63,9 +65,9 @@ export default memo(function Champions() {
         setInCollection={filters.setInCollection}
         sortedBy={filters.sortedBy}
         setSortedBy={filters.setSortedBy}
-        itemCategories={itemCategories}
-        itemCategoryChecked={itemCategoryChecked}
-        setItemCategoryChecked={setItemCategoryChecked}
+        itemCategoryChecked={categoryChecked}
+        setItemCategoryChecked={setCategoryChecked}
+        sortOptions={sortOptions}
       />
       <div className="gradient-layer" />
       {subsectionSelected === "CHAMPIONS" ? (

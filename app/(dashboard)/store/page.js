@@ -38,7 +38,7 @@ export default memo(function Store() {
               play();
             }}
           >
-            CAMPEONES
+            CHAMPIONS
           </div>
           <div
             className={`subheader-tab ${actualSection === "aspectos" ? "active-subheader-tab" : null}`}
@@ -47,7 +47,7 @@ export default memo(function Store() {
               play();
             }}
           >
-            ASPECTOS
+            SKINS
           </div>
         </div>
         <div className="right-items">

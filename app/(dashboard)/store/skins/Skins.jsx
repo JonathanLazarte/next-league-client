@@ -2,10 +2,7 @@
 
 import { useState, useMemo, memo } from "react";
 import { useSelector } from "react-redux";
-import { FaSearch } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa6";
-
-import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
+import StoreSidePanel from "@/components/StoreSidePanel/StoreSidePanel";
 import SkinCard from "@/components/cards/store/Skin/Skin.jsx";
 import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
 
@@ -21,9 +18,9 @@ export default memo(function Skins() {
   const [inCollection, setInCollection] = useState(false);
   const [championInCollection, setChampionInCollection] = useState(false);
   const [sortedBy, setSortedBy] = useState("");
-  const [sectionSelected, setSectionSelected] = useState("ASPECTOS");
+  const [subsectionSelected, setSubsectionSelected] = useState("SKINS");
 
-  const [checkboxFilter, setCheckboxFilter] = useState({
+  const [categoryChecked, setCategoryChecked] = useState({
     Limited: false,
     Legendary: false,
     Ultimate: false,
@@ -56,9 +53,9 @@ export default memo(function Skins() {
     }
 
     // Filtros de rareza / disponibilidad limitada
-    const activeFilters = Object.keys(checkboxFilter).filter(
+    const activeFilters = Object.keys(categoryChecked).filter(
       // se detectan los filtros de rareza con checkbox marcados
-      (key) => checkboxFilter[key],
+      (key) => categoryChecked[key],
     );
 
     if (activeFilters.length > 0) {
@@ -108,125 +105,55 @@ export default memo(function Skins() {
     searchKeys,
     inCollection,
     championInCollection,
-    checkboxFilter,
+    categoryChecked,
     sortedBy,
     userSkins,
     userChampions,
   ]);
 
   const toggleCheckbox = (rarity) => {
-    setCheckboxFilter((prev) => ({
+    setCategoryChecked((prev) => ({
       ...prev,
       [rarity]: !prev[rarity],
     }));
   };
 
-  const sections = ["ASPECTOS", "CHROMAS", "PAQUETES"];
-  const rarityLabels = {
-    Limited: "Disp. Limitada",
-    Legendary: "Legendario",
-    Ultimate: "Definitivo",
-  };
+  const subsections = ["SKINS", "CHROMAS", "PACKS"];
 
   const sortOptions = [
-    { value: "", label: "Lanzamiento (reciente primero)" },
-    { value: "ReleaseAscend", label: "Lanzamiento (antiguo primero)" },
-    { value: "PriceRpDescend", label: "Precio (RP) descendente" },
-    { value: "PriceRpAscend", label: "Precio (RP) ascendente" },
-    { value: "alphabetically descend", label: "Alfabético A→Z" },
-    { value: "alphabetically ascend", label: "Alfabético Z→A" },
+    { value: "", label: "Release Date ↓" },
+    { value: "ReleaseAscend", label: "Release Date ↑" },
+    { value: "PriceRpDescend", label: "Price (RP) ↓" },
+    { value: "PriceRpAscend", label: "Price (RP) ↑" },
+    { value: "alphabetically descend", label: "Alphabetical A-Z" },
+    { value: "alphabetically ascend", label: "Alphabetical Z-A" },
   ];
 
   return (
     <div className="skins-store">
-      {/* Filtros Desktop */}
-      <div className="filter-nav">
-        <section className="nav-section first">
-          {sections.map((section) => (
-            <div
-              key={section}
-              onClick={() => setSectionSelected(section)}
-              className="checkbox section"
-            >
-              <div className="custom-checkbox-romb">
-                {sectionSelected === section && (
-                  <div className="check-element" />
-                )}
-              </div>
-              <div
-                className={
-                  sectionSelected === section ? "section-selected" : ""
-                }
-              >
-                {section}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        <section className="nav-section">
-          <div className="search-filter">
-            <FaSearch className="search-icon" />
-            <input
-              type="search"
-              placeholder="Buscar"
-              onChange={(e) => setSearchKeys(e.target.value)}
-            />
-          </div>
-
-          <div
-            onClick={() => setInCollection((prev) => !prev)}
-            className="checkbox incollection"
-          >
-            <div className="custom-checkbox">
-              {inCollection && <FaCheck className="check-icon" />}
-            </div>
-            Mostrar en colección
-          </div>
-        </section>
-
-        <section className="nav-section">
-          <CustomSelect
-            className="select-filter"
-            options={sortOptions}
-            value={sortedBy}
-            onChange={setSortedBy}
-            placeholder="Ordenar por..."
-          />
-
-          <div
-            onClick={() => setChampionInCollection((prev) => !prev)}
-            className="checkbox"
-          >
-            <div className="custom-checkbox">
-              {championInCollection && <FaCheck className="check-icon" />}
-            </div>
-            Campeón en colección
-          </div>
-        </section>
-
-        <section className="nav-section">
-          {["Limited", "Legendary", "Ultimate"].map((rarity) => (
-            <div
-              key={rarity}
-              onClick={() => toggleCheckbox(rarity)}
-              className="checkbox"
-            >
-              <div className="custom-checkbox">
-                {checkboxFilter[rarity] && <FaCheck className="check-icon" />}
-              </div>
-              {rarityLabels[rarity]}
-            </div>
-          ))}
-        </section>
-      </div>
+      <StoreSidePanel
+        subsections={subsections}
+        subsectionSelected={subsectionSelected}
+        setSubsectionSelected={setSubsectionSelected}
+        searchKeys={searchKeys}
+        setSearchKeys={setSearchKeys}
+        inCollection={inCollection}
+        setInCollection={setInCollection}
+        sortedBy={sortedBy}
+        setSortedBy={setSortedBy}
+        itemCategoryChecked={categoryChecked}
+        setItemCategoryChecked={setCategoryChecked}
+        sortOptions={sortOptions}
+        championInCollection={championInCollection}
+        setChampionInCollection={setChampionInCollection}
+      />
       <div className="gradient-layer" />
       {/* Grid de skins */}
-      {filteredItems && sectionSelected === "ASPECTOS" ? (
+      {subsectionSelected === "SKINS" ? (
         <VirtualStoreGrid items={filteredItems} StoreCard={SkinCard} />
       ) : (
         <div className="poro-apologizes flex justify-center items-center grow">
-          <img src="/global/poro_sad.png" alt="Poro sad"></img>
+          <img src="/global/poro_question.png" alt="Poro question"></img>
         </div>
       )}
     </div>

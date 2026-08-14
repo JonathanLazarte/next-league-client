@@ -2,7 +2,22 @@ import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
 
-export default function StoreSidePanel({ subsections, subsectionSelected, setSubsectionSelected, searchKeys, setSearchKeys, inCollection, setInCollection, sortedBy, setSortedBy, itemCategories, itemCategoryChecked, setItemCategoryChecked }) {
+export default function StoreSidePanel({
+  subsections,
+  subsectionSelected,
+  setSubsectionSelected,
+  searchKeys,
+  setSearchKeys,
+  inCollection,
+  setInCollection,
+  sortOptions,
+  sortedBy,
+  setSortedBy,
+  itemCategoryChecked,
+  setItemCategoryChecked,
+  championInCollection,
+  setChampionInCollection
+}) {
 
   const handleCheckboxChange = (role) => {
     setItemCategoryChecked((prev) => ({
@@ -59,21 +74,23 @@ export default function StoreSidePanel({ subsections, subsectionSelected, setSub
     <section className="nav-section">
       <CustomSelect
         className="select-filter"
-        options={[
-          { value: "", label: "Lanzamiento (descendente)" },
-          { value: "ReleaseAscend", label: "Lanzamiento (ascendente)" },
-          { value: "PriceRpDescend", label: "Precio (RP) (descendente)" },
-          { value: "PriceRpAscend", label: "Precio (RP) (ascendente)" },
-          { value: "PriceBeDescend", label: "Precio (EA) (descendente)" },
-          { value: "PriceBeAscend", label: "Precio (EA) (ascendente)" },
-          { value: "AlphabeticallyDescend", label: "Alfabético (A-Z)" },
-          { value: "AlphabeticallyAscend", label: "Alfabético (Z-A)" },
-        ]}
+        options={sortOptions}
         value={sortedBy}
         onChange={setSortedBy}
       />
+      {championInCollection !== undefined && (
+        <div
+          onClick={() => setChampionInCollection((prev) => !prev)}
+          className="checkbox"
+        >
+          <div className="custom-checkbox">
+            {championInCollection && <FaCheck className="check-icon" />}
+          </div>
+          Champion Owned
+        </div>
+      )}
 
-      {itemCategories.map((cat) => (
+      {Object.keys(itemCategoryChecked).map((cat) => (
         <div
           key={cat}
           className="checkbox"

@@ -86,6 +86,8 @@ export default memo(function VirtualSkinsGrid({
     overscan: 6,
   });
 
+  if(!items) return null
+
   return (
     <div ref={parentRef} className="virtual-store-grid">
       <div
