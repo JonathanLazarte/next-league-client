@@ -111,13 +111,6 @@ export default memo(function Skins() {
     userChampions,
   ]);
 
-  const toggleCheckbox = (rarity) => {
-    setCategoryChecked((prev) => ({
-      ...prev,
-      [rarity]: !prev[rarity],
-    }));
-  };
-
   const subsections = ["SKINS", "CHROMAS", "PACKS"];
 
   const sortOptions = [
