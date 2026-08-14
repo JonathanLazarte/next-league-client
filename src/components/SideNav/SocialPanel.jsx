@@ -10,24 +10,23 @@ import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
 
 export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onHoverStart }) => {
-  console.log(group)
   return <ul key={group} className="general-user-list">
-  <div style={groupStyle}>
-    {group?.users?.map((u, index) => (
-      <Friend
-        user={u}
-        toolTipPosRef={tooltipPosRef}
-        onHoverStart={() => onHoverStart(u)}
-        onHoverEnd={onHoverEnd}
-        key={index}
-      />
-    ))}
+    <div style={groupStyle}>
+      {group?.users?.map((u, index) => (
+        <Friend
+          user={u}
+          toolTipPosRef={tooltipPosRef}
+          onHoverStart={() => onHoverStart(u)}
+          onHoverEnd={onHoverEnd}
+          key={index}
+        />
+      ))}
     </div>
   </ul>
 }
 
 
-export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }) {
+export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }) {
   const [showMenu, setShowMenu] = useState();
   //const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [isFolderOpen, setIsFolderOpen] = useState(true);
@@ -43,14 +42,14 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
     if (friendsOnline) {
       friendsOnline.forEach((folder) => {
         folder.users.forEach((u) => {
-            updateChatUser({
-                userId: u.alias,
-                userName: u.alias,
-                profile_icon: u.profile_icon,
-                profile_border: u.profile_border,
-                status: u.status,
-                unreadCount: 0,
-              });
+          updateChatUser({
+            userId: u.alias,
+            userName: u.alias,
+            profile_icon: u.profile_icon,
+            profile_border: u.profile_border,
+            status: u.status,
+            unreadCount: 0,
+          });
         });
       });
     }
@@ -102,7 +101,7 @@ export default function SocialPanel ({ tooltipPosRef, onHoverEnd, onHoverStart }
   return (
     <>
       <div onClick={() => setShowMenu(false)} className="online-users">
-        {showMenu && (null/*<Menu></Menu>*/) }
+        {showMenu && (null/*<Menu></Menu>*/)}
         <div className="social-menu">
           SOCIAL
           <div className="social-icons">

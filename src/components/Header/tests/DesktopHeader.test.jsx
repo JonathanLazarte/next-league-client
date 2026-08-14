@@ -1,4 +1,4 @@
-/*import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit'; // Importar configureStore
 import DesktopHeader from '../DesktopHeader';
@@ -27,7 +27,7 @@ const mockGetTriggerProps = jest.fn().mockImplementation(({ content }) => ({
 }));
 
 // Mockeamos el hook por defecto
-jest.mock('@/components/Tooltip/globalTooltip/TooltipTrigger', () => ({
+jest.mock('@/components/tooltips/GlobalTooltip/TooltipTrigger', () => ({
   __esModule: true,
   default: () => mockGetTriggerProps,
 }));
@@ -183,10 +183,10 @@ describe('DesktopHeader', () => {
     // Para la pestaña de league
     expect(mockGetTriggerProps).not.toHaveBeenCalledWith(
       expect.objectContaining({ content: 'league' })
-    ); +
+    );
   });
 
 
 
 });
-*/
+

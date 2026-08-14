@@ -2,20 +2,19 @@
 
 import "./champions.css";
 import { useState, memo } from "react";
-import { useSelector } from "react-redux";
 
 import ChampionCard from "@/components/cards/store/Champion/Champion.jsx";
 import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
 import StoreSidePanel from "@/components/StoreSidePanel/StoreSidePanel";
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 
+import { useUserChampions } from '@/hooks/useUserChampions'
 import useChampions from "@/hooks/useChampions";
 import useFilterLogic from './useFilterLogic'
 
 export default memo(function Champions() {
   const [subsectionSelected, setSubsectionSelected] = useState("CHAMPIONS");
 
-  const { userChampions/*, loading*/ } = useSelector(selectUserChampionsData);
+  const { userChampions } = useUserChampions();
   const { championsData } = useChampions();
 
   const [categoryChecked, setCategoryChecked] = useState({

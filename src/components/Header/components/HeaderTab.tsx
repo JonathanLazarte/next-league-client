@@ -11,14 +11,13 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
   /*const [isMouseUp, setIsMouseUp] = useState();*/
 
   const isPointerVisible = sectionTabSelected === section;
-
-  const handleClick = (section) => {
+  const handleClick = (section: string) => {
     /*flushSync(() => {
       setIsMouseUp(true);
     });*/
     play();
     setSectionTabSeleceted(section)
-    push(`/${section}`)
+    push(section)
   };
 
   if (section === "league")

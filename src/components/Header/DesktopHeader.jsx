@@ -7,20 +7,17 @@ import { useState } from 'react'
 import useTooltipTrigger from '@/components/tooltips/GlobalTooltip/TooltipTrigger'
 import HeaderTab from './components/HeaderTab'
 import HeaderWallet from './components/HeaderWallet'
-import { useUserInterface } from '@/hooks/useUserInterface'
 import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants.js'
 
 export default memo(function DesktopHeader({ showSideNav }) {
   const [sectionTabSelected, setSectionTabSelected] = useState()
-  const { isNavigating } = useUserInterface()
   const trigger = useTooltipTrigger()
 
   return (
     <>
       <header
         style={{
-          marginRight: !showSideNav ? "0px" : null,
-          backgroundColor: isNavigating ? "rgba(0, 0, 0, 1)" : "rgba(1, 10, 19, 0.5)"
+          marginRight: !showSideNav ? "0px" : null
         }}
         className="index-header"
       >

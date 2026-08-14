@@ -1,19 +1,20 @@
 "use client";
 
 import { useState, memo } from "react";
-import { useSelector } from "react-redux";
 import StoreSidePanel from "@/components/StoreSidePanel/StoreSidePanel";
 import SkinCard from "@/components/cards/store/Skin/Skin.jsx";
 import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
-import { selectUserSkinsData } from "@/redux/slices/userSkinsSlice";
-import { selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
 import useSkins from "@/hooks/useSkins";
+import { useUserChampions } from '@/hooks/useUserChampions'
+import { useUserSkins } from '@/hooks/useUserSkins'
 import { useFilterLogic } from './useFilterLogic'
 
 import "./skins.css";
 
 export default memo(function Skins() {
   const { skinsData } = useSkins();
+  const { userSkins = [] } = useUserSkins();
+  const { userChampions } = useUserChampions();
   const [subsectionSelected, setSubsectionSelected] = useState("SKINS");
   const [categoryChecked, setCategoryChecked] = useState({
     Limited: false,
@@ -21,8 +22,7 @@ export default memo(function Skins() {
     Ultimate: false,
   });
 
-  const { userSkins = [] } = useSelector(selectUserSkinsData);
-  const { userChampions = [] } = useSelector(selectUserChampionsData);
+
 
   const {
     filteredItems,
