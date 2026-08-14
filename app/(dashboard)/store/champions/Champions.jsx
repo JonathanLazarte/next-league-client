@@ -15,7 +15,7 @@ import useFilterLogic from './useFilterLogic'
 export default memo(function Champions() {
   const [subsectionSelected, setSubsectionSelected] = useState("CHAMPIONS");
 
-  const { userChampions, loading } = useSelector(selectUserChampionsData);
+  const { userChampions/*, loading*/ } = useSelector(selectUserChampionsData);
   const { championsData } = useChampions();
   const itemCategories = [
     "Assassin",
