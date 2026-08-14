@@ -39,10 +39,11 @@
     position: sticky;
     top: 0px;
     user-select: none;
-    transition: padding 0.3s;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari */
     z-index: 2;
+    transition: background-color 1s, padding 0.3s;
+    transition-delay: 2s;
 }
 .header-pointer {
     width: 10rem;

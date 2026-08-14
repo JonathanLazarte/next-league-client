@@ -64,9 +64,8 @@ export default memo(function RightNav() {
     <div
       style={{
         right: `${!showSideNav ? "-260px" : "0"}`,
-        background: `${actualSection === "store" ? "linear-gradient(to top, var(--blue-five), #07161e 90%, var(--blue-five))" : "var(--blue-five)"}`,
       }}
-      className="right-nav"
+      className={`sidenav ${actualSection === 'store' ? "in-store" : ""}`}
     >
       <ProfileBox setIsSettingsOpen={setIsSettingsOpen} updateSideNav={updateSideNav} userState={userState} />
       <SocialPanel onHoverEnd={onHoverEnd} onHoverStart={onHoverStart} tooltipPosRef={toolTipPosRef} ></SocialPanel>
