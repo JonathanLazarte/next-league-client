@@ -1,3 +1,4 @@
+'use client'
 import { createPortal } from 'react-dom'
 import { useTooltip } from '@/hooks/useTooltip'
 import GeneralTooltip from '@/components/tooltips/TextTooltip/TextTooltip'

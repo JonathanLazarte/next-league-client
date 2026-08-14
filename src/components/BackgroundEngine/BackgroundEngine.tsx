@@ -1,3 +1,5 @@
+'use client'
+
 import { BACKGROUND_URLS } from '@/utils/constants'
 import { useUserInterface } from "@/hooks/useUserInterface";
 import useLoadingDelay from "@/hooks/useLoadingDelay";

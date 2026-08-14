@@ -1,4 +1,5 @@
-import { useState, useEffect} from "react";
+"use client"
+import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
