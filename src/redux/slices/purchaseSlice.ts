@@ -4,16 +4,24 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 
-const initialState = {
+interface PurchaseState {
+  isOpen: boolean,
+  itemToBuy: string[],
+  currency: "RP" | "BE" | unknown,
+  price: number,
+  status: "idle" | "processing" | "success" | "error",
+  error: null | string,
+  purchaseSuccess: boolean,
+  purchasedItemId: null | string,
+}
+
+const initialState: PurchaseState = {
   isOpen: false,
-  itemToBuy: null, // el item completo
-  currency: null, // "RP" | "BE" | "OE" | etc.
-  price: 0, // precio final (con descuento si aplica)
-
-  status: "idle", // "idle" | "processing" | "success" | "error"
-  selectedCurrency: null,
+  itemToBuy: null,
+  currency: null,
+  price: 0,
+  status: "idle",
   error: null,
-
   purchaseSuccess: false,
   purchasedItemId: null,
 };
@@ -21,12 +29,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const confirmPurchase = createAsyncThunk(
   "purchase/confirm",
-  async ({ coin, price }, { getState, rejectWithValue }) => {
+  async ({ coin, price }: { coin: number, price: number }, { getState, rejectWithValue }) => {
     const token = localStorage.getItem("token");
     const state = getState();
     const { itemToBuy } = state.purchase;
-    //const price = itemToBuy.price[coin]
-    //const { be, rp } = state.user.coins;
     const body =
       itemToBuy.type === "champion"
         ? {
@@ -43,14 +49,8 @@ export const confirmPurchase = createAsyncThunk(
           };
     const apiRoute =
       itemToBuy.type === "champion" ? "api/v1/store/champion" : "api/v1/store/skin";
-    //const item = selectItemFromState(state, selectedItemId, itemType);
 
     if (!itemToBuy) return rejectWithValue("Ítem no encontrado");
-
-    // 2. Validación de saldo (Ejemplo: prioriza Esencia Azul)
-    /*if (blueEssence < item.priceBE && rp < item.priceRP) {
-      return rejectWithValue('Saldo insuficiente');
-    }*/
 
     try {
       const response = await fetch(`${API_URL}${apiRoute}`, {
@@ -90,11 +90,11 @@ const purchaseSlice = createSlice({
     builder
       .addCase(confirmPurchase.pending, (state, action) => {
         const coin = action.meta.arg.coin;
-        state.selectedCurrency = coin;
+        state.currency = coin;
         state.status = "processing";
       })
       .addCase(confirmPurchase.fulfilled, (state) => {
-        state.selectedCurrency = null;
+        state.currency = null;
         state.status = "success";
       });
   },
@@ -103,15 +103,15 @@ const purchaseSlice = createSlice({
 export const { closeModal, openPurchaseModal } = purchaseSlice.actions;
 
 export const selectItemToBuy = (state) => state.purchase.itemToBuy;
-export const selectselectedCurrency = (state) =>
-  state.purchase.selectedCurrency;
+export const selectCurrency = (state) =>
+  state.purchase.currency;
 export const selectStatus = (state) => state.purchase.status;
 
 export const selectPurchaseData = createSelector(
-  [selectItemToBuy, selectselectedCurrency, selectStatus],
-  (itemToBuy, selectedCurrency, status) => ({
+  [selectItemToBuy, selectCurrency, selectStatus],
+  (itemToBuy, currency, status) => ({
     itemToBuy,
-    selectedCurrency,
+    currency,
     status,
   }),
 );

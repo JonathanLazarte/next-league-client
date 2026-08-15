@@ -1,10 +1,17 @@
 import { createSlice/*, createAsyncThunk*/ } from '@reduxjs/toolkit'
 
-const initialState = {
+interface SoundState {
+  currentTrack: string,
+  master: object,
+  sfx: object,
+  music: object,
+}
+
+const initialState: SoundState = {
 	currentTrack: '/music/Xin Zhao.mp3',
-	master: {volume: 1, muted: false},
-	sfx: {volume: 1, muted: false},
-	music: {volume: 0.5, muted: false}
+	master: { volume: 1, muted: false },
+	sfx: { volume: 1, muted: false },
+	music: {volume: 0.5, muted: false }
 }
 
 const soundSlice = createSlice({

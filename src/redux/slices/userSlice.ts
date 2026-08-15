@@ -38,9 +38,6 @@ interface UserState {
   alias: string;
   tag: string;
   title: string;
-  champions: string[];
-  skins: string[];
-  messages: string[];
   level: number;
   EXP: number;
   BE: number;
@@ -57,9 +54,6 @@ const initialState: UserState = {
   alias: "",
   tag: "",
   title: "",
-  champions: [],
-  skins: [],
-  messages: [],
   level: 1,
   EXP: 0,
   BE: 20000,
@@ -82,9 +76,6 @@ const userSlice = createSlice({
       Object.assign(state, action.payload);
     },
     updateUser: () => {
-    },
-    setUserMessages: (state, action: PayloadAction<string>) => {
-      state.messages.push(action.payload);
     },
     updateCoins: (
       state,
@@ -122,7 +113,6 @@ const userSlice = createSlice({
         state.profile_icon = action.payload.profile_icon;
         state.profile_background = action.payload.profile_background;
         state.rank = action.payload.rank;
-        state.messages = action.payload.messages;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.userName = action.payload.userName;
@@ -137,7 +127,6 @@ const userSlice = createSlice({
         state.profile_icon = action.payload.profile_icon;
         state.profile_background = action.payload.profile_background;
         state.rank = action.payload.rank;
-        state.messages = action.payload.messages;
       })
       .addCase(verifyToken.fulfilled, (state, action) => {
         state.userName = action.payload.userName;
@@ -152,7 +141,6 @@ const userSlice = createSlice({
         state.profile_icon = action.payload.profile_icon;
         state.profile_background = action.payload.profile_background;
         state.rank = action.payload.rank;
-        state.messages = action.payload.messages;
       })
       .addCase(confirmPurchase.fulfilled, (state, action) => {
         const { coin, price } = action.payload
@@ -161,7 +149,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, updateUser, setUserMessages, updateCoins } =
+export const { setUser, updateUser, updateCoins } =
   userSlice.actions;
 
 export const selectRP = (state) => state.user.RP;

@@ -1,6 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit'
 
-interface tooltipState {
+interface TooltipState {
   visible: boolean,
   component: string | null,
   anchor: HTMLElement | null,
@@ -13,7 +13,7 @@ interface tooltipState {
   };
 }
 
-const initialState : tooltipState = {
+const initialState : TooltipState = {
   visible: false,
   component: null,
   anchor: null,

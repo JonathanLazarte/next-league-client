@@ -71,10 +71,10 @@ const userInterfaceSlice = createSlice({
     setIsNavigating: (state, action) => {
       state.isNavigating = action.payload;
     },
-    toggleSideNav: (state) => { // Add this reducer
+    toggleSideNav: (state) => {
       state.showSideNav = !state.showSideNav;
     },
-    setSectionTabSelected: (state, action) => { // Add this reducer
+    setSectionTabSelected: (state, action) => {
       state.sectionTabSelected = action.payload;
     },
     setQueue: (state, action) => {
@@ -90,8 +90,8 @@ export const {
   setActualSection,
   setUserState,
   setIsNavigating,
-  toggleSideNav, // Export this
-  setSectionTabSelected, // Export this
+  toggleSideNav,
+  setSectionTabSelected,
   setQueue,
   setQueueStatus
 } = userInterfaceSlice.actions;
@@ -102,9 +102,9 @@ export const selectUserInterfaceState = (state) =>
   state.userInterface.userState;
 export const selectUserInterfaceIsNavigating = (state) =>
   state.userInterface.isNavigating;
-export const selectUserInterfaceShowSideNav = (state) => // Add this selector
+export const selectUserInterfaceShowSideNav = (state) =>
   state.userInterface.showSideNav;
-export const selectUserInterfaceSectionTabSelected = (state) => // Add this selector
+export const selectUserInterfaceSectionTabSelected = (state) =>
   state.userInterface.sectionTabSelected;
 export const selectQueue = (state) =>
   state.userInterface.queue;
@@ -116,8 +116,8 @@ export const selectUserInterfaceData = createSelector(
     selectUserInterfaceState,
     selectUserInterfaceActualSection,
     selectUserInterfaceIsNavigating,
-    selectUserInterfaceShowSideNav, // Add this
-    selectUserInterfaceSectionTabSelected, // Add this
+    selectUserInterfaceShowSideNav,
+    selectUserInterfaceSectionTabSelected,
     selectQueue,
     selectQueueStatus
   ],

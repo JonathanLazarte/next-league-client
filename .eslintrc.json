@@ -7,6 +7,14 @@
     "react",
     "react-hooks"
   ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
+  },
+  "env": {
+    "es6": true,
+    "browser": true
+  },
   "overrides": [
     {
       "files": [
@@ -17,13 +25,5 @@
         "jest": true
       }
     }
-  ],
-  "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off"
-  },
-  "env": {
-    "es6": true,
-    "browser": true
-  }
+  ]
 }

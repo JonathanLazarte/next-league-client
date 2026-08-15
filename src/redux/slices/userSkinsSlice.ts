@@ -21,39 +21,44 @@ export const getUserSkins = createAsyncThunk(
 
       const userSkins = await response.json();
 
-      return { userSkins }; // Return the data to be used in the reducer
+      return { userSkins };
     } catch (error) {
       return rejectWithValue(error.message);
     }
   },
 );
 
-const initialState = {
+interface SkinsState {
+  loading: boolean,
+  skins: string[],
+  error: null | string | unknown,
+}
+
+const initialState: SkinsState = {
   loading: false,
   skins: [],
-  error: "",
+  error: null,
 };
 
 const userSkinsSlice = createSlice({
   name: "userSkins",
   initialState,
   reducers: {
-    buySkin: (/*state, action*/) => {},
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUserSkins.pending, (state) => {
         state.loading = true;
-        state.error = ""; // Clear any previous errors
+        state.error = "";
       })
       .addCase(getUserSkins.fulfilled, (state, action) => {
         state.loading = false;
-        const { userSkins } = action.payload;
-        state.skins = userSkins; // Update state with fetched Items
+        state.error = null;
+        state.skins = action.payload.userSkins;
       })
       .addCase(getUserSkins.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Something went wrong"; // Set error message
+        state.error = action.payload || "Something went wrong";
       })
       .addCase(confirmPurchase.fulfilled, (state, action) => {
         const { newInventoryItem, type } = action.payload;

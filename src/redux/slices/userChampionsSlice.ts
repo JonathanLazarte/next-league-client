@@ -27,38 +27,17 @@ export const getUserChampions = createAsyncThunk(
   },
 );
 
-export const sellPokemon = createAsyncThunk(
-  "userChampions/sellPokemon",
-  async ({ pokemonId }, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem("token");
-      const body = {
-        userId: token,
-        pokemonIndex: pokemonId,
-      };
-
-      const response = await fetch(`${API_URL}api/v1/user/sellpokemon`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) throw new Error("Failed to sell Pokémon");
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  },
-);
+interface UserChampionsState {
+  loading: boolean,
+  champions: string[],
+  error: null | string | unknown,
+}
 
 // Initial state
-const initialState = {
+const initialState: UserChampionsState = {
   loading: false,
   champions: [],
-  pokemon: [],
-  error: "",
+  error: null,
 };
 
 // Slice
@@ -67,11 +46,10 @@ const userChampionsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // getUserPokemon
     builder
       .addCase(getUserChampions.pending, (state) => {
         state.loading = true;
-        state.error = "";
+        state.error = null;
       })
       .addCase(getUserChampions.fulfilled, (state, action) => {
         state.loading = false;

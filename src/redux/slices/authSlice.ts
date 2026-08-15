@@ -69,10 +69,7 @@ export const verifyToken = createAsyncThunk(
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/verify`,
         {
-          method: "POST" /*'GET'*/,
-          /*headers: {
-          'Authorization': `Bearer ${token}`,
-        },*/
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -85,7 +82,6 @@ export const verifyToken = createAsyncThunk(
       const data = await response.json();
 
       if (!response.ok) {
-        /*localStorage.removeItem('token')*/
         return rejectWithValue(data.message || "Token verification failed");
       }
 
@@ -97,7 +93,15 @@ export const verifyToken = createAsyncThunk(
   },
 );
 
-const initialState = {
+interface AuthState {
+  isAuthenticated: boolean,
+  user: null | string[],
+  token: null | string,
+  loading: boolean,
+  error: null | string,
+}
+
+const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   token: null,
