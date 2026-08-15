@@ -5,8 +5,8 @@ import { FILTER_OPTIONS_BY_GROUPING } from "@/utils/constants";
 import applyAllLogic from "../skinsLogic";
 
 export function useSkinsFilter() {
-    const { userSkins, loading } = useUserSkins();
-    const { skinsData: skins } = useSkins();
+    const { userSkins, loading: loadingUserSkins } = useUserSkins();
+    const { skinsData, isLoading: loadingSkinsData } = useSkins();
 
     const [searchKeys, setSearchKeys] = useState();
     const deferredSearch = useDeferredValue(searchKeys);
@@ -22,48 +22,49 @@ export function useSkinsFilter() {
 
     // Combinar información de skins del usuario con skins globales
     const userSkinsFull = useMemo(() => {
-        if (!skins || !userSkins) return [];
+        if (!skinsData || !userSkins) return [];
         return userSkins
             .map((us) => {
-                const respectiveSkinData = skins.find((skinData) => skinData.id === us.id);
+                const respectiveSkinData = skinsData.find((skinData) => skinData.id === us.id);
                 return respectiveSkinData
                     ? { ...respectiveSkinData, purchaseDate: us.purchaseDate }
                     : null;
             })
             .filter(Boolean)
             .reverse();
-    }, [skins, userSkins]);
+    }, [skinsData, userSkins]);
 
     // Aplicar lógica de agrupamiento/filtrado
     const groupedSkins = useMemo(() => {
         return applyAllLogic({
             groupedBy,
             showNotObtained,
-            skins,
+            skins: skinsData,
             userSkinsFull,
             sortedBy,
             deferredSearch,
             userSkins,
         });
-    }, [groupedBy, showNotObtained, skins, userSkinsFull, sortedBy, deferredSearch, userSkins]);
+    }, [groupedBy, showNotObtained, skinsData, userSkinsFull, sortedBy, deferredSearch, userSkins]);
 
     const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
 
     return {
-        skins,
-        userSkins,
-        userSkinsFull,
-        groupedSkins,
-        loading,
-        filterState: {
-            groupedBy,
-            setGroupedBy,
-            sortedBy,
-            setSortedBy,
-            showNotObtained,
-            setShowNotObtained,
-            setSearchKeys,
-        },
-        isSkinInCollection,
+      skins: skinsData,
+      userSkins,
+      userSkinsFull,
+      groupedSkins,
+      loadingUserSkins,
+      loadingSkinsData,
+      filterState: {
+          groupedBy,
+          setGroupedBy,
+          sortedBy,
+          setSortedBy,
+          showNotObtained,
+          setShowNotObtained,
+          setSearchKeys,
+      },
+      isSkinInCollection,
     };
 }

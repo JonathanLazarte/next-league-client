@@ -25,6 +25,8 @@ export default memo(function CollectionSkins() {
     loading,
     filterState,
     isSkinInCollection,
+    loadingUserSkins,
+    loadingSkinsData
   } = useSkinsFilter();
 
   const {
@@ -59,7 +61,7 @@ export default memo(function CollectionSkins() {
         />
       </div>
 
-      <VirtualSkinsGrid
+      {!loadingSkinsData && !loadingUserSkins && <VirtualSkinsGrid
         groupedSkins={groupedSkins}
         onHoverStart={onHoverStart}
         onHoverEnd={onHoverEnd}
@@ -67,7 +69,7 @@ export default memo(function CollectionSkins() {
         userSkins={userSkins}
         groupedBy={filterState.groupedBy}
         handleScroll={handleScroll}
-      />
+      />}
 
       <EmptySkinsState
         loading={loading}

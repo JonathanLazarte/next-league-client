@@ -1,4 +1,4 @@
-import { useSound } from '@/hooks/useSound.js'
+import { useSound } from '@/hooks/useSound'
 import { useRouter } from '@/hooks/useRouter'
 import { useUserInterface } from '@/hooks/useUserInterface';
 /*import { color } from "framer-motion";*/

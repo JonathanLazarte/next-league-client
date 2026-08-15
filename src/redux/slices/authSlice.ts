@@ -98,7 +98,7 @@ interface AuthState {
   user: null | string[],
   token: null | string,
   loading: boolean,
-  error: null | string,
+  error: null | string | unknown,
 }
 
 const initialState: AuthState = {

@@ -19,7 +19,7 @@ import ProfileBox from "./ProfileBox";
 import SocialPanel from "./SocialPanel";
 
 
-import useHoverIntent from "@/hooks/useHoverIntent.js";
+import useHoverIntent from "@/hooks/useHoverIntent";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useChat } from "@/hooks/useChat";
 

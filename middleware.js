@@ -1,6 +1,25 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : '127.0.0.1';
+  const path = request.nextUrl.pathname;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
+  // Evitar loguear llamadas a archivos estáticos o internos
+    if (path.includes('/_next') || path.includes('/favicon.ico')) {
+      return NextResponse.next();
+    }
+
+  try {
+      fetch(`${API_URL}api/v1/connection`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ip: request.headers.get('x-forwarded-for'), path }),
+      }).catch(() => {});
+    } catch (e) {
+        // Manejo de errores silencioso
+  }
+
   const token =
     request.cookies.get("token")?.value ||
     request.headers.get("authorization")?.replace("Bearer ", "");

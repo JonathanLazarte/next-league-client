@@ -2,9 +2,9 @@
 
 import { useRef } from 'react'
 import Image from "next/image";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
-import { useSmartHover } from "@/hooks/useSmartHover.js";
+import { useSmartHover } from "@/hooks/useSmartHover";
 
 export default (function Friend({
   user,

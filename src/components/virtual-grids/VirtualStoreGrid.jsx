@@ -9,7 +9,7 @@ import {
   useCallback,
   useLayoutEffect,
 } from "react";
-import { useResizeObserver } from "@/hooks/useResizeObserver.js";
+import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
 
 export default memo(function VirtualSkinsGrid({

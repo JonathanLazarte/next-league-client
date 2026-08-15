@@ -3,7 +3,7 @@
 import "./Confirm.css";
 import { useRouter } from "next/navigation";
 import { useUserInterface } from "@/hooks/useUserInterface";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound";
 
 export default function PlayButton({ type, activeButtonAction }) {
   const router = useRouter();

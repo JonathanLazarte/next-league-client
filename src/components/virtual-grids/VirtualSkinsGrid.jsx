@@ -5,7 +5,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef, useMemo, useState, useCallback, useLayoutEffect } from "react";
 import SkinCard from "@/components/cards/collection/Skin/Skin.jsx";
-import { useResizeObserver } from "@/hooks/useResizeObserver.js";
+import { useResizeObserver } from "@/hooks/useResizeObserver";
 import { useThrottledCallback } from "@/hooks/useThrottle";
 import "./virtualGrid.css";
 

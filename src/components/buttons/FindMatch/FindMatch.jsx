@@ -4,7 +4,7 @@ import "./FindMatch.css";
 import { useState } from "react";
 import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound.ts";
 
 export default function FindMatchButton({
   setRoomId,

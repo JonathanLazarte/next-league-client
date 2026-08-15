@@ -2,9 +2,9 @@
 
 import "./PlayLobby.css";
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "@/hooks/useRouter.js";
+import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound";
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 

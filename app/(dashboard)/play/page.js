@@ -2,7 +2,7 @@
 
 import { useState, memo } from "react";
 import { useSelector } from "react-redux";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound.ts";
 
 import ModeSelector from "./ModeSelector.jsx";
 import Pvp from "./rooms/pvp/PvpLobby.jsx";

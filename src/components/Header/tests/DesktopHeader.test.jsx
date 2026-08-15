@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit'; // Importar configureStore
 import DesktopHeader from '../DesktopHeader';
 import { useRouter } from '@/hooks/useRouter.js';
-import { useSound } from '@/hooks/useSound.js';
+import { useSound } from '@/hooks/useSound.ts';
 
 
 
@@ -189,4 +189,3 @@ describe('DesktopHeader', () => {
 
 
 });
-

@@ -6,11 +6,12 @@ export const useChatSocket = (socket) => {
   const { addMessage } = useChat();
 
   useEffect(() => {
-    if (!socket.current) return
+    const socketRef = socket?.current
+    if (!socketRef) return
     socket.current?.on("chat-message", (msg) => {
       addMessage(msg);
     });
-    return () => socket.current?.off("chat-message");
-  }, [addMessage]);
+    return () => socketRef.off("chat-message");
+  }, [addMessage, socket]);
 
 }

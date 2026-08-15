@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, memo, useMemo } from "react";
 import { PiMinus } from "react-icons/pi";
 import "./Chat.css";
-import { useSound } from "@/hooks/useSound.js";
+import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useUser } from "@/hooks/useUser";
 
