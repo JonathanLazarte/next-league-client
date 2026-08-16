@@ -21,9 +21,6 @@
     justify-content: flex-start;
     align-content: center;
     align-items: center;
-    padding-bottom: 1.8rem;
-    padding-right: 4.8rem;
-    padding-left: 4.8rem;
     position: relative;
     /*animation: vertical-slice 2s cubic-bezier(0,1.02,.25,.97);*/
 }
@@ -162,13 +159,20 @@
     position: absolute;
 }
 /* La barra inferior donde confirmas la selección */
-.play-selection-footer {
+.gamemode-selector {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     flex-grow: 1;
+}
+.gamemode-selector-footer {
+    height: 7rem;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    display: flex;
 }
 .gamemode-description {
     display: flex;

@@ -130,17 +130,19 @@ export default function ModeSelector({ data : gameModes }){
   },[selectedMap])
 	return <>
 
-      <div className="play-selection-footer">
+      <div className="gamemode-selector">
         <div className='gamemodes-grid'>
         {gameModes.map((gameMode, index) => (
           <RenderGameMode gameMode={gameMode} selectedMap={selectedMap} setSelectedMap={setSelectedMap} hoveredMap={hoveredMap} setHoveredMap={setHoveredMap} setSelectedQueueGlobal={setSelectedQueueGlobal} key={index} />
         ))}
         </div>
+        <div className='gamemode-selector-footer'>
           <ConfirmButton
-          text="CONFIRMAR"
-          type="modeSelection"
-          activeButtonAction={handleConfirm}
+            text="CONFIRMAR"
+            type="modeSelection"
+            activeButtonAction={handleConfirm}
           />
+        </div>
       </div>
     </>
 }
