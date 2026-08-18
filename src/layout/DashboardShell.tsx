@@ -2,7 +2,7 @@
 
 import "$/(dashboard)/dashboard.css";
 import "$/(dashboard)/collection/collection.css";
-import "$/(dashboard)/collection/champions/Champions.css";
+import "$/(dashboard)/collection/champions/champions.css";
 import "$/(dashboard)/store/store.css";
 import "$/(dashboard)/play/play.css";
 import "@/components/LoadingOverlay/LoadingOverlay.css"
