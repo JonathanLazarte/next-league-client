@@ -8,12 +8,22 @@ const fetchSkins = async () => {
 };
 
 export default function SkinsData() {
-  const { data: skinsData } = useQuery({
+  const { data: skinsData,
+        isLoading,
+        isFetching,
+        isError,
+        error
+  } = useQuery({
     queryKey: ["skins"],
     queryFn: fetchSkins,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
 
-  return { skinsData };
+  return {
+  skinsData,
+  isLoading,
+  isFetching,
+  isError,
+  error };
 }

@@ -14,7 +14,7 @@ export function middleware(request) {
       fetch(`${API_URL}api/v1/connection`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ip: request.headers.get('x-forwarded-for'), path }),
+        body: JSON.stringify({ ip, path }),
       }).catch(() => {});
     } catch (e) {
         // Manejo de errores silencioso
