@@ -3,7 +3,7 @@
  */
 export const RESOURCES_URL =
    "/" ||
-   "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
+   "https://next-league.s3.sa-east-1.amazonaws.com/";
 export const RARITY_LEVELS = [
   "Signature",
   "Hall",

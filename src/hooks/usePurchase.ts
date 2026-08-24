@@ -1,10 +1,11 @@
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { closeModal, confirmPurchase, openPurchaseModal, selectPurchaseData } from "@/redux/slices/purchaseSlice";
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 
 export function usePurchase() {
-  const dispatch = useDispatch();
-  const purchase = useSelector(selectPurchaseData);
-  const wallet = useSelector(
+  const dispatch = useAppDispatch();
+  const purchase = useAppSelector(selectPurchaseData);
+  const wallet = useAppSelector(
     (state) => ({
       RP: state.user.RP,
       BE: state.user.BE,

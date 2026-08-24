@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useSmartHover } from "@/hooks/useSmartHover";
+import { RESOURCES_URL } from '@/utils/constants'
 
 export default (function Friend({
   user,
@@ -16,9 +17,6 @@ export default (function Friend({
   onHoverEnd,
 }) {
   const ref = useRef(null);
-  const RESOURCES_URL =
-    "/" ||
-    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
   const {
     selectUser,

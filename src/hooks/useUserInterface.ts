@@ -8,7 +8,7 @@ import {
   setQueueStatus,
   setUserState,
   selectUserInterfaceData
-} from '@/redux/slices/userInterfaceSlice.ts';
+} from '@/redux/slices/userInterfaceSlice';
 
 /**
  * Hook para gestionar el estado de la interfaz de usuario.

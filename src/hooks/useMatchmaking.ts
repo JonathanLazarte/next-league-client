@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 import { setQueueState, setSelectedQueue } from "@/redux/slices/matchmakingSlice";
 
 export function useMatchmaking() {
-  const dispatch = useDispatch();
-  const matchmaking = useSelector((state) => state.matchmaking);
+  const dispatch = useAppDispatch();
+  const matchmaking = useAppSelector((state) => state.matchmaking);
 
   return {
     ...matchmaking,

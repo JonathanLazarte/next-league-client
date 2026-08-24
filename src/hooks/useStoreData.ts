@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from '@/hooks/hooks'
 import { addToCart, setFeaturedItems } from "@/redux/slices/storeSlice";
 
 export function useStoreData() {
   const dispatch = useDispatch();
-  const storeData = useSelector((state) => state.storeData);
+  const storeData = useAppSelector((state) => state.storeData);
 
   return {
     ...storeData,

@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 import { addNotification, markAsSeen } from "@/redux/slices/notificationsSlice";
 
 export function useNotifications() {
-  const dispatch = useDispatch();
-  const notifications = useSelector((state) => state.notifications);
+  const dispatch = useAppDispatch();
+  const notifications = useAppSelector((state) => state.notifications);
 
   return {
     ...notifications,

@@ -1,16 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useCallback } from "react";
-import { getUserChampions, selectUserChampionsData, sellPokemon } from "@/redux/slices/userChampionsSlice";
+import { getUserChampions, selectUserChampionsData } from "@/redux/slices/userChampionsSlice";
+import { useAppDispatch } from '@/hooks/hooks'
 
 export function useUserChampions() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const userChampionsState = useSelector(selectUserChampionsData);
-  const fetchUserChampions = useCallback((payload) => dispatch(getUserChampions(payload)), [dispatch]);
-  const sellUserPokemon = useCallback((payload) => dispatch(sellPokemon(payload)), [dispatch]);
+  const fetchUserChampions = useCallback((payload: string) => dispatch(getUserChampions(payload)), [dispatch]);
 
   return {
     ...userChampionsState,
     getUserChampions: fetchUserChampions,
-    sellPokemon: sellUserPokemon,
   };
 }

@@ -6,11 +6,9 @@ import "./PvpLobby.css";
 import FindMatchButton from "@/components/buttons/FindMatch/FindMatch";
 import { setQueue, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
 import { useSound } from "@/hooks/useSound"
+import { RESOURCES_URL } from '@/utils/constants'
 
 export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
-  const RESOURCES_URL =
-    "/" ||
-    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
   const [, /*roomId*/ setRoomId] = useState();
   /*const newRoom = uuidv4()*/
   const user = useSelector((state) => state.user);

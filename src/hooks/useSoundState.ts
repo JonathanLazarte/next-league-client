@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from '@/hooks/hooks'
 import { useCallback } from "react";
 import {
   playTrack,
@@ -11,7 +12,7 @@ import {
 
 export function useSoundState() {
   const dispatch = useDispatch();
-  const sound = useSelector((state) => state.sound);
+  const sound = useAppSelector((state) => state.sound);
   const updateVolume = useCallback((payload) => dispatch(setVolume(payload)), [dispatch]);
   const updateMute = useCallback((payload) => dispatch(setMute(payload)), [dispatch]);
   const restoreSoundDefaults = useCallback(() => dispatch(restoreDefaults()), [dispatch]);

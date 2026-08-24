@@ -6,11 +6,9 @@ import "./Chat.css";
 import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useUser } from "@/hooks/useUser";
+import { RESOURCES_URL } from '@/utils/constants'
 
 export default memo(function Chat({ socket }) {
-  const RESOURCES_URL =
-    "/" ||
-    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
   const [chatInput, setChatInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 

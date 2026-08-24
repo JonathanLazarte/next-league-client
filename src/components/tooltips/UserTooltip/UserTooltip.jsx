@@ -3,6 +3,7 @@
 import "./UserTooltip.css";
 import { useRef, useState, useLayoutEffect } from "react";
 import Image from "next/image";
+import { RESOURCES_URL } from '@/utils/constants'
 
 export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
   const {
@@ -27,9 +28,6 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
   };
   const currentRem = getRem();
 
-  const RESOURCES_URL =
-    "/" ||
-    "https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/";
   const style = {
     position: "fixed",
     //width: windowPosition.width,

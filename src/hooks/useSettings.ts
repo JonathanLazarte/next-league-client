@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { saveSettings, setLanguage, setTheme, setVolume } from "@/redux/slices/settingsSlice.ts";
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
+import { saveSettings, setLanguage, setTheme, setVolume } from "@/redux/slices/settingsSlice";
 
 export function useSettings() {
-  const dispatch = useDispatch();
-  const settings = useSelector((state) => state.settings);
+  const dispatch = useAppDispatch();
+  const settings = useAppSelector((state) => state.settings);
 
   return {
     ...settings,

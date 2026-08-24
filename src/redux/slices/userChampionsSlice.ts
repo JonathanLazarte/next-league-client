@@ -6,10 +6,16 @@ import {
 import { confirmPurchase } from "./purchaseSlice";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+type ChampionResponse = string[]
+
 // Thunks
-export const getUserChampions = createAsyncThunk(
+export const getUserChampions = createAsyncThunk<
+  ChampionResponse,
+  string,
+  { rejectValue: string }
+>(
   "userChampions/getUserChampions",
-  async (id, { rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     try {
       const response = await fetch(`${API_URL}api/v1/user/champion-collection`, {
         method: "POST",
@@ -19,7 +25,7 @@ export const getUserChampions = createAsyncThunk(
 
       if (!response.ok) throw new Error("Failed to fetch Champions");
 
-      const data = await response.json();
+      const data: ChampionResponse = await response.json();
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

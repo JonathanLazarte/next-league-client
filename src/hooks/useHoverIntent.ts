@@ -43,7 +43,7 @@ export default function useHoverIntent({
     clearTimeout(timeoutRef.current);
   };
 
-  const end = (cb) => {
+  const end = (cb: () => void ) => {
     const now = Date.now();
     lastMouseLeaveRef.current = now
     const timeSinceLast = now - lastShownRef.current;
@@ -54,7 +54,7 @@ export default function useHoverIntent({
 
     timeoutEndRef.current = setTimeout(() => {
       cb();
-    }, 50 || delay);
+    }, delay);
   };
 
   useEffect(() => {
