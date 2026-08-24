@@ -3,6 +3,7 @@ import { usePurchase } from "@/hooks/usePurchase";
 import { preload } from "react-dom";
 import "./Champion.css";
 import Image from 'next/image'
+import { RESOURCES_URL } from "@/utils/constants";
 
 const ChampionCard = ({ id, item: data }) => {
   const { openPurchaseModal } = usePurchase();
@@ -24,7 +25,7 @@ const ChampionCard = ({ id, item: data }) => {
       <Image
         className="store-champion-image"
         id={id} // Set unique ID for potential usage
-        src={`/tiles/${data.id}_0.jpg`}
+        src={`${RESOURCES_URL}/tiles/${data.id}_0.jpg`}
         alt={`Sprite of ${data.name}`} // Add alt text for accessibility
         sizes={'23rem'}
         fill

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { usePurchase } from '@/hooks/usePurchase'
 import './Skin.css'
+import { RESOURCES_URL } from '@/utils/constants';
 
 
 export default function SkinStoreItem({ item : skin }){
@@ -16,7 +17,7 @@ export default function SkinStoreItem({ item : skin }){
       onClick={() => handleClick(skin)}
     >
       <Image
-        src={`/tiles/${skin.img}`}
+        src={`${RESOURCES_URL}/tiles/${skin.img}`}
         alt={skin.name}
         fill
         sizes="23rem"
