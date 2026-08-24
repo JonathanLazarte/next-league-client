@@ -15,6 +15,7 @@ import { useUserSkins } from "@/hooks/useUserSkins";
 /*aspectos imports*/
 import { GiPadlock } from "react-icons/gi";
 import { IoArrowForward } from "react-icons/io5";
+import { RESOURCES_URL } from "@/utils/constants";
 
 
 export const CloseModalButton = ({ onClose }) => {
@@ -35,7 +36,7 @@ export const CloseModalButton = ({ onClose }) => {
     onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}
   >
-    {buttonState === 'idle' && <img src='/general/button-x.png'></img>}
+    {buttonState === 'idle' && <img src={`${RESOURCES_URL}/general/button-x.png`}></img>}
     {buttonState === 'hovered' && <img src='/general/button-x-over.png'></img>}
     {buttonState === 'pressed' && <img src='/general/button-x-down.png'></img>}
   </div>)
@@ -166,7 +167,7 @@ const ResumenTab = memo(function ResumenTab({
       <div className={styles.rightPanel}>
         <div className={styles.championIllustration}>
           <img
-            src={`/splash/${champion.id}_0.jpg`}
+            src={`${RESOURCES_URL}/splash/${champion.id}_0.jpg`}
             alt={champion.name}
             className={styles.illustrationImage}
           />
@@ -277,7 +278,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
     >
       <Image
         className="skin-background-image"
-        src={`/${window.innerWidth < 767 ? "loading" : "splash"}/${champion.id}_${champion.skins[selectedSkin].num}.jpg`}
+        src={`${RESOURCES_URL}/${window.innerWidth < 767 ? "loading" : "splash"}/${champion.id}_${champion.skins[selectedSkin].num}.jpg`}
         alt={champion.name}
         onLoad={() => setIsBackgroundImageLoaded(true)}
         height={'800'}
@@ -354,7 +355,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
                   {skinIndex !== null ? (
                     <>
                       <img
-                        src={`/tiles/${champion.id}_${champion.skins[skinIndex].num}.jpg`}
+                        src={`${RESOURCES_URL}/tiles/${champion.id}_${champion.skins[skinIndex].num}.jpg`}
                         className="skin-minicard-image"
                         alt={`Skin ${skinIndex + 1} de ${champion.name}`}
                       />
@@ -432,7 +433,7 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
             }} className={`passive-image-container ${selectedSpell === 0 ? "selected" : null}`}>
               <img
                 className='passive-image'
-                src={`/passive/${champion.passive.image.full}`}
+                src={`${RESOURCES_URL}/passive/${champion.passive.image.full}`}
                 />
             </div>
             P
@@ -448,7 +449,7 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
                       setSelectedSpell(index + 1);
                     }}
                     className='spell-image'
-                    src={`/spell/${spell.image.full}`}
+                    src={`${RESOURCES_URL}/spell/${spell.image.full}`}
                     />
                 </div>
                 {spellKeys[index + 1]}
@@ -500,7 +501,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
           { id: "aspectos", label: "ASPECTOS" },
         ];
 
-  const championImg = `url('/${activeTab === "resumen" ? "centered" : "splash"}/${champion.id}_0.jpg')`;
+  const championImg = `url('${RESOURCES_URL}/${activeTab === "resumen" ? "centered" : "splash"}/${champion.id}_0.jpg')`;
   /*const skinFileName = `${champion.id}_`*/
   const handleUnlockChampion = () => {
     openPurchaseModal({ itemId: champion.id, type: "champion" });
