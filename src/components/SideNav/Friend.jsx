@@ -61,7 +61,7 @@ export default (function Friend({
       <div className="friendlist-profile-icon">
         <Image
           className="friendlist-profile-icon-image"
-          src={`${RESOURCES_URL}profileicon/${user?.profile_icon}.png`}
+          src={`${RESOURCES_URL}/profileicon/${user?.profile_icon}.png`}
           width={150}
           height={150}
         />

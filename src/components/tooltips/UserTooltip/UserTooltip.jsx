@@ -36,7 +36,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
     top: tooltipPos.y - tooltipHeight / 2 | 0,
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: `url('${RESOURCES_URL}centered/${profile_background}.jpg')`,
+    backgroundImage: `url('${RESOURCES_URL}/centered/${profile_background}.jpg')`,
     pointerEvents: "none",
   };
 
@@ -45,7 +45,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
       <div className="tooltip-user-container">
         <div className="tooltip-user-level">
           <Image
-            src={`${RESOURCES_URL}general/7201_Precision.png`}
+            src={`${RESOURCES_URL}/general/7201_Precision.png`}
             width={30}
             height={30}
           />
@@ -55,11 +55,11 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
           <div className="tooltip-user-icon">
             <img
               className="tooltip-user-border"
-              src={`${RESOURCES_URL}level-border/${profile_border}.png`}
+              src={`${RESOURCES_URL}/level-border/${profile_border}.png`}
             />
             <Image
               className="tooltip-user-icon-img"
-              src={`${RESOURCES_URL}profileicon/${profile_icon}.png`}
+              src={`${RESOURCES_URL}/profileicon/${profile_icon}.png`}
               width={100}
               height={100}
             />

@@ -3,6 +3,7 @@ import { memo, useRef, useCallback } from "react";
 import Image from 'next/image'
 import "./Champion.css";
 import { GiPadlock } from "react-icons/gi";
+import { RESOURCES_URL } from "@/utils/constants";
 
 const ChampionCard = ({
   id,
@@ -146,7 +147,7 @@ const ChampionCard = ({
           className="champion-image"
           width={308}
           height={560}
-          src={`/loading/${champion.id}_0.jpg`}
+          src={`${RESOURCES_URL}/loading/${champion.id}_0.jpg`}
           alt={`${champion.name} sprite`}
           loading="lazy"
         />

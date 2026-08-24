@@ -1,9 +1,7 @@
 /**
  * Constantes globales de la aplicación
  */
-export const RESOURCES_URL =
-   "/" ||
-   "https://next-league.s3.sa-east-1.amazonaws.com/";
+export const RESOURCES_URL = "https://next-league.s3.sa-east-1.amazonaws.com";
 export const RARITY_LEVELS = [
   "Signature",
   "Hall",

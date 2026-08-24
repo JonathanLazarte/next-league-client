@@ -150,7 +150,7 @@ export default memo(function Chat({ socket }) {
           <div style={{ marginRight: "10px" }} className="chat-user-icon-container">
             <img
               className="chat-user-icon"
-              src={`${RESOURCES_URL}profileicon/${selectedChatUser.profile_icon}.png`}
+              src={`${RESOURCES_URL}/profileicon/${selectedChatUser.profile_icon}.png`}
               alt={selectedChatUser.alias}
             />
             <div

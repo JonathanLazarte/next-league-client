@@ -2,6 +2,14 @@
 const nextConfig = {
   images: {
     domains: [],
+    remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'next-league.s3.sa-east-1.amazonaws.com',
+            port: '',
+            pathname: '/**',
+          },
+        ],
   },
   /*reactStrictMode: false,*/
   // Preservar la funcionalidad de Redux

@@ -88,7 +88,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
             width={42}
             height={42}
             className="header-map-icon"
-            src={`${RESOURCES_URL}general/mini-sr.png`}
+            src={`${RESOURCES_URL}/general/mini-sr.png`}
             alt="Map mini icon"
           />
           <h3 className="room-title">{lobbyName[roomTitle]}</h3>
@@ -108,7 +108,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
             <div className="banner-user-icon">
               <Image
                 className="banner-user-border"
-                src={`${RESOURCES_URL}ranked-emblem/wings/wings_grandmaster_plate.png`}
+                src={`${RESOURCES_URL}/ranked-emblem/wings/wings_grandmaster_plate.png`}
                 sizes={"25rem"}
                 width={500}
                 height={600}
@@ -116,7 +116,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
               />
               <Image
                 className="banner-user-icon-img"
-                src={`${RESOURCES_URL}profileicon/${user.profile_icon}.png`}
+                src={`${RESOURCES_URL}/profileicon/${user.profile_icon}.png`}
                 width={300}
                 height={300}
                 alt="User icon from banner"

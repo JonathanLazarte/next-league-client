@@ -5,6 +5,7 @@ import { GiPadlock } from "react-icons/gi";
 import Image from 'next/image'
 
 import "./Skin.css";
+import { RESOURCES_URL } from "@/utils/constants";
 
 export default memo(function SkinCard({
   onHoverStart,
@@ -53,7 +54,7 @@ export default memo(function SkinCard({
       {
         <Image
           className={`skin-card-image ${isAdquired ? "" : "not-obtained"}`}
-          src={`/loading/${skin.img}`}
+          src={`${RESOURCES_URL}/loading/${skin.img}`}
           alt={`${skin.name} skin`}
           loading="lazy"
           clipPath="url(#card-shape)"
