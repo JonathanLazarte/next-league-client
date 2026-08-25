@@ -98,7 +98,7 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
         <div className="room-user">
           <Image
             className="user-banner"
-            src="/banner/official (27).png"
+            src={`${RESOURCES_URL}/banner/official (27).png`}
             sizes={"38rem"}
             width={580}
             height={1480}

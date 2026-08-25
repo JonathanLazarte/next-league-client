@@ -9,7 +9,7 @@ const ChampionCard = ({ id, item: data }) => {
   const { openPurchaseModal } = usePurchase();
 
   const handleClick = async () => {
-    await preload(`/splash/${data.id}.jpg`, { as: "image" });
+    await preload(`${RESOURCES_URL}/splash/${data.id}.jpg`, { as: "image" });
     openPurchaseModal({ itemId: data.id, type: "champion" });
   };
   return (

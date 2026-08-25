@@ -1,15 +1,29 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useChat } from '@/hooks/useChat'
+import { Socket } from "socket.io-client"
 
-export function useChatSocket(socket) {
+interface MessageData {
+  from: string,
+  to: string,
+  message: string
+  isTyping?: boolean,
+}
+
+interface User {
+  userId: string,
+  userName: string,
+  status: string
+}
+
+export function useChatSocket(socketRef: React.RefObject<Socket | null>) {
   const { addMessage, setTyping, updateUserStatus } = useChat()
-  const typingTimeouts = useRef({})
+  const typingTimeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   useEffect(() => {
-    if (!socket?.current) return
+    if (!socketRef.current) return
 
     // Handle incoming messages
-    const handleChatMessage = (messageData) => {
+    const handleChatMessage = (messageData: MessageData) => {
       const message = {
         id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
         from: messageData.from,
@@ -25,7 +39,7 @@ export function useChatSocket(socket) {
     }
 
     // Handle typing indicators
-    const handleTyping = (data) => {
+    const handleTyping = (data: MessageData) => {
       setTyping({ userId: data.from, isTyping: data.isTyping })
 
       // Clear existing timeout
@@ -42,7 +56,7 @@ export function useChatSocket(socket) {
     }
 
     // Handle user status updates
-    const handleUserStatusUpdate = (data) => {
+    const handleUserStatusUpdate = (data: User) => {
       updateUserStatus({
         userId: data.userId,
         status: data.status
@@ -50,14 +64,14 @@ export function useChatSocket(socket) {
     }
 
     // Handle user online/offline
-    const handleUserOnline = (data) => {
+    const handleUserOnline = (data: User) => {
       updateUserStatus({
         userId: data.userName,
         status: 'online'
       })
     }
 
-    const handleUserOffline = (data) => {
+    const handleUserOffline = (data: User) => {
       updateUserStatus({
         userId: data.userName,
         status: 'offline'
@@ -65,20 +79,20 @@ export function useChatSocket(socket) {
     }
 
     // Register event listeners
-    socket.current.on('chat-message', handleChatMessage)
-    socket.current.on('typing', handleTyping)
-    socket.current.on('user-status-update', handleUserStatusUpdate)
-    socket.current.on('user-online', handleUserOnline)
-    socket.current.on('user-offline', handleUserOffline)
+    socketRef.current.on('chat-message', handleChatMessage)
+    socketRef.current.on('typing', handleTyping)
+    socketRef.current.on('user-status-update', handleUserStatusUpdate)
+    socketRef.current.on('user-online', handleUserOnline)
+    socketRef.current.on('user-offline', handleUserOffline)
 
     // Cleanup function
     return () => {
-      if (socket?.current) {
-        socket.current.off('chat-message', handleChatMessage)
-        socket.current.off('typing', handleTyping)
-        socket.current.off('user-status-update', handleUserStatusUpdate)
-        socket.current.off('user-online', handleUserOnline)
-        socket.current.off('user-offline', handleUserOffline)
+      if (socketRef.current) {
+        socketRef.current.off('chat-message', handleChatMessage)
+        socketRef.current.off('typing', handleTyping)
+        socketRef.current.off('user-status-update', handleUserStatusUpdate)
+        socketRef.current.off('user-online', handleUserOnline)
+        socketRef.current.off('user-offline', handleUserOffline)
       }
 
       // Clear all typing timeouts
@@ -87,26 +101,26 @@ export function useChatSocket(socket) {
       })
       typingTimeouts.current = {}
     }
-  }, [socket, addMessage, setTyping, updateUserStatus])
+  }, [ addMessage, setTyping, updateUserStatus ])
 
   // Function to emit typing indicator
-  const emitTyping = (to, isTyping) => {
-    if (socket?.current) {
-      socket.current.emit('typing', { to, isTyping })
+  const emitTyping = (to: string, isTyping: string) => {
+    if (socketRef.current) {
+      socketRef.current.emit('typing', { to, isTyping })
     }
   }
 
   // Function to emit message
-  const emitMessage = (to, from, message) => {
-    if (socket?.current) {
-      socket.current.emit('chat-message', { to, from, message })
+  const emitMessage = (to: string, from: string, message: string) => {
+    if (socketRef.current) {
+      socketRef.current.emit('chat-message', { to, from, message })
     }
   }
 
   // Function to emit status update
   const emitStatusUpdate = (status) => {
-    if (socket?.current) {
-      socket.current.emit('user-status-update', { status })
+    if (socketRef.current) {
+      socketRef.current.emit('user-status-update', { status })
     }
   }
 

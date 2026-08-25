@@ -8,7 +8,8 @@ import soundReducer from './slices/soundSlice';
 import settingsReducer from './slices/settingsSlice';
 import purchaseReducer from './slices/purchaseSlice';
 
-/*import navigationReducer from './slices/navigationSlice';*/
+//TODO: navigationSlice
+
 import connectedUsersReducer from './slices/connectedUsersSlice';
 import chatReducer from './slices/chatSlice';
 import profileReducer from './slices/profileSlice';
@@ -33,12 +34,13 @@ const store = configureStore({
     connectedUsers: connectedUsersReducer,
     chat: chatReducer,
     profile: profileReducer,
-    storeData: storeReducer, // 'store' es palabra reservada, cambio nombre aquí
+    storeData: storeReducer,
     matchmaking: matchmakingReducer,
     notifications: notificationsReducer,
   },
 });
 
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
 
 export default store;
