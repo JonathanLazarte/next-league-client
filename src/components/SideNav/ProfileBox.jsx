@@ -5,7 +5,7 @@ import { useUserInterface } from "@/hooks/useUserInterface";
 import { IoIosSettings } from "react-icons/io";
 import { MdMinimize, MdOutlineQuestionMark } from "react-icons/md";
 import { PiXBold } from "react-icons/pi";
-import { audioEngine } from "@/engine/audioEngine.js";
+import { audioEngine } from "@/engine/audioEngine";
 import { RESOURCES_URL } from '@/utils/constants'
 import { useAuth } from '@/hooks/useAuth'
 import { useUser } from "@/hooks/useUser";

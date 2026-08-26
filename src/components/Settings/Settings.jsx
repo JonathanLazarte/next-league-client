@@ -1,5 +1,5 @@
 import "./Settings.css";
-import { audioEngine } from "@/engine/audioEngine.js";
+import { audioEngine } from "@/engine/audioEngine";
 import ReactDOM from "react-dom";
 import { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
@@ -8,7 +8,7 @@ import {
   setMute,
   restoreDefaults,
 } from "@/redux/slices/soundSlice";
-import { saveSettings } from "@/redux/slices/settingsSlice.ts";
+import { saveSettings } from "@/redux/slices/settingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function SoundControl({ label, checkLabel, type, isMasterMuted }) {

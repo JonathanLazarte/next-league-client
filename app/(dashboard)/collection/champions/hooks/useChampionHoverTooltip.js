@@ -1,5 +1,5 @@
 import useHoverIntent from "@/hooks/useHoverIntent";
-import { HOVER_DELAYS } from "@/utils/constants.js";
+import { HOVER_DELAYS } from "@/utils/constants";
 import { useState, useCallback } from "react";
 import { useRef } from "react";
 

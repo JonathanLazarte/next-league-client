@@ -50,7 +50,7 @@ const ResumenTab = memo(function ResumenTab({
   onUnlockChampion,
 }) {
   const difficulty = champion?.info.difficulty;
-  console.log(champion)
+
   return (
     <div style={{ backgroundImage: `linear-gradient(
         to right,
@@ -70,7 +70,12 @@ const ResumenTab = memo(function ResumenTab({
               <span className={styles.styleLabel}>STYLE:</span>
               <div className={styles.styleSlider}>
                 <div className={styles.meleeIcon}>
-                  <img src="/champion-details/continuum_icon_attackspeed.png"></img>
+                  <Image
+                    alt="ability power icon"
+                    src="/champion-details/continuum_icon_attackspeed.png"
+                    width={17}
+                    height={17}
+                  />
                 </div>
                 <div className={styles.sliderTrack}>
                   <div
@@ -79,28 +84,44 @@ const ResumenTab = memo(function ResumenTab({
                   ></div>
                 </div>
                 <div className={styles.rangedIcon}>
-                  <img src="/champion-details/continuum_icon_abilitypower_grey.png"></img>
+                  <Image
+                    alt="ability power icon"
+                    src="/champion-details/continuum_icon_abilitypower_grey.png"
+                    width={17}
+                    height={17}
+                  />
                 </div>
               </div>
             </div>
             <div className={styles.difficultySection}>
               <span className={styles.difficultyLabel}>DIFFICULTY:</span>
               <div className={styles.difficultyBar}>
-                {difficulty > 0 && difficulty <= 4 ? <img
-                  src="/champion-details/difficultygraph_difficulty1.png"
-                  className={styles.difficultyLevel}>
-                </img> : null}
+                {difficulty > 0 && difficulty <= 4 ? (
+                  <Image
+                    src="/champion-details/difficultygraph_difficulty1.png"
+                    className={styles.difficultyLevel}
+                    alt="difficulty level graph"
+                    width={136}
+                    height={5}
+                  />
+                  ): null}
                 {difficulty > 4 && difficulty <= 7 ? (
-                  <img
+                  <Image
                     className={styles.difficultyLevel}
                     src="/champion-details/difficultygraph_difficulty2.png"
-                  ></img>
+                    alt="difficulty level graph"
+                    width={136}
+                    height={5}
+                    />
                 ) : null}
                 {difficulty > 7 ? (
-                  <img
+                  <Image
                     className={styles.difficultyLevel}
                     src="/champion-details/difficultygraph_difficulty3.png"
-                  ></img>
+                    alt="difficulty level graph"
+                    width={136}
+                    height={5}
+                    />
                 ) : null}
               </div>
             </div>
@@ -117,21 +138,32 @@ const ResumenTab = memo(function ResumenTab({
                 const rotationDegree = index * 72
                 return (
                   <>
-                    <img
+                    <Image
                       className={styles.graphTraitIcon}
                       src={`/champion-details/${stat.hover_icon}.png`}
                       key={index}
-                    >
-                    </img>
-                    <img
+                      width={800}
+                      height={800}
+                      alt="graph segment icon"
+                      />
+                    <Image
                       src={`/champion-details/cdp-graph-segment-l${stat.value}.png`}
                       className={styles.graphSegmentLevel}
-                      style={{transform: `rotate(${rotationDegree}deg)`}}
+                      style={{ transform: `rotate(${rotationDegree}deg)` }}
+                      alt="graph segment level"
+                      width={800}
+                      height={800}
                     />
                   </>
                 );
               })}
-              <img src='/champion-details/cdp_graph_backing.png' className={styles.radarBackground}></img>
+              <Image
+                width={800}
+                height={800}
+                alt='graph backing'
+                src='/champion-details/cdp_graph_backing.png'
+                className={styles.radarBackground}
+              />
             </div>
           </div>
         </div>
@@ -163,17 +195,7 @@ const ResumenTab = memo(function ResumenTab({
           </button>
         </div>
       </div>
-      {/* Right Panel - Champion Illustration */}
-      <div className={styles.rightPanel}>
-        <div className={styles.championIllustration}>
-          <img
-            src={`${RESOURCES_URL}/splash/${champion.id}_0.jpg`}
-            alt={champion.name}
-            className={styles.illustrationImage}
-          />
-          <div className={styles.energyEffects}></div>
-        </div>
-      </div>
+
     </div>
   );
 });
@@ -388,6 +410,8 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
   /*const videosRef = useRef < HTMLVideoElement[] > ([]);*/
   const videoRef = useRef([])
 
+  console.log(selectedSpell)
+
   useEffect(() => {
     videoRef.current.forEach((video, index) => {
       if (!video) return;
@@ -422,7 +446,13 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
       ))}
       <div className={`video-placeholder`} style={{ visibility: showLoading ? "visible" : "hidden" }}>
         <div className={`loading-spinner medium`}>
-          <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
+          <Image
+            className="spinner-ring"
+            src="/general/loading-spinner-blue.png"
+            alt="loading spinner"
+            width={100}
+            height={100}
+          />
         </div>
       </div>
       <div className="spells-panel">
@@ -431,9 +461,12 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
             <div onClick={() => {
               setSelectedSpell(0);
             }} className={`passive-image-container ${selectedSpell === 0 ? "selected" : null}`}>
-              <img
+              <Image
                 className='passive-image'
                 src={`${RESOURCES_URL}/passive/${champion.passive.image.full}`}
+                alt="passive sprite"
+                width={32}
+                height={32}
                 />
             </div>
             P
@@ -441,15 +474,21 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
           <div className="spell-separator"></div>
           {champion.spells.map((spell, index) => {
             return (
-              <div key={index} className="spell-item">
-                <div className={`spell-image-container ${selectedSpell === index + 1 ? "selected" : null}`}>
-                  <img
+              <div key={index} className="spell-item" >
+                <div
+                  onClick={() => {
+                  setSelectedSpell(index + 1);
+                  }}
+                  className={`spell-image-container ${selectedSpell === index + 1 ? "selected" : null}`}
+                >
+                  <Image
                     key={index}
-                    onClick={() => {
-                      setSelectedSpell(index + 1);
-                    }}
+
                     className='spell-image'
                     src={`${RESOURCES_URL}/spell/${spell.image.full}`}
+                    alt="spell sprite"
+                    width={48}
+                    height={48}
                     />
                 </div>
                 {spellKeys[index + 1]}

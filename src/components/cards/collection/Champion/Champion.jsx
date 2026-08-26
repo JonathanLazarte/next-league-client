@@ -149,7 +149,6 @@ const ChampionCard = ({
           height={560}
           src={`${RESOURCES_URL}/loading/${champion.id}_0.jpg`}
           alt={`${champion.name} sprite`}
-          loading="lazy"
         />
         {adquired ? (
           <div className="mastery-box" aria-hidden="true">

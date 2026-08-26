@@ -7,7 +7,7 @@ import { useState } from 'react'
 import useTooltipTrigger from '@/components/tooltips/GlobalTooltip/TooltipTrigger'
 import HeaderTab from './components/HeaderTab'
 import HeaderWallet from './components/HeaderWallet'
-import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants.js'
+import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants'
 
 export default memo(function DesktopHeader({ showSideNav }) {
   const [sectionTabSelected, setSectionTabSelected] = useState()

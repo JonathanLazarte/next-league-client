@@ -11,6 +11,7 @@ const nextConfig = {
           },
         ],
   },
+  output: 'standalone',
   /*reactStrictMode: false,*/
   // Preservar la funcionalidad de Redux
   webpack: (config) => {

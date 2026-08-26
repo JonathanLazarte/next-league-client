@@ -56,7 +56,6 @@ export default memo(function SkinCard({
           className={`skin-card-image ${isAdquired ? "" : "not-obtained"}`}
           src={`${RESOURCES_URL}/loading/${skin.img}`}
           alt={`${skin.name} skin`}
-          loading="lazy"
           clipPath="url(#card-shape)"
           preserveAspectRatio="xMidYMid slice"
           width={308}

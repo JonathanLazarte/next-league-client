@@ -1,4 +1,4 @@
-import { RARITY_LEVELS } from "@/utils/constants.js";
+import { RARITY_LEVELS } from "@/utils/constants";
 
 export default function RaritySkinsCount({ trigger, userSkinsFull }) {
   const raritys = RARITY_LEVELS;

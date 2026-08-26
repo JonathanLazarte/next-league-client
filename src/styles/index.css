@@ -6,6 +6,7 @@ html {
     font-size: clamp(7px, 0.625vw, 10px);
     background-color: black;
     overflow: hidden;
+    scroll-behavior: smooth;
 }
 
 :root {

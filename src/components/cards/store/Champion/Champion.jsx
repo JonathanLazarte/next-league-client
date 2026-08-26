@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { usePurchase } from "@/hooks/usePurchase";
-import { preload } from "react-dom";
+/*import { preload } from "react-dom";*/
 import "./Champion.css";
 import Image from 'next/image'
 import { RESOURCES_URL } from "@/utils/constants";
@@ -9,7 +9,7 @@ const ChampionCard = ({ id, item: data }) => {
   const { openPurchaseModal } = usePurchase();
 
   const handleClick = async () => {
-    await preload(`${RESOURCES_URL}/splash/${data.id}.jpg`, { as: "image" });
+    /*await preload(`${RESOURCES_URL}/splash/${data.id}.jpg`, { as: "image" });*/
     openPurchaseModal({ itemId: data.id, type: "champion" });
   };
   return (
@@ -24,9 +24,9 @@ const ChampionCard = ({ id, item: data }) => {
       {/* Unique key and card class */}
       <Image
         className="store-champion-image"
-        id={id} // Set unique ID for potential usage
+        id={id}
         src={`${RESOURCES_URL}/tiles/${data.id}_0.jpg`}
-        alt={`Sprite of ${data.name}`} // Add alt text for accessibility
+        alt={`Sprite of ${data.name}`}
         sizes={'23rem'}
         fill
       />
@@ -34,17 +34,17 @@ const ChampionCard = ({ id, item: data }) => {
         <h4 className="card-name">{data.name}</h4>
         <div className="price">
           <div className="rp-price">
-            <img className="rp-icon-card" src="/general/RP_icon.png"></img>
+            <Image alt='rp icon' sizes={'1rem'} width={15} height={15} className="rp-icon-card" src="/general/RP_icon.png"></Image>
             <span className="price-number">{data.price.rp}</span>
           </div>
           <div className="essences-price">
-            <img className="be-icon-card" src="/general/BE_icon.png"></img>
+            <Image alt='be icon' sizes={'1rem'} width={15} height={15} className="be-icon-card" src="/general/BE_icon.png"></Image>
             <span className="price-number">{data.price.be}</span>
           </div>
         </div>
       </div>
       <div className="unlock-icon-box">
-        <img className="unlock-product-icon" src='/unlock-icon.png'></img>
+        <Image width={50} height={50} alt="unlock icon" className="unlock-product-icon" src='/unlock-icon.png'></Image>
       </div>
 
     </article>
