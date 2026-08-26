@@ -16,6 +16,7 @@
     justify-content: flex-start;
     position: relative;
     animation: appearance 0.8s ease;
+    padding-top: 3.5rem;
 }
 
 .gradient-layer {
@@ -34,9 +35,11 @@
     flex-direction: row;
     width: 100%;
     padding: 0.56rem 4rem 0px 2.88rem;
+    height: 4rem;
+    top: 0;
     justify-content: space-between;
     align-items: flex-start;
-    position: relative;
+    position: absolute;
 }
 
 .store-tab {

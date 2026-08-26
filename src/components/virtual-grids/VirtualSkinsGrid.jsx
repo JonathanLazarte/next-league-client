@@ -1,15 +1,13 @@
 "use client";
 
-"use client";
-
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { useRef, useMemo, useState, useCallback, useLayoutEffect } from "react";
+import { useRef, useMemo, memo, useState, useCallback, useLayoutEffect } from "react";
 import SkinCard from "@/components/cards/collection/Skin/Skin.jsx";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import { useThrottledCallback } from "@/hooks/useThrottle";
 import "./virtualGrid.css";
 
-export default function VirtualSkinsGrid({
+export default memo(function VirtualSkinsGrid({
   groupedSkins,
   onHoverStart,
   onHoverEnd,
@@ -179,4 +177,4 @@ export default function VirtualSkinsGrid({
       </div>
     </div>
   );
-}
+})

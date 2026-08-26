@@ -49,7 +49,13 @@ export default memo(function SkinCard({
       onMouseLeave={onHoverEnd}
     >
       {isAdquired ? (
-        <img className="skin-card-border" src={`/collection/borders/borders_normal.png`}></img>
+        <Image
+          width={264}
+          height={450}
+          alt
+          className="skin-card-border"
+          src={`/collection/borders/borders_normal.png`}
+        />
       ) : null}
       {
         <Image
