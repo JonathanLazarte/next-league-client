@@ -308,7 +308,10 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
         width={'1320'}
         quality={'100%'}
       />
-      <div className="background-skin-image-placeholder" style={{ visibility: !isBackgroundImageLoaded ? "visible" : "hidden" }}></div>
+      <div className="background-skin-placeholder"
+        style={{ visibility: !isBackgroundImageLoaded ? "visible" : "hidden" }}
+      >
+      </div>
       <div className="bottom-panel">
         <h3 className="skin-name">
           {" "}
@@ -390,7 +393,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
                     </>
                   ) : (
                     <div className="empty-slot">
-                      <span>—</span>
+                      <span></span>
                     </div>
                   )}
                 </div>
@@ -410,8 +413,6 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
   const showLoading = useLoadingDelay(isVideoLoading);
   /*const videosRef = useRef < HTMLVideoElement[] > ([]);*/
   const videoRef = useRef([])
-
-  console.log(selectedSpell)
 
   useEffect(() => {
     videoRef.current.forEach((video, index) => {

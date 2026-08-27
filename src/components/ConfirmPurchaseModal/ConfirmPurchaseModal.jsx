@@ -114,11 +114,9 @@ export default function ConfirmPurchaseWindow() {
               className="buy-rp-button"
             >
               <>
-                <img
-                  className="w-4 h-4 rp-icon"
-                  src="/general/RP_icon.png"
-                  alt="RP"
-                />
+                <svg className="rp-icon" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#e3ba3d" fill-rule="evenodd" clip-rule="evenodd" d="M8.63343 2.25848L6.5001 0.600098L4.36676 2.25848V8.25781L6.5001 9.7405L8.63343 8.25781V2.25848ZM12.0468 6.1152L12.9001 5.49383L10.3401 3.11553V9.11486L7.35343 11.2575V13.4001L12.9001 9.68479L12.0468 8.68634V6.1152ZM2.6601 3.11553L0.100098 5.49383L0.953431 6.1152V8.68634L0.100098 9.68479L5.64676 13.4001V11.2575L2.6601 9.11486V3.11553Z" />
+                </svg>
                 {productPrice.rp}
               </>
               {newBalance.rp >= 0 ? (
@@ -145,11 +143,9 @@ export default function ConfirmPurchaseWindow() {
                 className="buy-be-button"
               >
                 <>
-                  <img
-                    className="w-4 h-4 be-icon"
-                    src="/general/BE_icon.png"
-                    alt="BE"
-                  />
+                  <svg className="be-icon" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#0acbe6" fill-rule="evenodd" clip-rule="evenodd" d="M6 16L9 12L0 8L6 16ZM9 3.2L6 0L0.75 6.4L5.25 8L9 3.2ZM9.75 5.6L6.75 8.8L9.75 10.4L12 8L9.75 5.6Z"/>
+                  </svg>
                   {productPrice.be}
                 </>
                 {newBalance.be >= 0 ? (

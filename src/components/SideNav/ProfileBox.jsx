@@ -9,11 +9,13 @@ import { audioEngine } from "@/engine/audioEngine";
 import { RESOURCES_URL } from '@/utils/constants'
 import { useAuth } from '@/hooks/useAuth'
 import { useUser } from "@/hooks/useUser";
+import { useSound } from "@/hooks/useSound"
 
 const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => {
   const { user } = useUser();
   const { queue, queueStatus, updateUserState } = useUserInterface();
   const [iconIsInHover, setIconIsInHover] = useState(false);
+  const { play: playClickGeneric } = useSound("/sfx/sfx-uikit-click-generic.ogg")
   const showPerfilSpanStyle = iconIsInHover
     ? { marginLeft: "1rem", visibility: "visible" }
     : null;
@@ -114,7 +116,10 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
           />
           <IoIosSettings
             className="accountOptionIcon"
-            onClick={() => setIsSettingsOpen(true)}
+            onClick={() => {
+              playClickGeneric();
+              setIsSettingsOpen(true);
+            }}
           />
           <PiXBold onClick={() => handleLogout()} className="accountOptionIcon" />
         </div>

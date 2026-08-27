@@ -10,6 +10,7 @@ import {
 } from "@/redux/slices/soundSlice";
 import { saveSettings } from "@/redux/slices/settingsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useSound } from '@/hooks/useSound'
 
 function SoundControl({ label, checkLabel, type, isMasterMuted }) {
   // Estado local solo para visualización inmediata en UI
@@ -159,11 +160,13 @@ export default function Settings({ setIsSettingsOpen }) {
   const [settingSelected, setSettingSelected] = useState("sound");
   const userSettings = useSelector((state) => state.settings);
   const dispatch = useDispatch();
+    const { play: playButtonGoldClick } = useSound("/sfx/sfx-uikit-button-gold-click.ogg")
 
   const handleRestoreDefaults = () => {
     dispatch(restoreDefaults());
   };
   const handleSaveSettings = () => {
+    playButtonGoldClick();
     const updatedUserSettings = {
       ...userSettings,
       sound: {

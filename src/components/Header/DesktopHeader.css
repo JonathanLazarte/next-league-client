@@ -122,24 +122,6 @@
       color: #F0E6D2;
 }
 
-/*.item::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 70px;
-      height: 70px;
-      background: radial-gradient(circle, rgba(0,255,255,0.8) 0%, transparent 70%);
-      transform: translate(-50%, -50%);
-      filter: blur(10px);
-      z-index: 0;
-      opacity: 0;
-}
-.header-sections .item.glow::after {
-    animation-name: destellodeluz;
-    animation-duration: 1s;
-}*/
-
 .tab-separator {
     width: 0.25rem; /*algunos tienen que ir con 2px*/
     height: 75%;
@@ -182,15 +164,15 @@
 }
 
 .riot-points img {
-    width: 2rem; /* 1.25vw → 2rem */
+    width: 2rem;
 }
 
 .blue-essences img {
-    width: 1.9rem;
+    width: 1.8rem;
 }
 
 .blue-essences {
-    padding-left: 1.28rem; /* 0.8vw → 1.28rem */
+    padding-left: 1.28rem;
     display: flex;
     flex-direction: row;
     align-items: center;

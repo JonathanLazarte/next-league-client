@@ -1,12 +1,12 @@
 * {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 html {
     font-size: clamp(7px, 0.625vw, 10px);
     background-color: black;
     overflow: hidden;
-    scroll-behavior: smooth;
 }
 
 :root {
@@ -58,10 +58,6 @@ body {
     background-color: black;
 }
 
-::-webkit-scrollbar {
-    /*overflow: hidden;
-  display: none;*/
-}
 
 :root {
     background-color: black;
@@ -178,8 +174,6 @@ input[type="search"]::-webkit-search-cancel-button {
     background: var(--blue-five);
     position: relative;
 }
-
-.dashboard-layout-background {}
 
 .general-button {
     position: relative;

@@ -373,7 +373,6 @@
         #967330,
         #6b5028
     );
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -384,7 +383,8 @@
     height: 90%;
     object-fit: cover;
     border-radius: 50%;
-    border: 0.5px solid black;
+    background: black;
+
 }
 
 .box-status-icon {

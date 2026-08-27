@@ -255,6 +255,8 @@
 .rp-icon,
 .be-icon {
     margin-right: 5px;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .new-balance {

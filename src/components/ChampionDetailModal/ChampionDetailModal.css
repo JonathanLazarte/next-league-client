@@ -31,9 +31,12 @@
     top: 0;
     object-fit: cover;
 }
-.background-skin-image-placeholder {
+.background-skin-placeholder {
     visibility: hidden;
     position: absolute;
+    background-color: red;
+    z-index: 200;
+    display: none;
 }
 .bottom-panel {
     width: 100%;
