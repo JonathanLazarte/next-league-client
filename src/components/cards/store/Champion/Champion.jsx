@@ -34,11 +34,15 @@ const ChampionCard = ({ id, item: data }) => {
         <h4 className="card-name">{data.name}</h4>
         <div className="price">
           <div className="rp-price">
-            <Image alt='rp icon' sizes={'1.8rem'} width={24} height={24} className="rp-icon-card" src="/general/RP_icon.png"></Image>
+            <div className="currency-icon-wrapper">
+              <Image alt='rp icon' sizes={'1.8rem'} width={24} height={24} className="rp-icon-card" src="/general/RP_icon.png"></Image>
+            </div>
             <span className="price-number">{data.price.rp}</span>
           </div>
           <div className="essences-price">
-            <Image alt='be icon' sizes={'1.8rem'} width={52} height={65} className="be-icon-card" src="/general/BE_icon.png"></Image>
+            <div className="currency-icon-wrapper">
+              <Image alt='be icon' sizes={'1.8rem'} width={52} height={65} className="be-icon-card" src="/general/BE_icon.png"></Image>
+            </div>
             <span className="price-number">{data.price.be}</span>
           </div>
         </div>

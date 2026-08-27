@@ -29,7 +29,9 @@ export default function SkinStoreItem({ item : skin }){
         <div className="price">
           <div className="rp-price">
             {skin.availability !== 'Limited' && (
-              <img src="/general/RP_icon.png" alt="RP" className="rp-icon-card" />
+              <div className="currency-icon-wrapper">
+                <img src="/general/RP_icon.png" alt="RP" className="rp-icon-card" />
+              </div>
             )}
             <span className="price-number">{skin.value}</span>
           </div>
