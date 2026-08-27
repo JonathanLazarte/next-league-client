@@ -9,6 +9,7 @@ import "./confirmPurchaseModal.css";
 import { usePurchase } from "@/hooks/usePurchase";
 import useSkins from "@/hooks/useSkins";
 import useChampions from "@/hooks/useChampions";
+import { RESOURCES_URL } from "@/utils/constants";
 
 // Custom hook for purchase window logic
 export default function ConfirmPurchaseWindow() {
@@ -26,6 +27,8 @@ export default function ConfirmPurchaseWindow() {
   const isProcessing = status === "processing";
   const showLoading = useLoadingDelay(isProcessing, { delay: 300, minDisplayTime: 1000 });
   const showSuccess = status === "success" && !showLoading;
+  const [imageLoading, setImageLoading] = useState(true);
+  const delayedImageLoading = useLoadingDelay(imageLoading, { delay: 400 })
 
   const productInfo = useMemo(() => {
     if (!itemToBuy) return null;
@@ -72,8 +75,8 @@ export default function ConfirmPurchaseWindow() {
 
   const productImg =
     itemToBuy?.type === "champion"
-      ? `/splash/${productInfo?.id}_0.jpg`
-      : `/splash/${productInfo?.img}`;
+      ? `${RESOURCES_URL}/splash/${productInfo?.id}_0.jpg`
+      : `${RESOURCES_URL}/splash/${productInfo?.img}`;
 
   // Optimized purchase function
   const buyProduct = (coin, price) => {
@@ -182,8 +185,7 @@ export default function ConfirmPurchaseWindow() {
       </div>
     );
   };
-  const [imageLoading, setImageLoading] = useState(true);
-  const delayedImageLoading = useLoadingDelay(imageLoading)
+
 
   return (
     typeof window !== "undefined" &&
@@ -210,7 +212,6 @@ export default function ConfirmPurchaseWindow() {
                     style={{
                       visibility: !delayedImageLoading ? "visible" : "hidden",
                     }}
-                    placeholder={<div></div>}
                   />
                   {delayedImageLoading && <div className="loading-image">
                     <div className={`loading-spinner medium`}>
