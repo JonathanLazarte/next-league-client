@@ -210,10 +210,15 @@ export default function ConfirmPurchaseWindow() {
                     style={{
                       visibility: !delayedImageLoading ? "visible" : "hidden",
                     }}
+                    placeholder={<div></div>}
                   />
                   {delayedImageLoading && <div className="loading-image">
                     <div className={`loading-spinner medium`}>
-                      <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
+                      <img
+                        alt="loading spinner"
+                        className="spinner-ring"
+                        src="/general/loading-spinner-blue.png"
+                      />
                     </div>
                   </div>}
                   <div className="gradient"></div>
