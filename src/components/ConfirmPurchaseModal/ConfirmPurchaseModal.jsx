@@ -205,7 +205,6 @@ export default function ConfirmPurchaseWindow() {
                     className="product-image"
                     src={productImg}
                     alt={productInfo.name}
-                    sizes={'40rem'}
                     fill
                     onLoad={() => setImageLoading(false)}
                     style={{

@@ -4,8 +4,8 @@ const nextConfig = {
     domains: [],
     remotePatterns: [
           {
-            protocol: 'https',
-            hostname: 'next-league.s3.sa-east-1.amazonaws.com',
+            protocol: 'http',
+            hostname: 'd2l6vvcxr1n0o0.cloudfront.net',
             port: '',
             pathname: '/**',
           },
@@ -32,7 +32,7 @@ const nextConfig = {
       test: /\.(webm|mp4|ogv)$/i,
       type: "asset/resource",
       generator: {
-        // Es mejor usar 'static/media/' para archivos multimedia
+        // TODO: 'static/media/' para archivos multimedia
         filename: "static/media/[name].[hash][ext]",
       },
     });

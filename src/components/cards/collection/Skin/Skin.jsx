@@ -3,6 +3,7 @@
 import { memo, useRef } from "react";
 import { GiPadlock } from "react-icons/gi";
 import Image from 'next/image'
+import { useSound } from '@/hooks/useSound'
 
 import "./Skin.css";
 import { RESOURCES_URL } from "@/utils/constants";
@@ -19,7 +20,22 @@ export default memo(function SkinCard({
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   };
   const currentRem = getRem();
+  const { play: playGridHover } = useSound("/sfx/sfx-uikit-grid-hover.ogg")
 
+  const handleMouseEnter = () => {
+    playGridHover();
+    if (!ref.current) return;
+
+    const rect = ref.current.getBoundingClientRect();
+    // Actualizar el ref directamente sin causar re-render
+    if (toolTipPosRef) {
+      toolTipPosRef.current = {
+        x: rect.right - rect.width / 2,
+        y: window.innerHeight - rect.top + currentRem * 3,
+      };
+    }
+    onHoverStart(skin, ref);
+  }
 
   return (
     <div
@@ -33,19 +49,7 @@ export default memo(function SkinCard({
           e.preventDefault();
         }
       }}
-      onMouseEnter={() => {
-        if (!ref.current) return;
-
-        const rect = ref.current.getBoundingClientRect();
-        // Actualizar el ref directamente sin causar re-render
-        if (toolTipPosRef) {
-          toolTipPosRef.current = {
-            x: rect.right - rect.width / 2,
-            y: window.innerHeight - rect.top + currentRem * 3,
-          };
-        }
-        onHoverStart(skin, ref);
-      }}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={onHoverEnd}
     >
       {isAdquired ? (

@@ -150,18 +150,17 @@
         rgba(255, 255, 255, 0)
     );
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    /*animation: shimmer 1s infinite alternate;*/
 }
 
 .account-coins {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 14.56rem; /* 9.1vw → 14.56rem */
-    margin-left: 3.52rem; /* 2.2vw → 3.52rem */
+    width: 14.56rem;
+    margin-left: 3.52rem;
     font-family: "Bold";
     font-size: var(--font-xl);
-    font-size: 1.76rem; /* antes ~1.1vw ≈ 1.76rem */
+    font-size: 1.76rem;
     letter-spacing: 1px;
     color: var(--gold-one);
     height: 100%;
@@ -187,7 +186,7 @@
 }
 
 .blue-essences img {
-    width: 2rem;
+    width: 1.9rem;
 }
 
 .blue-essences {

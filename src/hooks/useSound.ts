@@ -1,4 +1,3 @@
-// hooks/useSound.js
 import { audioEngine } from '@/engine/audioEngine';
 
 export function useSound(url, type = 'sfx') {

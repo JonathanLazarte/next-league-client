@@ -4,6 +4,7 @@ import Image from 'next/image'
 import "./Champion.css";
 import { GiPadlock } from "react-icons/gi";
 import { RESOURCES_URL } from "@/utils/constants";
+import { useSound } from "@/hooks/useSound";
 
 const ChampionCard = ({
   id,
@@ -11,15 +12,22 @@ const ChampionCard = ({
   onClick,
   adquired,
   onHoverEnd,
-  onHoverStart /*, gridWrapperRef*/,
+  onHoverStart,
   tooltipPosRef,
-  /*tooltipRef,*/
 }) => {
+  const { play: playGridHover } = useSound("/sfx/sfx-uikit-grid-hover.ogg")
+  const { play: playGridClick } = useSound("/sfx/sfx-uikit-grid-click.ogg")
+
   const handleClick = useCallback(() => {
+    playGridClick()
     if (onClick) {
       onClick(champion);
     }
   }, [onClick, champion]);
+
+  const handleMouseOver = () => {
+    playGridHover();
+  }
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -118,8 +126,6 @@ const ChampionCard = ({
 
           break;
       }
-      /*setActualPosition(detectedPosition);
-            setCoords({ top, left });*/
       return { x: left, y: top };
     }
   };
@@ -129,6 +135,7 @@ const ChampionCard = ({
       id={id}
       className={` champion-card ${adquired ? "adquired" : null}`}
       onClick={handleClick}
+      onMouseOver={handleMouseOver}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
@@ -152,23 +159,14 @@ const ChampionCard = ({
         />
         {adquired ? (
           <div className="mastery-box" aria-hidden="true">
-            <img className="mastery" src="/collection/mastery-flag-empty.png"></img>
+            <Image className="mastery" src="/collection/mastery-flag-empty.png" alt="mastery-flag" width={86} height={52} />
             <div className="eternals">
               <div className="eternals-content">
-                <svg
-                  className="eternals-icon"
-                  id="Capa_2"
-                  data-name="Capa 2"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 30 39.83"
-                >
-                  <g id="Capa_1-2" data-name="Capa 1">
-                    <g>
-                      <path d="M25.57,18.33c.94.42,1.83,1.56,2.2,2.52,1.16,3.03-.71,5.7-3.4,6.94-4.43,2.04-14.86,2.04-19.02-.7C.17,23.68,3.12,15.82,7.86,13.56c-.15.81-.54,1.56-.62,2.39-.06.66-.02,1.81.28,2.4.89,1.78,3.15-.62,3.85-1.52,1.39-1.79,2.04-4,1.69-6.27s-1.69-3.95-.94-6.2c.5-1.49,1.85-2.86,3.18-3.65.29-.17,1.26-.69,1.53-.72.51-.06.08.34-.02.61-1.15,3.02-.08,5.89,1.68,8.39s4.39,4.52,4.12,7.83c-.1,1.16-1.02,2.73-.55,3.79.58,1.33,2.47,1.1,3.19,0,.52-.79.41-1.42.34-2.31Z" />
-                      <path d="M29.79,25.88c.14-.12.16,0,.18.13.18,1.45-.57,4.05-1.15,5.41-4.67,10.89-21.51,11.2-27.09.99C.77,30.65-.11,27.83.03,25.84c0-.03-.13-.64.14-.32.24.29.54.96.82,1.34,4.18,5.58,15.65,5.77,21.78,4.17,2.9-.76,5.41-2.1,6.91-4.77.06-.1.1-.37.11-.38Z" />
-                    </g>
-                  </g>
+
+                <svg className="eternals-icon" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.1556 9.49196L9.85123 10.8494C9.37691 11.3425 8.71535 11.6233 8.02258 11.6233H4.14996C3.75677 11.6233 3.36982 11.5328 3.01719 11.3581C2.13095 10.9181 1.45067 10.1629 1.11677 9.24543L0.573787 7.7538C0.483291 7.50415 0.555064 7.22642 0.75478 7.04855L3.12017 4.96089L2.51166 6.12798C2.32443 6.48373 2.33379 6.90813 2.5335 7.26075L2.90797 7.91919C3.01095 8.10018 3.26684 8.12827 3.40726 7.96912L5.34825 5.78784C5.53861 5.57564 5.60726 5.28231 5.53237 5.0077L4.78655 2.32089L6.88357 0.666992L6.24386 2.11181C6.13152 2.36458 6.1752 2.65791 6.35308 2.87011L9.07421 6.08118C9.27705 6.32146 9.31137 6.6616 9.15535 6.93309L8.48442 8.11579C8.3752 8.30926 8.53435 8.5433 8.75903 8.51834L9.95109 8.38415C10.1851 8.35919 10.3599 8.16259 10.3599 7.93167V6.74274L11.2773 8.79295C11.3866 9.03011 11.3366 9.30472 11.1556 9.49196ZM0.626837 11.1802C1.99989 16.7223 10.0447 16.7129 11.4022 11.1677L11.4552 10.9586L10.182 12.1694C9.6796 12.6468 9.00556 12.9152 8.30343 12.9152H4.03762C3.49152 12.9152 2.9579 12.7529 2.50854 12.4503L0.626837 11.1802Z" fill="#5B5A56"/>
                 </svg>
+
                 <div className="eternals-value">0</div>
               </div>
             </div>

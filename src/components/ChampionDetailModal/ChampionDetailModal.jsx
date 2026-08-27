@@ -16,6 +16,7 @@ import { useUserSkins } from "@/hooks/useUserSkins";
 import { GiPadlock } from "react-icons/gi";
 import { IoArrowForward } from "react-icons/io5";
 import { RESOURCES_URL } from "@/utils/constants";
+import { useSound } from '@/hooks/useSound'
 
 
 export const CloseModalButton = ({ onClose }) => {
@@ -518,6 +519,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
   const [activeTab, setActiveTab] = useState("resumen");
   const { userChampions } = useUserChampions();
   const { openPurchaseModal } = usePurchase();
+  const { play: playMenuClick } = useSound("/sfx/menu-click.mp3");
 
   if (!champion) return null;
 
@@ -573,7 +575,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
               <button
                 key={tab.id}
                 className={`${styles.tab} ${activeTab === tab.id ? styles.activeTab : ""}`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => { playMenuClick(); setActiveTab(tab.id); }}
               >
                 {tab.label}
               </button>

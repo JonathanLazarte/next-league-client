@@ -1,7 +1,7 @@
 /**
  * Constantes globales de la aplicación
  */
-export const RESOURCES_URL = "https://next-league.s3.sa-east-1.amazonaws.com";
+export const RESOURCES_URL = "http://d2l6vvcxr1n0o0.cloudfront.net";
 export const RARITY_LEVELS = [
   "Signature",
   "Hall",
