@@ -1,10 +1,16 @@
 import { audioEngine } from '@/engine/audioEngine';
 
-export function useSound(url, type = 'sfx') {
+interface AudioEngine {
+  context: any;
+  channels: any;
+  cache: any;
+}
+
+export function useSound(url: string, type = 'sfx') {
   const play = async () => {
     // 1. Nos aseguramos de inicializar si no se ha hecho
     audioEngine.init();
-    const { context, channels, cache } = audioEngine;
+    const { context, channels, cache } : AudioEngine = audioEngine;
 
     // Si no hay contexto (ej: en el servidor), abortamos silenciosamente
     if (!context) return;

@@ -25,20 +25,6 @@
     align-items: center;
     justify-content: space-between;
     height: 34rem;
-
-}
-.control-panel-frame-bot {
-    max-width: unset;
-    width: 101.25%;
-    position: absolute;
-    bottom: 0;
-    transform: translateY(100%);
-}
-.control-panel-frame-top {
-    max-width: unset;
-    width: 102%;
-    position: absolute;
-    top: 0;
 }
 
 .total-skins-count {
@@ -54,11 +40,22 @@
     align-items: center;
     position: relative;
 }
-
+.hextech-rounded-border {
+    position: absolute;
+    z-index: 2;
+    width: 17rem;
+    transform: translateY(-2%);
+}
+.hextech-rounded-border .path-2 {
+    fill: var(--blue-five);
+    stroke: var(--gold-six);
+    stroke-width: 3;
+}
 .total-skins-info {
     position: absolute;
     text-align: center;
     padding: 20%;
+    z-index: 3;
 
 }
 
@@ -78,8 +75,6 @@
     padding:
         0 9px,
         0;
-    border: solid var(--gold-six);
-    border-width: 0 2px;
     font-family: Spiegel-Regular;
 }
 
@@ -116,6 +111,7 @@
     align-items: center;
     color: var(--grey-three);
     font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .chroma-item,

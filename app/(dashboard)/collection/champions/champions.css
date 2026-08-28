@@ -28,13 +28,18 @@
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
+    align-content: center;
     width: 98%;
     margin-bottom: 5rem;
-    margin-top: 3rem;
-    border: solid var(--gold-six);
-    border-width: 0 2px;
+    margin-top: 1.5rem;
+    height: 22rem;
 }
-
+.hextech-border {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
 .square-hextech-frame {
     position: absolute;
     width: 103%;

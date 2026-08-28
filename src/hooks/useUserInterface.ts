@@ -18,15 +18,15 @@ export const useUserInterface = () => {
   const dispatch = useDispatch();
   const uiState = useSelector(selectUserInterfaceData);
 
-  const changeSection = useCallback((section) => {
+  const changeSection = useCallback((section: string) => {
     dispatch(setActualSection(section));
   }, [dispatch]);
 
-  const setNavigating = useCallback((isNavigating) => {
+  const setNavigating = useCallback((isNavigating: boolean) => {
     dispatch(setIsNavigating(isNavigating));
   }, [dispatch]);
 
-  const updateUserState = useCallback((userState) => {
+  const updateUserState = useCallback((userState: string) => {
     dispatch(setUserState(userState));
   }, [dispatch]);
 
@@ -34,7 +34,7 @@ export const useUserInterface = () => {
     dispatch(setQueue(queueData));
   }, [dispatch]);
 
-  const updateQueueStatus = useCallback((status) => {
+  const updateQueueStatus = useCallback((status: string) => {
     dispatch(setQueueStatus(status));
   }, [dispatch]);
 
