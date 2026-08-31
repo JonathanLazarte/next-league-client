@@ -51,8 +51,7 @@ export default memo(function Champions() {
 
 
   return (
-    <div className="champion-store">
-      {/* Desktop Filters */}
+    <div className="champion-store" styles={{paddingLeft: "4.4rem", paddingTop:"5.6rem"}}>
 
       <StoreSidePanel
         subsections={subsections}
