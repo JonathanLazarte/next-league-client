@@ -1,10 +1,15 @@
 import { createSlice/*, createAsyncThunk*/ } from '@reduxjs/toolkit'
 
+interface Node {
+  volume: number,
+  muted: boolean
+}
+
 interface SoundState {
   currentTrack: string,
-  master: object,
-  sfx: object,
-  music: object,
+  master: Node,
+  sfx: Node,
+  music: Node,
 }
 
 const initialState: SoundState = {

@@ -47,7 +47,19 @@ interface UserState {
   profile_background: string;
   loading: boolean;
 }
-
+interface UserPayload {
+  userName: string;
+  id: string;
+  tag: string;
+  title: string;
+  level: number;
+  EXP: number;
+  BE: number;
+  RP: number;
+  rank: Rank;
+  profile_icon: string;
+  profile_background: string;
+}
 const initialState: UserState = {
   userName: "",
   id: "",
@@ -67,6 +79,22 @@ const initialState: UserState = {
   profile_background: "",
   loading: false,
 };
+
+const updateUserFields = (state: UserState, action: PayloadAction<UserPayload>) => {
+  const { payload } = action;
+  state.userName = payload.userName;
+    state.id = payload.id;
+    state.alias = payload.userName;
+    state.tag = payload.tag;
+    state.title = payload.title;
+    state.level = payload.level;
+    state.EXP = payload.EXP;
+    state.BE = payload.BE;
+    state.RP = payload.RP;
+    state.profile_icon = payload.profile_icon;
+    state.profile_background = payload.profile_background;
+    state.rank = payload.rank;
+}
 
 const userSlice = createSlice({
   name: "user",
@@ -101,46 +129,13 @@ const userSlice = createSlice({
         state.loading = false
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.userName = action.payload.userName;
-        state.id = action.payload.id;
-        state.alias = action.payload.userName;
-        state.tag = action.payload.tag;
-        state.title = action.payload.title;
-        state.level = action.payload.level;
-        state.EXP = action.payload.EXP;
-        state.BE = action.payload.BE;
-        state.RP = action.payload.RP;
-        state.profile_icon = action.payload.profile_icon;
-        state.profile_background = action.payload.profile_background;
-        state.rank = action.payload.rank;
+        updateUserFields(state, action)
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.userName = action.payload.userName;
-        state.id = action.payload.id;
-        state.alias = action.payload.userName;
-        state.tag = action.payload.tag;
-        state.title = action.payload.title;
-        state.level = action.payload.level;
-        state.EXP = action.payload.EXP;
-        state.BE = action.payload.BE;
-        state.RP = action.payload.RP;
-        state.profile_icon = action.payload.profile_icon;
-        state.profile_background = action.payload.profile_background;
-        state.rank = action.payload.rank;
+        updateUserFields(state, action)
       })
       .addCase(verifyToken.fulfilled, (state, action) => {
-        state.userName = action.payload.userName;
-        state.id = action.payload.id;
-        state.alias = action.payload.userName;
-        state.tag = action.payload.tag;
-        state.title = action.payload.title;
-        state.level = action.payload.level;
-        state.EXP = action.payload.EXP;
-        state.BE = action.payload.BE;
-        state.RP = action.payload.RP;
-        state.profile_icon = action.payload.profile_icon;
-        state.profile_background = action.payload.profile_background;
-        state.rank = action.payload.rank;
+        updateUserFields(state, action)
       })
       .addCase(confirmPurchase.fulfilled, (state, action) => {
         const { coin, price } = action.payload

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setQueue } from '@/redux/slices/userInterfaceSlice.ts';
-import ConfirmButton from '@/components/buttons/Confirm/Confirm.jsx';
+import ConfirmButton from '@/components/buttons/Confirm/Confirm';
 import { useSound } from '@/hooks/useSound';
 
 

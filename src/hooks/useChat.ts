@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from '@/hooks/hooks'
 import { useCallback } from "react";
 import {
   addMessage,
@@ -23,8 +23,8 @@ import {
 } from "@/redux/slices/chatSlice";
 
 export function useChat() {
-  const dispatch = useDispatch();
-  const chat = useSelector((state) => state.chat);
+  const dispatch = useAppDispatch();
+  const chat = useAppSelector((state) => state.chat);
   const handleOpenChat = useCallback((payload) => dispatch(openChat(payload)), [dispatch]);
   const handleCloseChat = useCallback((payload) => dispatch(closeChat(payload)), [dispatch]);
   const handleMinimizeChat = useCallback((payload) => dispatch(minimizeChat(payload)), [dispatch]);

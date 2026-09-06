@@ -9,7 +9,7 @@ import {
   useCallback,
   useLayoutEffect,
 } from "react";
-import ChampionCard from "@/components/cards/collection/Champion/Champion.jsx";
+import ChampionCard from "@/components/cards/collection/Champion/Champion";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
 import { useThrottledCallback } from "@/hooks/useThrottle";

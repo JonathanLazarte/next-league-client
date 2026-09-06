@@ -1,6 +1,12 @@
 import { memo } from "react";
 
-const EmptySkinsState = memo(function EmptySkinsState({ loading, groupedSkinsCount, hasSkinsData }) {
+interface EmptySkinsProps {
+  loading: boolean,
+  groupedSkinsCount: number,
+  hasSkinsData: boolean
+}
+
+const EmptySkinsState = memo(function EmptySkinsState({ loading, groupedSkinsCount, hasSkinsData }: EmptySkinsProps) {
     if (loading || groupedSkinsCount > 0 || !hasSkinsData) return null;
 
     return (

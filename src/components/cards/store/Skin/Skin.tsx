@@ -14,7 +14,7 @@ export default function SkinStoreItem({ item : skin }){
     <article
       key={skin.id}
       className="store-champion-item"
-      onClick={() => handleClick(skin)}
+      onClick={() => handleClick()}
     >
       <Image
         src={`${RESOURCES_URL}/tiles/${skin.img}`}

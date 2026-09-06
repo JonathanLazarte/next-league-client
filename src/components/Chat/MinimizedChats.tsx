@@ -12,15 +12,15 @@ export default memo(function MinimizedChats() {
     selectChat,
   } = useChat()
 
-  const handleRestoreChat = (chatId) => {
+  const handleRestoreChat = (chatId: string) => {
     restoreChat(chatId)
   }
 
-  const handleCloseChat = (chatId) => {
+  const handleCloseChat = (chatId: string) => {
     closeChat(chatId)
   }
 
-  const handleSelectChat = (chatId) => {
+  const handleSelectChat = (chatId: string) => {
     selectChat(chatId)
   }
 
@@ -35,14 +35,14 @@ export default memo(function MinimizedChats() {
         if (!chatUser) return null
 
         return (
-          <div 
-            key={chatId} 
+          <div
+            key={chatId}
             className="minimized-chat"
             onClick={() => handleSelectChat(chatId)}
           >
             <div className="minimized-chat-avatar">
-              <img 
-                src={`https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/profileicon/${chatUser.profileIcon}.png`}
+              <img
+                src={`https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/profileicon/${chatUser.profile_icon}.png`}
                 alt={chatUser.userName}
               />
               {chatUser.unreadCount > 0 && (
@@ -51,11 +51,11 @@ export default memo(function MinimizedChats() {
                 </span>
               )}
             </div>
-            
+
             <div className="minimized-chat-info">
               <span className="minimized-chat-name">{chatUser.userName}</span>
               <div className="minimized-chat-actions">
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation()
                     handleRestoreChat(chatId)
@@ -65,7 +65,7 @@ export default memo(function MinimizedChats() {
                 >
                   ↗
                 </button>
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation()
                     handleCloseChat(chatId)

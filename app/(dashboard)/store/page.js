@@ -18,7 +18,7 @@ import "./skins/skins.css";
   },
 );*/
 import ChampionsStore from './champions/Champions'
-const SkinsStore = dynamic(() => import("./skins/Skins.jsx"), {
+const SkinsStore = dynamic(() => import("./skins/Skins"), {
   loading: () => <Loading />,
   ssr: false,
 });

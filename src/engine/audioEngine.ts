@@ -1,6 +1,25 @@
-// engine/audioEngine.js
+interface AudioChannel {
+  node: GainNode | null;
+  volume: number;
+  maxVolume: number;
+  muted: boolean;
+}
+
+// Interfaz para agrupar todos los canales disponibles
+interface AudioChannels {
+  master: AudioChannel;
+  sfx: AudioChannel;
+  music: AudioChannel;
+  [key: string]: AudioChannel;
+}
 
 class AudioEngine {
+  context: AudioContext | null = null;
+  cache: Map<string, any>;
+  musicElement: HTMLAudioElement | null = null;
+  musicSource: MediaElementAudioSourceNode | null = null;
+  channels: AudioChannels;
+
   constructor() {
     this.context = null;
     //eslint-disable-next-line no-undef
@@ -20,7 +39,7 @@ class AudioEngine {
     if (typeof window === "undefined" || this.context) return;
 
     // ... Creación del contexto
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
     this.context = new AudioCtx();
 
     // 1. Crear nodos y asignarlos a la estructura de canales
@@ -43,39 +62,39 @@ class AudioEngine {
   }
 
   // Función interna para aplicar el cambio real al nodo
-  updateNode(type) {
+  updateNode(type: string) {
     const channel = this.channels[type];
     if (!channel.node) return;
 
     // Si está muteado es 0, si no, es su volumen guardado
     const targetValue = channel.muted ? 0 : channel.volume;
-    
+
     channel.node.gain.setTargetAtTime(targetValue, this.context.currentTime, 0.05);
   }
 
   // Cuando el usuario mueve el Slider
-  setVolume(type, value) {
+  setVolume(type: string, value:string | number) {
     /*const node = this.channels[type]?.node;
     if (node) {
       node.gain.setTargetAtTime(value, this.context.currentTime, 0.01);
     }*/
-    this.channels[type].volume = parseFloat(value);
+    this.channels[type].volume = typeof value === 'string' ? parseFloat(value) : value;
     // Solo actualizamos el nodo si NO está muteado (o si quieres reactividad inmediata)
     // Generalmente queremos actualizar igual para que recalcule
     this.updateNode(type);
   }
 
   // Cuando el usuario toca el Checkbox
-  setMute(type, mute) {
+  setMute(type: string, mute: boolean) {
     this.channels[type].muted = mute;
     this.updateNode(type);
     return this.channels[type].muted; // Devolvemos el estado para la UI
   }
 //---------------------------------------------------------------------------------
-  playMusic(url) {
+  playMusic(url: string) {
     // 1. Verificación de seguridad
     if (typeof window === "undefined") return;
-    
+
     // 2. Autoinicialización: Si alguien olvida llamar a init(), lo hacemos aquí
     if (!this.context) this.init();
 
@@ -83,11 +102,11 @@ class AudioEngine {
     if (!this.musicElement) {
       this.musicElement = new Audio(url);
       this.musicElement.loop = true;
-      
+
       // Conexión única a la cadena de nodos
       this.musicSource = this.context.createMediaElementSource(this.musicElement);
       this.musicSource.connect(this.channels.music.node);
-    } 
+    }
     // 4. Cambio de canción: Si el elemento ya existe pero la URL es otra
     else if (this.musicElement.src !== url) {
       // Importante: No creamos un nuevo 'source', solo cambiamos el archivo del disco

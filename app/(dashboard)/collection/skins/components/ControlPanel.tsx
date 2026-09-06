@@ -2,7 +2,13 @@ import { memo } from "react";
 import TotalSkinsCount from "./TotalSkinsCount";
 import RaritySkinsCount from "./RaritySkinCount";
 
-const ControlPanel = memo(function ControlPanel({ userSkinsCount, userSkinsFull, trigger }) {
+interface ControlPanelProps {
+    userSkinsCount: number;
+    userSkinsFull: string[];
+    trigger: () => void;
+}
+
+const ControlPanel = memo(function ControlPanel({ userSkinsCount, userSkinsFull, trigger }: ControlPanelProps) {
     return (
         <div className="control-panel">
             <TotalSkinsCount count={userSkinsCount} />

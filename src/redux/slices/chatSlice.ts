@@ -15,11 +15,13 @@ export interface Message {
 export interface ChatUser {
   userId: string;
   userName: string;
+  alias: string;
   profile_icon: number;
   status: "online" | "away" | "busy" | "offline";
   lastSeen?: number;
   isTyping?: boolean;
   unreadCount: number;
+  tag: string;
 }
 
 export interface ChatRoom {
@@ -42,14 +44,14 @@ export interface ChatState {
   // Messages management
   messagesByRoom: Record<string, Message[]>;
   messagesByUser: Object;
-  messages: string[];
+  messages: Message[];
 
   // Users management
   chatUsers: Record<string, ChatUser>;
 
   // UI State
   selectedChat: string | Object | null;
-  selectedUser: string | Object | null;
+  selectedUser: ChatUser | null;
   isChatVisible: boolean;
   isTyping: Record<string, boolean>; // userId -> isTyping
 
@@ -163,7 +165,7 @@ const chatSlice = createSlice({
       }
     },
 
-    selectUser: (state, action: PayloadAction<unknown>) => {
+    selectUser: (state, action: PayloadAction<ChatUser>) => {
       state.selectedUser = action.payload
       state.isChatVisible = true;
     },
@@ -192,7 +194,7 @@ const chatSlice = createSlice({
     },
 
     // Message Management
-    setMessages: (state, action: PayloadAction<string[]>) => {
+    setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
     },
 
@@ -307,8 +309,9 @@ const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.
-      addCase(fetchUser.fulfilled, (state, action: PayloadAction<Object>) => {
-        state.messages = action.payload.userData.messages
+      addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ userData: { messages: Message[]}} >) => {
+        const { userData } = action.payload
+        state.messages = userData.messages
       })
   }
 });

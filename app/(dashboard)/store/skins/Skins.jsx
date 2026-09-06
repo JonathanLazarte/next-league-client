@@ -2,8 +2,8 @@
 
 import { useState, memo } from "react";
 import StoreSidePanel from "@/components/StoreSidePanel/StoreSidePanel";
-import SkinCard from "@/components/cards/store/Skin/Skin.jsx";
-import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
+import SkinCard from "@/components/cards/store/Skin/Skin";
+import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid";
 import useSkins from "@/hooks/useSkins";
 import { useUserChampions } from '@/hooks/useUserChampions'
 import { useUserSkins } from '@/hooks/useUserSkins'

@@ -1,4 +1,5 @@
 import { RARITY_LEVELS } from "@/utils/constants";
+import Image from 'next/image'
 
 export default function RaritySkinsCount({ trigger, userSkinsFull }) {
   const raritys = RARITY_LEVELS;
@@ -18,11 +19,13 @@ export default function RaritySkinsCount({ trigger, userSkinsFull }) {
       <div className="rarity-icons">
         {raritys?.map((rarity) => (
           <div key={rarity} className="rarity-item" {...trigger({content: rarity})}>
-            <img
+            <Image
               className="rarity-image"
               src={`/collection/rarity-gem-icons/${rarity === 'Signature' ? 'transcendent' : rarity === 'Hall' ? 'exalted' : rarity.toLowerCase()}.png`}
               alt={`Rareza ${rarity}`}
               loading="lazy"
+              width={20}
+              height={20}
             />
             {countRarity[rarity] ? countRarity[rarity] : "0"}
           </div>
@@ -31,21 +34,25 @@ export default function RaritySkinsCount({ trigger, userSkinsFull }) {
 
       <div className="legacy-chromas-icons">
         <div className="legacy-item" {...trigger({ content: "Legacy" })}>
-          <img
+          <Image
             className="rariry-image w-7"
             src="/raritys/Legacy.png"
             alt="Legacy"
             loading="lazy"
+            width={20}
+            height={20}
           />
           {countRarity["NoRarity"] || "0"}
         </div>
 
         <div className="chroma-item" {...trigger({content: "Chromas"})}>
-          <img
+          <Image
             className="rariry-image w-7"
             src="/raritys/Chroma.png"
             alt="Chroma"
             loading="lazy"
+            width={20}
+            height={20}
             />
             0
         </div>

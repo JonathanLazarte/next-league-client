@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import "./TrainingLobby.css";
-import ConfirmButton from "@/components/playButton/Confirm/Confirm.jsx";
+import ConfirmButton from "@/components/playButton/Confirm/Confirm";
 import { useDispatch } from "react-redux";
 import { setUserState } from "@/redux/slices/userInterfaceSlice";
 

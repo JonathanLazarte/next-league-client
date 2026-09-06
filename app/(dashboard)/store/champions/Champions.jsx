@@ -3,8 +3,8 @@
 import "./champions.css";
 import { useState, memo } from "react";
 
-import ChampionCard from "@/components/cards/store/Champion/Champion.jsx";
-import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid.jsx";
+import ChampionCard from "@/components/cards/store/Champion/Champion";
+import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid";
 import StoreSidePanel from "@/components/StoreSidePanel/StoreSidePanel";
 
 import { useUserChampions } from '@/hooks/useUserChampions'

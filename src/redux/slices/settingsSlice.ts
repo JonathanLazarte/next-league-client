@@ -3,17 +3,18 @@ import { fetchUser } from '@/redux/slices/userSlice'
 
 export const saveSettings = createAsyncThunk(
   'settings/saveSettings',
-  async ( { userId, settings }, { rejectWithValue } ) => {
+  async ( { userId, settings }: { userId: string, settings: object }, { rejectWithValue } ) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/user/save-settings`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ userId, settings })
-      }).then(response => response.json)
+      })
 
       if (!response.ok) return rejectWithValue('fetch failed')
 
+      //const data = response.json()
       return settings
 
     } catch (error) {

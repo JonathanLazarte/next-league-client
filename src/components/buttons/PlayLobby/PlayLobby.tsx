@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound";
+import Image from 'next/image'
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
@@ -44,7 +45,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }) {
     setSectionTabSelected('play')
 
     // Comportamiento por defecto: abrir selección de modos
-      route.push("play");
+      route.push("play", {});
   };
   const handleMouseEnter = () => {
     if (buttonState === 'disabled') return;
@@ -61,7 +62,13 @@ export default function LobbyPlayButton({ setSectionTabSelected }) {
 
   return (
     <div className="lol-main-button">
-      <img className="container-frame" src='/play-button/play-button-frame-disabled.png'></img>
+      <Image
+        alt="Play button disabled"
+        className="container-frame"
+        src='/play-button/play-button-frame-disabled.png'
+        width={188}
+        height={47}
+      />
       {/* Logo circular izquierdo */}
       <video
         src='/league-logo-loop-idle.webm'
@@ -77,30 +84,45 @@ export default function LobbyPlayButton({ setSectionTabSelected }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <img
+        <Image
           style={{opacity: buttonState === 'idle' ? 1 : 0}}
           className="play-frame"
           src='/play-button/play-button-default.png'
+          width={188}
+          height={47}
+          alt="Play Lobby button"
         />
-        <img
+        <Image
           style={{opacity: buttonState === 'hovered' ? 1 : 0}}
           className="play-frame"
           src='/play-button/play-button-hover.png'
+          width={188}
+          height={47}
+          alt="Play Lobby button"
         />
-        <img
+        <Image
           style={{opacity: buttonState === 'disabled' ? 1 : 0}}
           className="play-frame"
           src='/play-button/play-button-disabled.png'
+          width={188}
+          height={47}
+          alt="Play Lobby button"
         />
-        <img
+        <Image
           style={{opacity: buttonState === 'lobby' ? 1 : 0}}
           className="play-frame"
           src='/play-button/play-button-lobby-default.png'
+          width={188}
+          height={47}
+          alt="Play Lobby button"
         />
-        <img
+        <Image
           style={{opacity: buttonState === 'lobby-hovered' ? 1 : 0}}
           className="play-frame"
           src='/play-button/play-button-lobby-hover.png'
+          width={188}
+          height={47}
+          alt="Play Lobby button"
         />
         <video
           className="play-button-effect-video"

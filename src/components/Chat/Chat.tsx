@@ -7,6 +7,7 @@ import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useUser } from "@/hooks/useUser";
 import { RESOURCES_URL } from '@/utils/constants'
+import Image from 'next/image'
 
 export default memo(function Chat({ socket }) {
   const [chatInput, setChatInput] = useState("");
@@ -27,9 +28,8 @@ export default memo(function Chat({ socket }) {
     markAllAsRead,
     toggleChatVisibility,
   } = useChat();
-  const selectedChatUser = selectedUser ? selectedUser : null;
 
-  const isUserTyping = selectedChatUser
+  const isUserTyping = selectedUser
     ? typingUsers[selectedUser?.alias] || false
     : false;
 
@@ -111,7 +111,7 @@ export default memo(function Chat({ socket }) {
   };
 
   // Color según estado
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "online":
         return "#00ff00";
@@ -146,17 +146,19 @@ export default memo(function Chat({ socket }) {
     <div className="chat">
       {/* Header */}
       <div className="chatHead">
-        {selectedChatUser && (
+        {selectedUser && (
           <div style={{ marginRight: "10px" }} className="chat-user-icon-container">
-            <img
+            <Image
               className="chat-user-icon"
-              src={`${RESOURCES_URL}/profileicon/${selectedChatUser.profile_icon}.png`}
-              alt={selectedChatUser.alias}
+              src={`${RESOURCES_URL}/profileicon/${selectedUser.profile_icon}.png`}
+              alt={selectedUser.alias}
+              width={30}
+              height={30}
             />
             <div
               className="box-status-icon"
               style={{
-                backgroundColor: getStatusColor(selectedChatUser.status),
+                backgroundColor: getStatusColor(selectedUser.status),
               }}
             />
           </div>
@@ -164,10 +166,10 @@ export default memo(function Chat({ socket }) {
 
         <div className="chat-header-info">
           <span className="chat-username">
-            {selectedChatUser?.alias || selectedUser?.alias || "Seleccione un chat"}
+            {selectedUser?.alias || selectedUser?.alias || "Seleccione un chat"}
           </span>
           <span className="chat-status">
-            {selectedChatUser?.alias} {selectedChatUser?.tag}
+            {selectedUser?.alias} {selectedUser?.tag}
           </span>
         </div>
 
@@ -179,14 +181,7 @@ export default memo(function Chat({ socket }) {
           >
             <PiMinus />
           </button>
-          {/*<button
-            onClick={handleCloseChat}
-            className="chat-control-btn"
-            title="Cerrar"
-          >
-            <PiXBold />
-          </button>
-          */}
+
         </div>
       </div>
 

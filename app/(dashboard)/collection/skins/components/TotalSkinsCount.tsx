@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-const TotalSkinsCount = memo(function TotalSkinsCount({ count = 0 }) {
+const TotalSkinsCount = memo(function TotalSkinsCount({ count = 0 }: { count: number }) {
   return (
     <div className="total-skins-count">
       <div className="total-skins-info">

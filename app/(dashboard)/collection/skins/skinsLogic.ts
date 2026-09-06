@@ -1,3 +1,21 @@
+interface SkinsLogicProps {
+  groupedBy: string,
+  showNotObtained: boolean,
+  skins: string[],
+  userSkinsFull: string[]
+  sortedBy: string,
+  deferredSearch: string,
+  userSkins: string[]
+}
+
+interface Skin {
+  purchaseDate: number
+  release: string
+  champion: string | string[],
+  rarity: string,
+
+}
+
 export default function skinsLogic({
   groupedBy,
   showNotObtained,
@@ -6,17 +24,17 @@ export default function skinsLogic({
   sortedBy,
   deferredSearch,
   userSkins
-}) {
+}: SkinsLogicProps) {
 
-  function groupByAcquisitionYear(skins) {
+  function groupByAcquisitionYear(skins: Skin[]) {
     return Object.entries(
-      skins?.reduce((acc, skin) => {
+      skins?.reduce((acc: Record<number, Skin[]>, skin: Skin) => {
         const year = new Date(skin.purchaseDate).getFullYear();
         acc[year] = acc[year] || [];
         acc[year].push(skin);
         return acc;
-      }, {}),
-    ).sort(([a], [b]) => b - a); // newest → oldest
+      }, {} as Record<number, Skin[]>),
+    ).sort(([a], [b]) => Number(b) - Number(a));
   }
 
   function groupByReleaseYear(skins) {

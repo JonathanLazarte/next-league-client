@@ -9,7 +9,7 @@ import "@/components/LoadingOverlay/LoadingOverlay.css"
 
 import ResponsiveHeader from "@/components/Header";
 import SideNav from "@/components/SideNav/SideNav";
-import Chat from "@/components/Chat/Chat.jsx"
+import Chat from "@/components/Chat/Chat"
 import MusicPlayer from "@/components/Audio/MusicPlayer"
 import ConfirmPurchaseModal from "@/components/ConfirmPurchaseModal/ConfirmPurchaseModal";
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";

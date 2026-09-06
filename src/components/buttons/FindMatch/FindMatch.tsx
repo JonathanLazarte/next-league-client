@@ -4,7 +4,7 @@ import "./FindMatch.css";
 import { useState } from "react";
 import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
-import { useSound } from "@/hooks/useSound.ts";
+import { useSound } from "@/hooks/useSound";
 
 export default function FindMatchButton({
   setRoomId,
@@ -14,8 +14,6 @@ export default function FindMatchButton({
   const { updateQueue, updateQueueStatus } = useUserInterface();
   const { push } = useRouter()
   const inQueue = queueStatus !== 'idle'
-  /*const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);*/
 
   const { play: playHover } = useSound("/sfx/sfx-lobby-button-find-match-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-lobby-button-find-match-click.ogg");
@@ -27,36 +25,18 @@ export default function FindMatchButton({
   );
   const [buttonState, setButtonState] = useState('idle')
 
-  // Contador solo cuando está en cola
-  /*useEffect(() => {
-    if (!inQueue) {
-      setSeconds(0);
-      setMinutes(0);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setSeconds((prev) => (prev >= 59 ? 0 : prev + 1));
-      if (seconds >= 59) {
-        setMinutes((prev) => prev + 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [inQueue, seconds]);*/
-
-  // Cancelar / Salir
   const handleCancel = () => {
     playQuitClick();
 
-    if (queueStatus === 'idle') { push("league"); updateQueue(null) }
-    else {
+    if (queueStatus === 'idle') {
+      push("league", {});
+      updateQueue(null);
+    } else {
       socket?.current?.emit("leave-room");
       setRoomId?.(null);
       updateQueueStatus("idle");
       setButtonState("idle")
     }
-
   };
 
   // Acción principal del botón
@@ -75,7 +55,6 @@ export default function FindMatchButton({
     if (buttonState === 'disabled') return
     setButtonState("idle")
   }
-  //const timing = String(minutes).padStart(1, "0") + String(seconds).padStart(2, "0")
 
   const displayText = inQueue
     ? `In Queue`

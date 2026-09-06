@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import CustomSelect from "@/components/CustomSelect/CustomSelect.jsx";
+import CustomSelect from "@/components/CustomSelect/CustomSelect";
 
 export default function StoreSidePanel({
   subsections,
