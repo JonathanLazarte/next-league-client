@@ -2,7 +2,7 @@
 
 import { useState, memo } from "react";
 import { useSelector } from "react-redux";
-import { useSound } from "@/hooks/useSound.ts";
+import { useSound } from "@/hooks/useSound";
 
 import ModeSelector from "./ModeSelector";
 import Pvp from "./rooms/pvp/PvpLobby";
@@ -18,7 +18,7 @@ const Training = dynamic(() => import("./PvpRoom/index.jsx"), {
 */
 import "./play.css";
 
-export const GAME_DATA = {
+const GAME_DATA = {
   PVP: [
     {
       name: "summoner rift",
@@ -111,9 +111,7 @@ export default memo(function ModeSelection({
 
   const handleCategoryChange = (category) => {
     playMenuClick();
-    GAME_DATA[category]
-      ? setCategorySelected(category)
-      : console.log("categoria incorrecta");
+    GAME_DATA[category] && setCategorySelected(category)
   };
   // Si ya eligió modo → mostrar sala o exploración
 
