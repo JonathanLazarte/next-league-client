@@ -30,7 +30,7 @@ export default memo(function Champions() {
     currentDelayType
   } = useChampionHoverTooltip()
 
-  const handleChampionClick = (champion) => {
+  const handleChampionClick = (champion: Record<string, any>) => {
     cancel();
     setHoveredChampion(null);
     setSelectedChampion(championFull[champion.id]);
