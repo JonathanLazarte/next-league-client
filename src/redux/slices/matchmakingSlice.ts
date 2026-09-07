@@ -34,5 +34,5 @@ const matchmakingSlice = createSlice({
   },
 });
 
-export const { setSelectedQueue, setQueueState } = matchmakingSlice.actions;
+export const { setSelectedQueue, setQueueState, setPartyMembers, findMatch, leaveParty } = matchmakingSlice.actions;
 export default matchmakingSlice.reducer;

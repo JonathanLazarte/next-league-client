@@ -25,19 +25,19 @@ export default function Filters({
                     <g id="Containers">
                       <g>
                         <path
-                          class="cls-1"
+                          className="cls-1"
                           d="M1,7.93c4.73,0,8.56-3.1,8.56-6.93h224.49c0,3.83,3.83,6.93,8.56,6.93"
                         />
                         <path
-                          class="cls-1"
+                          className="cls-1"
                           d="M16.5,218.88c-2.22-5.21-8.31-8.95-15.5-8.95V14.57c7.19,0,13.28-3.74,15.5-8.95"
                         />
                         <path
-                          class="cls-1 resalted"
+                          className="cls-1 resalted"
                           d="M242.62,216.29c-4.73,0-8.56,3.1-8.56,6.93H9.56c0-3.83-3.83-6.93-8.56-6.93"
                         />
                         <path
-                          class="cls-1"
+                          className="cls-1"
                           d="M227.12,5.33c2.22,5.21,8.31,8.95,15.5,8.95v195.36c-7.19,0-13.28,3.74-15.5,8.95"
                         />
                       </g>
@@ -70,7 +70,7 @@ export default function Filters({
                         className="checkbox"
                         onClick={() => setInCollection((prevState) => !prevState)}
                     >
-                        <div className="custom-checkbox" type="checkbox">
+                        <div className="custom-checkbox">
                             {!inCollection ? <FaCheck className="check-icon" /> : null}
                         </div>
                         Show Unowned
