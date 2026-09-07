@@ -1,4 +1,6 @@
 "use client";
+import React from 'react'
+import { Socket } from "socket.io-client"
 
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
@@ -14,6 +16,22 @@ import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
 import { useThrottledCallback } from "@/hooks/useThrottle";
 
+interface Champion {
+  id: string,
+}
+
+interface VirtualSkinsGridProps {
+  onHoverStart: () => void,
+  onHoverEnd: () => void,
+  tooltipPosRef: React.RefObject<Socket | null>,
+  groupedChampions: object,
+  handleChampionClick: () => void,
+  userChampions: Champion[],
+  groupedBy: string,
+  tooltipRef: React.RefObject<Socket | null>,
+  handleScroll: () => void
+}
+
 export default memo(function VirtualSkinsGrid({
   onHoverStart,
   onHoverEnd,
@@ -22,11 +40,10 @@ export default memo(function VirtualSkinsGrid({
   handleChampionClick,
   userChampions,
   groupedBy,
-  tooltipRef,
   handleScroll,
-}) {
+}: VirtualSkinsGridProps) {
   const parentRef = useRef(null);
-  const [columns, setColumns] = useState();
+  const [columns, setColumns] = useState<number>();
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -181,7 +198,6 @@ export default memo(function VirtualSkinsGrid({
                       onHoverStart={onHoverStart}
                       onHoverEnd={onHoverEnd}
                       tooltipPosRef={tooltipPosRef}
-                      tooltipRef={tooltipRef}
                     />
                   ))}
                 </div>
