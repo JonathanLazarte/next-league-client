@@ -24,7 +24,7 @@ interface VirtualSkinsGridProps {
   onHoverEnd: () => void,
   tooltipPosRef: React.RefObject<{ x:number, y: number, rect: unknown }>,
   groupedChampions: object,
-  handleChampionClick: () => void,
+  handleChampionClick: (champion: Record<string, any>) => void,
   userChampions: Champion[],
   groupedBy: string,
   tooltipRef: React.RefObject<unknown>,
