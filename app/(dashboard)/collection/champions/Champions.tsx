@@ -23,7 +23,6 @@ export default memo(function Champions() {
     hoveredChampion,
     tooltipPosRef,
     tooltipPos,
-    activeChampionRef,
     tooltipRef,
     handleScroll,
     cancel,
@@ -71,11 +70,12 @@ export default memo(function Champions() {
             userChampions={userChampions}
             tooltipRef={tooltipRef}
             handleScroll={handleScroll}
+            groupedBy={filterState.groupedBy}
           />
         ) : (
           <></>
         )}
-        <EmptyChampionsState loading={loading} isLoadingChampionsData={isLoadingChampionsData} hasChampionsData={groupedChampions} />
+        <EmptyChampionsState loading={loading} isLoadingChampionsData={isLoadingChampionsData} championsData={championFull} groupedChampions={groupedChampions} />
       </div>
 
       {/* Champion Detail Modal */}
@@ -97,11 +97,8 @@ export default memo(function Champions() {
             eternals: ["Serie 1", "Serie 2", "Serie Inicial"],
             freeToPlay: false,
           }}
-          position="right"
           ref={tooltipRef}
           tooltipPos={tooltipPos}
-          hoveredChampion={hoveredChampion}
-          activeChampionRef={activeChampionRef}
         />
       ) : null}
     </div>

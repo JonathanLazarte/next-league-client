@@ -7,7 +7,7 @@ import { memo, forwardRef, useState } from "react";
 import { useLayoutEffect } from "react";
 
 const Tooltip = (
-  { content, tooltipPos, currentDelayType /* , activeChampionRef*/ },
+  { content, tooltipPos, currentDelayType },
   ref,
 ) => {
   const [coords, setCoords] = useState(tooltipPos);
@@ -50,27 +50,7 @@ const Tooltip = (
     };
     setCoords(newTooltipPos);
   }, [tooltipPos]);
-  /*const [coords, setCoords] = useState({ top: 0, left: 0 });*/
-  /*const wrapperRef = useRef(null);*/
-  //const coords = hoveredChampion?.position || { y:0, x: 0};
 
-  /* const hideTooltip = () => {
-    // Limpiar el timeout si el mouse sale antes de que aparezca
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-    setVisible(false);
-  };
-
-  // Limpiar el timeout cuando el componente se desmonte
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);*/
   return (
     <>
       {typeof window !== "undefined" &&

@@ -1,17 +1,16 @@
-import { useState, useEffect, memo } from "react";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from 'next/image'
 /*import { v4 as uuidv4 } from 'uuid';*/
 import "./PvpLobby.css";
 import FindMatchButton from "@/components/buttons/FindMatch/FindMatch";
-import { setQueue, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice.ts";
+import { setQueue, selectUserInterfaceData } from "@/redux/slices/userInterfaceSlice";
 import { useSound } from "@/hooks/useSound"
+import { useUser } from '@/hooks/useUser'
 import { RESOURCES_URL } from '@/utils/constants'
 
-export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
-  const [, /*roomId*/ setRoomId] = useState();
-  /*const newRoom = uuidv4()*/
-  const user = useSelector((state) => state.user);
+export default memo(function PvpRoom({ roomTitle }: { roomTitle: string }) {
+  const user = useUser();
   const { queueStatus } = useSelector(selectUserInterfaceData)
   const dispatch = useDispatch();
   const lobbyName = {
@@ -26,36 +25,6 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
   }
   const { play: playTransToGameselect } = useSound('/sfx/sfx-lobby-trans-to-gameselect.ogg')
 
-  useEffect(() => {
-    socket?.current.on("USER JOINED", ({ room, roomId }) => {
-      setRoomId(roomId);
-      setRoomUsers(room);
-
-      const indexRoom = room.findIndex((id) => id == socket?.current.id);
-      const currentPlayer = indexRoom == 0 ? "One" : "Two";
-      localStorage.setItem("currentPlayer", currentPlayer);
-      localStorage.setItem("roomId", roomId);
-      if (room.length == "2") {
-        socket?.current.emit("start-match", { roomId });
-      }
-    });
-    return () => socket?.current?.off("USER JOINED");
-  }, []);
-
-  useEffect(() => {
-    socket?.current.on("USER-OUT", ({ newRoom }) => {
-      setRoomUsers(newRoom);
-    });
-    return () => socket?.current.off("USER-OUT");
-  }, []);
-
-  useEffect(() => {
-    socket?.current.on("find-opponent", ({ roomId }) => {
-      console.log(roomId);
-      socket?.current.emit("join-room", { roomId: roomId });
-    });
-    return () => socket?.current.off("find-opponent");
-  }, []);
 
   const handleBack = () => {
     playTransToGameselect();
@@ -138,9 +107,6 @@ export default memo(function PvpRoom({ socket, setRoomUsers, roomTitle }) {
       </div>
       <div className="party-chat"><input type="text" placeholder="Type here..."></input></div>
       <FindMatchButton
-        type={"pvp-room"}
-        socket={socket}
-        setRoomId={setRoomId}
         queueStatus={queueStatus}
       ></FindMatchButton>
     </section>

@@ -2,18 +2,19 @@
 
 import "./FindMatch.css";
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
+import { findMatch, leaveParty } from '@/redux/slices/matchmakingSlice'
 import { useSound } from "@/hooks/useSound";
 
 export default function FindMatchButton({
-  setRoomId,
-  socket,
   queueStatus
 }) {
   const { updateQueue, updateQueueStatus } = useUserInterface();
   const { push } = useRouter()
   const inQueue = queueStatus !== 'idle'
+  const dispatch = useDispatch()
 
   const { play: playHover } = useSound("/sfx/sfx-lobby-button-find-match-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-lobby-button-find-match-click.ogg");
@@ -32,8 +33,7 @@ export default function FindMatchButton({
       push("league", {});
       updateQueue(null);
     } else {
-      socket?.current?.emit("leave-room");
-      setRoomId?.(null);
+      dispatch(leaveParty())
       updateQueueStatus("idle");
       setButtonState("idle")
     }
@@ -44,7 +44,7 @@ export default function FindMatchButton({
     updateQueueStatus('searching');
     playClick();
     setButtonState('disabled')
-    socket?.current?.emit("find-opponent");
+    dispatch(findMatch())
   };
   const handleMouseEnter = () => {
     if (buttonState === 'disabled') return;

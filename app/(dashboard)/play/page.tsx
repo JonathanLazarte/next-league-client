@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, memo } from "react";
-import { useSelector } from "react-redux";
 import { useSound } from "@/hooks/useSound";
 
 import ModeSelector from "./ModeSelector";
@@ -17,6 +16,7 @@ const Training = dynamic(() => import("./PvpRoom/index.jsx"), {
 
 */
 import "./play.css";
+import { useUserInterface } from "@/hooks/useUserInterface";
 
 const GAME_DATA = {
   PVP: [
@@ -99,13 +99,10 @@ const GAME_DATA = {
     },
   ],
 };
-export default memo(function ModeSelection({
-  socket,
-  connectedUsers,
-  roomUsers,
-  setRoomUsers,
-}) {
-  const { queue } = useSelector((state) => state.userInterface);
+
+
+export default memo(function ModeSelection(){
+  const { queue } = useUserInterface
   const [ categorySelected, setCategorySelected ] = useState("PVP");
   const { play: playMenuClick } = useSound("/general/menu-click.mp3");
 
@@ -148,19 +145,11 @@ export default memo(function ModeSelection({
       {!isQueueSelected && <PlaySelectionLayer />}
       {activeGameMode === "PVP" && (
         <Pvp
-          socket={socket}
-          connectedUsers={connectedUsers}
-          roomUsers={roomUsers}
-          setRoomUsers={setRoomUsers}
           roomTitle={queue}
         />
       )}
       {activeGameMode === "CO_OP_VS_AI" &&
         <Pvp
-          socket={socket}
-          connectedUsers={connectedUsers}
-          roomUsers={roomUsers}
-          setRoomUsers={setRoomUsers}
           roomTitle={queue}
         />}
     </div>

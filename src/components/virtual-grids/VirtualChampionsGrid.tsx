@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import { Socket } from "socket.io-client"
 
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
@@ -23,12 +22,12 @@ interface Champion {
 interface VirtualSkinsGridProps {
   onHoverStart: () => void,
   onHoverEnd: () => void,
-  tooltipPosRef: React.RefObject<Socket | null>,
+  tooltipPosRef: React.RefObject<{ x:number, y: number, rect: unknown }>,
   groupedChampions: object,
   handleChampionClick: () => void,
   userChampions: Champion[],
   groupedBy: string,
-  tooltipRef: React.RefObject<Socket | null>,
+  tooltipRef: React.RefObject<unknown>,
   handleScroll: () => void
 }
 

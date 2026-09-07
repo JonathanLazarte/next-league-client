@@ -1,4 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { socketMiddleware } from './socketMiddleware'
+
+
 import userReducer from './slices/userSlice';
 import championsReducer from './slices/userChampionsSlice';
 import skinsReducer from './slices/userSkinsSlice';
@@ -7,9 +10,7 @@ import authReducer from './slices/authSlice';
 import soundReducer from './slices/soundSlice';
 import settingsReducer from './slices/settingsSlice';
 import purchaseReducer from './slices/purchaseSlice';
-
 //TODO: navigationSlice
-
 import connectedUsersReducer from './slices/connectedUsersSlice';
 import chatReducer from './slices/chatSlice';
 import profileReducer from './slices/profileSlice';
@@ -38,6 +39,8 @@ const store = configureStore({
     matchmaking: matchmakingReducer,
     notifications: notificationsReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(socketMiddleware())
 });
 
 export type AppDispatch = typeof store.dispatch;
