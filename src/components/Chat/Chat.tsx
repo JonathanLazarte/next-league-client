@@ -7,9 +7,11 @@ import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useUser } from "@/hooks/useUser";
 import { RESOURCES_URL } from '@/utils/constants'
+import React from 'react'
+import { Socket } from "socket.io-client"
 import Image from 'next/image'
 
-export default memo(function Chat({ socket }) {
+export default memo(function Chat({ socket }: { socket: React.RefObject<Socket | null>}) {
   const [chatInput, setChatInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 

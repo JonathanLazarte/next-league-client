@@ -7,6 +7,13 @@
     "react",
     "react-hooks"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".css"]
+      }
+    }
+  },
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",

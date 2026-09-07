@@ -1,6 +1,6 @@
 "use client";
 
-import "./champions.css";
+import "./champions.css"
 import { useState, memo } from "react";
 import Tooltip from "@/components/tooltips/ChampionTooltip/ChampionTooltip";
 import ChampionDetailModal from "@/components/ChampionDetailModal/ChampionDetailModal";
