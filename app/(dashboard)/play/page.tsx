@@ -5,16 +5,7 @@ import { useSound } from "@/hooks/useSound";
 
 import ModeSelector from "./ModeSelector";
 import Pvp from "./rooms/pvp/PvpLobby";
-/*import dynamic from "next/dynamic";
-const Pvp = dynamic(() => import("./PvpRoom/index.jsx"), {
-  ssr: false
-})
-const Training = dynamic(() => import("./PvpRoom/index.jsx"), {
-  ssr: false
-})*/
-/*
 
-*/
 import "./play.css";
 import { useUserInterface } from "@/hooks/useUserInterface";
 

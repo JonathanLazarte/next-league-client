@@ -1,7 +1,7 @@
 {
+  "root": true,
   "extends": [
     "next/core-web-vitals",
-    "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
@@ -13,7 +13,10 @@
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx", ".css"]
       }
-    }
+    },
+    "import/ignore": [
+      "\\.css$"
+    ]
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
