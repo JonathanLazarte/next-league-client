@@ -43,14 +43,14 @@ export interface ChatState {
 
   // Messages management
   messagesByRoom: Record<string, Message[]>;
-  messagesByUser: Object;
+  messagesByUser: object;
   messages: Message[];
 
   // Users management
   chatUsers: Record<string, ChatUser>;
 
   // UI State
-  selectedChat: string | Object | null;
+  selectedChat: string | object | null;
   selectedUser: ChatUser | null;
   isChatVisible: boolean;
   isTyping: Record<string, boolean>; // userId -> isTyping

@@ -15,7 +15,7 @@ interface AudioChannels {
 
 class AudioEngine {
   context: AudioContext | null = null;
-  cache: Map<string, any>;
+  cache: Map<string, unknown>;
   musicElement: HTMLAudioElement | null = null;
   musicSource: MediaElementAudioSourceNode | null = null;
   channels: AudioChannels;
@@ -39,7 +39,7 @@ class AudioEngine {
     if (typeof window === "undefined" || this.context) return;
 
     // ... Creación del contexto
-    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioCtx = window.AudioContext || (window as unknown).webkitAudioContext;
     this.context = new AudioCtx();
 
     // 1. Crear nodos y asignarlos a la estructura de canales

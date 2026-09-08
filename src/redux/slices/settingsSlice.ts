@@ -111,7 +111,7 @@ const settingsSlice = createSlice({
       state.loading = false;
 
       if (action.payload) {
-        state.error = (action.payload as any)?.message || 'Error al guardar';
+        state.error = (action.payload as unknown)?.message || 'Error al guardar';
       } else {
         state.error = action.error.message || 'Error desconocido';
       }

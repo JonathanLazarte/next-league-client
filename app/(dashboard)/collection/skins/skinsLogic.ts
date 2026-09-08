@@ -170,7 +170,7 @@ export default function skinsLogic({
 
   function applySectionSorting(grouped, sortedBy, userSkins) {
     if (!grouped) return [];
-    let sortedGrouped = [...grouped];
+    const sortedGrouped = [...grouped];
     switch (sortedBy) {
       case "purchaseDate":
         sortedGrouped.sort(([a], [b]) => Number(b) - Number(a));

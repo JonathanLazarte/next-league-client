@@ -22,7 +22,7 @@ const matchmakingSlice = createSlice({
     setQueueState: (state, action: PayloadAction<MatchmakingState['queueState']>) => {
       state.queueState = action.payload;
     },
-    setPartyMembers: (state, action: PayloadAction<Record<string, any>>) => {
+    setPartyMembers: (state, action: PayloadAction<Record<string, unknown>>) => {
       state.partyMembers.push(action.payload)
     },
     findMatch: () => {

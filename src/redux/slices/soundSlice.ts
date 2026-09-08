@@ -24,11 +24,11 @@ const soundSlice = createSlice({
 	initialState,
 	reducers: {
 		setVolume: (state, action) => {
-			let { type, val } = action.payload
+			const { type, val } = action.payload
 			state[type].volume = val
 		},
 		setMute: (state, action) => {
-			let { type, muted } = action.payload
+			const { type, muted } = action.payload
 			state[type].muted = muted
 		},
 		restoreDefaults: () => initialState,

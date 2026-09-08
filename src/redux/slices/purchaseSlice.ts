@@ -4,9 +4,14 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 
+interface Item {
+  id: string,
+  type: string,
+}
+
 interface PurchaseState {
   isOpen: boolean,
-  itemToBuy: string[],
+  itemToBuy: Item | null,
   currency: "RP" | "BE" | unknown,
   price: number,
   status: "idle" | "processing" | "success" | "error",
@@ -78,8 +83,11 @@ const purchaseSlice = createSlice({
   initialState,
   reducers: {
     openPurchaseModal: (state, action) => {
-      let { itemId, type } = action.payload;
-      state.itemToBuy = { id: itemId, type };
+      const { itemId, type } = action.payload;
+      state.itemToBuy = {
+        id: itemId,
+        type: type
+      };
     },
     closeModal: (state) => {
       state.itemToBuy = null;

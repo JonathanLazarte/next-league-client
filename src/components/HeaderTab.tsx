@@ -139,7 +139,7 @@ export default function LoLHeaderTab({
           opacity: "var(--mouse-shine-opacity)",
         }}
         // Actualizamos --mx y --my via style inline porque framer no anima custom props directamente bien
-        animate={{ "--mx": mx.get(), "--my": my.get() } as any}
+        animate={{ "--mx": mx.get(), "--my": my.get() } as unknown}
       />
 
       {/* Contenido */}
