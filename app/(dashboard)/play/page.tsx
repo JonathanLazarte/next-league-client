@@ -12,7 +12,8 @@ import { GAME_DATA } from '@/utils/constants'
 
 
 export default memo(function ModeSelection(){
-  const { queue } = useUserInterface
+  const { queue } = useUserInterface()
+  console.log(queue)
   const [ categorySelected, setCategorySelected ] = useState("PVP");
   const { play: playMenuClick } = useSound("/general/menu-click.mp3");
 
