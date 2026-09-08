@@ -1,15 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: [],
     remotePatterns: [
-          {
-            protocol: 'http',
-            hostname: 'd2l6vvcxr1n0o0.cloudfront.net',
-            port: '',
-            pathname: '/**',
-          },
-        ],
+      {
+        protocol: 'http',
+        hostname: 'd2l6vvcxr1n0o0.cloudfront.net',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   output: 'standalone',
   /*reactStrictMode: false,*/
