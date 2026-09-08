@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from './hooks';
 import { useCallback } from 'react';
 import {
   setActualSection,
@@ -16,7 +17,7 @@ import {
  */
 export const useUserInterface = () => {
   const dispatch = useDispatch();
-  const uiState = useSelector(selectUserInterfaceData);
+  const uiState = useAppSelector(selectUserInterfaceData);
 
   const changeSection = useCallback((section: string) => {
     dispatch(setActualSection(section));
