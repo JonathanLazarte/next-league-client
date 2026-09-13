@@ -41,7 +41,7 @@ export default memo(function VirtualSkinsGrid({
   groupedBy,
   handleScroll,
 }: VirtualSkinsGridProps) {
-  const parentRef = useRef(null);
+  const parentRef = useRef<HTMLDivElement>(null);
   const [columns, setColumns] = useState<number>();
 
   function getRem() {
@@ -58,7 +58,7 @@ export default memo(function VirtualSkinsGrid({
   );
 
   const getAmountOfColumns = useCallback(
-    (containerWidth) => {
+    (containerWidth: number) => {
       const amount =
         (containerWidth + gapValue - paddingRightValue) /
         (cardWidth + gapValue);
@@ -83,7 +83,7 @@ export default memo(function VirtualSkinsGrid({
   }, []);
 
   const handleResize = useCallback(
-    (width) => {
+    (width: number) => {
       const newCols = getAmountOfColumns(width);
       if (newCols > 0 && newCols !== columns) {
         setColumns(Math.min(newCols, 6));
@@ -94,10 +94,18 @@ export default memo(function VirtualSkinsGrid({
   useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
-  const groupedChampionsCopy = { ...groupedChampions };
+  const groupedChampionsCopy: Record<string, any> = { ...groupedChampions };
+
+  interface Row {
+    type: string,
+    section?: string
+    champions?: Record<string, any>
+  }
+
   // Construimos filas
   const rows = useMemo(() => {
-    const result = [];
+    if(!columns) return []
+    const result: Row[] = [];
 
     Object.keys(groupedChampionsCopy).forEach((section) => {
       if (section !== "Todos") {
@@ -111,7 +119,7 @@ export default memo(function VirtualSkinsGrid({
       for (let i = 0; i < groupedChampionsCopy[section].length; i += columns) {
         result.push({
           type: "row",
-          skins: groupedChampionsCopy[section].slice(i, i + columns),
+          champions: groupedChampionsCopy[section].slice(i, i + columns),
         });
       }
     });
@@ -187,7 +195,7 @@ export default memo(function VirtualSkinsGrid({
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
-                  {row.skins.map((c, index) => (
+                  {row.champions?.map((c: Record<string, any>, index: string) => (
                     <ChampionCard
                       key={c.id || index} // Usar poke.id si está disponible, de lo contrario, index
                       id={index}

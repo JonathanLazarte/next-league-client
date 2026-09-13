@@ -9,7 +9,7 @@ export function useStoreData() {
   return {
     ...storeData,
     storeData,
-    addToCart: (payload) => dispatch(addToCart(payload)),
-    setFeaturedItems: (payload) => dispatch(setFeaturedItems(payload)),
+    setFeaturedItems: (payload: string[]) => dispatch(setFeaturedItems(payload)),
+    addToCart: (payload: string) => dispatch(addToCart(payload)),
   };
 }

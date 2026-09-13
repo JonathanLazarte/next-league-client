@@ -17,7 +17,7 @@
         },
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "incremental": true,
     "module": "esnext",
@@ -26,6 +26,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+       /*"noImplicitAny": true,          //Prohíbe el uso de 'any' implícito
+       "strictNullChecks": true,       // Evita que uses variables que podrían ser null o undefined
+       "noUnusedLocals": true,         // Alerta si dejas variables declaradas sin usar
+       "noUnusedParameters": true,*/
     "plugins": [
       {
         "name": "next"
@@ -37,7 +41,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "postcss.config.js", "tailwind.config.js", "next.config.js", "src/components/Settings/Settings"  ],
   "exclude": [
     "node_modules"
   ]

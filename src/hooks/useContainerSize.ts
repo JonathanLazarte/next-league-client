@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useContainerSize(ref) {
+export function useContainerSize(ref: React.RefObject<HTMLDivElement>) {
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {

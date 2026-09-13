@@ -12,12 +12,52 @@ import {
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
 
+export interface Chroma {
+  id: number;
+  name: string;
+  chromaPath: string;
+  colors: string[];
+}
+
+export interface Skin {
+  id: number;
+  name: string;
+  splashPath: string;
+  uncenteredSplashPath: string;
+  tilePath: string;
+  loadScreenPath: string;
+  chromas?: Chroma[];
+  isBase: boolean;
+  rarity: SkinRarity;
+  cost: number | 'Special';
+}
+
+export type SkinRarity =
+  | 'NoRarity'
+  | 'Standard'
+  | 'Epic'
+  | 'Legendary'
+  | 'Ultimate'
+  | 'Mythic'
+  | 'Transcendent';
+
+export interface Champion {
+  id: number,
+  name: string,
+  img: Record<string, any>
+}
+
+interface VirtualSkinsProps {
+  items: Skin[],
+  handleClick: () => void,
+  StoreCard: React.FunctionComponent<{ item: Skin | Champion}>
+}
+
 export default memo(function VirtualSkinsGrid({
   items,
-  handleClick,
   StoreCard,
-}) {
-  const parentRef = useRef(null);
+}: VirtualSkinsProps) {
+  const parentRef = useRef<HTMLDivElement>(null);
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -26,11 +66,10 @@ export default memo(function VirtualSkinsGrid({
   const gapValue = currentRem * 1.3;
   const cardWidth = currentRem * 23.1;
   const paddingRightValue = currentRem * 2.85;
-
-  const [columns, setColumns] = useState();
+  const [columns, setColumns] = useState<number>();
 
   const getAmountOfColumns = useCallback(
-    (containerWidth) => {
+    (containerWidth: number) => {
       const amount = (containerWidth + gapValue + paddingRightValue) / (cardWidth + gapValue);
       return Math.floor(Math.max(amount, 1));
     },
@@ -39,7 +78,7 @@ export default memo(function VirtualSkinsGrid({
 
   useLayoutEffect(() => {
     if (parentRef.current) {
-      const rect = parentRef?.current?.getBoundingClientRect();
+      const rect = parentRef.current.getBoundingClientRect();
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
       setColumns(initialContainerWidth);
@@ -47,7 +86,7 @@ export default memo(function VirtualSkinsGrid({
   }, []);
 
   const handleResize = useCallback(
-    (width) => {
+    (width: number) => {
       const newCols = getAmountOfColumns(width);
 
       if (newCols !== columns) {
@@ -62,9 +101,10 @@ export default memo(function VirtualSkinsGrid({
   //-----------------------------------------------------------------------------------------------
   // Construimos filas
   const itemsCopy = items ? [...items] : [];
-  const rows = useMemo(() => {
-    const result = [];
 
+  const rows = useMemo(() => {
+    if (!columns) return []
+    const result = [];
     for (let i = 0; i < itemsCopy.length; i += columns) {
       result.push({
         type: "row",
@@ -125,7 +165,6 @@ export default memo(function VirtualSkinsGrid({
                     <StoreCard
                       key={index}
                       item={item}
-                      handleClick={handleClick}
                     />
                   ))}
                 </div>

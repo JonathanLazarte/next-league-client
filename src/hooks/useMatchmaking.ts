@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 import { setQueueState, setSelectedQueue } from "@/redux/slices/matchmakingSlice";
+import type { MatchmakingState, queueState, PartyMember } from "@/redux/slices/matchmakingSlice";
 
 export function useMatchmaking() {
   const dispatch = useAppDispatch();
@@ -8,7 +9,7 @@ export function useMatchmaking() {
   return {
     ...matchmaking,
     matchmaking,
-    setSelectedQueue: (payload) => dispatch(setSelectedQueue(payload)),
-    setQueueState: (payload) => dispatch(setQueueState(payload)),
+    setSelectedQueue: (payload: string) => dispatch(setSelectedQueue(payload)),
+    setQueueState: (payload: queueState) => dispatch(setQueueState(payload)),
   };
 }

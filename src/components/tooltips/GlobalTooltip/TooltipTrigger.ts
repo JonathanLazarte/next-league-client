@@ -11,8 +11,8 @@ export default function TooltipTrigger() {
 
 
 
-  const getTriggerProps = ({ content }) => {
-    const handleMouseEnter = (e) => {
+  const getTriggerProps = ({ content }: { content: string }) => {
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
 
       const el = e.currentTarget.getBoundingClientRect();
       const startAction = () => {
@@ -29,7 +29,7 @@ export default function TooltipTrigger() {
     }
     return {
       ref,
-      onMouseEnter : (e) => handleMouseEnter(e),
+      onMouseEnter : (e: React.MouseEvent<HTMLDivElement>) => handleMouseEnter(e),
       onMouseLeave : handleMouseLeave
     }
   }

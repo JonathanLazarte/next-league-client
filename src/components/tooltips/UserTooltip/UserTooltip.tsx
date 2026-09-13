@@ -4,8 +4,14 @@ import "./UserTooltip.css";
 import { useRef, useState, useLayoutEffect } from "react";
 import Image from "next/image";
 import { RESOURCES_URL } from '@/utils/constants'
+import type { User } from '@/utils/types'
 
-export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
+interface UserTooltipProps {
+  hoveredUser: User,
+  tooltipPos: { x:number, y:number }
+}
+
+export const UserTooltip = ({ hoveredUser, tooltipPos }: UserTooltipProps) => {
   const {
     profile_icon,
     alias,
@@ -15,9 +21,10 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
     profile_background,
     title
   } = hoveredUser
-  const ref = useRef();
-  const [tooltipHeight, setTooltipHeight] = useState();
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [tooltipHeight, setTooltipHeight] = useState<number>();
 
+  if(!tooltipHeight) return
 
   useLayoutEffect(() => {
     setTooltipHeight(ref.current?.getBoundingClientRect().height);
@@ -38,7 +45,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
     alignItems: "center",
     backgroundImage: `url('${RESOURCES_URL}/centered/${profile_background}.jpg')`,
     pointerEvents: "none",
-  };
+  } satisfies React.CSSProperties;
 
   return (
     <div className="right-nav-user-tooltip" style={style} ref={ref}>
@@ -48,6 +55,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
             src={`${RESOURCES_URL}/general/7201_Precision.png`}
             width={30}
             height={30}
+            alt="Precision icon"
           />
           <h3>24</h3>
         </div>
@@ -62,6 +70,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
               src={`${RESOURCES_URL}/profileicon/${profile_icon}.png`}
               width={100}
               height={100}
+              alt="Profile icon"
             />
           </div>
           <div className="tooltip-user-info-text">
@@ -86,27 +95,7 @@ export const UserTooltip = ({ hoveredUser, tooltipPos }) => {
       </div>
     </div>
   );
-  /*const handleToolTip = (e, data) => {
-      if (timeoutId){
-          clearTimeout(timeoutId);
-        }
-        const nuevoTimeOutId = setTimeout(()=>{
-        const elemento = e.target;
-        const rect = elemento.getBoundingClientRect();
 
-        setWindowPosition({ x: rect.left, y: rect.top + rect.height + 20, width: rect.width, height: rect.height })
-        setDataToRender(data)
-        setShowWindow(true)
-      },550)
-      setTimeoutId(nuevoTimeOutId)
-    }
-    const offToolTip = () => {
-      setShowWindow(false)
-      if (timeoutId) {
-          clearTimeout(timeoutId); // Cancelar el timeout si el mouse sale
-          setTimeoutId(null); // Limpiar el ID del timeout
-        }
-    }*/
 };
 
 export default UserTooltip;

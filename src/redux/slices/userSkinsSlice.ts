@@ -4,37 +4,40 @@ import { confirmPurchase } from "@/redux/slices/purchaseSlice";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getUserSkins = createAsyncThunk(
+export const getUserSkins = createAsyncThunk<
+  Record<string, any>,
+  string,
+  {}
+>(
   "userSkins/getUserSkins",
-  async (id, { rejectWithValue }) => {
+  async ( token, { rejectWithValue }) => {
     try {
       const response = await fetch(`${API_URL}api/v1/user/skin-collection`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID: id }),
+        body: JSON.stringify({ userID: token }),
       });
 
       if (!response.ok) {
-        console.log("error ejecutandose");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const userSkins = await response.json();
 
       return { userSkins };
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch ( error ) {
+      return rejectWithValue(error);
     }
   },
 );
 
-interface SkinsState {
+interface UserSkinsState {
   loading: boolean,
   skins: string[],
   error: null | string | unknown,
 }
 
-const initialState: SkinsState = {
+const initialState: UserSkinsState = {
   loading: false,
   skins: [],
   error: null,
@@ -71,10 +74,14 @@ const userSkinsSlice = createSlice({
   },
 });
 
-export const selectUserSkinsState = (state) => state.userSkins;
-export const selectUserSkins = (state) => state.userSkins.skins;
-export const selectUserSkinsLoading = (state) => state.userSkins.loading;
-export const selectUserSkinsError = (state) => state.userSkins.error;
+interface StateProp {
+  userSkins: UserSkinsState
+}
+
+export const selectUserSkinsState = (state: StateProp) => state.userSkins;
+export const selectUserSkins = (state: StateProp) => state.userSkins.skins;
+export const selectUserSkinsLoading = (state: StateProp) => state.userSkins.loading;
+export const selectUserSkinsError = (state: StateProp) => state.userSkins.error;
 
 export const selectUserSkinsData = createSelector(
   [selectUserSkins, selectUserSkinsLoading, selectUserSkinsError],

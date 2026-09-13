@@ -5,7 +5,7 @@ import "./Champion.css";
 import Image from 'next/image'
 import { RESOURCES_URL } from "@/utils/constants";
 
-const ChampionCard = ({ id, item: data }) => {
+const ChampionCard = ({ item: data }: { item: Record<string, any>}) => {
   const { openPurchaseModal } = usePurchase();
 
   const handleClick = async () => {
@@ -14,7 +14,7 @@ const ChampionCard = ({ id, item: data }) => {
   };
   return (
     <article
-      id={id}
+      id={data.id}
       className="store-champion-item"
       onClick={() => {
         handleClick();
@@ -24,7 +24,7 @@ const ChampionCard = ({ id, item: data }) => {
       {/* Unique key and card class */}
       <Image
         className="store-champion-image"
-        id={id}
+        id={data.id}
         src={`${RESOURCES_URL}/tiles/${data.id}_0.jpg`}
         alt={`Sprite of ${data.name}`}
         sizes={'23rem'}

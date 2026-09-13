@@ -13,22 +13,22 @@ export function useSound(url: string, type = 'sfx') {
     if (context.state === 'suspended') await context.resume();
 
     try {
-      let buffer;
-      if (cache.has(url)) {
-        buffer = cache.get(url);
-      } else {
+
+      let buffer: AudioBuffer | undefined = cache.get(url) as AudioBuffer
+
+      if (!buffer) {
         const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
         buffer = await context.decodeAudioData(arrayBuffer);
         cache.set(url, buffer);
       }
 
-      const source = context.createBufferSource();
+      const source: AudioBufferSourceNode = context.createBufferSource();
       source.buffer = buffer;
 
       // CONEXIÓN DINÁMICA: Se conecta al canal indicado (sfx o music)
       const targetNode = channels[type].node || channels.master.node;
-      source.connect(targetNode);
+      if(targetNode !== null) source.connect(targetNode);
 
       source.start(0);
     } catch (error) {

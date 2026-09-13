@@ -6,14 +6,37 @@ import { GiAngelWings } from "react-icons/gi";
 import { memo, forwardRef, useState } from "react";
 import { useLayoutEffect } from "react";
 
+interface Champion {
+  masteryLevel: string,
+  championName: string,
+  masteryPoints: number,
+  startInfo: string,
+  maxSeasonRating: string,
+  freeToPlay: boolean,
+  eternals: Record<string, any>
+}
+
+interface TooltipProps {
+  content: Champion
+  tooltipPos: { x: number, y: number }
+  currentDelayType: string
+}
+
 const Tooltip = (
-  { content, tooltipPos, currentDelayType },
-  ref,
+  { content, tooltipPos, currentDelayType }: TooltipProps,
+  ref: React.ForwardedRef<HTMLDivElement>,
 ) => {
   const [coords, setCoords] = useState(tooltipPos);
 
   useLayoutEffect(() => {
-    const tooltipHeight = ref.current.getBoundingClientRect().height;
+    if (!ref) return
+
+    let tooltipHeight = 0
+
+    if (ref && 'current' in ref && ref.current) {
+       tooltipHeight = ref?.current.getBoundingClientRect().height;
+    }
+
     /*const tooltipWidth = ref.current.getBoundingClientRect().width;*/
     /*const championCard = activeChampionRef.current?.getBoundingClientRect();    SE DEBE USER ESTE REF PARA POSICIONAR EL TOOLTIP Y REMOVER LA FUNCION QUE AHORA ESTA SIENDO USADA EN CHAMPION.JSX*/
     const viewportHeight = window.innerHeight;
@@ -111,7 +134,7 @@ const Tooltip = (
               <div className={styles.separator}></div>
               <h4 className={styles.eternalsTitle}>PROGRESIÓN DE ETERNOS</h4>
               <div className={styles.eternalsList}>
-                {content.eternals.map((eternal, index) => (
+                {content.eternals.map((eternal: string[], index: string) => (
                   <div key={index} className={styles.eternalItem}>
                     <span>{eternal}</span>
                     <span className={styles.lockIcon}>

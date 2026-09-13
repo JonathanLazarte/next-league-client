@@ -4,24 +4,43 @@ import ReactDOM from "react-dom";
 import "./SkinTooltip.css";
 import { memo, useRef, useLayoutEffect, useState } from "react";
 
+interface Skin {
+  chromas: boolean,
+  value: number,
+  purchaseDate: number,
+  rarity: string,
+  name: string
+}
+
+interface SkinTooltipProps {
+  content: Skin,
+  cords: { x: number, y: number },
+  currentDelayType: "fast" | "initial",
+  hoveredSkinCardRef: React.RefObject<HTMLDivElement>,
+  inCollection: boolean
+}
+
 const SkinTooltip = ({
   content,
   cords,
   currentDelayType,
   hoveredSkinCardRef,
   inCollection
-}) => {
+}: SkinTooltipProps) => {
 
   const [coords, setCoords] = useState(cords);
   const [tooltipDirection, setTooltipDirection] = useState("up");
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement | null>(null);
   const getRem = () => {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   };
   const currentRem = getRem();
   useLayoutEffect(() => {
     const tooltipRect = ref.current?.getBoundingClientRect();
-    const skinCardRect = hoveredSkinCardRef?.current?.getBoundingClientRect();
+    if (!tooltipRect) return
+
+    const skinCardRect = hoveredSkinCardRef.current?.getBoundingClientRect();
+    if (!skinCardRect) return
 
     const intendedX = cords.x - tooltipRect?.width / 2;
     const overflowInTop = cords.y + tooltipRect.height > window.innerHeight;

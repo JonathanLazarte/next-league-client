@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import { confirmPurchase } from "./purchaseSlice";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { RootState } from '../store'
 
 type ChampionResponse = string[]
 
@@ -15,7 +16,7 @@ export const getUserChampions = createAsyncThunk<
   { rejectValue: string }
 >(
   "userChampions/getUserChampions",
-  async (id: string, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const response = await fetch(`${API_URL}api/v1/user/champion-collection`, {
         method: "POST",
@@ -27,8 +28,8 @@ export const getUserChampions = createAsyncThunk<
 
       const data: ChampionResponse = await response.json();
       return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    } catch (error: unknown) {
+      return rejectWithValue(String(error));
     }
   },
 );
@@ -83,11 +84,11 @@ const userChampionsSlice = createSlice({
 });
 
 // Selectors
-export const selectUserChampionsState = (state) => state.userChampions;
-export const selectUserChampions = (state) => state.userChampions.champions;
-export const selectUserChampionsLoading = (state) =>
+export const selectUserChampionsState = (state: { userChampions: UserChampionsState}) => state.userChampions;
+export const selectUserChampions = (state: { userChampions: UserChampionsState}) => state.userChampions.champions;
+export const selectUserChampionsLoading = (state: { userChampions: UserChampionsState}) =>
   state.userChampions.loading;
-export const selectUserChampionsError = (state) => state.userChampions.error;
+export const selectUserChampionsError = (state: { userChampions: UserChampionsState}) => state.userChampions.error;
 
 export const selectUserChampionsData = createSelector(
   [selectUserChampions, selectUserChampionsLoading, selectUserChampionsError],

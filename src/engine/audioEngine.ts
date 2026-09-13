@@ -39,7 +39,7 @@ class AudioEngine {
     if (typeof window === "undefined" || this.context) return;
 
     // ... Creación del contexto
-    const AudioCtx = window.AudioContext || (window as unknown).webkitAudioContext;
+    const AudioCtx = window.AudioContext || (window as typeof window).AudioContext;
     this.context = new AudioCtx();
 
     // 1. Crear nodos y asignarlos a la estructura de canales
@@ -69,7 +69,7 @@ class AudioEngine {
     // Si está muteado es 0, si no, es su volumen guardado
     const targetValue = channel.muted ? 0 : channel.volume;
 
-    channel.node.gain.setTargetAtTime(targetValue, this.context.currentTime, 0.05);
+    if(this.context) channel.node.gain.setTargetAtTime(targetValue, this.context.currentTime, 0.05);
   }
 
   // Cuando el usuario mueve el Slider
@@ -93,19 +93,19 @@ class AudioEngine {
 //---------------------------------------------------------------------------------
   playMusic(url: string) {
     // 1. Verificación de seguridad
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !this.musicElement) return;
 
     // 2. Autoinicialización: Si alguien olvida llamar a init(), lo hacemos aquí
     if (!this.context) this.init();
 
     // 3. Primer inicio: Crear el elemento y "cablearlo"
-    if (!this.musicElement) {
+    if (!this.musicElement && this.context) {
       this.musicElement = new Audio(url);
       this.musicElement.loop = true;
 
       // Conexión única a la cadena de nodos
       this.musicSource = this.context.createMediaElementSource(this.musicElement);
-      this.musicSource.connect(this.channels.music.node);
+      if(this.channels.music.node !== null) this.musicSource.connect(this.channels.music.node);
     }
     // 4. Cambio de canción: Si el elemento ya existe pero la URL es otra
     else if (this.musicElement.src !== url) {

@@ -2,12 +2,17 @@ import {
   createSlice,
   createAsyncThunk,
   createSelector,
+  PayloadAction
 } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
-interface Item {
+export type ItemType = "skin" | "champion"
+
+export interface Item {
   id: string,
-  type: string,
+  type: ItemType,
 }
+export type Coin = "BE" | "RP";
 
 interface PurchaseState {
   isOpen: boolean,
@@ -34,10 +39,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const confirmPurchase = createAsyncThunk(
   "purchase/confirm",
-  async ({ coin, price }: { coin: number, price: number }, { getState, rejectWithValue }) => {
+  async ({ coin, price }: { coin: Coin, price: number }, { getState, rejectWithValue }) => {
     const token = localStorage.getItem("token");
-    const state = getState();
+    const state = getState() as RootState;
     const { itemToBuy } = state.purchase;
+
+    if (!itemToBuy) return rejectWithValue("Ítem no encontrado");
+
     const body =
       itemToBuy.type === "champion"
         ? {
@@ -55,7 +63,6 @@ export const confirmPurchase = createAsyncThunk(
     const apiRoute =
       itemToBuy.type === "champion" ? "api/v1/store/champion" : "api/v1/store/skin";
 
-    if (!itemToBuy) return rejectWithValue("Ítem no encontrado");
 
     try {
       const response = await fetch(`${API_URL}${apiRoute}`, {
@@ -82,7 +89,7 @@ const purchaseSlice = createSlice({
   name: "purchase",
   initialState,
   reducers: {
-    openPurchaseModal: (state, action) => {
+    openPurchaseModal: (state, action: PayloadAction<{itemId: string, type: ItemType}>) => {
       const { itemId, type } = action.payload;
       state.itemToBuy = {
         id: itemId,
@@ -110,10 +117,10 @@ const purchaseSlice = createSlice({
 
 export const { closeModal, openPurchaseModal } = purchaseSlice.actions;
 
-export const selectItemToBuy = (state) => state.purchase.itemToBuy;
-export const selectCurrency = (state) =>
+export const selectItemToBuy = (state: { purchase: PurchaseState }) => state.purchase.itemToBuy;
+export const selectCurrency = (state: { purchase: PurchaseState }) =>
   state.purchase.currency;
-export const selectStatus = (state) => state.purchase.status;
+export const selectStatus = (state: { purchase: PurchaseState }) => state.purchase.status;
 
 export const selectPurchaseData = createSelector(
   [selectItemToBuy, selectCurrency, selectStatus],

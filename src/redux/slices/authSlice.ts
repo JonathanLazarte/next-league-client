@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(String(error));
     }
   },
 );
@@ -54,7 +54,7 @@ export const registerUser = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(String(error));
     } /*finally {
 
     }*/
@@ -88,7 +88,7 @@ export const verifyToken = createAsyncThunk(
       return data;
     } catch (error) {
       localStorage.removeItem('token');
-      return rejectWithValue(error.message);
+      return rejectWithValue(String(error));
     }
   },
 );

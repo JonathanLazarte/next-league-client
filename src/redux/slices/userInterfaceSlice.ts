@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
-type UserState = "online" | "offline" | "ingame" | "away" |string
-type Section = "home" | "matchmaking" | "lobby" | "champselect" | "game" | "play" | "store" | "collection"
-type Queue = "solo_duo" | "flex" | "aram" | null | "aram_mayhem" | "tutorial" | "swiftplay"
+export type UserState = "online" | "offline" | "ingame" | "away" | string
+export type Section = "league" | "play" | "store" | "collection" | string
+export type Queue = "solo_duo" | "flex" | "aram" | null | "aram_mayhem" | "tutorial" | "swiftplay"
+export type QueueStatus = "idle" | "found" | "searching" | "acepted"
 
 interface UserInterfaceState {
   userState: UserState;
@@ -12,7 +13,7 @@ interface UserInterfaceState {
   showSideNav: boolean; // Add this
   sectionTabSelected: string | null; // Add this
   queue: Queue;
-  queueStatus: string;
+  queueStatus: QueueStatus;
   searchTime: number;
   lobbyId: number | null;
   partyMembers: [];
@@ -96,19 +97,23 @@ export const {
   setQueueStatus
 } = userInterfaceSlice.actions;
 
-export const selectUserInterfaceActualSection = (state) =>
+interface StateProp {
+  userInterface: UserInterfaceState
+}
+
+export const selectUserInterfaceActualSection = (state: StateProp) =>
   state.userInterface.actualSection;
-export const selectUserInterfaceState = (state) =>
+export const selectUserInterfaceState = (state: StateProp) =>
   state.userInterface.userState;
-export const selectUserInterfaceIsNavigating = (state) =>
+export const selectUserInterfaceIsNavigating = (state: StateProp) =>
   state.userInterface.isNavigating;
-export const selectUserInterfaceShowSideNav = (state) =>
+export const selectUserInterfaceShowSideNav = (state: StateProp) =>
   state.userInterface.showSideNav;
-export const selectUserInterfaceSectionTabSelected = (state) =>
+export const selectUserInterfaceSectionTabSelected = (state: StateProp) =>
   state.userInterface.sectionTabSelected;
-export const selectQueue = (state) =>
+export const selectQueue = (state: StateProp) =>
   state.userInterface.queue;
-export const selectQueueStatus = (state) =>
+export const selectQueueStatus = (state: StateProp) =>
   state.userInterface.queueStatus;
 
 export const selectUserInterfaceData = createSelector(

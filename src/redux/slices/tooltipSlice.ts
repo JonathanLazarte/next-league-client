@@ -1,4 +1,6 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit'
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit'
+
+
 
 interface TooltipState {
   visible: boolean,
@@ -6,7 +8,7 @@ interface TooltipState {
   anchor: HTMLElement | null,
   position: { x: number, y: number }
   placement: "right" | "left" | "bottom" | "top"
-  content: unknown
+  content: string | null,
   options: {
       delay: number;
       interactive: boolean;
@@ -31,7 +33,7 @@ const tooltipSlice = createSlice({
   name: 'tooltip',
   initialState,
   reducers: {
-    setTooltip: (state, action) => {
+    setTooltip: (state, action: PayloadAction<{ position: { x:number, y:number }, content: string, visible: boolean}>) => {
       state.position = action.payload.position;
       state.content = action.payload.content;
       state.visible = true;
@@ -42,11 +44,11 @@ const tooltipSlice = createSlice({
   }
 })
 
-export const selectTooltipState = (state) => state.tooltip
-export const selectVisible = (state) => state.tooltip.visible
-export const selectAnchor = (state) => state.tooltip.anchor
-export const selectPosition = (state) => state.tooltip.position
-export const selectContent = (state) => state.tooltip.content
+export const selectTooltipState = (state: { tooltip: TooltipState}) => state.tooltip
+export const selectVisible = (state: { tooltip: TooltipState}) => state.tooltip.visible
+export const selectAnchor = (state: { tooltip: TooltipState}) => state.tooltip.anchor
+export const selectPosition = (state: { tooltip: TooltipState}) => state.tooltip.position
+export const selectContent = (state: { tooltip: TooltipState}) => state.tooltip.content
 
 export const selectTooltipData = createSelector([selectVisible, selectAnchor, selectPosition, selectContent],
   (visible, anchor, position, content) => ({

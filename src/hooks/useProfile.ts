@@ -1,4 +1,5 @@
 import { setProfile } from "@/redux/slices/profileSlice";
+import type { ProfileState } from "@/redux/slices/profileSlice";
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 
 export function useProfile() {
@@ -8,6 +9,6 @@ export function useProfile() {
   return {
     ...profile,
     profile,
-    setProfile: (payload) => dispatch(setProfile(payload)),
+    setProfile: (payload: ProfileState) => dispatch(setProfile(payload)),
   };
 }

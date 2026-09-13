@@ -1,4 +1,5 @@
 "use client"
+
 import { useState, useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
@@ -8,11 +9,20 @@ import { VscTriangleRight } from "react-icons/vsc";
 import Friend from './Friend'
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
+import type { User } from "@/utils/types"
 
-export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onHoverStart }) => {
-  return <ul key={group} className="general-user-list">
+interface FriendsGroupProps {
+  group: Record<string, any>,
+  groupStyle: Record<string, string>,
+  tooltipPosRef: React.RefObject<HTMLDivElement>,
+  onHoverEnd: () => void,
+  onHoverStart: (u: Record<string, any>) => void,
+}
+
+export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onHoverStart }: FriendsGroupProps) => {
+  return <ul className="general-user-list">
     <div style={groupStyle}>
-      {group?.users?.map((u, index) => (
+      {group?.users?.map((u: User, index: number) => (
         <Friend
           user={u}
           toolTipPosRef={tooltipPosRef}
@@ -25,11 +35,16 @@ export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onH
   </ul>
 }
 
+interface SocialPanelProps {
+  tooltipPosRef: React.RefObject<{ x: number, y: number }>,
+  onHoverEnd: () => void,
+  onHoverStart: () => void
+}
 
-export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }) {
-  const [showMenu, setShowMenu] = useState();
+export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }: SocialPanelProps) {
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   //const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-  const [isFolderOpen, setIsFolderOpen] = useState(true);
+  const [isFolderOpen, setIsFolderOpen] = useState<boolean>(true);
   const iconStyle = isFolderOpen ? { transform: "rotate(90deg)" } : null;
   const groupStyle = !isFolderOpen ? { display: "none" } : null;
   const { friendsOnline } = useConnectedUsers();
@@ -41,7 +56,7 @@ export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart })
   useEffect(() => {
     if (friendsOnline) {
       friendsOnline.forEach((folder) => {
-        folder.users.forEach((u) => {
+        folder.users.forEach((u: User) => {
           updateChatUser({
             userId: u.alias,
             userName: u.alias,

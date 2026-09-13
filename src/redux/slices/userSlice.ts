@@ -1,38 +1,18 @@
 import { createSlice, PayloadAction, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
+import { RootState } from '@/redux/store'
+import { User } from "@/utils/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchUser = createAsyncThunk(
-  "user/set-user",
-  async (token, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`${API_URL}api/v1/user`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: token }),
-      })
-      if (!response.ok) {
-        throw new Error('No se pudo obtener el usuario')
-      }
-
-      const userData = await response.json()
-
-      return { userData }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-)
-
-interface Rank {
+export interface Rank {
   name: string;
   level: number;
   points: number;
 }
 
-interface UserState {
+export interface UserState {
   userName: string;
   id: string;
   alias: string;
@@ -47,7 +27,8 @@ interface UserState {
   profile_background: string;
   loading: boolean;
 }
-interface UserPayload {
+
+export interface UserPayload {
   userName: string;
   id: string;
   tag: string;
@@ -60,6 +41,16 @@ interface UserPayload {
   profile_icon: string;
   profile_background: string;
 }
+
+
+interface PurchasePayload {
+  coin: Coin,
+  price: number,
+  newInventoryItem: Record<string, unknown>,
+  type: string
+}
+export type Coin = "RP" | "BE";
+
 const initialState: UserState = {
   userName: "",
   id: "",
@@ -79,6 +70,31 @@ const initialState: UserState = {
   profile_background: "",
   loading: false,
 };
+
+export const fetchUser = createAsyncThunk<
+  Record<string, User>,
+  { token: string }
+  >(
+  "user/set-user",
+    async ({ token }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${API_URL}api/v1/user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token }),
+      })
+      if (!response.ok) {
+        throw new Error('No se pudo obtener el usuario')
+      }
+
+      const userData = await response.json()
+
+      return { userData }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+)
 
 const updateUserFields = (state: UserState, action: PayloadAction<UserPayload>) => {
   const { payload } = action;
@@ -100,14 +116,15 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserState>) => {
+    setUser: (state, action: PayloadAction<UserPayload>) => {
       Object.assign(state, action.payload);
     },
-    updateUser: () => {
+    updateUser: (state , action: PayloadAction<UserPayload>) => {
+      Object.assign(state, action.payload)
     },
     updateCoins: (
       state,
-      action: PayloadAction<{ coin: "RP" | "BE"; price: number }>,
+      action: PayloadAction<{ coin: Coin; price: number }>,
     ) => {
       state.RP =
         action.payload.coin == "RP"
@@ -137,7 +154,7 @@ const userSlice = createSlice({
       .addCase(verifyToken.fulfilled, (state, action) => {
         updateUserFields(state, action)
       })
-      .addCase(confirmPurchase.fulfilled, (state, action) => {
+      .addCase(confirmPurchase.fulfilled, (state, action: PayloadAction<PurchasePayload>) => {
         const { coin, price } = action.payload
         state[coin] = state[coin] - price;
       });
@@ -147,8 +164,8 @@ const userSlice = createSlice({
 export const { setUser, updateUser, updateCoins } =
   userSlice.actions;
 
-export const selectRP = (state) => state.user.RP;
-export const selectBE = (state) => state.user.BE;
+export const selectRP = (state: RootState) => state.user.RP;
+export const selectBE = (state: RootState) => state.user.BE;
 
 export const selectUserData = createSelector(
   [selectRP, selectBE],

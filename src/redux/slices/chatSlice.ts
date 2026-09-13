@@ -17,11 +17,13 @@ export interface ChatUser {
   userName: string;
   alias: string;
   profile_icon: number;
+  profile_border: number;
   status: "online" | "away" | "busy" | "offline";
   lastSeen?: number;
-  isTyping?: boolean;
+  isTyping?: boolean | undefined;
   unreadCount: number;
   tag: string;
+  profle_icon: number
 }
 
 export interface ChatRoom {
@@ -211,8 +213,8 @@ const chatSlice = createSlice({
       }
     },
 
-    markAllAsRead: (state, action: PayloadAction<string>) => {
-      const roomId = action.payload;
+    markAllAsRead: (state, action: PayloadAction<{ roomId: string}>) => {
+      const { roomId } = action.payload;
       if (state.messagesByRoom[roomId]) {
         state.messagesByRoom[roomId].forEach((message) => {
           message.isRead = true;
@@ -300,8 +302,8 @@ const chatSlice = createSlice({
     },
 
     // Cleanup
-    clearChatHistory: (state, action: PayloadAction<string>) => {
-      const roomId = action.payload;
+    clearChatHistory: (state, action: PayloadAction<{ roomId: string}>) => {
+      const { roomId } = action.payload;
       if (state.messagesByRoom[roomId]) {
         state.messagesByRoom[roomId] = [];
       }
@@ -316,7 +318,7 @@ const chatSlice = createSlice({
   }
 });
 
-export const isChatVisible = (state) => state.chat.isChatVisible;
+export const isChatVisible = (state: { chat: ChatState }) => state.chat.isChatVisible;
 
 export const selectChatData = createSelector(
   [isChatVisible],

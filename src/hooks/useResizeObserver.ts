@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 
-export function useResizeObserver(ref, cb) {
+export function useResizeObserver(ref: React.RefObject<HTMLDivElement>, cb: () => void ) {
   useEffect(() => {
     // La comprobación se hace DENTRO del efecto
     const element = ref.current;
@@ -15,7 +15,7 @@ export function useResizeObserver(ref, cb) {
         //cb(entries[0].contentRect.width);
         const width = element.getBoundingClientRect().width;
 
-        cb(width);
+        cb();
       });
 
     });

@@ -3,11 +3,17 @@
 import { memo } from "react";
 import "./Loading.css";
 
+interface LoadingProps {
+  message?: string,
+  size?: string,
+  fullScreen?: boolean
+}
+
 const Loading = memo(function Loading({
   message = "",
   size = "medium",
   fullScreen = false,
-}) {
+}: LoadingProps) {
   return (
     <div
       className={`loading-container ${fullScreen ? "fullscreen" : ""}`}

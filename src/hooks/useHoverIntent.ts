@@ -5,19 +5,19 @@ export default function useHoverIntent({
   fastDelay = 0,
   resetAfter = 500,
 } = {}) {
-  const timeoutRef = useRef(null);
-  const timeoutEndRef = useRef(null);
-  const lastShownRef = useRef(0);
-  const lastMouseLeaveRef = useRef(0)
-  const [currentDelayType, setCurrentDelayType] = useState("initial");
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timeoutEndRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastShownRef = useRef<number>(0);
+  const lastMouseLeaveRef = useRef<number>(0)
+  const [currentDelayType, setCurrentDelayType] = useState<"initial" | "fast">("initial");
 
-  const start = ({ cb, isTooltipOpened }) => {
+  const start = ({ cb, isTooltipOpened }: { cb: () => void, isTooltipOpened:boolean }) => {
     const now = Date.now();
     const timeSinceLast = now - lastMouseLeaveRef.current;
 
-    clearTimeout(timeoutRef.current);
+    if(timeoutRef.current !== null) clearTimeout(timeoutRef.current);
     timeoutRef.current = null;
-    clearTimeout(timeoutEndRef.current);
+    if(timeoutEndRef.current !== null) clearTimeout(timeoutEndRef.current);
     timeoutEndRef.current = null;
 
     const delay =
@@ -40,7 +40,7 @@ export default function useHoverIntent({
   };
 
   const cancel = () => {
-    clearTimeout(timeoutRef.current);
+    if(timeoutRef.current !== null) clearTimeout(timeoutRef.current);
   };
 
   const end = (cb: () => void ) => {
@@ -48,7 +48,7 @@ export default function useHoverIntent({
     lastMouseLeaveRef.current = now
     const timeSinceLast = now - lastShownRef.current;
 
-    clearTimeout(timeoutRef.current);
+    if(timeoutRef.current !== null) clearTimeout(timeoutRef.current);
 
     const delay = timeSinceLast < resetAfter ? 100 : 0;
 
@@ -58,7 +58,7 @@ export default function useHoverIntent({
   };
 
   useEffect(() => {
-    return () => clearTimeout(timeoutRef.current);
+    return () => { if(timeoutRef.current !== null) clearTimeout(timeoutRef.current); }
   }, []);
 
   return { start, cancel, end, currentDelayType };

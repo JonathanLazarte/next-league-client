@@ -28,10 +28,12 @@ import { useChatSocket } from '@/socket/useChatSocket'
 import { useAppHydration } from "@/hooks/useAppHydration";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import { useRouteSync } from '@/hooks/useRouteSync'
+import { SocketRef } from '@/utils/types'
+import { ReactElement } from "react";
 
 
 
-export default function ProvidersWrapper({ children }) {
+export default function ProvidersWrapper({ children }: { children: ReactElement}) {
   const { token, loading: authLoading, isAuthenticated } = useAuth();
   const { user } = useUser();
   const { itemToBuy } = usePurchase();

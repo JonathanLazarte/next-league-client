@@ -4,12 +4,13 @@ import './Skin.css'
 import { RESOURCES_URL } from '@/utils/constants';
 
 
-export default function SkinStoreItem({ item : skin }){
+export default function SkinStoreItem({ item : skin }: { item: Record<string, any>}){
   const { openPurchaseModal } = usePurchase();
 
   const handleClick = () => {
     openPurchaseModal({ itemId: skin.id, type: 'skin'})
   }
+
   return(
     <article
       key={skin.id}

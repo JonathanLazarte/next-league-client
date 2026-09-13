@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface ProfileState {
+export interface ProfileState {
   summonerName: string;
   level: number;
   avatar: string;

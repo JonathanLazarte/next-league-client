@@ -1,9 +1,17 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchUser } from '@/redux/slices/userSlice'
 
-export const saveSettings = createAsyncThunk(
+
+export const saveSettings = createAsyncThunk<
+  Record<string, unknown> | undefined,
+  {
+    userId: string,
+    settings: Record<string, unknown>
+  },
+  { rejectValue: string }
+  >(
   'settings/saveSettings',
-  async ( { userId, settings }: { userId: string, settings: object }, { rejectWithValue } ) => {
+  async ( { userId, settings }, { rejectWithValue } ) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/user/save-settings`,
       {
@@ -18,7 +26,7 @@ export const saveSettings = createAsyncThunk(
       return settings
 
     } catch (error) {
-      rejectWithValue(error.message)
+      rejectWithValue(String(error))
     }
   })
 
@@ -29,7 +37,7 @@ interface SoundSettings {
 }
 
 
-interface VolumePayload {
+export interface VolumePayload {
   type: 'master' | 'sfx' | 'music';
   volume: number;
 }
@@ -65,7 +73,7 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    setLanguage: (state, action: PayloadAction<string>) => {
+    setLanguage: (state, action: PayloadAction<'es' | 'en'>) => {
       state.language = action.payload;
     },
     setVolume: (state, action: PayloadAction<VolumePayload>) => {
@@ -86,14 +94,14 @@ const settingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ userData }>) => {
+      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ userData: { settings: { sound: SoundSettings }} }>) => {
       state.sound = action.payload.userData.settings.sound;
       state.loading = false;
       state.error = null;
     })
     .addCase(saveSettings.pending, (state) => {
       state.loading = true;
-      state.error = null;           // opcional: limpiar error previo
+      state.error = null;
     })
     .addCase(saveSettings.fulfilled, (state, action) => {
       Object.assign(state, action.payload);
@@ -111,9 +119,9 @@ const settingsSlice = createSlice({
       state.loading = false;
 
       if (action.payload) {
-        state.error = (action.payload as unknown)?.message || 'Error al guardar';
+        state.error = action.payload || 'Error al guardar';
       } else {
-        state.error = action.error.message || 'Error desconocido';
+        state.error = 'Error desconocido';
       }
     });
 }

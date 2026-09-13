@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 import { saveSettings, setLanguage, setTheme, setVolume } from "@/redux/slices/settingsSlice";
+import type { VolumePayload } from '@/redux/slices/settingsSlice';
 
 export function useSettings() {
   const dispatch = useAppDispatch();
@@ -8,9 +9,9 @@ export function useSettings() {
   return {
     ...settings,
     settings,
-    saveSettings: (payload) => dispatch(saveSettings(payload)),
-    setLanguage: (payload) => dispatch(setLanguage(payload)),
-    setTheme: (payload) => dispatch(setTheme(payload)),
-    setSettingsVolume: (payload) => dispatch(setVolume(payload)),
+    saveSettings: (payload: { userId: string, settings: Record<string, unknown> }) => dispatch(saveSettings(payload)),
+    setLanguage: (payload: 'es' | 'en') => dispatch(setLanguage(payload)),
+    setTheme: (payload: 'light' | 'dark') => dispatch(setTheme(payload)),
+    setSettingsVolume: (payload: VolumePayload) => dispatch(setVolume(payload)),
   };
 }

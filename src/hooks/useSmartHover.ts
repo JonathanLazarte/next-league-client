@@ -1,11 +1,18 @@
 import { useEffect, useRef } from "react";
 
-export function useSmartHover({ ref, onEnter, onLeave, enabled = true }) {
-  const hoveredRef = useRef(false);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const rafRef = useRef(null);
-  const onEnterRef = useRef(onEnter);
-  const onLeaveRef = useRef(onLeave);
+interface UseSmartHoverProps {
+  ref: React.RefObject<HTMLDivElement>,
+  onEnter: () => void,
+  onLeave: () => void,
+  enabled: boolean
+}
+
+export function useSmartHover({ ref, onEnter, onLeave, enabled = true }: UseSmartHoverProps) {
+  const hoveredRef = useRef<boolean>(false);
+  const mouseRef = useRef<Record<string, number>>({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+  const onEnterRef = useRef<() => void>(onEnter);
+  const onLeaveRef = useRef<() => void>(onLeave);
 
   // Mantener las funciones actualizadas sin causar re-renders
   useEffect(() => {
@@ -17,7 +24,7 @@ export function useSmartHover({ ref, onEnter, onLeave, enabled = true }) {
   useEffect(() => {
     if (!enabled) return;
 
-    const onMove = (e) => {
+    const onMove = (e: MouseEvent) => {
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
     };

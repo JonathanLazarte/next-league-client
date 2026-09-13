@@ -1,20 +1,20 @@
 "use client";
 
 import { useRouter } from "@/hooks/useRouter";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "./hooks";
 import { logout, clearError } from "@/redux/slices/authSlice";
 
 export function useAuth() {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const { isAuthenticated, user, token, loading, error } = useSelector(
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, user, token, loading, error } = useAppSelector(
     (state) => state.auth,
   );
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logout());
-    router.push("/login");
+    router.push("/login", {});
   };
 
   const clearAuthError = () => {

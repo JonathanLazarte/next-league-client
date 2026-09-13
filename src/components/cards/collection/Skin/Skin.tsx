@@ -8,14 +8,22 @@ import { useSound } from '@/hooks/useSound'
 import "./Skin.css";
 import { RESOURCES_URL } from "@/utils/constants";
 
+interface SkinCardProps {
+  onHoverStart: () => void,
+  onHoverEnd: () => void,
+  skin: Record<string, any>,
+  isAdquired: boolean,
+  tooltipPosRef: React.RefObject<{x:number, y:number}>
+}
+
 export default memo(function SkinCard({
   onHoverStart,
   onHoverEnd,
   skin,
   isAdquired,
-  toolTipPosRef,
-}) {
-  const ref = useRef(null);
+  tooltipPosRef,
+}: SkinCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const getRem = () => {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   };
@@ -28,8 +36,8 @@ export default memo(function SkinCard({
 
     const rect = ref.current.getBoundingClientRect();
     // Actualizar el ref directamente sin causar re-render
-    if (toolTipPosRef) {
-      toolTipPosRef.current = {
+    if (tooltipPosRef) {
+      tooltipPosRef.current = {
         x: rect.right - rect.width / 2,
         y: window.innerHeight - rect.top + currentRem * 3,
       };

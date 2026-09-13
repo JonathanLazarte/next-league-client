@@ -7,6 +7,18 @@ import { useChat } from "@/hooks/useChat";
 import { useSmartHover } from "@/hooks/useSmartHover";
 import { RESOURCES_URL } from '@/utils/constants'
 
+interface Friend {
+  userId: string;
+  userName: string;
+  alias: string;
+  profile_icon: number;
+  status: "online" | "away" | "busy" | "offline";
+  lastSeen?: number;
+  isTyping?: boolean;
+  unreadCount: number;
+  tag: string;
+}
+
 export default (function Friend({
   user,
   battleRequest,
@@ -22,7 +34,7 @@ export default (function Friend({
     selectUser,
   } = useChat();
 
-  const handleUserClick = (friend) => {
+  const handleUserClick = (friend: Friend) => {
     // Find the user in friendsOnline to get their profileIcon
     playClickSound();
     // Open chat with the selected user
@@ -46,7 +58,7 @@ export default (function Friend({
     onLeave: onHoverEnd,
   });
 
-  if (battleRequest?.find((br) => br.from === user?.alias)) {
+  if (battleRequest?.find((br: Record<any, unknown>) => br.from === user?.alias)) {
     return inviteBox(user?.alias);
   }
 
@@ -64,6 +76,7 @@ export default (function Friend({
           src={`${RESOURCES_URL}/profileicon/${user?.profile_icon}.png`}
           width={150}
           height={150}
+          alt={"Friend profile icon"}
         />
         <div className="box-status-icon" />
       </div>

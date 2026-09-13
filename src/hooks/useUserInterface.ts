@@ -10,16 +10,14 @@ import {
   setUserState,
   selectUserInterfaceData
 } from '@/redux/slices/userInterfaceSlice';
+import type { UserState, Queue, Section, QueueStatus } from '@/redux/slices/userInterfaceSlice'
 
-/**
- * Hook para gestionar el estado de la interfaz de usuario.
- * Abstrae la lógica de Redux (dispatch, selectors) para simplificar los componentes.
- */
+
 export const useUserInterface = () => {
   const dispatch = useDispatch();
   const uiState = useAppSelector(selectUserInterfaceData);
 
-  const changeSection = useCallback((section: string) => {
+  const changeSection = useCallback((section: Section) => {
     dispatch(setActualSection(section));
   }, [dispatch]);
 
@@ -27,15 +25,15 @@ export const useUserInterface = () => {
     dispatch(setIsNavigating(isNavigating));
   }, [dispatch]);
 
-  const updateUserState = useCallback((userState: string) => {
+  const updateUserState = useCallback((userState: UserState) => {
     dispatch(setUserState(userState));
   }, [dispatch]);
 
-  const updateQueue = useCallback((queueData) => {
+  const updateQueue = useCallback((queueData: Queue) => {
     dispatch(setQueue(queueData));
   }, [dispatch]);
 
-  const updateQueueStatus = useCallback((status: string) => {
+  const updateQueueStatus = useCallback((status: QueueStatus) => {
     dispatch(setQueueStatus(status));
   }, [dispatch]);
 

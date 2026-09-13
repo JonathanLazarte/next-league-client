@@ -5,10 +5,15 @@ import ReactDOM from "react-dom";
 import "./TextTooltip.css";
 import { SECTION_LABELS } from '@/utils/constants'
 
+interface TextTooltipProps {
+  content: "collection" | "store" | "league",
+  position: { x:number, y: number }
+}
+
 const TextTooltip = ({
   content,
   position
-}) => {
+}: TextTooltipProps ) => {
   const [visible, /*setVisible*/] = useState(true);
   const tooltipRef = useRef(null);
 

@@ -1,5 +1,6 @@
 import { shallowEqual } from "react-redux";
 import { closeModal, confirmPurchase, openPurchaseModal, selectPurchaseData } from "@/redux/slices/purchaseSlice";
+import type { ItemType, Coin } from "@/redux/slices/purchaseSlice";
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 
 export function usePurchase() {
@@ -16,8 +17,8 @@ export function usePurchase() {
   return {
     ...purchase,
     wallet,
-    openPurchaseModal: (payload) => dispatch(openPurchaseModal(payload)),
+    openPurchaseModal: (payload: { itemId: string, type: ItemType }) => dispatch(openPurchaseModal(payload)),
     closeModal: () => dispatch(closeModal()),
-    confirmPurchase: (payload) => dispatch(confirmPurchase(payload)),
+    confirmPurchase: (payload: { coin: Coin, price: number }) => dispatch(confirmPurchase(payload)),
   };
 }

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ConnectedUser {
+export interface ConnectedUser {
   id: string;
   alias: string;
   tag: string;

@@ -7,17 +7,27 @@ import { useResizeObserver } from "@/hooks/useResizeObserver";
 import { useThrottledCallback } from "@/hooks/useThrottle";
 import "./virtualGrid.css";
 
+interface VirtualSkinsProps {
+  groupedSkins: Record<string, any>,
+  onHoverStart: () => void,
+  onHoverEnd: () => void,
+  tooltipPosRef: React.RefObject<{ x: number, y: number }>,
+  userSkins: Record<string, any>[],
+  groupedBy: string,
+  handleScroll: () => void
+}
+
 export default memo(function VirtualSkinsGrid({
   groupedSkins,
   onHoverStart,
   onHoverEnd,
-  toolTipPosRef,
+  tooltipPosRef,
   userSkins,
   groupedBy,
   handleScroll,
-}) {
-  const parentRef = useRef(null);
-  const [columns, setColumns] = useState();
+}: VirtualSkinsProps) {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const [columns, setColumns] = useState<number | undefined>();
   const acquiredSkinsIds = useMemo(
     // eslint-disable-next-line no-undef
     () => new Set(userSkins.map((uc) => uc.id)),
@@ -34,7 +44,7 @@ export default memo(function VirtualSkinsGrid({
   const cardWidth = getRem() * 16;
 
   const getAmountOfColumns = useCallback(
-    (containerWidth) => {
+    (containerWidth: number) => {
       const amount =
         (containerWidth + gapValue - paddingRightValue) /
         (cardWidth + gapValue);
@@ -50,16 +60,14 @@ export default memo(function VirtualSkinsGrid({
       const rectWidth = rect.width;
       const initialContainerWidth = getAmountOfColumns(rectWidth);
       setColumns(initialContainerWidth);
-      parentRef.current.addEventListener("scroll", throttledHandleScroll, {
-        pasive: true,
-      });
+      parentRef.current.addEventListener("scroll", throttledHandleScroll);
     }
     return () =>
       parentRef?.current?.removeEventListener("scroll", throttledHandleScroll);
   }, []);
 
   const handleResize = useCallback(
-    (containerWidth) => {
+    (containerWidth: number) => {
       const newCols = getAmountOfColumns(containerWidth);
       if (newCols > 0 && newCols !== columns) {
         setColumns(newCols);
@@ -71,11 +79,17 @@ export default memo(function VirtualSkinsGrid({
   useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
+  interface Row {
+    type: string,
+    section?: string
+    skins?: Record<string, any>
+  }
 
   const rows = useMemo(() => {
-    const result = [];
+    if (!columns) return []
+    const result: Row[] = [];
 
-    groupedSkins?.forEach(([section, skins]) => {
+    groupedSkins?.forEach(([section, skins]: [section: string, skins: Record<string, any>]) => {
       if (section !== "Todos") {
         result.push({
           type: "header",
@@ -159,14 +173,14 @@ export default memo(function VirtualSkinsGrid({
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
-                  {row.skins.map((skin, index) => (
+                  {row.skins?.map((skin: Record<string, any>, index: number) => (
                     <SkinCard
                       key={skin.id || index}
                       onHoverStart={onHoverStart}
                       onHoverEnd={onHoverEnd}
                       skin={skin}
                       isAdquired={acquiredSkinsIds.has(skin.id)}
-                      toolTipPosRef={toolTipPosRef}
+                      tooltipPosRef={tooltipPosRef}
                     />
                   ))}
                 </div>

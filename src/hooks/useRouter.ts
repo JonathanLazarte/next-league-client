@@ -9,7 +9,7 @@ export function useRouter() {
   const { setNavigating } = useUserInterface();
 
   const push = useCallback(
-    (href, options) => {
+    (href: string , options: Record<string, any>) => {
       if (
         typeof document !== "undefined" &&
         (href === "/login" || href === "/register")
@@ -23,7 +23,7 @@ export function useRouter() {
   );
 
   const replace = useCallback(
-    (href, options) => {
+    (href: string , options: Record<string, any>) => {
       if (typeof document !== "undefined") {
         document.documentElement.classList.add("navigating");
       }
