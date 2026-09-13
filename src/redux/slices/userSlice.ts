@@ -76,7 +76,7 @@ export const fetchUser = createAsyncThunk<
   { token: string }
   >(
   "user/set-user",
-    async ({ token }, { rejectWithValue }) => {
+  async (token, { rejectWithValue }) => {
     try {
       const response = await fetch(`${API_URL}api/v1/user`, {
         method: "POST",

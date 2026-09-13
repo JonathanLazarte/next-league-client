@@ -35,7 +35,6 @@ export default memo(function Champions() {
   })
 
 
-
   const subsections = ["CHAMPIONS", "ETERNALS", "PACKS"];
   const sortOptions = [
     { value: "", label: "Release Date ↓" },

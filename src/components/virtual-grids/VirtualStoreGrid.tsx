@@ -49,7 +49,6 @@ export interface Champion {
 
 interface VirtualSkinsProps {
   items: Skin[],
-  handleClick: () => void,
   StoreCard: React.FunctionComponent<{ item: Skin | Champion}>
 }
 
@@ -57,7 +56,7 @@ export default memo(function VirtualSkinsGrid({
   items,
   StoreCard,
 }: VirtualSkinsProps) {
-  const parentRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLDivElement | null>(null);
 
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -85,18 +84,7 @@ export default memo(function VirtualSkinsGrid({
     }
   }, []);
 
-  const handleResize = useCallback(
-    (width: number) => {
-      const newCols = getAmountOfColumns(width);
 
-      if (newCols !== columns) {
-        newCols > 5 ? setColumns(5) : setColumns(newCols);
-      }
-    },
-    [columns, getAmountOfColumns],
-  );
-
-  useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
   // Construimos filas
