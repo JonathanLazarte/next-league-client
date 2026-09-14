@@ -1,7 +1,17 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
+import type { Dispatch} from 'react'
 import './CustomSelect.css';
+
+interface CustomSelectProps {
+  options: string[],
+  value: string,
+  onChange: Dispatch<React.SetStateAction<string>>,
+  placeholder: string,
+  className: string,
+  disabled?: boolean,
+}
 
 const CustomSelect = ({
   options = [],
@@ -10,12 +20,11 @@ const CustomSelect = ({
   placeholder = "Select...",
   className = "",
   disabled = false,
-  ...props
-}) => {
+}: CustomSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const selectRef = useRef(null);
-  const optionRefs = useRef([]);
+  const selectRef = useRef<HTMLDivElement>(null);
+  const optionRefs = useRef<string[]>([]);
 
   // Encontrar la opción seleccionada
   const selectedOption = options.find(option => option.value === value);

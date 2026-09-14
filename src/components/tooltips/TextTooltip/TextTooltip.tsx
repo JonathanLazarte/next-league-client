@@ -6,7 +6,7 @@ import "./TextTooltip.css";
 import { SECTION_LABELS } from '@/utils/constants'
 
 interface TextTooltipProps {
-  content: "collection" | "store" | "league",
+  content: string,
   position: { x:number, y: number }
 }
 
@@ -31,7 +31,9 @@ const TextTooltip = ({
               visibility: visible ? "visible" : "hidden",
             }}
           >
-            { SECTION_LABELS[content] || content || '??' }
+            {
+              SECTION_LABELS[content as keyof typeof SECTION_LABELS] || content || '??'
+            }
           </div>,
           document.body,
         )}

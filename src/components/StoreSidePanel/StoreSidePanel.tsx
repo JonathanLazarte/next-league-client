@@ -1,6 +1,24 @@
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import CustomSelect from "@/components/CustomSelect/CustomSelect";
+import type { Dispatch, SetStateAction } from "react";
+
+interface StoreSidePanelProps {
+  subsections: string[],
+  subsectionSelected: string,
+  setSubsectionSelected: Dispatch<SetStateAction<string>>,
+  searchKeys: string,
+  setSearchKeys: Dispatch<SetStateAction<string>>,
+  inCollection: boolean,
+  setInCollection: Dispatch<SetStateAction<boolean>>,
+  sortOptions: string[],
+  sortedBy: string,
+  setSortedBy: Dispatch<SetStateAction<string>>,
+  itemCategoryChecked: string,
+  setItemCategoryChecked: Dispatch<SetStateAction<Record<string, boolean>>>,
+  championInCollection: boolean,
+  setChampionInCollection: Dispatch<SetStateAction<boolean>>
+}
 
 export default function StoreSidePanel({
   subsections,
@@ -17,9 +35,9 @@ export default function StoreSidePanel({
   setItemCategoryChecked,
   championInCollection,
   setChampionInCollection
-}) {
+}: StoreSidePanelProps) {
 
-  const handleCheckboxChange = (role) => {
+  const handleCheckboxChange = (role: string) => {
     setItemCategoryChecked((prev) => ({
       ...prev,
       [role]: !prev[role],

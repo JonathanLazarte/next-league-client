@@ -1,4 +1,4 @@
-"use client"; // si usas Next.js App Router
+/*"use client"; // si usas Next.js App Router
 import React from 'react'
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useRef, useState, MouseEvent } from "react";
@@ -163,3 +163,4 @@ export default function LoLHeaderTab({
     </motion.button>
   );
 }
+*/

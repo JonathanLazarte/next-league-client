@@ -43,7 +43,7 @@ export const API_ENDPOINTS = {
 export const SECTION_LABELS = {
   collection: "Collection",
   store: "Store",
-  league: "LEAGUE"
+  league: "LEAGUE",
 }
 
 export const SECTIONS = {

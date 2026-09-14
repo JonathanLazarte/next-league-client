@@ -8,7 +8,7 @@ interface TooltipState {
   anchor: HTMLElement | null,
   position: { x: number, y: number }
   placement: "right" | "left" | "bottom" | "top"
-  content: string | null | "collection" | "store" | "league",
+  content: string,
   options: {
       delay: number;
       interactive: boolean;
@@ -21,7 +21,7 @@ const initialState : TooltipState = {
   anchor: null,
   position: { x: 0, y: 0 },
   placement: "bottom",
-  content: null,
+  content: "",
   options: {
     delay: 300,
     interactive: false
@@ -33,7 +33,7 @@ const tooltipSlice = createSlice({
   name: 'tooltip',
   initialState,
   reducers: {
-    setTooltip: (state, action: PayloadAction<{ position: { x:number, y:number }, content: string, visible: boolean}>) => {
+    setTooltip: (state, action: PayloadAction<{ position: { x:number, y:number }, content: string }>) => {
       state.position = action.payload.position;
       state.content = action.payload.content;
       state.visible = true;
