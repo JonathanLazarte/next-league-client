@@ -16,10 +16,11 @@ import { useUserSkins } from "@/hooks/useUserSkins";
 import { GiPadlock } from "react-icons/gi";
 import { IoArrowForward } from "react-icons/io5";
 import { RESOURCES_URL } from "@/utils/constants";
+import type { Champion } from '@/types/champion'
 import { useSound } from '@/hooks/useSound'
 
 
-export const CloseModalButton = ({ onClose }) => {
+export const CloseModalButton = ({ onClose }: { onClose: () => void }) => {
   const [buttonState, setButtonState] = useState('idle')
   const handleMouseEnter = () => {
     setButtonState('hovered');
@@ -43,13 +44,19 @@ export const CloseModalButton = ({ onClose }) => {
   </div>)
 }
 
+interface ResumenTabProps {
+  champion: Champion,
+  championImg: string,
+  isChampionInCollection: boolean,
+  onUnlockChampion: () => void
+}
 
 const ResumenTab = memo(function ResumenTab({
   champion,
   championImg,
   isChampionInCollection,
   onUnlockChampion,
-}) {
+}: ResumenTabProps) {
   const difficulty = champion?.info.difficulty;
 
   return (
@@ -201,7 +208,12 @@ const ResumenTab = memo(function ResumenTab({
   );
 });
 
-const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
+interface AspectosTabProps {
+  champion: Champion,
+  activeTab: string
+}
+
+const AspectosTab = memo(function AspectosTab({ champion, activeTab }: AspectosTabProps) {
   const [selectedSkin, setSelectedSkin] = useState(0);
   const { userSkins } = useUserSkins();
   const totalSkins = champion.skins.length;
@@ -209,13 +221,13 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
 
   const isSkinInCollection =
     selectedSkin === 0 ||
-    userSkins.some((us) => us.key == champion.skins[selectedSkin]?.id);
+    userSkins.some((us) => us.id == champion.skins[selectedSkin]?.id);
   const { openPurchaseModal } = usePurchase();
 
-  const isThisSkinInCollection = (skinContextIndex) => {
+  const isThisSkinInCollection = (skinContextIndex: number) => {
     return (
       skinContextIndex == 0 ||
-      userSkins.some((us) => us.key == champion.skins[skinContextIndex].id)
+      userSkins.some((us) => us.id == champion.skins[skinContextIndex].id)
     );
   };
   const handleUnlockSkin = () => {
@@ -223,7 +235,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
     openPurchaseModal({ itemId: selectedSkinId, type: "skin" });
   };
   const getVisibleSkins = () => {
-    const visibleSkins = [];
+    const visibleSkins: number[] = [];
 
     if (totalSkins <= 5) {
       const slotsToShow = Math.min(5, totalSkins);
@@ -233,8 +245,6 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
         if (i >= offset && i < offset + slotsToShow) {
           const skinIndex = i - offset;
           visibleSkins.push(skinIndex);
-        } else {
-          visibleSkins.push(null);
         }
       }
       return visibleSkins;
@@ -272,7 +282,7 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (activeTab === "aspectos") {
         switch (event.key) {
           case "ArrowLeft":
@@ -306,7 +316,6 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
         onLoad={() => setIsBackgroundImageLoaded(true)}
         height={'800'}
         width={'1320'}
-        quality={'100%'}
       />
       <div className="background-skin-placeholder"
         style={{ visibility: !isBackgroundImageLoaded ? "visible" : "hidden" }}
@@ -406,16 +415,16 @@ const AspectosTab = memo(function AspectosTab({ champion, activeTab }) {
   );
 });
 
-const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
+const HabilidadesTab = memo(function HabilidadesTab({ champion }: { champion: Champion }) {
   const spellKeys = ["P", "Q", "W", "E", "R"];
   const [selectedSpell, setSelectedSpell] = useState(0);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const showLoading = useLoadingDelay(isVideoLoading);
   /*const videosRef = useRef < HTMLVideoElement[] > ([]);*/
-  const videoRef = useRef([])
+  const videoRef = useRef<HTMLVideoElement[]>([])
 
   useEffect(() => {
-    videoRef.current.forEach((video, index) => {
+    videoRef.current.forEach((video: HTMLVideoElement, index: number) => {
       if (!video) return;
 
       if (index === selectedSpell) {
@@ -516,7 +525,14 @@ const HabilidadesTab = memo(function HabilidadesTab({ champion }) {
   );
 });
 
-const ChampionDetailModal = ({ champion, onClose }) => {
+
+
+interface ChampionDetailModalProps {
+  champion: Champion,
+  onClose: () => void,
+}
+
+const ChampionDetailModal = ({ champion, onClose }: ChampionDetailModalProps) => {
   const [activeTab, setActiveTab] = useState("resumen");
   const { userChampions } = useUserChampions();
   const { openPurchaseModal } = usePurchase();
@@ -525,7 +541,7 @@ const ChampionDetailModal = ({ champion, onClose }) => {
   if (!champion) return null;
 
   const isChampionInCollection = userChampions?.some(
-    (c) => c.id == champion.id,
+    (c) => c.id === champion.id,
   );
 
   const tabs =

@@ -11,51 +11,19 @@ import {
 } from "react";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
+import type { Skin } from '@/utils/types'
+import type { Champion } from "@/types/champion"
 
-export interface Chroma {
-  id: number;
-  name: string;
-  chromaPath: string;
-  colors: string[];
+
+interface VirtualSkinsProps<T extends Skin | Champion = Skin | Champion> {
+  items: T[],
+  StoreCard: React.ComponentType<{ item: T }>
 }
 
-export interface Skin {
-  id: number;
-  name: string;
-  splashPath: string;
-  uncenteredSplashPath: string;
-  tilePath: string;
-  loadScreenPath: string;
-  chromas?: Chroma[];
-  isBase: boolean;
-  rarity: SkinRarity;
-  cost: number | 'Special';
-}
-
-export type SkinRarity =
-  | 'NoRarity'
-  | 'Standard'
-  | 'Epic'
-  | 'Legendary'
-  | 'Ultimate'
-  | 'Mythic'
-  | 'Transcendent';
-
-export interface Champion {
-  id: number,
-  name: string,
-  img: Record<string, any>
-}
-
-interface VirtualSkinsProps {
-  items: Skin[],
-  StoreCard: React.FunctionComponent<{ item: Skin | Champion}>
-}
-
-export default memo(function VirtualSkinsGrid({
+export default memo(function VirtualSkinsGrid<T extends Skin | Champion = Skin | Champion>({
   items,
   StoreCard,
-}: VirtualSkinsProps) {
+}: VirtualSkinsProps<T>) {
   const parentRef = useRef<HTMLDivElement | null>(null);
 
   function getRem() {
@@ -84,7 +52,18 @@ export default memo(function VirtualSkinsGrid({
     }
   }, []);
 
+  const handleResize = useCallback(
+    (width: number) => {
+      const newCols = getAmountOfColumns(width);
 
+      if (newCols !== columns) {
+        newCols > 5 ? setColumns(5) : setColumns(newCols);
+      }
+    },
+    [columns, getAmountOfColumns],
+  );
+
+  useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
   // Construimos filas

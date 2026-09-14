@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -138,7 +138,6 @@ export default function ModeSelector({ data : gameModes }){
         </div>
         <div className='gamemode-selector-footer'>
           <ConfirmButton
-            text="CONFIRMAR"
             type="modeSelection"
             activeButtonAction={handleConfirm}
           />

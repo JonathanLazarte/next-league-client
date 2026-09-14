@@ -15,8 +15,8 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
   const [chatInput, setChatInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
-  const typingTimeoutRef = useRef(null);
-  const messagesEndRef = useRef(null);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const { alias } = useUser();
   const {
@@ -46,13 +46,13 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
   // Marcar mensajes como leídos al abrir el chat
   useEffect(() => {
     if (selectedUser && isChatVisible) {
-      markAllAsRead(selectedUser?.alias);
+      markAllAsRead({ roomId: selectedUser.alias});
     }
   }, [selectedUser, isChatVisible, markAllAsRead]);
 
 
   // Manejar indicador de escritura
-  const handleTyping = (e) => {
+  const handleTyping = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setChatInput(value);
 
@@ -73,7 +73,7 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
     }, 1000);
   };
   // Enviar mensaje
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
     if (!chatInput.trim() || !selectedUser?.alias) return;
 
@@ -105,7 +105,7 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
   };
 
   // Formatear hora
-  const formatTimestamp = (timestamp) => {
+  const formatTimestamp = (timestamp: string) => {
     return new Date(timestamp).toLocaleTimeString("es-ES", {
       hour: "2-digit",
       minute: "2-digit",

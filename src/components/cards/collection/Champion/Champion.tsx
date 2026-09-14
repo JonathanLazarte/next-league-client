@@ -5,6 +5,18 @@ import "./Champion.css";
 import { GiPadlock } from "react-icons/gi";
 import { RESOURCES_URL } from "@/utils/constants";
 import { useSound } from "@/hooks/useSound";
+import type { Champion } from '@/utils/types'
+
+
+interface ChampionCardProps {
+  id: string,
+  champion: Champion,
+  onClick: (champion: Champion) => void,
+  adquired: boolean,
+  onHoverEnd: () => void,
+  onHoverStart: ( champion: Champion, ref: React.RefObject<HTMLDivElement>) => void,
+  tooltipPosRef: React.MutableRefObject<{ x:number, y: number }>
+}
 
 const ChampionCard = ({
   id,
@@ -14,7 +26,7 @@ const ChampionCard = ({
   onHoverEnd,
   onHoverStart,
   tooltipPosRef,
-}) => {
+}: ChampionCardProps) => {
   const { play: playGridHover } = useSound("/sfx/sfx-uikit-grid-hover.ogg")
   const { play: playGridClick } = useSound("/sfx/sfx-uikit-grid-click.ogg")
 
@@ -30,7 +42,7 @@ const ChampionCard = ({
   }
 
   const handleKeyDown = useCallback(
-    (e) => {
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         handleClick();
@@ -39,12 +51,14 @@ const ChampionCard = ({
     [handleClick],
   );
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
-  const getPosition = (localRef) => {
+  const getPosition = (localRef: React.RefObject<HTMLDivElement>): { x: number, y: number } | undefined => {
     const position = "right";
     const wrapperRef = localRef.current;
-    const rect = localRef.current.getBoundingClientRect();
+    const rect = localRef?.current?.getBoundingClientRect();
+
+    if(!rect) return
     //const tooltipRect = tooltipRef.current?.getBoundingClientRect();
     const getRem = () => {
       return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -145,7 +159,8 @@ const ChampionCard = ({
         ref={ref}
         className="champion-sprites"
         onMouseEnter={() => {
-          tooltipPosRef.current = getPosition(ref);
+          const position = getPosition(ref)
+          if (position) tooltipPosRef.current = position
           onHoverStart(champion, ref);
         }}
         onMouseLeave={onHoverEnd}

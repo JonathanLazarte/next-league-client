@@ -7,13 +7,14 @@ import { useSound } from '@/hooks/useSound'
 
 import "./Skin.css";
 import { RESOURCES_URL } from "@/utils/constants";
+import type { Skin } from '@/utils/types'
 
 interface SkinCardProps {
-  onHoverStart: () => void,
+  onHoverStart: (skin: Skin, ref: React.RefObject<HTMLDivElement>) => void,
   onHoverEnd: () => void,
-  skin: Record<string, any>,
+  skin: Skin,
   isAdquired: boolean,
-  tooltipPosRef: React.RefObject<{x:number, y:number}>
+  tooltipPosRef: React.MutableRefObject<{x:number, y:number}>
 }
 
 export default memo(function SkinCard({
@@ -64,7 +65,7 @@ export default memo(function SkinCard({
         <Image
           width={264}
           height={450}
-          alt
+          alt={"Skin card border"}
           className="skin-card-border"
           src={`/collection/borders/borders_normal.png`}
         />
@@ -74,8 +75,6 @@ export default memo(function SkinCard({
           className={`skin-card-image ${isAdquired ? "" : "not-obtained"}`}
           src={`${RESOURCES_URL}/loading/${skin.img}`}
           alt={`${skin.name} skin`}
-          clipPath="url(#card-shape)"
-          preserveAspectRatio="xMidYMid slice"
           width={308}
           height={560}
         />

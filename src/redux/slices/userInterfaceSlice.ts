@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
 export type UserState = "online" | "offline" | "ingame" | "away" | string
-export type Section = "league" | "play" | "store" | "collection" | string
+export type Section = "league" | "play" | "store" | "collection"
 export type Queue = "solo_duo" | "flex" | "aram" | null | "aram_mayhem" | "tutorial" | "swiftplay"
 export type QueueStatus = "idle" | "found" | "searching" | "acepted"
 
@@ -30,7 +30,7 @@ const initialState: UserInterfaceState = {
   userState: "online", // online | away | inGame | offline
 
   // Navegación
-  actualSection: "home",
+  actualSection: "league",
   isNavigating: false,
   showSideNav: true, // Initial state
   sectionTabSelected: null, // Initial state

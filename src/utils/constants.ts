@@ -76,6 +76,7 @@ export const BACKGROUND_URLS = {
   league: "/Jayce_34.webp",
   store: "/store_background.webp",
   collection: "/collection_background.webp",
+  play: ""
 }
 
 export const FILTER_OPTIONS_BY_GROUPING = {

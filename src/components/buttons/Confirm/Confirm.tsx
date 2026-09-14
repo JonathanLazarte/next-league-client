@@ -5,7 +5,12 @@ import { useRouter } from "next/navigation";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound";
 
-export default function PlayButton({ type, activeButtonAction }) {
+interface PlayButtonProps {
+  type: string,
+  activeButtonAction: () => void
+}
+
+export default function PlayButton({ type, activeButtonAction }: PlayButtonProps) {
   const router = useRouter();
   const { updateQueue } = useUserInterface();
   const text = "CONFIRM"

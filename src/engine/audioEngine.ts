@@ -13,12 +13,54 @@ interface AudioChannels {
   [key: string]: AudioChannel;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class AudioEngine {
   context: AudioContext | null = null;
-  cache: Map<string, unknown>;
-  musicElement: HTMLAudioElement | null = null;
+        cache: Map<string, unknown>;
+        musicElement: HTMLAudioElement | null = null;
   musicSource: MediaElementAudioSourceNode | null = null;
-  channels: AudioChannels;
+    channels: AudioChannels;
 
   constructor() {
     this.context = null;
@@ -27,9 +69,9 @@ class AudioEngine {
 
     this.musicElement = null;
     this.musicSource = null;
-    this.channels = {
+    this.   channels = {
       master: { node: null, volume: 1.0, maxVolume: 1.0, muted: false },
-      sfx: { node: null, volume: 2.0, maxVolume: 2.0, muted: false },
+        sfx: { node: null, volume: 2.0, maxVolume: 2.0, muted: false },
       music: { node: null, volume: 0.5, maxVolume: 1.0, muted: false }
     };
   }

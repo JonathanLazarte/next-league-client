@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import useHoverIntent from "@/hooks/useHoverIntent";
 import { HOVER_DELAYS } from "@/utils/constants";
+import type { Skin } from "@/utils/types"
 
 export function useSkinHoverTooltip() {
     const tooltipRef = useRef();
@@ -16,7 +17,7 @@ export function useSkinHoverTooltip() {
     });
 
     const onHoverStart = useCallback(
-        (skin, skinCardRef) => {
+        (skin: Skin, skinCardRef: React.RefObject<HTMLDivElement>) => {
             start({
                 cb: () => {
                     setToolTipPos(toolTipPosRef.current);

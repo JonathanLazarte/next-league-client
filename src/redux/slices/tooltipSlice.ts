@@ -8,7 +8,7 @@ interface TooltipState {
   anchor: HTMLElement | null,
   position: { x: number, y: number }
   placement: "right" | "left" | "bottom" | "top"
-  content: string | null,
+  content: string | null | "collection" | "store" | "league",
   options: {
       delay: number;
       interactive: boolean;

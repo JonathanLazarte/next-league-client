@@ -8,9 +8,9 @@ function useUser() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user, shallowEqual);
 
-  const fetchUserData = useCallback((payload: string) => dispatch(fetchUser(payload)), [dispatch]);
+  const fetchUserData = useCallback((payload: { token: string }) => dispatch(fetchUser(payload)), [dispatch]);
   const updateUserData = useCallback((payload: UserPayload) => dispatch(updateUser(payload)), [dispatch]);
-  const updateUserCoins = useCallback((payload) => dispatch(updateCoins(payload)), [dispatch]);
+  const updateUserCoins = useCallback((payload: { coin: "RP" | "BE"; price: number }) => dispatch(updateCoins(payload)), [dispatch]);
 
   return {
     ...user,

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { confirmPurchase } from "@/redux/slices/purchaseSlice";
+import type { Skin } from '@/utils/types'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -31,9 +32,14 @@ export const getUserSkins = createAsyncThunk<
   },
 );
 
+export interface UserSkin {
+  id: string,
+  purchaseDate: string
+}
+
 interface UserSkinsState {
   loading: boolean,
-  skins: string[],
+  skins: UserSkin[],
   error: null | string | unknown,
 }
 

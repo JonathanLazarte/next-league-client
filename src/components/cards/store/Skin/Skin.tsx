@@ -2,10 +2,12 @@ import Image from 'next/image'
 import { usePurchase } from '@/hooks/usePurchase'
 import './Skin.css'
 import { RESOURCES_URL } from '@/utils/constants';
+import { Skin } from '@/utils/types'
 
 
-export default function SkinStoreItem({ item : skin }: { item: Record<string, any>}){
+export default function SkinStoreItem({ item }:{ item: Skin }){
   const { openPurchaseModal } = usePurchase();
+  const skin = item
 
   const handleClick = () => {
     openPurchaseModal({ itemId: skin.id, type: 'skin'})

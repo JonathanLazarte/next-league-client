@@ -6,7 +6,7 @@ import { useAppDispatch } from '@/hooks/hooks'
 export function useUserSkins() {
   const dispatch = useAppDispatch();
   const userSkinsState = useSelector(selectUserSkinsData);
-  const fetchUserSkins = useCallback((payload) => dispatch(getUserSkins(payload)), [dispatch]);
+  const fetchUserSkins = useCallback((payload: string) => dispatch(getUserSkins(payload)), [dispatch]);
 
   return {
     ...userSkinsState,

@@ -4,8 +4,9 @@ import { usePurchase } from "@/hooks/usePurchase";
 import "./Champion.css";
 import Image from 'next/image'
 import { RESOURCES_URL } from "@/utils/constants";
+import { Champion } from '@/utils/types'
 
-const ChampionCard = ({ item: data }: { item: Record<string, any>}) => {
+const ChampionCard = ({ item: data }: { item: Champion }) => {
   const { openPurchaseModal } = usePurchase();
 
   const handleClick = async () => {

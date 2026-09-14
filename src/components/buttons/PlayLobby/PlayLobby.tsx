@@ -9,13 +9,13 @@ import Image from 'next/image'
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
-export default function LobbyPlayButton({ setSectionTabSelected }) {
+export default function LobbyPlayButton({ setSectionTabSelected }: { setSectionTabSelected: (section:string) => void }) {
   const route = useRouter();
   const { actualSection, queue } = useUserInterface();
   const [ buttonState, setButtonState ] = useState<Button>('idle')
   const { play: playHover } = useSound("/sfx/sfx-nav-button-play-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-nav-button-play-click.ogg");
-  const videoRef = useRef({})
+  const videoRef = useRef<Record<string, HTMLVideoElement>>({})
   const isUserInParty = queue !== null
 
   useEffect(() => {
@@ -134,6 +134,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }) {
           controlsList="nodownload noplaybackrate noremoteplayback"
           src='/play-button/play-button-hover-loop.webm'
           ref={(el) => {
+            if(!el) return
             videoRef.current['hover'] = el
           }}
           style={{opacity: buttonState === 'hovered' ? 1 : 0}}
@@ -146,6 +147,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }) {
           controlsList="nodownload noplaybackrate noremoteplayback"
           src='/play-button/lobby-button-release.webm'
           ref={(el) => {
+            if(!el) return
             videoRef.current['disabled'] = el
           }}
           style={{ display: buttonState === 'disabled' ? "block" : "none"}}

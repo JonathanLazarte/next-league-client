@@ -5,14 +5,22 @@ import { useRef, useMemo, memo, useState, useCallback, useLayoutEffect } from "r
 import SkinCard from "@/components/cards/collection/Skin/Skin";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import { useThrottledCallback } from "@/hooks/useThrottle";
+import type { Skin } from '@/utils/types'
+import type { UserSkin } from '@/redux/slices/userSkinsSlice'
 import "./virtualGrid.css";
 
+type SkinsGroup = [
+  string,
+  Skin[]
+]
+
+
 interface VirtualSkinsProps {
-  groupedSkins: Record<string, any>,
+  groupedSkins: SkinsGroup[],
   onHoverStart: () => void,
   onHoverEnd: () => void,
-  tooltipPosRef: React.RefObject<{ x: number, y: number }>,
-  userSkins: Record<string, any>[],
+  tooltipPosRef: React.MutableRefObject<{ x: number, y: number }>,
+  userSkins: UserSkin[],
   groupedBy: string,
   handleScroll: () => void
 }
@@ -30,10 +38,10 @@ export default memo(function VirtualSkinsGrid({
   const [columns, setColumns] = useState<number | undefined>();
   const acquiredSkinsIds = useMemo(
     // eslint-disable-next-line no-undef
-    () => new Set(userSkins.map((uc) => uc.id)),
+    () => new Set(userSkins.map((us: UserSkin) => us.id)),
     [userSkins]
   );
-
+  console.log(userSkins)
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   }
@@ -82,14 +90,14 @@ export default memo(function VirtualSkinsGrid({
   interface Row {
     type: string,
     section?: string
-    skins?: Record<string, any>
+    skins?: Skin[]
   }
 
   const rows = useMemo(() => {
     if (!columns) return []
     const result: Row[] = [];
 
-    groupedSkins?.forEach(([section, skins]: [section: string, skins: Record<string, any>]) => {
+    groupedSkins?.forEach(([section, skins]: [ section: string, skins: Skin[] ]) => {
       if (section !== "Todos") {
         result.push({
           type: "header",
@@ -173,7 +181,7 @@ export default memo(function VirtualSkinsGrid({
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
-                  {row.skins?.map((skin: Record<string, any>, index: number) => (
+                  {row.skins?.map((skin: Skin, index: number) => (
                     <SkinCard
                       key={skin.id || index}
                       onHoverStart={onHoverStart}

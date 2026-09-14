@@ -7,10 +7,15 @@ import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { findMatch, leaveParty } from '@/redux/slices/matchmakingSlice'
 import { useSound } from "@/hooks/useSound";
+import { QueueStatus } from '@/redux/slices/userInterfaceSlice'
+
+interface FindMatchButtonProps {
+  queueStatus: QueueStatus
+}
 
 export default function FindMatchButton({
   queueStatus
-}) {
+}: FindMatchButtonProps) {
   const { updateQueue, updateQueueStatus } = useUserInterface();
   const { push } = useRouter()
   const inQueue = queueStatus !== 'idle'

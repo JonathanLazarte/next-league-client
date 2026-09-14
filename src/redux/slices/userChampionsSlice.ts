@@ -34,9 +34,13 @@ export const getUserChampions = createAsyncThunk<
   },
 );
 
+interface UserChampion {
+  id: string
+}
+
 interface UserChampionsState {
   loading: boolean,
-  champions: string[],
+  champions: UserChampion[],
   error: null | string | unknown,
 }
 
