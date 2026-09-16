@@ -6,11 +6,8 @@ import { useState, memo,useRef } from "react";
 
 
 import { RiFilePaper2Fill } from "react-icons/ri";
-
 import { MdBugReport } from "react-icons/md";
-
 import { FaMicrophone } from "react-icons/fa6";
-
 import { IoChatboxSharp } from "react-icons/io5";
 
 import UserTooltip from "@/components/tooltips/UserTooltip/UserTooltip";
@@ -22,13 +19,14 @@ import SocialPanel from "./SocialPanel";
 import useHoverIntent from "@/hooks/useHoverIntent";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useChat } from "@/hooks/useChat";
+import type { User } from "@/utils/types"
 
 export default memo(function RightNav() {
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [ isSettingsOpen, setIsSettingsOpen ] = useState(false);
   const { actualSection, userState, showSideNav, updateSideNav } = useUserInterface();
-  const [hoveredUser, setHoveredUser] = useState(null);
+  const [ hoveredUser, setHoveredUser ] = useState<User | null>(null);
   const toolTipPosRef = useRef({ x: 0, y: 0 });
-  const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
+  const [ toolTipPos, setToolTipPos ] = useState({ x: 0, y: 0 });
   const { start, cancel } = useHoverIntent({ initialDelay: 400 });
 
   const {
@@ -37,7 +35,7 @@ export default memo(function RightNav() {
     toggleChatVisibility,
   } = useChat();
 
-  const onHoverStart = (hovereduser) => {
+  const onHoverStart = (hovereduser: User) => {
     start({
       cb: () => {
         // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
@@ -47,6 +45,7 @@ export default memo(function RightNav() {
         });
         setHoveredUser(hovereduser);
       },
+      isTooltipOpened: false
     });
   };
   const onHoverEnd = () => {

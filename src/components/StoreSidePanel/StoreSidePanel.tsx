@@ -3,6 +3,8 @@ import { FaCheck } from "react-icons/fa6";
 import CustomSelect from "@/components/CustomSelect/CustomSelect";
 import type { Dispatch, SetStateAction } from "react";
 
+type ItemCategory = "fighter" | "assasin" | "marskman" //TODO
+
 interface StoreSidePanelProps {
   subsections: string[],
   subsectionSelected: string,
@@ -14,7 +16,7 @@ interface StoreSidePanelProps {
   sortOptions: string[],
   sortedBy: string,
   setSortedBy: Dispatch<SetStateAction<string>>,
-  itemCategoryChecked: string,
+  itemCategoryChecked: Record<string, boolean>,
   setItemCategoryChecked: Dispatch<SetStateAction<Record<string, boolean>>>,
   championInCollection: boolean,
   setChampionInCollection: Dispatch<SetStateAction<boolean>>
@@ -95,6 +97,7 @@ export default function StoreSidePanel({
         options={sortOptions}
         value={sortedBy}
         onChange={setSortedBy}
+        placeholder="Select..."
       />
       {championInCollection !== undefined && (
         <div
@@ -108,7 +111,7 @@ export default function StoreSidePanel({
         </div>
       )}
 
-      {Object.keys(itemCategoryChecked).map((cat) => (
+      {Object.keys(itemCategoryChecked).map((cat: string) => (
         <div
           key={cat}
           className="checkbox"

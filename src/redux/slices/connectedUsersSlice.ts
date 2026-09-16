@@ -6,8 +6,9 @@ export interface ConnectedUser {
   tag: string;
   title: string;
   rank: object;
-  profile_icon: string;
+  profile_icon: number;
   profile_background: string;
+  profile_border: string;
   status: "online" | "offline" | "away";
   activity:
     | "idle"
@@ -18,8 +19,9 @@ export interface ConnectedUser {
     | "in_game";
 }
 
+
 interface ConnectedUsersState {
-  friendsOnline: ConnectedUser[];
+  friendsOnline: Record<string, ConnectedUser[]>[];
   partyMembers: ConnectedUser[];
 }
 
@@ -32,7 +34,7 @@ const connectedUsersSlice = createSlice({
   name: "connectedUsers",
   initialState,
   reducers: {
-    setFriendsOnline: (state, action: PayloadAction<ConnectedUser[]>) => {
+    setFriendsOnline: (state, action: PayloadAction<Record<string, ConnectedUser[] >[]>) => {
       state.friendsOnline = action.payload;
     },
     setPartyMembers: (state, action: PayloadAction<ConnectedUser[]>) => {

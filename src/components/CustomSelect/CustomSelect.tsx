@@ -112,7 +112,6 @@ const CustomSelect = ({
     <div
       ref={selectRef}
       className={`custom-select ${className} ${disabled ? 'disabled' : ''} ${isOpen ? 'open' : ''}`}
-      {...props}
     >
       <div
         className="custom-select-trigger"

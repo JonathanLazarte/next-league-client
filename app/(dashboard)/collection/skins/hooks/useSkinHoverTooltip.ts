@@ -5,10 +5,10 @@ import type { Skin } from "@/utils/types"
 
 export function useSkinHoverTooltip() {
     const tooltipRef = useRef();
-    const toolTipPosRef = useRef({ x: 0, y: 0 });
+    const tooltipPosRef = useRef({ x: 0, y: 0 });
     const [hoveredSkin, setHoveredSkin] = useState(null);
-    const [hoveredSkinCardRef, setHoveredSkinCardRef] = useState(null);
-    const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
+    const [hoveredSkinCardRef, setHoveredSkinCardRef] = useState<React.RefObject<HTMLDivElement> | null>(null);
+    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
     const { start, cancel, end, currentDelayType } = useHoverIntent({
         initialDelay: HOVER_DELAYS.INITIAL,
@@ -20,7 +20,7 @@ export function useSkinHoverTooltip() {
         (skin: Skin, skinCardRef: React.RefObject<HTMLDivElement>) => {
             start({
                 cb: () => {
-                    setToolTipPos(toolTipPosRef.current);
+                    setTooltipPos(tooltipPosRef.current);
                     setHoveredSkinCardRef(skinCardRef);
                     setHoveredSkin(skin);
                 },
@@ -42,8 +42,8 @@ export function useSkinHoverTooltip() {
     return {
         hoveredSkin,
         hoveredSkinCardRef,
-        toolTipPos,
-        toolTipPosRef,
+        tooltipPos,
+        tooltipPosRef,
         tooltipRef,
         currentDelayType,
         onHoverStart,

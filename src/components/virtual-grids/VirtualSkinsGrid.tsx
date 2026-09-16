@@ -17,7 +17,7 @@ type SkinsGroup = [
 
 interface VirtualSkinsProps {
   groupedSkins: SkinsGroup[],
-  onHoverStart: () => void,
+  onHoverStart: (skin: Skin, skinCardRef: React.RefObject<HTMLDivElement>) => void,
   onHoverEnd: () => void,
   tooltipPosRef: React.MutableRefObject<{ x: number, y: number }>,
   userSkins: UserSkin[],

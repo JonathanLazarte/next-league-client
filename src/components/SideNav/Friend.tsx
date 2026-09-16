@@ -6,17 +6,17 @@ import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useSmartHover } from "@/hooks/useSmartHover";
 import { RESOURCES_URL } from '@/utils/constants'
+import type { ConnectedUser } from "@/redux/slices/connectedUsersSlice"
+import type { ChatUser } from "@/redux/slices/chatSlice"
 
-interface Friend {
-  userId: string;
-  userName: string;
-  alias: string;
-  profile_icon: number;
-  status: "online" | "away" | "busy" | "offline";
-  lastSeen?: number;
-  isTyping?: boolean;
-  unreadCount: number;
-  tag: string;
+interface FriendProps {
+  user: ConnectedUser,
+  battleRequest?: object,
+  handleContextMenu?: () => void,
+  inviteBox?: React.ReactElement,
+  toolTipPosRef: React.RefObject<{ x: number, y: number }>,
+  onHoverStart: () => void,
+  onHoverEnd: () => void
 }
 
 export default (function Friend({
@@ -27,14 +27,14 @@ export default (function Friend({
   toolTipPosRef,
   onHoverStart,
   onHoverEnd,
-}) {
+}: FriendProps) {
   const ref = useRef(null);
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
   const {
     selectUser,
   } = useChat();
 
-  const handleUserClick = (friend: Friend) => {
+  const handleUserClick = (friend: ChatUser) => {
     // Find the user in friendsOnline to get their profileIcon
     playClickSound();
     // Open chat with the selected user

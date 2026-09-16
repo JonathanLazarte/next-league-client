@@ -22,7 +22,6 @@ export default memo(function CollectionSkins() {
     userSkins,
     userSkinsFull,
     groupedSkins,
-    loading,
     filterState,
     isSkinInCollection,
     loadingUserSkins,
@@ -32,8 +31,8 @@ export default memo(function CollectionSkins() {
   const {
     hoveredSkin,
     hoveredSkinCardRef,
-    toolTipPos,
-    toolTipPosRef,
+    tooltipPos,
+    tooltipPosRef,
     tooltipRef,
     currentDelayType,
     onHoverStart,
@@ -65,26 +64,24 @@ export default memo(function CollectionSkins() {
         groupedSkins={groupedSkins}
         onHoverStart={onHoverStart}
         onHoverEnd={onHoverEnd}
-        toolTipPosRef={toolTipPosRef}
+        tooltipPosRef={tooltipPosRef}
         userSkins={userSkins}
         groupedBy={filterState.groupedBy}
         handleScroll={handleScroll}
       />}
 
       <EmptySkinsState
-        loading={loading}
+        loading={loadingUserSkins}
         groupedSkinsCount={groupedSkins?.length ?? 0}
         hasSkinsData={Boolean(skins)}
       />
 
       {hoveredSkin && (
         <SkinTooltip
-          cords={toolTipPos}
-          delay={100}
+          cords={tooltipPos}
           content={hoveredSkin}
           position="top"
           currentDelayType={currentDelayType}
-          ref={tooltipRef}
           hoveredSkinCardRef={hoveredSkinCardRef}
           inCollection={() => isSkinInCollection(hoveredSkin.id)}
         />

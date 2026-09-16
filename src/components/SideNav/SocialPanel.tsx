@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -9,20 +9,21 @@ import { VscTriangleRight } from "react-icons/vsc";
 import Friend from './Friend'
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
-import type { User } from "@/utils/types"
+import type { ConnectedUser } from "@/redux/slices/connectedUsersSlice"
+import type { User } from '@/utils/types'
 
 interface FriendsGroupProps {
   group: Record<string, any>,
-  groupStyle: Record<string, string>,
-  tooltipPosRef: React.RefObject<HTMLDivElement>,
+  groupStyle: Record<string, any> | undefined | CSSProperties ,
+  tooltipPosRef: React.RefObject<{ x: number, y: number}>,
   onHoverEnd: () => void,
-  onHoverStart: (u: Record<string, any>) => void,
+  onHoverStart: (hovereduser: User) => void,
 }
 
 export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onHoverStart }: FriendsGroupProps) => {
   return <ul className="general-user-list">
     <div style={groupStyle}>
-      {group?.users?.map((u: User, index: number) => (
+      {group?.users?.map((u: ConnectedUser, index: number) => (
         <Friend
           user={u}
           toolTipPosRef={tooltipPosRef}
@@ -38,15 +39,15 @@ export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onH
 interface SocialPanelProps {
   tooltipPosRef: React.RefObject<{ x: number, y: number }>,
   onHoverEnd: () => void,
-  onHoverStart: () => void
+  onHoverStart: (hovereduser: User) => void
 }
 
 export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }: SocialPanelProps) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   //const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [isFolderOpen, setIsFolderOpen] = useState<boolean>(true);
-  const iconStyle = isFolderOpen ? { transform: "rotate(90deg)" } : null;
-  const groupStyle = !isFolderOpen ? { display: "none" } : null;
+  const iconStyle = isFolderOpen ? { transform: "rotate(90deg)" } : undefined;
+  const groupStyle = !isFolderOpen ? { display: "none" } : undefined;
   const { friendsOnline } = useConnectedUsers();
   const {
     updateChatUser
@@ -56,14 +57,15 @@ export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }:
   useEffect(() => {
     if (friendsOnline) {
       friendsOnline.forEach((folder) => {
-        folder.users.forEach((u: User) => {
+        folder.users.forEach((u: ConnectedUser) => {
           updateChatUser({
             userId: u.alias,
-            userName: u.alias,
+            alias: u.alias,
             profile_icon: u.profile_icon,
             profile_border: u.profile_border,
             status: u.status,
             unreadCount: 0,
+            tag: u.tag,
           });
         });
       });
@@ -130,7 +132,7 @@ export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }:
           className="user-folder-name"
           onClick={() => setIsFolderOpen((p) => !p)}
         >
-          <VscTriangleRight style={iconStyle} className="triangle" />
+          <VscTriangleRight style={iconStyle as CSSProperties} className="triangle" />
           {`GENERAL ${friendsOnline[0]?.users.length || 0}/${friendsOnline[0]?.users.length || 0})`}
 
         </div>

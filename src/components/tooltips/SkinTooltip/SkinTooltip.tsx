@@ -16,8 +16,9 @@ interface SkinTooltipProps {
   content: Skin,
   cords: { x: number, y: number },
   currentDelayType: "fast" | "initial",
-  hoveredSkinCardRef: React.RefObject<HTMLDivElement>,
-  inCollection: boolean
+  hoveredSkinCardRef: React.RefObject<HTMLDivElement> | null,
+  inCollection: boolean,
+  position: string,
 }
 
 const SkinTooltip = ({
@@ -39,7 +40,7 @@ const SkinTooltip = ({
     const tooltipRect = ref.current?.getBoundingClientRect();
     if (!tooltipRect) return
 
-    const skinCardRect = hoveredSkinCardRef.current?.getBoundingClientRect();
+    const skinCardRect = hoveredSkinCardRef?.current?.getBoundingClientRect();
     if (!skinCardRect) return
 
     const intendedX = cords.x - tooltipRect?.width / 2;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Dispatch, CSSProperties } from "react";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { IoIosSettings } from "react-icons/io";
 import { MdMinimize, MdOutlineQuestionMark } from "react-icons/md";
@@ -11,7 +11,13 @@ import { useAuth } from '@/hooks/useAuth'
 import { useUser } from "@/hooks/useUser";
 import { useSound } from "@/hooks/useSound"
 
-const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => {
+interface ProfileBoxProps {
+  setIsSettingsOpen: Dispatch<React.SetStateAction<boolean>>,
+  updateSideNav: () => void,
+  userState: string,
+}
+
+const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState }: ProfileBoxProps) => {
   const { user } = useUser();
   const { queue, queueStatus, updateUserState } = useUserInterface();
   const [iconIsInHover, setIconIsInHover] = useState(false);
@@ -24,6 +30,8 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
     away: "Away",
     in_game: "In Game",
     offline: "Offline",
+  };
+  const userQueueLabel = {
     ranked_solo_duo: "Ranked Solo/Duo",
     ranked_flex: "Ranked Flex",
     swiftplay: "Swiftplay",
@@ -32,14 +40,13 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
     intro: "Intro",
     beginner: "Beginner",
     intermediate: "Intermediate",
-  };
+  }
   const { logout } = useAuth();
 
   const handleLogout = () => {
     audioEngine.stopMusic();
-    socket?.current.disconnect();
     localStorage.removeItem("token");
-    localStorage.setItem("explicit-logout", true)
+    localStorage.setItem("explicit-logout", "true")
     logout();
   };
 
@@ -132,12 +139,12 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState, socket }) => 
             >
               <div className="status-icon"></div>
               {queueStatus === "idle"
-                ? `${queue !== null ? "1/5 " : ""}${userStateLabel[queue !== null ? queue : userState]}`
+                ? `${queue !== null ? "1/5 " : ""}${ queue !== null ? userQueueLabel[queue as keyof typeof userQueueLabel] : userStateLabel[userState as keyof typeof userStateLabel]}`
                 : "In Queue"}
             </div>
           </>
         )}
-        <span className="showPerfilSpan" style={showPerfilSpanStyle}>
+        <span className="showPerfilSpan" style={showPerfilSpanStyle as CSSProperties}>
           View Profile
         </span>
       </div>

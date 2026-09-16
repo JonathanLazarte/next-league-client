@@ -14,16 +14,15 @@ export interface Message {
 
 export interface ChatUser {
   userId: string;
-  userName: string;
+  userName?: string;
   alias: string;
   profile_icon: number;
-  profile_border: number;
+  profile_border: string;
   status: "online" | "away" | "busy" | "offline";
   lastSeen?: number;
   isTyping?: boolean | undefined;
-  unreadCount: number;
+  unreadCount?: number;
   tag: string;
-  profle_icon: number
 }
 
 export interface ChatRoom {
