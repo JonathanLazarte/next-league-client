@@ -1,6 +1,9 @@
+"use client"
+
 import "./Settings.css";
 import { audioEngine } from "@/engine/audioEngine.js";
 import ReactDOM from "react-dom";
+import type { Dispatch, SetStateAction } from 'react'
 import { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { useSoundState } from "@/hooks/useSoundState";
@@ -146,7 +149,11 @@ function AudioSettings() {
   );
 }
 
-export default function Settings({ setIsSettingsOpen }) {
+interface SettingsProps {
+  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export default function Settings({ setIsSettingsOpen }: SettingsProps) {
   const [settingSelected, setSettingSelected] = useState("sound");
   const { settings, saveSettings } = useSettings();
   const { restoreDefaults } = useSoundState();

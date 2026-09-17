@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import "./SideNav.css";
 import { useState, memo,useRef } from "react";

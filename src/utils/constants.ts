@@ -1,7 +1,7 @@
 /**
  * Constantes globales de la aplicación
  */
-export const RESOURCES_URL = "http://d2l6vvcxr1n0o0.cloudfront.net";
+export const RESOURCES_URL = /*"https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/"*/ "http://d2l6vvcxr1n0o0.cloudfront.net";
 export const RARITY_LEVELS = [
   "Signature",
   "Hall",
