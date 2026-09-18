@@ -15,14 +15,27 @@ export interface Message {
 export interface ChatUser {
   userId: string;
   userName?: string;
+
+
   alias: string;
   profile_icon: number;
   profile_border: string;
-  status: "online" | "away" | "busy" | "offline";
+  status: "online" | "offline" | "away";
   lastSeen?: number;
   isTyping?: boolean | undefined;
   unreadCount?: number;
   tag: string;
+  id: string;
+  title: string;
+  rank: object;
+  profile_background: string;
+  activity:
+    | "idle"
+    | "in queue"
+    | "ranked_flex"
+    | "ranked_solo_duo"
+    | "swiftplay"
+    | "in_game";
 }
 
 export interface ChatRoom {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, CSSProperties } from "react";
+import { useState, useEffect, CSSProperties, useRef } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaFolderPlus } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -11,38 +11,56 @@ import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
 import type { ConnectedUser } from "@/redux/slices/connectedUsersSlice"
 import type { User } from '@/utils/types'
+import useHoverIntent from "@/hooks/useHoverIntent";
+import UserTooltip from "@/components/tooltips/UserTooltip/UserTooltip";
 
 interface FriendsGroupProps {
   group: Record<string, any>,
   groupStyle: Record<string, any> | undefined | CSSProperties ,
-  tooltipPosRef: React.RefObject<{ x: number, y: number}>,
-  onHoverEnd: () => void,
-  onHoverStart: (hovereduser: User) => void,
 }
 
-export const FriendsGroup = ({ group, groupStyle, tooltipPosRef, onHoverEnd, onHoverStart }: FriendsGroupProps) => {
+export const FriendsGroup = ({ group, groupStyle }: FriendsGroupProps) => {
+  const [ hoveredUser, setHoveredUser ] = useState<ConnectedUser | null>(null);
+  const { start, cancel } = useHoverIntent({ initialDelay: 400 });
+  const tooltipPosRef = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
+  const [ toolTipPos, setToolTipPos ] = useState({ x: 0, y: 0 });
+
+  const onHoverStart = (hovereduser: ConnectedUser) => {
+    start({
+      cb: () => {
+        // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
+        setToolTipPos({
+          x: tooltipPosRef.current.x,
+          y: tooltipPosRef.current.y,
+        });
+        setHoveredUser(hovereduser);
+      },
+      isTooltipOpened: false
+    });
+  };
+  const onHoverEnd = () => {
+    setHoveredUser(null);
+    cancel();
+  };
+
   return <ul className="general-user-list">
     <div style={groupStyle}>
       {group?.users?.map((u: ConnectedUser, index: number) => (
         <Friend
           user={u}
-          toolTipPosRef={tooltipPosRef}
+          tooltipPosRef={tooltipPosRef}
           onHoverStart={() => onHoverStart(u)}
           onHoverEnd={onHoverEnd}
           key={index}
         />
       ))}
     </div>
+    {hoveredUser && <UserTooltip hoveredUser={hoveredUser} tooltipPosRef={tooltipPosRef} tooltipPos={toolTipPos} />}
   </ul>
 }
 
-interface SocialPanelProps {
-  tooltipPosRef: React.RefObject<{ x: number, y: number }>,
-  onHoverEnd: () => void,
-  onHoverStart: (hovereduser: User) => void
-}
 
-export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }: SocialPanelProps) {
+export default function SocialPanel() {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   //const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [isFolderOpen, setIsFolderOpen] = useState<boolean>(true);
@@ -72,25 +90,6 @@ export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }:
     }
   }, [friendsOnline, updateChatUser]);
 
-  /*const inviteBox = (userName) => {
-    const userRequest = battleRequest.find(
-      (request) => request.from == userName,
-    );
-    return (
-      userRequest && (
-        <div className="invitation-box">
-          <span>{userName} te ha invitado a un enfrentamiento</span>
-          <div>
-            <button
-            >
-              Aceptar
-            </button>
-            <button>Rechazar</button>
-          </div>
-        </div>
-      )
-    );
-  };*/
 
   /*const Menu = () => {
     return <div
@@ -136,7 +135,7 @@ export default function SocialPanel({ tooltipPosRef, onHoverEnd, onHoverStart }:
           {`GENERAL ${friendsOnline[0]?.users.length || 0}/${friendsOnline[0]?.users.length || 0})`}
 
         </div>
-        <FriendsGroup tooltipPosRef={tooltipPosRef} onHoverEnd={onHoverEnd} onHoverStart={onHoverStart} group={friendsOnline[0]} groupStyle={groupStyle}></FriendsGroup>
+        <FriendsGroup group={friendsOnline[0]} groupStyle={groupStyle}></FriendsGroup>
       </div>
     </>
   );

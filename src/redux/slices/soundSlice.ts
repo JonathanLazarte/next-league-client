@@ -1,4 +1,4 @@
-import { createSlice,/*, createAsyncThunk*/
+import { createSlice,
 PayloadAction} from '@reduxjs/toolkit'
 
 export interface Node {

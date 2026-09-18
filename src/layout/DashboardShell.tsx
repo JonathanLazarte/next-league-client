@@ -16,7 +16,7 @@ import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import TooltipLayer from "@/components/tooltips/GlobalTooltip/TooltipLayer";
 import BackgroundEngine from "@/components/BackgroundEngine/BackgroundEngine";
 import DashboardLoading from '@/components/Loading/DashboardLoading'
-
+import SettingsModal from '@/components/Settings/Settings'
 
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useAuth } from "@/hooks/useAuth";
@@ -58,6 +58,7 @@ export default function ProvidersWrapper({ children }: { children: ReactElement}
       <Chat />
       <MusicPlayer />
       <TooltipLayer />
+      <SettingsModal/>
       {itemToBuy && <ConfirmPurchaseModal />}
       <main className="dashboard">
         {children} {showLoading && <LoadingOverlay />}

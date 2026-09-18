@@ -8,21 +8,30 @@ import { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { useSoundState } from "@/hooks/useSoundState";
 import { useSettings } from "@/hooks/useSettings";
+import { setIsSettingsModalOpen } from "@/redux/slices/userInterfaceSlice";
+import type { SoundOptions } from "@/redux/slices/soundSlice";
 
-function SoundControl({ label, checkLabel, type, isMasterMuted }) {
+interface SoundControlProps {
+  label: string,
+  checkLabel: string,
+  type: SoundOptions,
+  isMasterMuted: boolean
+}
+
+function SoundControl({ label, checkLabel, type, isMasterMuted }: SoundControlProps) {
   // Estado local solo para visualización inmediata en UI
   const [localVolume, setLocalVolume] = useState(0.5); // Valor inicial debería venir de config
   const [isLocalMuted, setIsLocalMuted] = useState(false);
   const soundState = useSoundState();
-  const { volume: globalVolume, muted: globalMuted } = soundState[type];
+  const { volume: globalVolume, muted: globalMuted } = soundState[type as SoundOptions];
 
-  const handleSlider = (e) => {
-    const val = e.target.value;
+  const handleSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
     audioEngine.setVolume(type, val);
-    setLocalVolume(val);
+    setLocalVolume(Number(val));
   };
-  const handleCommit = (e) => {
-    const val = e.target.value;
+  const handleCommit = (e: React.MouseEvent<HTMLInputElement> |  React.TouchEvent<HTMLInputElement>) => {
+    const val = Number(e.currentTarget.value);
     soundState.setVolume({ type, val });
   };
 
@@ -41,12 +50,12 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }) {
         <div
           className="custom-checkbox"
           onClick={handleCheck}
-          style={isMasterMuted ? { pointerEvents: "none" } : null}
+          style={{ pointerEvents: isMasterMuted ? "none" : "unset" } }
         >
           {!isLocalMuted && (
             <FaCheck
               className="check-icon"
-              style={isMasterMuted && { opacity: "0.5" }}
+              style={ { opacity: isMasterMuted ? "0.5" : "1" }}
             />
           )}
         </div>
@@ -55,7 +64,7 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }) {
       <div className="sub-volume-controls">
         <span className={`audio-label `}>
           {label}
-          {parseInt(
+          {Number(
             (globalVolume * 100) / audioEngine.channels[type].maxVolume,
           )}
         </span>
@@ -83,13 +92,13 @@ function AudioSettings() {
   const soundState = useSoundState();
   const { volume: globalVolume, muted: globalMuted } = soundState.master;
 
-  const handleSlider = (e) => {
-    const val = e.target.value;
+  const handleSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
     audioEngine.setVolume("master", val);
-    setLocalVolume(val);
+    setLocalVolume(Number(val));
   };
-  const handleCommit = (e) => {
-    const val = e.target.value;
+  const handleCommit = (e: React.MouseEvent<HTMLInputElement> |  React.TouchEvent<HTMLInputElement>) => {
+    const val = Number(e.currentTarget.value);
     soundState.setVolume({ type: "master", val });
   };
 
@@ -108,14 +117,14 @@ function AudioSettings() {
             {!isMasterMuted && (
               <FaCheck
                 className="check-icon"
-                style={isMasterMuted && { opacity: "0.5" }}
+                style={{ opacity: isMasterMuted ? "0.5" : "1" }}
               />
             )}
           </div>
           <label className="audio-label">Enable Sound</label>
         </div>
         <span className="audio-label">
-          Overall Volume: {parseInt(globalVolume * 100)}
+          Overall Volume: {Math.round(globalVolume * 100)}
         </span>
         <input
           type="range"
@@ -149,11 +158,8 @@ function AudioSettings() {
   );
 }
 
-interface SettingsProps {
-  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>
-}
 
-export default function Settings({ setIsSettingsOpen }: SettingsProps) {
+export default function Settings() {
   const [settingSelected, setSettingSelected] = useState("sound");
   const { settings, saveSettings } = useSettings();
   const { restoreDefaults } = useSoundState();
@@ -180,7 +186,7 @@ export default function Settings({ setIsSettingsOpen }: SettingsProps) {
       },
     };
     const token = localStorage.getItem("token");
-    saveSettings({ userId: token, settings: updatedUserSettings });
+    if(token !== null) saveSettings({ userId: token, settings: updatedUserSettings });
   };
   return (
     typeof window !== "undefined" &&
@@ -220,7 +226,7 @@ export default function Settings({ setIsSettingsOpen }: SettingsProps) {
             className="general-button"
             onClick={() => {
               handleSaveSettings();
-              setIsSettingsOpen(false);
+              setIsSettingsModalOpen(false);
             }}
           >
             DONE

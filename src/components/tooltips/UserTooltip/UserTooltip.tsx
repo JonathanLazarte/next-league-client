@@ -4,11 +4,12 @@ import "./UserTooltip.css";
 import { useRef, useState, useLayoutEffect } from "react";
 import Image from "next/image";
 import { RESOURCES_URL } from '@/utils/constants'
-import type { User } from '@/utils/types'
+import type { ConnectedUser } from '@/redux/slices/connectedUsersSlice'
 
 interface UserTooltipProps {
-  hoveredUser: User,
-  tooltipPos: { x:number, y:number }
+  hoveredUser: ConnectedUser,
+  tooltipPos: { x: number, y: number }
+  tooltipPosRef: React.RefObject<{ x: number, y: number }>
 }
 
 export const UserTooltip = ({ hoveredUser, tooltipPos }: UserTooltipProps) => {

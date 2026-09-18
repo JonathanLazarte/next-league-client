@@ -1,7 +1,7 @@
 "use client"
 
 import "./SideNav.css";
-import { useState, memo,useRef } from "react";
+import { useState, memo } from "react";
 
 
 
@@ -10,24 +10,19 @@ import { MdBugReport } from "react-icons/md";
 import { FaMicrophone } from "react-icons/fa6";
 import { IoChatboxSharp } from "react-icons/io5";
 
-import UserTooltip from "@/components/tooltips/UserTooltip/UserTooltip";
-import Settings from "@/components/Settings/Settings";
 import ProfileBox from "./ProfileBox";
 import SocialPanel from "./SocialPanel";
 
 
-import useHoverIntent from "@/hooks/useHoverIntent";
+
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useChat } from "@/hooks/useChat";
-import type { User } from "@/utils/types"
+
 
 export default memo(function RightNav() {
-  const [ isSettingsOpen, setIsSettingsOpen ] = useState(false);
   const { actualSection, userState, showSideNav, updateSideNav } = useUserInterface();
-  const [ hoveredUser, setHoveredUser ] = useState<User | null>(null);
-  const toolTipPosRef = useRef({ x: 0, y: 0 });
-  const [ toolTipPos, setToolTipPos ] = useState({ x: 0, y: 0 });
-  const { start, cancel } = useHoverIntent({ initialDelay: 400 });
+
+
 
   const {
     unreadCount,
@@ -35,23 +30,7 @@ export default memo(function RightNav() {
     toggleChatVisibility,
   } = useChat();
 
-  const onHoverStart = (hovereduser: User) => {
-    start({
-      cb: () => {
-        // Setear coords y hover juntos evita el "salto" del tooltip en equipos lentos.
-        setToolTipPos({
-          x: toolTipPosRef.current.x,
-          y: toolTipPosRef.current.y,
-        });
-        setHoveredUser(hovereduser);
-      },
-      isTooltipOpened: false
-    });
-  };
-  const onHoverEnd = () => {
-    setHoveredUser(null);
-    cancel();
-  };
+
 
 
 
@@ -66,8 +45,8 @@ export default memo(function RightNav() {
       }}
       className={`sidenav ${actualSection === 'store' ? "in-store" : ""}`}
     >
-      <ProfileBox setIsSettingsOpen={setIsSettingsOpen} updateSideNav={updateSideNav} userState={userState} />
-      <SocialPanel onHoverEnd={onHoverEnd} onHoverStart={onHoverStart} tooltipPosRef={toolTipPosRef} ></SocialPanel>
+      <ProfileBox updateSideNav={updateSideNav} userState={userState} />
+      <SocialPanel></SocialPanel>
 
       <div className="right-nav-buttom-buttons">
         <button
@@ -90,8 +69,6 @@ export default memo(function RightNav() {
           <MdBugReport />
         </button>
       </div>
-      {isSettingsOpen && <Settings setIsSettingsOpen={setIsSettingsOpen} />}
-      {hoveredUser && <UserTooltip hoveredUser={hoveredUser} tooltipPosRef={toolTipPosRef} tooltipPos={toolTipPos} />}
     </div>
   );
 });

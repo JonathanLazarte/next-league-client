@@ -23,6 +23,7 @@ interface UserInterfaceState {
   gameId: number | null;
   notifications: [];
   modal: null;
+  isSettingsModalOpen: boolean;
 }
 
 const initialState: UserInterfaceState = {
@@ -57,6 +58,7 @@ const initialState: UserInterfaceState = {
 
   // Modal global
   modal: null,
+  isSettingsModalOpen: false,
 };
 
 const userInterfaceSlice = createSlice({
@@ -83,6 +85,9 @@ const userInterfaceSlice = createSlice({
     },
     setQueueStatus: (state, action) => {
       state.queueStatus = action.payload
+    },
+    setIsSettingsModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isSettingsModalOpen = action.payload
     }
   },
 });
@@ -94,7 +99,8 @@ export const {
   toggleSideNav,
   setSectionTabSelected,
   setQueue,
-  setQueueStatus
+  setQueueStatus,
+  setIsSettingsModalOpen
 } = userInterfaceSlice.actions;
 
 interface StateProp {
@@ -115,6 +121,9 @@ export const selectQueue = (state: StateProp) =>
   state.userInterface.queue;
 export const selectQueueStatus = (state: StateProp) =>
   state.userInterface.queueStatus;
+export const selectIsSettingsModalOpen = (state: StateProp) => {
+  state.userInterface.isSettingsModalOpen
+}
 
 export const selectUserInterfaceData = createSelector(
   [
@@ -124,16 +133,18 @@ export const selectUserInterfaceData = createSelector(
     selectUserInterfaceShowSideNav,
     selectUserInterfaceSectionTabSelected,
     selectQueue,
-    selectQueueStatus
+    selectQueueStatus,
+    selectIsSettingsModalOpen
   ],
-  (userState, actualSection, isNavigating, showSideNav, sectionTabSelected, queue, queueStatus) => ({
+  (userState, actualSection, isNavigating, showSideNav, sectionTabSelected, queue, queueStatus, isSettingsModalOpen) => ({
     userState,
     actualSection,
     isNavigating,
     showSideNav,
     sectionTabSelected,
     queue,
-    queueStatus
+    queueStatus,
+    isSettingsModalOpen
   }),
 );
 

@@ -5,17 +5,18 @@ import Image from "next/image";
 import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useSmartHover } from "@/hooks/useSmartHover";
+import PartyRequest from './PartyRequest'
 import { RESOURCES_URL } from '@/utils/constants'
 import type { ConnectedUser } from "@/redux/slices/connectedUsersSlice"
 import type { ChatUser } from "@/redux/slices/chatSlice"
 
+
 interface FriendProps {
-  user: ConnectedUser,
-  battleRequest?: object,
+  user: ChatUser,
+  battleRequest?: Record<string, any>[],
   handleContextMenu?: () => void,
-  inviteBox?: React.ReactElement,
-  toolTipPosRef: React.RefObject<{ x: number, y: number }>,
-  onHoverStart: () => void,
+  tooltipPosRef: React.MutableRefObject<{ x: number, y: number }>,
+  onHoverStart: (user: ConnectedUser) => void,
   onHoverEnd: () => void
 }
 
@@ -23,12 +24,11 @@ export default (function Friend({
   user,
   battleRequest,
   handleContextMenu,
-  inviteBox,
-  toolTipPosRef,
+  tooltipPosRef,
   onHoverStart,
   onHoverEnd,
 }: FriendProps) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
   const { play: playClickSound } = useSound("/sfx/menu-click.mp3");
   const {
     selectUser,
@@ -48,7 +48,7 @@ export default (function Friend({
 
       const rect = ref.current.getBoundingClientRect();
 
-      toolTipPosRef.current = {
+      tooltipPosRef.current = {
         x: rect.width,
         y: rect.top + rect.height / 2,
       };
@@ -58,8 +58,10 @@ export default (function Friend({
     onLeave: onHoverEnd,
   });
 
+
+
   if (battleRequest?.find((br: Record<any, unknown>) => br.from === user?.alias)) {
-    return inviteBox(user?.alias);
+    return PartyRequest(user?.alias);
   }
 
   return (

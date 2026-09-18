@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
 interface UseSmartHoverProps {
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLLIElement>,
   onEnter: () => void,
   onLeave: () => void,
-  enabled: boolean
+  enabled?: boolean
 }
 
 export function useSmartHover({ ref, onEnter, onLeave, enabled = true }: UseSmartHoverProps) {

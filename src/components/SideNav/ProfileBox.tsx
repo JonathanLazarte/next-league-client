@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Dispatch, CSSProperties } from "react";
+import { useState, CSSProperties } from "react";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { IoIosSettings } from "react-icons/io";
 import { MdMinimize, MdOutlineQuestionMark } from "react-icons/md";
@@ -10,14 +10,14 @@ import { RESOURCES_URL } from '@/utils/constants'
 import { useAuth } from '@/hooks/useAuth'
 import { useUser } from "@/hooks/useUser";
 import { useSound } from "@/hooks/useSound"
+import { setIsSettingsModalOpen } from "@/redux/slices/userInterfaceSlice";
 
 interface ProfileBoxProps {
-  setIsSettingsOpen: Dispatch<React.SetStateAction<boolean>>,
   updateSideNav: () => void,
   userState: string,
 }
 
-const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState }: ProfileBoxProps) => {
+const ProfileBox = ({ updateSideNav, userState }: ProfileBoxProps) => {
   const { user } = useUser();
   const { queue, queueStatus, updateUserState } = useUserInterface();
   const [iconIsInHover, setIconIsInHover] = useState(false);
@@ -125,7 +125,7 @@ const ProfileBox = ({ setIsSettingsOpen, updateSideNav, userState }: ProfileBoxP
             className="accountOptionIcon"
             onClick={() => {
               playClickGeneric();
-              setIsSettingsOpen(true);
+              setIsSettingsModalOpen(true);
             }}
           />
           <PiXBold onClick={() => handleLogout()} className="accountOptionIcon" />

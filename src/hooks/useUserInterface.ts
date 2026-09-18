@@ -8,7 +8,8 @@ import {
   setQueue,
   setQueueStatus,
   setUserState,
-  selectUserInterfaceData
+  setIsSettingsModalOpen,
+  selectUserInterfaceData,
 } from '@/redux/slices/userInterfaceSlice';
 import type { UserState, Queue, Section, QueueStatus } from '@/redux/slices/userInterfaceSlice'
 
@@ -51,6 +52,7 @@ export const useUserInterface = () => {
     updateUserState,
     updateQueue,
     updateQueueStatus,
-    updateSideNav
+    updateSideNav,
+    setIsSettingsModalOpen
   };
 };
