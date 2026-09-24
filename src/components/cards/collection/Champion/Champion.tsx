@@ -5,7 +5,7 @@ import "./Champion.css";
 import { GiPadlock } from "react-icons/gi";
 import { RESOURCES_URL } from "@/utils/constants";
 import { useSound } from "@/hooks/useSound";
-import type { Champion } from '@/utils/types'
+import type { Champion } from '@/types/champion'
 
 
 interface ChampionCardProps {

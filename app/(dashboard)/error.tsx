@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function DashboardError({ error /* , reset*/ }) {
+export default function DashboardError({ error /* , reset*/ }: { error: { name: string }}) {
   useEffect(() => {
     if (error?.name === "ChunkLoadError") {
       const reloadKey = "dashboard_chunk_reload";

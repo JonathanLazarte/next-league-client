@@ -1,15 +1,21 @@
+import { Skin } from "@/types/skin";
 import { RARITY_LEVELS } from "@/utils/constants";
 import Image from 'next/image'
 
-export default function RaritySkinsCount({ trigger, userSkinsFull }) {
+interface RaritySkinsCountProps {
+  trigger: ({ content }: { content: string}) => Record<string, any>;
+  userSkinsFull: Skin[]
+}
+
+export default function RaritySkinsCount({ trigger, userSkinsFull }: RaritySkinsCountProps) {
   const raritys = RARITY_LEVELS;
 
   const countRarity = userSkinsFull
-    ? userSkinsFull?.reduce((acc, skin) => {
+    ? userSkinsFull?.reduce((acc: Record<string, number>, skin) => {
         acc[skin.rarity] = (acc[skin.rarity] || 0) + 1;
         return acc;
       }, {})
-    : raritys.reduce((acc, rarity) => {
+    : raritys.reduce((acc: Record<string, number>, rarity) => {
         acc[rarity] = 0;
         return acc;
       }, {});

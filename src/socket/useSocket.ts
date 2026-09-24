@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-export const useSocket = (token: string): Socket | undefined => {
-  const socket = useRef<Socket>();
+export const useSocket = (token: string | null): Socket | undefined => {
+  const socket = useRef<Socket | undefined>();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {

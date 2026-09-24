@@ -19,14 +19,31 @@ export const GROUP_MODES = {
   LEVEL: "level",
 };
 
-export const SORT_OPTIONS = {
-  PURCHASE_DATE: "purchaseDate",
-  RELEASE_DATE: "releaseDate",
-  ALPHABETICAL: "alphabetical",
-  MASTERY: "mastery",
-  MOST_OWNED: "mostOwned",
-  RARITY: "rarity",
-};
+export const STORE_SORT_OPTIONS = [
+  { value: null, label: "Release Date ↓" },
+  { value: "ReleaseAscend", label: "Release Date ↑" },
+  { value: "PriceRpDescend", label: "Price (RP) ↓" },
+  { value: "PriceRpAscend", label: "Price (RP) ↑" },
+  { value: "PriceBeDescend", label: "Price (EA) ↓" },
+  { value: "PriceBeAscend", label: "Price (EA) ↑" },
+  { value: "AlphabeticallyDescend", label: "Alphabetical (A-Z)" },
+  { value: "AlphabeticallyAscend", label: "Alphabetical (Z-A)" },
+] as const;
+
+export const SKIN_SORT_OPTIONS = [
+
+] as const;
+
+export const CHAMPION_SORT_OPTIONS = [
+  { value: "alphabetically", label: "Alphabetical" },
+  { value: "championsMastery", label: "Champion Mastery" },
+] as const;
+
+export const CHAMPION_GROUP_OPTIONS = [
+    { value: "", label: "All Champions" },
+    { value: "possession", label: "Most Popular Posesition" },
+    { value: "role", label: "Role" },
+] as const
 
 export const HOVER_DELAYS = {
   INITIAL: 250,
@@ -98,8 +115,24 @@ export const FILTER_OPTIONS_BY_GROUPING = {
     { value: "mostOwned", label: "Most Owned" },
     { value: "alphabetical", label: "Alphabetical" },
   ],
-  level: [{ value: "rarity", label: "Rarity (By default)" }],
-};
+  level: [
+    { value: "rarity", label: "Rarity (By default)" }
+  ],
+} as const;
+
+export const GROUPING_OPTIONS_CHAMPION = [
+  { value: "all", label: "All" },
+  { value: "role", label: "Role" },
+  { value: "possession", label: "Possession" }
+] as const;
+
+export const SKIN_FILTER_OPTIONS = [
+  { value: "collection", label: "My collection" },
+  { value: "all", label: "All" },
+  { value: "champion", label: "Champion" },
+  { value: "set", label: "Set" },
+  { value: "level", label: "Tier" },
+] as const;
 
 export const GAME_DATA = {
   PVP: [

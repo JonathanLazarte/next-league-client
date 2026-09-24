@@ -25,6 +25,10 @@ export interface Champion {
   spells: Spell[];
   passive: Passive;
   recommended: unknown[];
+
+  price: { rp: string; be: string; };
+  release?: number;
+  version?: number;
 }
 
 export interface ImageData {
@@ -112,4 +116,8 @@ export interface Passive {
   name: string;
   description: string;
   image: ImageData;
+}
+
+export interface AdquiredChampion {
+  id: string
 }

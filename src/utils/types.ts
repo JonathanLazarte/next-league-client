@@ -145,22 +145,6 @@ export interface ChampionFull {
   passive: Passive;
   recommended: unknown[];
 }
-
-export interface Skin {
-    id: string,
-    num: number,
-    name: string,
-    chromas: boolean,
-    img: string,
-    champion: string,
-    rarity: SkinRarity,
-    value: number,
-    release: string,
-    set: string[],
-    availability: string,
-    purchaseDate: string
-}
-
 export interface Chroma {
   id: number;
   name: string;
@@ -177,3 +161,18 @@ export type SkinRarity =
   | 'Ultimate'
   | 'Mythic'
   | 'Transcendent';
+
+export interface Skin {
+    id: string,
+    num: number,
+    name: string,
+    chromas: boolean,
+    img: string,
+    champion: string,
+    rarity: SkinRarity,
+    value: number,
+    release: string,
+    set: string[],
+    availability: string,
+    purchaseDate: string
+}

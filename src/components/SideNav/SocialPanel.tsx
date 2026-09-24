@@ -9,10 +9,10 @@ import { VscTriangleRight } from "react-icons/vsc";
 import Friend from './Friend'
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
 import { useChat } from "@/hooks/useChat";
-import type { ConnectedUser } from "@/redux/slices/connectedUsersSlice"
-import type { User } from '@/utils/types'
+import type { ConnectedUser } from "@/types/user";
 import useHoverIntent from "@/hooks/useHoverIntent";
 import UserTooltip from "@/components/tooltips/UserTooltip/UserTooltip";
+import { ChatUser } from "@/redux/slices/chatSlice";
 
 interface FriendsGroupProps {
   group: Record<string, any>,
@@ -77,13 +77,16 @@ export default function SocialPanel() {
       friendsOnline.forEach((folder) => {
         folder.users.forEach((u: ConnectedUser) => {
           updateChatUser({
-            userId: u.alias,
+            id: u.id,
             alias: u.alias,
             profile_icon: u.profile_icon,
             profile_border: u.profile_border,
             status: u.status,
-            unreadCount: 0,
             tag: u.tag,
+            title: u.title,
+            rank: u.rank,
+            profile_background: u.profile_background,
+            activity: u.activity
           });
         });
       });

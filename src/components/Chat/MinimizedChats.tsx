@@ -43,17 +43,17 @@ export default memo(function MinimizedChats() {
             <div className="minimized-chat-avatar">
               <img
                 src={`https://raw.githubusercontent.com/jonylazarte/resources/refs/heads/main/profileicon/${chatUser.profile_icon}.png`}
-                alt={chatUser.userName}
+                alt={chatUser.alias}
               />
-              {chatUser.unreadCount > 0 && (
+              {chatUser.unreadCount! > 0 && (
                 <span className="minimized-unread-badge">
-                  {chatUser.unreadCount > 9 ? '9+' : chatUser.unreadCount}
+                  {chatUser.unreadCount! > 9 ? '9+' : chatUser.unreadCount}
                 </span>
               )}
             </div>
 
             <div className="minimized-chat-info">
-              <span className="minimized-chat-name">{chatUser.userName}</span>
+              <span className="minimized-chat-name">{chatUser.alias}</span>
               <div className="minimized-chat-actions">
                 <button
                   onClick={(e) => {

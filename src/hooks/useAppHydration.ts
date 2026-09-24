@@ -4,7 +4,7 @@ import { useUserChampions } from "@/hooks/useUserChampions";
 import { useUserSkins } from "@/hooks/useUserSkins";
 import { preload } from 'react-dom'
 
-export const useAppHydration = ( token: string ) => {
+export const useAppHydration = ( token: string | null ) => {
   const { fetchUser } = useUser();
   const { getUserChampions } = useUserChampions();
   const { getUserSkins } = useUserSkins()

@@ -60,7 +60,7 @@ export default memo(function PvpRoom({ roomTitle }: { roomTitle: string }) {
             src={`${RESOURCES_URL}/general/mini-sr.png`}
             alt="Map mini icon"
           />
-          <h3 className="room-title">{lobbyName[roomTitle]}</h3>
+          <h3 className="room-title">{lobbyName[roomTitle as keyof typeof lobbyName]}</h3>
         </div>
       </div>
       <div className="room-users">

@@ -5,14 +5,8 @@ import { useState, memo } from "react";
 import { useSound } from "@/hooks/useSound";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
-/*const ChampionsSection = dynamic(
-  () => import("./collectionChampions/collectionChampions.jsx"),
-  {
-    loading: () => <Loading />,
-    ssr: false,
-  },
-);*/
 import ChampionsSection from './champions/Champions'
+import { Section } from "@/types/ui";
 const SkinsSection = dynamic(
   () => import("./skins/Skins"),
   {
@@ -23,13 +17,14 @@ const SkinsSection = dynamic(
 
 export default memo(function Collection() {
   const [actualSubSection, setActualSubSection] = useState("campeones");
-  const sections = [
+  const subSections = [
     "campeones",
     "aspectos",
-  ];
+  ] as const;
   const { play } = useSound("/sfx/menu-click.mp3");
+  type SubSections = typeof subSections[number]
 
-  const handleClick = (section) => {
+  const handleClick = (section: SubSections) => {
     play();
     setActualSubSection(section);
   }
@@ -37,7 +32,7 @@ export default memo(function Collection() {
   return (
     <section className="collection">
       <header className="collection-header">
-        {sections.map((section) => (
+        {subSections.map((section: SubSections) => (
           <div
             key={section}
             className={`subheader-tab ${actualSubSection === section ? "active-subheader-tab" : null}`}

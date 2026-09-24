@@ -6,12 +6,12 @@ import { useState, useEffect } from "react";
 import store from "@/redux/store";
 import { useRouter, usePathname } from "next/navigation";
 import { verifyToken } from "@/redux/slices/authSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from '@/hooks/hooks'
 
 
-export const AuthProvider = ({ children }) => {
-  const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+export const AuthProvider = ({ children }: { children: React.ReactElement}) => {
+  const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
   const [isInitialized, setIsInitialized] = useState(false);
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
   return (children)
 };
 
-export function Providers({ children }) {
+export function Providers({ children }: { children: React.ReactElement }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (

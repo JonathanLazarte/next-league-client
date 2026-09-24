@@ -3,20 +3,20 @@
 import "../auth.css";
 import { useEffect, memo, useState, useRef } from "react";
 import { useRouter } from "@/hooks/useRouter";
-import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "@/hooks/useAuth";
 import { setUser } from "@/redux/slices/userSlice";
-import { loginUser, clearError } from "@/redux/slices/authSlice";
+import { clearError } from "@/redux/slices/authSlice";
 import { useFormik } from "formik";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { FaUser, FaKeyboard } from "react-icons/fa";
+import type { User } from '@/types/user'
 import * as Yup from "yup";
 
 export default memo(function Login() {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const tabRefs = useRef([]);
-  const { loading, error } = useSelector((state) => state.auth);
+  const tabRefs = useRef<HTMLDivElement[]>([]);
+  const { loading, error, login } = useAuth();
   const [loginOptionSelected, setLoginOptionSelected] = useState("login");
   const tabs = ["login", "guest"];
   const indicatorStyle = {
@@ -44,20 +44,19 @@ export default memo(function Login() {
     });
   };
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: { userName: string, password: string}) => {
     try {
-      const result = await dispatch(
-        loginUser({
+      const result = await
+        login({
           userName:
             loginOptionSelected === "login" ? values.userName : "Invitado",
           password:
             loginOptionSelected === "login"
               ? values.password
               : "guestpassword123",
-        }),
-      ).unwrap();
+        }).unwrap();
       // Si el login es exitoso, también actualizar el user slice
-      if (result.profileIcon) dispatch(setUser(result.user));
+      if (result.profile_icon) setUser(result);
 
       // Redirigir al dashboard
     } catch (error) {
@@ -77,7 +76,7 @@ export default memo(function Login() {
   useEffect(() => {
     // Limpiar error cuando cambian los valores
     if (error) {
-      dispatch(clearError());
+      clearError();
     }
   }, [values.password, values.userName, loginOptionSelected]);
 
@@ -94,6 +93,7 @@ export default memo(function Login() {
             src="/riot-games.png"
             width={200}
             height={60}
+            alt="RiotGames logo"
           />
         </div>
         <div className="login-switch">
@@ -102,7 +102,10 @@ export default memo(function Login() {
               key={tab}
               className={`switch-option ${loginOptionSelected === tab && "active"} ${loading ? "disabled" : ""}`}
               onClick={() => (!loading ? setLoginOptionSelected(tab) : null)}
-              ref={(el) => (tabRefs.current[index] = el)}
+              ref={(el) => {
+                if(el === null) return
+                tabRefs.current[index] = el
+              }}
             >
               {tab === "login" && <FaKeyboard className="switch-option-icon" />}
               {tab === "guest" && <FaUser className="switch-option-icon" />}
@@ -141,7 +144,7 @@ export default memo(function Login() {
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              <label className="label-placeholder" for="userName">
+              <label className="label-placeholder" >
                 username
               </label>
             </div>
@@ -158,7 +161,7 @@ export default memo(function Login() {
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              <label className="label-placeholder" for="password">
+              <label className="label-placeholder">
                 password
               </label>
             </div>
@@ -173,7 +176,7 @@ export default memo(function Login() {
           >
             <FaArrowRight />
           </button>
-          <a className="auth-link" onClick={() => router.push("/register")}>Create account</a>
+          <a className="auth-link" onClick={() => router.push("/register", {})}>Create account</a>
           <div className="disclaimer">
             <span className="disclaimer-line">
               THIS APP IS PROTECTED BY HCAPCHA AND ITS

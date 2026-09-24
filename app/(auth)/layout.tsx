@@ -2,13 +2,13 @@
 
 import { useEffect } from "react";
 /*import { useRouter } from "@/hooks/useRouter";*/
-import { useSelector } from "react-redux";
 import { useRouter as useNextRouter} from "next/navigation";
 import { preload } from "react-dom";
+import { useAuth } from "@/hooks/useAuth";
 
-export default function AuthLayout({ children }) {
+export default function AuthLayout({ children }: { children: React.ReactNode}) {
   const nextRouter = useNextRouter();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useAuth();
 
   // Prefetch del dashboard mientras el usuario está en login/register
   // así el chunk ya está descargado cuando navega

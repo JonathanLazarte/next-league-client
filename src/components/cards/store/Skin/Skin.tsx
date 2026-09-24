@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { usePurchase } from '@/hooks/usePurchase'
 import './Skin.css'
 import { RESOURCES_URL } from '@/utils/constants';
-import { Skin } from '@/utils/types'
+import { Skin } from '@/types/skin'
 
 
 export default function SkinStoreItem({ item }:{ item: Skin }){

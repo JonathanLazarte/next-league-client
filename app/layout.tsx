@@ -17,7 +17,7 @@ export const metadata = {
   description: "League of Legends Client Clone",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactElement }) {
   return (
     <html lang="en">
       <head>
@@ -47,8 +47,10 @@ export default function RootLayout({ children }) {
 
       <body className={`${inter.variable} ${medium.variable}`}>
         <Providers>
-          {children}
-          <NavigationProgress />
+          <>
+            {children}
+            <NavigationProgress />
+          </>
         </Providers>
       </body>
     </html>

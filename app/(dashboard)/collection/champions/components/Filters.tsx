@@ -1,6 +1,18 @@
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import CustomSelect from "@/components/CustomSelect/CustomSelect";
+import { ChampionGroupingOptionsValues, SortOptionsValues } from "@/types/ui";
+import { CHAMPION_SORT_OPTIONS, CHAMPION_GROUP_OPTIONS } from "@/utils/constants";
+
+interface FiltersProps {
+  setSearchKeys: React.Dispatch<React.SetStateAction<string>>;
+  inCollection: boolean,
+  setInCollection: React.Dispatch<React.SetStateAction<boolean>>;
+  groupedBy: ChampionGroupingOptionsValues | null;
+  setGroupedBy: React.Dispatch<React.SetStateAction<ChampionGroupingOptionsValues | null>>;
+  sortedBy: SortOptionsValues | null;
+  setSortedBy: React.Dispatch<React.SetStateAction<SortOptionsValues | null>>;
+}
 
 export default function Filters({
     setSearchKeys,
@@ -10,7 +22,7 @@ export default function Filters({
     setGroupedBy,
     sortedBy,
     setSortedBy,
-}) {
+}: FiltersProps) {
     return (
         <div className="filter-nav">
             <div className="left-place">
@@ -65,7 +77,7 @@ export default function Filters({
                     ></input>
                 </div>
 
-                {groupedBy != "possession" ? (
+                {groupedBy !== "possession" ? (
                     <div
                         className="checkbox"
                         onClick={() => setInCollection((prevState) => !prevState)}
@@ -81,11 +93,7 @@ export default function Filters({
 
                 <CustomSelect
                     className="select-filter"
-                    options={[
-                        { value: "", label: "All Champions" },
-                        { value: "possession", label: "Most Popular Posesition" },
-                        { value: "role", label: "Role" },
-                    ]}
+                    options={CHAMPION_GROUP_OPTIONS}
                     value={groupedBy}
                     onChange={setGroupedBy}
                     placeholder="Select Grouping..."
@@ -93,10 +101,7 @@ export default function Filters({
 
                 <CustomSelect
                     className="select-filter"
-                    options={[
-                        { value: "alphabetically", label: "Alphabetical" },
-                        { value: "championsMastery", label: "Champion Mastery" },
-                    ]}
+                    options={CHAMPION_SORT_OPTIONS}
                     value={sortedBy}
                     onChange={setSortedBy}
                     placeholder="Select Sorting..."

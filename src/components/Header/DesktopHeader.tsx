@@ -9,15 +9,19 @@ import HeaderTab from './components/HeaderTab'
 import HeaderWallet from './components/HeaderWallet'
 import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants'
 
-export default memo(function DesktopHeader({ showSideNav }) {
-  const [sectionTabSelected, setSectionTabSelected] = useState()
+interface DesktopHeaderProps {
+  showSideNav: boolean
+}
+
+export default memo(function DesktopHeader({ showSideNav }: DesktopHeaderProps) {
+  const [sectionTabSelected, setSectionTabSelected] = useState<string | null>(null)
   const trigger = useTooltipTrigger()
 
   return (
     <>
       <header
         style={{
-          marginRight: !showSideNav ? "0px" : null
+          marginRight: !showSideNav ? "0px" : "unset"
         }}
         className="index-header"
       >
@@ -25,7 +29,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
         {LEFT_HEADER_TABS.map(section => (
           <HeaderTab
             key={section.id}
-            setSectionTabSeleceted={setSectionTabSelected}
+            setSectionTabSelected={setSectionTabSelected}
             sectionTabSelected={sectionTabSelected}
             section={section.id}
             type={section.type}
@@ -37,7 +41,7 @@ export default memo(function DesktopHeader({ showSideNav }) {
               <HeaderTab
                 trigger={trigger}
                 section={section.id}
-                setSectionTabSeleceted={setSectionTabSelected}
+                setSectionTabSelected={setSectionTabSelected}
                 sectionTabSelected={sectionTabSelected}
                 type={section.type}
               />

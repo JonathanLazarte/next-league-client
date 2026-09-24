@@ -3,21 +3,26 @@ import { useUserSkins } from "@/hooks/useUserSkins";
 import useSkins from "@/hooks/useSkins";
 import { FILTER_OPTIONS_BY_GROUPING } from "@/utils/constants";
 import applyAllLogic from "../skinsLogic";
+import { Skin } from "@/types/skin";
+import { SkinGroupingOptionsValues, SortOptionsValues } from "@/types/ui";
 
 export function useSkinsFilter() {
     const { userSkins, loading: loadingUserSkins } = useUserSkins();
     const { skinsData, isLoading: loadingSkinsData } = useSkins();
 
-    const [searchKeys, setSearchKeys] = useState();
-    const deferredSearch = useDeferredValue(searchKeys);
-    const [groupedBy, setGroupedBy] = useState("collection");
-    const [sortedBy, setSortedBy] = useState();
+    const [searchKeys, setSearchKeys] = useState<string | null>(null);
+    const deferredSearch = useDeferredValue<string | null>(searchKeys);
+    const [groupedBy, setGroupedBy] = useState<SkinGroupingOptionsValues | null>("collection");
+    const [sortedBy, setSortedBy] = useState<SortOptionsValues | null>("purchaseDate");
     const [showNotObtained, setShowNotObtained] = useState(false);
+
+
 
     // Sincronizar orden por defecto cuando cambia la agrupación
     useEffect(() => {
+        if(groupedBy === null) return setSortedBy("purchaseDate")
         const defaultOption = FILTER_OPTIONS_BY_GROUPING[groupedBy]?.[0]?.value;
-        setSortedBy(defaultOption);
+        setSortedBy(defaultOption as SortOptionsValues);
     }, [groupedBy]);
 
     // Combinar información de skins del usuario con skins globales
@@ -25,7 +30,7 @@ export function useSkinsFilter() {
         if (!skinsData || !userSkins) return [];
         return userSkins
             .map((us) => {
-                const respectiveSkinData = skinsData.find((skinData) => skinData.id === us.id);
+                const respectiveSkinData = skinsData.find((skinData: Skin) => skinData.id === us.id);
                 return respectiveSkinData
                     ? { ...respectiveSkinData, purchaseDate: us.purchaseDate }
                     : null;
@@ -35,7 +40,7 @@ export function useSkinsFilter() {
     }, [skinsData, userSkins]);
 
     // Aplicar lógica de agrupamiento/filtrado
-    const groupedSkins = useMemo(() => {
+    const groupedSkins = useMemo((): [string, Skin[]][] => {
         return applyAllLogic({
             groupedBy,
             showNotObtained,
@@ -47,7 +52,7 @@ export function useSkinsFilter() {
         });
     }, [groupedBy, showNotObtained, skinsData, userSkinsFull, sortedBy, deferredSearch, userSkins]);
 
-    const isSkinInCollection = (id) => userSkins?.some((us) => us.id === id);
+
 
     return {
       skins: skinsData,
@@ -65,6 +70,5 @@ export function useSkinsFilter() {
           setShowNotObtained,
           setSearchKeys,
       },
-      isSkinInCollection,
     };
 }

@@ -1,10 +1,9 @@
 import { memo } from "react";
 import { usePurchase } from "@/hooks/usePurchase";
-/*import { preload } from "react-dom";*/
 import "./Champion.css";
 import Image from 'next/image'
 import { RESOURCES_URL } from "@/utils/constants";
-import { Champion } from '@/utils/types'
+import { Champion } from '@/types/champion'
 
 const ChampionCard = ({ item: data }: { item: Champion }) => {
   const { openPurchaseModal } = usePurchase();

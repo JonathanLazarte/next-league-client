@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@/hooks/useDebounce";
 import useChampions from "@/hooks/useChampions";
 import { useUserChampions } from "@/hooks/useUserChampions";
+import { Champion } from "@/types/champion";
+import { SortOptionsValues, ChampionGroupingOptionsValues } from "@/types/ui";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchChampionsFull = async () => {
@@ -11,11 +13,11 @@ export const fetchChampionsFull = async () => {
 };
 
 export default function useChampionsFilter() {
-    const [searchKeys, setSearchKeys] = useState();
+    const [searchKeys, setSearchKeys] = useState<string>("");
     const searchKeysWithDelay = useDebounce(searchKeys, 50);
     const [inCollection, setInCollection] = useState(true);
-    const [sortedBy, setSortedBy] = useState("");
-    const [groupedBy, setGroupedBy] = useState("");
+    const [sortedBy, setSortedBy] = useState<SortOptionsValues | null>(null);
+    const [groupedBy, setGroupedBy] = useState<ChampionGroupingOptionsValues | null>(null);
     const { loading, userChampions } = useUserChampions()
     const { championsData, isLoadingChampionsData } = useChampions();
 
@@ -26,25 +28,25 @@ export default function useChampionsFilter() {
         gcTime: 1000 * 60 * 10,
     });
 
-    const groupChamps = (champs, allChamps) => {
-        const byRole = champs?.reduce((acumulador, campeon) => {
+    const groupChamps = (champs: Champion[], allChamps: Champion[]) => {
+        const byRole = champs?.reduce((acumulador: Record<string, Champion[]>, campeon: Champion) => {
             if (!acumulador[campeon.tags[0]]) {
                 acumulador[campeon.tags[0]] = [];
             }
             acumulador[campeon.tags[0]].push(campeon);
             return acumulador;
         }, {});
-        var byPossession = {
+        var byPossession: Record<string, Champion[]> = {
             "En colección": [],
             "No adquiridos": [],
         };
-        allChamps?.map((campeon) => {
+        allChamps?.map((campeon: Champion) => {
             userChampions.some((c) => c.id === campeon.id)
                 ? byPossession["En colección"].push(campeon)
                 : byPossession["No adquiridos"].push(campeon);
         });
 
-        var all = {
+        var all: Record<string, Champion[]> = {
             Todos: champs,
         };
 
@@ -58,9 +60,9 @@ export default function useChampionsFilter() {
         }
     };
     const filterChampions = (
-        allChamps,
-        searchKeysWithDelay,
-        inCollection,
+        allChamps: Champion[],
+        searchKeysWithDelay: string,
+        inCollection: boolean,
     ) => {
         var championsFiltered = allChamps?.filter((champ) => {
             const inCollectionFilter = inCollection
@@ -72,7 +74,7 @@ export default function useChampionsFilter() {
 
             return inCollectionFilter && keysFilter;
         });
-        championsFiltered = groupChamps(championsFiltered, allChamps);
+        const championsGrouped = groupChamps(championsFiltered, allChamps);
         /*if(sortedBy === "alphabetically descend"){
                 sectionFiltered.sort((a, b) => {
                 const nameA = a.name.toUpperCase();
@@ -85,7 +87,7 @@ export default function useChampionsFilter() {
                 const nameB = b.name.toUpperCase();
                 return nameB.localeCompare(nameA);
             }) }*/
-        return championsFiltered;
+        return championsGrouped;
     };
 
     const groupedChampions = useMemo(() => {
@@ -94,8 +96,8 @@ export default function useChampionsFilter() {
             championsData,
             searchKeysWithDelay,
             inCollection,
-            sortedBy,
-            groupedBy,
+            /*sortedBy,
+            groupedBy,*/
         );
         return result;
     }, [championsData, searchKeysWithDelay, inCollection, sortedBy, groupedBy]);

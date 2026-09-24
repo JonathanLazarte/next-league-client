@@ -10,8 +10,9 @@ import { RESOURCES_URL } from '@/utils/constants'
 import React from 'react'
 import { Socket } from "socket.io-client"
 import Image from 'next/image'
+import type { Message, ChatUser } from '@/redux/slices/chatSlice'
 
-export default memo(function Chat({ socket }: { socket: React.RefObject<Socket | null>}) {
+export default memo(function Chat({ socket }: { socket: Socket | undefined }) {
   const [chatInput, setChatInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
@@ -52,13 +53,13 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
 
 
   // Manejar indicador de escritura
-  const handleTyping = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
     setChatInput(value);
 
     if (value.trim() && !isTyping) {
       setIsTyping(true);
-      socket?.current?.emit("typing", { to: selectedUser?.alias, isTyping: true });
+      socket?.emit("typing", { to: selectedUser?.alias, isTyping: true });
     }
 
     if (typingTimeoutRef.current) {
@@ -68,16 +69,16 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
     typingTimeoutRef.current = setTimeout(() => {
       if (isTyping) {
         setIsTyping(false);
-        socket?.current?.emit("typing", { to: selectedUser?.alias, isTyping: false });
+        socket?.emit("typing", { to: selectedUser?.alias, isTyping: false });
       }
     }, 1000);
   };
   // Enviar mensaje
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!chatInput.trim() || !selectedUser?.alias) return;
 
-    const message = {
+    const message: Message = {
       id: Date.now().toString(),
       from: alias,
       to: selectedUser?.alias,
@@ -87,14 +88,14 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
       isRead: false,
       isDelivered: false,
     };
-    socket?.current?.emit("chat-message", message);
+    socket?.emit("chat-message", message);
 
     addMessage(message);
     setChatInput("");
 
     if (isTyping) {
       setIsTyping(false);
-      socket?.current?.emit("typing", { to: selectedUser?.alias, isTyping: false });
+      socket?.emit("typing", { to: selectedUser?.alias, isTyping: false });
     }
   };
 
@@ -126,18 +127,19 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
         return "#808080";
     }
   };
-  const filterByUser = (msgs, selectedUser) => {
+  const filterByUser = (msgs: Message[], selectedUser: ChatUser) => {
     if(!msgs) return [];
 
     return msgs.filter(
       (m) =>
-        (m.from === selectedUser && m.to === alias) ||
-        (m.to === selectedUser && m.from === alias),
+        (m.from === selectedUser.alias && m.to === alias) ||
+        (m.to === selectedUser.alias && m.from === alias),
     );
   };
 
   const filteredMessages = useMemo(() => {
-    const result = filterByUser(messages, selectedUser?.alias);
+    if(selectedUser === null) return
+    const result = filterByUser(messages, selectedUser);
     return result;
   }, [messages, selectedUser]);
 
@@ -198,7 +200,7 @@ export default memo(function Chat({ socket }: { socket: React.RefObject<Socket |
               <span className="message-text">{message.content}</span>
               {showTimestamps && (
                 <span className="message-time">
-                  {formatTimestamp(message.timestamp)}
+                  {formatTimestamp(String(message.timestamp))}
                 </span>
               )}
             </div>

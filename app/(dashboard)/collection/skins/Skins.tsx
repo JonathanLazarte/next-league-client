@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import "./skins.css";
 
 import SkinTooltip from "@/components/tooltips/SkinTooltip/SkinTooltip";
@@ -23,7 +23,6 @@ export default memo(function CollectionSkins() {
     userSkinsFull,
     groupedSkins,
     filterState,
-    isSkinInCollection,
     loadingUserSkins,
     loadingSkinsData
   } = useSkinsFilter();
@@ -33,12 +32,16 @@ export default memo(function CollectionSkins() {
     hoveredSkinCardRef,
     tooltipPos,
     tooltipPosRef,
-    tooltipRef,
     currentDelayType,
     onHoverStart,
     onHoverEnd,
     handleScroll,
   } = useSkinHoverTooltip();
+
+  const isSkinInCollection = useMemo(() => {
+      const id = hoveredSkin?.id
+      return userSkins?.some((us) => us.id === id)
+    }, [userSkins, hoveredSkin])
 
   return (
     <section className="collection-skins-section">
@@ -83,7 +86,7 @@ export default memo(function CollectionSkins() {
           position="top"
           currentDelayType={currentDelayType}
           hoveredSkinCardRef={hoveredSkinCardRef}
-          inCollection={() => isSkinInCollection(hoveredSkin.id)}
+          inCollection={isSkinInCollection}
         />
       )}
     </section>

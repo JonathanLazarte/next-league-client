@@ -1,10 +1,25 @@
 import { useSound } from '@/hooks/useSound'
 import { useRouter } from '@/hooks/useRouter'
 import { useUserInterface } from '@/hooks/useUserInterface';
-/*import { color } from "framer-motion";*/
+import type { Dispatch } from 'react';
 /*import { flushSync } from "react-dom";*/
 
-export default function HeaderTab({ section, trigger, setSectionTabSeleceted, sectionTabSelected }) {
+interface HeaderTabProps {
+  type: string,
+  section: string,
+  trigger?: ({ content }: { content: string }) => Record<string, any>,
+  setSectionTabSelected: Dispatch<React.SetStateAction<string | null>>,
+  sectionTabSelected: string | null
+
+}
+
+export default function HeaderTab({
+  type,
+  section,
+  trigger,
+  setSectionTabSelected,
+  sectionTabSelected
+}: HeaderTabProps) {
   const { play } = useSound("/sfx/menu-click.mp3");
   const { push } = useRouter()
   const { isNavigating, actualSection } = useUserInterface()
@@ -16,8 +31,8 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
       setIsMouseUp(true);
     });*/
     play();
-    setSectionTabSeleceted(section)
-    push(section)
+    setSectionTabSelected(section)
+    push(section, {})
   };
 
   if (section === "league")
@@ -37,11 +52,12 @@ export default function HeaderTab({ section, trigger, setSectionTabSeleceted, se
         />
       </div>
     );
+
   return (
     <div
       className={`header-tab ${(!isNavigating && actualSection === section) ? "actual-section" : (!isNavigating && sectionTabSelected === section) ? "selected" : null}`}
       onMouseUp={() => handleClick(section)}
-      {...trigger({ content: section })}
+      {...trigger?.({ content: section })}
       data-testid={`tab-${section}`}
     >
       <img

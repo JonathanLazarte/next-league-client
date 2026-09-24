@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createSelector, createAsyncThunk } from "@r
 import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
 import { RootState } from '@/redux/store'
-import { User } from "@/utils/types";
+import type { User } from "@/types/user";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,37 +12,6 @@ export interface Rank {
   points: number;
 }
 
-export interface UserState {
-  userName: string;
-  id: string;
-  alias: string;
-  tag: string;
-  title: string;
-  level: number;
-  EXP: number;
-  BE: number;
-  RP: number;
-  rank: Rank;
-  profile_icon: string;
-  profile_background: string;
-  loading: boolean;
-}
-
-export interface UserPayload {
-  userName: string;
-  id: string;
-  tag: string;
-  title: string;
-  level: number;
-  EXP: number;
-  BE: number;
-  RP: number;
-  rank: Rank;
-  profile_icon: string;
-  profile_background: string;
-}
-
-
 interface PurchasePayload {
   coin: Coin,
   price: number,
@@ -50,6 +19,27 @@ interface PurchasePayload {
   type: string
 }
 export type Coin = "RP" | "BE";
+
+export interface UserState {
+userName: string,
+id: string,
+alias: string,
+tag: string,
+title: string,
+level: number,
+EXP: number,
+BE: number,
+RP: number,
+rank: {
+  name: string,
+  level: number,
+  points: number,
+},
+profile_icon: string,
+profile_background: string,
+loading: boolean,
+token: string,
+}
 
 const initialState: UserState = {
   userName: "",
@@ -69,11 +59,12 @@ const initialState: UserState = {
   profile_icon: "",
   profile_background: "",
   loading: false,
+  token: "",
 };
 
 export const fetchUser = createAsyncThunk<
-  Record<string, User>,
-  { token: string }
+  User,
+  string
   >(
   "user/set-user",
   async (token, { rejectWithValue }) => {
@@ -87,18 +78,18 @@ export const fetchUser = createAsyncThunk<
         throw new Error('No se pudo obtener el usuario')
       }
 
-      const userData = await response.json()
+      const data = await response.json()
 
-      return { userData }
+      return data
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 )
 
-const updateUserFields = (state: UserState, action: PayloadAction<UserPayload>) => {
+const updateUserFields = (state: User, action: PayloadAction<User>) => {
   const { payload } = action;
-  state.userName = payload.userName;
+    state.userName = payload.userName;
     state.id = payload.id;
     state.alias = payload.userName;
     state.tag = payload.tag;
@@ -112,14 +103,15 @@ const updateUserFields = (state: UserState, action: PayloadAction<UserPayload>) 
     state.rank = payload.rank;
 }
 
+
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserPayload>) => {
+    setUser: (state, action: PayloadAction<User>) => {
       Object.assign(state, action.payload);
     },
-    updateUser: (state , action: PayloadAction<UserPayload>) => {
+    updateUser: (state , action: PayloadAction<User>) => {
       Object.assign(state, action.payload)
     },
     updateCoins: (
@@ -142,17 +134,30 @@ const userSlice = createSlice({
         state.loading = true
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
-        Object.assign(state, action.payload.userData)
+        Object.assign(state, action.payload)
         state.loading = false
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<User>) => {
         updateUserFields(state, action)
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         updateUserFields(state, action)
       })
-      .addCase(verifyToken.fulfilled, (state, action) => {
-        updateUserFields(state, action)
+      .addCase(verifyToken.fulfilled, (state, action: PayloadAction<{ token: string, user: User }>) => {
+        const { user } = action.payload
+        state.userName = user.userName;
+        state.id = user.id;
+        state.alias = user.userName;
+        state.tag = user.tag;
+        state.title = user.title;
+        state.level = user.level;
+        state.EXP = user.EXP;
+        state.BE = user.BE;
+        state.RP = user.RP;
+        state.profile_icon = user.profile_icon;
+        state.profile_background = user.profile_background;
+        state.rank = user.rank;
+
       })
       .addCase(confirmPurchase.fulfilled, (state, action: PayloadAction<PurchasePayload>) => {
         const { coin, price } = action.payload

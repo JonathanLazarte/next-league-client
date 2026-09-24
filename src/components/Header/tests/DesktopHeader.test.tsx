@@ -1,14 +1,15 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit'; // Importar configureStore
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import DesktopHeader from '../DesktopHeader';
 import { useRouter } from '@/hooks/useRouter.js';
-import { useSound } from '@/hooks/useSound.ts';
+import { useSound } from '@/hooks/useSound';
 
 
 
-import userReducer from '@/redux/slices/userSlice.ts';
-import userInterfaceReducer from '@/redux/slices/userInterfaceSlice.ts';
+import userReducer from '@/redux/slices/userSlice';
+import userInterfaceReducer from '@/redux/slices/userInterfaceSlice';
+import { RootState } from '@/redux/store';
 
 // Mock de los hooks useRouter y useSound
 jest.mock('@/hooks/useRouter.js', () => ({
@@ -33,36 +34,39 @@ jest.mock('@/components/tooltips/GlobalTooltip/TooltipTrigger', () => ({
 }));
 
 describe('DesktopHeader', () => {
-  let store;
-  let mockPush;
-  let mockPlay;
+  let store: EnhancedStore<Partial<RootState>>;
+  let mockPush: jest.Mock;
+  let mockPlay: jest.Mock;
 
-  const createTestStore = (initialState) => {
+  const createTestStore = (initialState: Partial<RootState>): EnhancedStore<Partial<RootState>> => {
     return configureStore({
       reducer: {
         user: userReducer, // Usar tu reducer real
         userInterface: userInterfaceReducer, // Usar tu reducer real
         // ...otros reducers que DesktopHeader pueda necesitar
-      },
-      preloadedState: initialState,
+      } as any,
+      preloadedState: initialState as any,
     });
   };
+
+  const mockedUseRouter = jest.mocked(useRouter)
+  const mockedUseSound = jest.mocked(useSound)
 
   beforeEach(() => {
     mockPush = jest.fn();
     mockPlay = jest.fn();
-    useRouter.mockReturnValue({ push: mockPush });
-    useSound.mockReturnValue({ play: mockPlay });
+    mockedUseRouter.mockReturnValue({ push: mockPush } as any);
+    mockedUseSound.mockReturnValue({ play: mockPlay } as any);
 
     // Configura el estado inicial para el test
-    const initialState = {
+    const initialState: Partial<RootState> = {
       user: {
         RP: 5000,
         BE: 15000,
-      },
+      } as Partial<RootState>["user"],
       userInterface: {
         actualSection: 'collection',
-      },
+      } as Partial<RootState>["userInterface"],
     };
     store = createTestStore(initialState);
   });
@@ -139,10 +143,10 @@ describe('DesktopHeader', () => {
       user: {
         RP: 12000,
         BE: 9000,
-      },
+      } as any,
       userInterface: {
         actualSection: 'collection',
-      },
+      } as any,
     });
 
     render(

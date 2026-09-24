@@ -7,7 +7,7 @@ import { confirmPurchase } from "./purchaseSlice";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 import { RootState } from '../store'
 
-type ChampionResponse = string[]
+type ChampionResponse = { id: string }[]
 
 // Thunks
 export const getUserChampions = createAsyncThunk<

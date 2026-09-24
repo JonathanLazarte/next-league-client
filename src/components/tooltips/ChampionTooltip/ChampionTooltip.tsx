@@ -7,7 +7,7 @@ import { memo, forwardRef, useState } from "react";
 import { useLayoutEffect } from "react";
 
 interface Champion {
-  masteryLevel: string,
+  masteryLevel: number,
   championName: string,
   masteryPoints: number,
   startInfo: string,

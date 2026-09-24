@@ -2,6 +2,7 @@
 
 import "./PlayLobby.css";
 import { useState, useEffect, useRef } from "react";
+import type { Dispatch } from 'react'
 import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound";
@@ -9,7 +10,11 @@ import Image from 'next/image'
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
-export default function LobbyPlayButton({ setSectionTabSelected }: { setSectionTabSelected: (section:string) => void }) {
+interface LobbyPlayButtonProps {
+  setSectionTabSelected: Dispatch<React.SetStateAction<string | null>>
+}
+
+export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButtonProps) {
   const route = useRouter();
   const { actualSection, queue } = useUserInterface();
   const [ buttonState, setButtonState ] = useState<Button>('idle')

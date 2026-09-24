@@ -1,14 +1,15 @@
 import useHoverIntent from "@/hooks/useHoverIntent";
+import { Champion } from "@/types/champion";
 import { HOVER_DELAYS } from "@/utils/constants";
 import { useState, useCallback } from "react";
 import { useRef } from "react";
 
 export default function useChampionHoverTooltip() {
-    const [hoveredChampion, setHoveredChampion] = useState(null);
-    const tooltipRef = useRef();
+    const [hoveredChampion, setHoveredChampion] = useState<Champion | null>(null);
+    const tooltipRef = useRef<HTMLDivElement | null>(null);
     const tooltipPosRef = useRef({ x: 0, y: 0, rect: null });
-    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-    const [activeChampionRef, setActiveChampionRef] = useState(null);
+    const [ tooltipPos, setTooltipPos ] = useState({ x: 0, y: 0 });
+    const [ activeChampionRef, setActiveChampionRef ] = useState<React.RefObject<HTMLDivElement> | null>(null);
     const { start, cancel, end, currentDelayType } = useHoverIntent({
         initialDelay: HOVER_DELAYS.INITIAL,
         fastDelay: HOVER_DELAYS.FAST,
@@ -19,7 +20,7 @@ export default function useChampionHoverTooltip() {
         if (hoveredChampion) setHoveredChampion(null);
     }, [hoveredChampion]);
 
-    const onHoverStart = (champion, championCardRef) => {
+    const onHoverStart = (champion: Champion, championCardRef: React.RefObject<HTMLDivElement>) => {
         start({
             cb: () => {
                 setActiveChampionRef(championCardRef);

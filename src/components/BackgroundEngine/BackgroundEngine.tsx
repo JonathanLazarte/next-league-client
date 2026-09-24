@@ -14,7 +14,7 @@ export default function BackgroundEngine() {
     style={{
       backgroundImage: showLoading
         ? "var(--blue-five)"
-        : `url(${BACKGROUND_URLS[actualSection]})`,
+        : `url(${BACKGROUND_URLS[actualSection as keyof typeof BACKGROUND_URLS]})`,
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
     }}

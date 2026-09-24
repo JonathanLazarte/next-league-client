@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback } from "react";
 import useHoverIntent from "@/hooks/useHoverIntent";
 import { HOVER_DELAYS } from "@/utils/constants";
-import type { Skin } from "@/utils/types"
+import type { Skin } from "@/types/skin"
 
 export function useSkinHoverTooltip() {
     const tooltipRef = useRef();
     const tooltipPosRef = useRef({ x: 0, y: 0 });
-    const [hoveredSkin, setHoveredSkin] = useState(null);
+    const [hoveredSkin, setHoveredSkin] = useState<Skin | null>(null);
     const [hoveredSkinCardRef, setHoveredSkinCardRef] = useState<React.RefObject<HTMLDivElement> | null>(null);
     const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 

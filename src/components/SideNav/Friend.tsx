@@ -7,12 +7,12 @@ import { useChat } from "@/hooks/useChat";
 import { useSmartHover } from "@/hooks/useSmartHover";
 import PartyRequest from './PartyRequest'
 import { RESOURCES_URL } from '@/utils/constants'
-import type { ConnectedUser } from "@/redux/slices/connectedUsersSlice"
+import type { ConnectedUser } from "@/types/user"
 import type { ChatUser } from "@/redux/slices/chatSlice"
 
 
 interface FriendProps {
-  user: ChatUser,
+  user: ConnectedUser,
   battleRequest?: Record<string, any>[],
   handleContextMenu?: () => void,
   tooltipPosRef: React.MutableRefObject<{ x: number, y: number }>,
@@ -34,7 +34,7 @@ export default (function Friend({
     selectUser,
   } = useChat();
 
-  const handleUserClick = (friend: ChatUser) => {
+  const handleUserClick = (friend: ConnectedUser) => {
     // Find the user in friendsOnline to get their profileIcon
     playClickSound();
     // Open chat with the selected user

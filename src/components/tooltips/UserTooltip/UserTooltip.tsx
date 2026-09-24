@@ -4,7 +4,7 @@ import "./UserTooltip.css";
 import { useRef, useState, useLayoutEffect } from "react";
 import Image from "next/image";
 import { RESOURCES_URL } from '@/utils/constants'
-import type { ConnectedUser } from '@/redux/slices/connectedUsersSlice'
+import type { ConnectedUser } from "@/types/user"
 
 interface UserTooltipProps {
   hoveredUser: ConnectedUser,

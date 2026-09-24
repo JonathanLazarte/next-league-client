@@ -2,7 +2,6 @@
 
 import { memo } from "react";
 import "./TrainingLobby.css";
-import ConfirmButton from "@/components/playButton/Confirm/Confirm";
 import { useDispatch } from "react-redux";
 import { setUserState } from "@/redux/slices/userInterfaceSlice";
 
@@ -38,7 +37,7 @@ export default memo(function Explore() {
           <h3 className="room-title">SR · INTERMEDIATE · BLIND</h3>
         </div>
       </div>
-      <ConfirmButton type={"training"} text={"INICIAR"} />
+
     </section>
   );
 });

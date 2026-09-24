@@ -26,10 +26,11 @@ import type {
   ChatUser,
   ChatState
 } from '@/redux/slices/chatSlice'
+import type { ConnectedUser } from '@/types/user'
 
 interface OpenChatProps {
-  userId: string;
-  userName: string;
+  id: string;
+  alias: string;
   profile_icon: number;
 }
 interface MarkMessageAsReadProps {
@@ -37,11 +38,11 @@ interface MarkMessageAsReadProps {
   messageId: string
 }
 interface UpdateUserStatusProps {
-  userId: string,
+  id: string,
   status: ChatUser["status"]
 }
 interface SetTypingProps {
-  userId: string,
+  id: string,
   isTyping: boolean
 }
 interface SetChatPositionProps {
@@ -60,12 +61,12 @@ export function useChat() {
   const handleMinimizeChat = useCallback((payload: string) => dispatch(minimizeChat(payload)), [dispatch]);
   const handleRestoreChat = useCallback((payload: string) => dispatch(restoreChat(payload)), [dispatch]);
   const handleSelectChat = useCallback((payload: string) => dispatch(selectChat(payload)), [dispatch]);
-  const handleSelectUser = useCallback((payload: ChatUser) => dispatch(selectUser(payload)), [dispatch]);
+  const handleSelectUser = useCallback((payload: ConnectedUser) => dispatch(selectUser(payload)), [dispatch]);
   const handleAddMessage = useCallback((payload: Message) => dispatch(addMessage(payload)), [dispatch]);
   const handleSetMessages = useCallback((payload: Message[]) => dispatch(setMessages(payload)), [dispatch]);
   const handleMarkMessageAsRead = useCallback((payload: MarkMessageAsReadProps) => dispatch(markMessageAsRead(payload)), [dispatch]);
   const handleMarkAllAsRead = useCallback((payload: { roomId: string }) => dispatch(markAllAsRead(payload)), [dispatch]);
-  const handleUpdateChatUser = useCallback((payload: ChatUser) => dispatch(updateChatUser(payload)), [dispatch]);
+  const handleUpdateChatUser = useCallback((payload: ConnectedUser) => dispatch(updateChatUser(payload)), [dispatch]);
   const handleUpdateUserStatus = useCallback((payload: UpdateUserStatusProps) => dispatch(updateUserStatus(payload)), [dispatch]);
   const handleSetTyping = useCallback((payload: SetTypingProps) => dispatch(setTyping(payload)), [dispatch]);
   const handleToggleChatVisibility = useCallback(() => dispatch(toggleChatVisibility()), [dispatch]);

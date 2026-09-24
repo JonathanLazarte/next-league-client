@@ -10,9 +10,12 @@ import { usePurchase } from "@/hooks/usePurchase";
 import useSkins from "@/hooks/useSkins";
 import useChampions from "@/hooks/useChampions";
 import { RESOURCES_URL } from "@/utils/constants";
+import type { Champion } from '@/types/champion'
+import type { Skin } from "@/types/skin"
 
-// Custom hook for purchase window logic
-export default function ConfirmPurchaseWindow() {
+
+
+export default function ConfirmPurchaseModal() {
   const {
     wallet: { RP: walletRP, BE: walletBE },
     itemToBuy,
@@ -34,8 +37,8 @@ export default function ConfirmPurchaseWindow() {
     if (!itemToBuy) return null;
 
     const data =
-      itemToBuy?.type === "champion" ? Object.values(championsData) : skinsData;
-    const puntualItem = data?.find((item) => item.id === itemToBuy?.id);
+      itemToBuy?.type === "champion" ? championsData : skinsData;
+    const puntualItem = data?.find((item: Champion | Skin) => item.id === itemToBuy?.id);
 
     return puntualItem;
   }, [itemToBuy, championsData, skinsData]);
@@ -63,11 +66,11 @@ export default function ConfirmPurchaseWindow() {
     () => ({
       rp:
         walletRP - productPrice.rp >= 0
-          ? null
+          ? undefined
           : { filter: "grayscale(0.5)", cursor: "default" },
       be:
         walletBE - productPrice.be >= 0
-          ? null
+          ? undefined
           : { filter: "grayscale(0.5)", cursor: "default" },
     }),
     [walletRP, walletBE, productPrice.rp, productPrice.be],
@@ -79,7 +82,7 @@ export default function ConfirmPurchaseWindow() {
       : `${RESOURCES_URL}/splash/${productInfo?.img}`;
 
   // Optimized purchase function
-  const buyProduct = (coin, price) => {
+  const buyProduct = (coin: "RP" | "BE", price: number) => {
     confirmPurchase({ coin, price }).unwrap();
   };
   const closeWindow = () => {

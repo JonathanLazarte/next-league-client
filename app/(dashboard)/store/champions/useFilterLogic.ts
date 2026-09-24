@@ -1,14 +1,34 @@
 import { useMemo, useState } from 'react'
+import { Champion, ChampionTag } from '@/types/champion'
+import { SortOptionsValues } from '@/types/ui';
+export interface ChampionRoles {
+  Assassin: boolean;
+  Fighter: boolean;
+  Mage: boolean;
+  Tank: boolean;
+  Marksman: boolean;
+  Support: boolean;
+}
+interface UseFilterLogicProps {
+  itemCategoryChecked: Record<string, any>;
+  items: Champion[],
+  adquiredItems: { id: string }[],
 
-export default function useFilterLogic({ itemCategoryChecked, items, adquiredItems }) {
+}
+
+export default function useFilterLogic({
+  itemCategoryChecked,
+  items,
+  adquiredItems
+}: UseFilterLogicProps) {
 
   const [searchKeys, setSearchKeys] = useState("");
   const [inCollection, setInCollection] = useState(false);
-  const [sortedBy, setSortedBy] = useState("");
+  const [sortedBy, setSortedBy] = useState<SortOptionsValues | null>(null);
 
 
   const filteredItems = useMemo(() => {
-    const activeRoles = Object.keys(itemCategoryChecked).filter(
+    const activeRoles = (Object.keys(itemCategoryChecked) as Array<ChampionTag>).filter(
       (role) => itemCategoryChecked[role],
     );
 

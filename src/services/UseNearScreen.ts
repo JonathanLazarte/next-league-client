@@ -6,18 +6,18 @@ export default function UseNearScreen({
   distance = '100px',
   externalRef,
   once = true
-  } = {}) : {
+  } : {
     distance: string | undefined,
     externalRef: React.RefObject<HTMLDivElement | null>,
     once: boolean
-  } {
-    let observer
+  } ) {
+    let observer: IntersectionObserver
     const [isNearScreen, setNearScreen] = useState(false)
     const elementRef = useRef()
     const finalRef = externalRef ? externalRef.current : elementRef.current
 
     useEffect(function(){
-     const onChange = (entries,observer) =>{
+     const onChange = ( entries: Record<string, any>[], observer: IntersectionObserver) =>{
          const el = entries[0]
          if(el.isIntersecting){
              setNearScreen(true)

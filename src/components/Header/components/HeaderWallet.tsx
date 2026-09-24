@@ -1,5 +1,10 @@
 import { useUser } from '@/hooks/useUser'
-export default function HeaderWallet({ trigger }) {
+
+interface HeaderWalletProps {
+  trigger: ({ content }: { content: string }) => Record<string, any>,
+}
+
+export default function HeaderWallet({ trigger }: HeaderWalletProps) {
   const { RP, BE } = useUser()
 
   return (<>

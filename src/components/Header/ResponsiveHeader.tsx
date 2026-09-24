@@ -5,7 +5,7 @@ import { useUserInterface } from '@/hooks/useUserInterface'
 
 export default function ResponsiveHeader(){
   const [isMobile, setIsMobile] = useState(window.innerWidth < 767)
-	const { showSideNav, setShowSideNav } = useUserInterface
+	const { showSideNav, updateSideNav } = useUserInterface()
 
 	useEffect(() => {
 		const HandleResize = () => setIsMobile(window.innerWidth < 767)
@@ -14,5 +14,5 @@ export default function ResponsiveHeader(){
 		return () => window.removeEventListener('resize', HandleResize)
 	}, [])
 
-	return isMobile ? <MobileHeader setShowSideNav={setShowSideNav} /> : <DesktopHeader showSideNav={showSideNav} />
+	return isMobile ? <MobileHeader /> : <DesktopHeader showSideNav={showSideNav} />
 }

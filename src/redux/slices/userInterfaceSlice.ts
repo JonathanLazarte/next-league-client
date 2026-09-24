@@ -1,10 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
+import type { Section, UserState, Queue, QueueStatus } from '@/types/ui'
 
-export type UserState = "online" | "offline" | "ingame" | "away" | string
-export type Section = "league" | "play" | "store" | "collection"
-export type Queue = "solo_duo" | "flex" | "aram" | null | "aram_mayhem" | "tutorial" | "swiftplay"
-export type QueueStatus = "idle" | "found" | "searching" | "acepted"
 
 interface UserInterfaceState {
   userState: UserState;
@@ -121,9 +118,9 @@ export const selectQueue = (state: StateProp) =>
   state.userInterface.queue;
 export const selectQueueStatus = (state: StateProp) =>
   state.userInterface.queueStatus;
-export const selectIsSettingsModalOpen = (state: StateProp) => {
+export const selectIsSettingsModalOpen = (state: StateProp) =>
   state.userInterface.isSettingsModalOpen
-}
+
 
 export const selectUserInterfaceData = createSelector(
   [

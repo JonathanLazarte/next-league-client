@@ -8,6 +8,8 @@ import useSkins from "@/hooks/useSkins";
 import { useUserChampions } from '@/hooks/useUserChampions'
 import { useUserSkins } from '@/hooks/useUserSkins'
 import { useFilterLogic } from './useFilterLogic'
+import type { Skin } from '@/types/skin'
+import { STORE_SORT_OPTIONS } from "@/utils/constants";
 
 import "./skins.css";
 
@@ -16,7 +18,7 @@ export default memo(function Skins() {
   const { userSkins = [] } = useUserSkins();
   const { userChampions } = useUserChampions();
   const [subsectionSelected, setSubsectionSelected] = useState("SKINS");
-  const [categoryChecked, setCategoryChecked] = useState({
+  const [categoryChecked, setCategoryChecked] = useState<Record<string, any>>({
     Limited: false,
     Legendary: false,
     Ultimate: false,
@@ -37,14 +39,6 @@ export default memo(function Skins() {
 
   const subsections = ["SKINS", "CHROMAS", "PACKS"];
 
-  const sortOptions = [
-    { value: "", label: "Release Date ↓" },
-    { value: "ReleaseAscend", label: "Release Date ↑" },
-    { value: "PriceRpDescend", label: "Price (RP) ↓" },
-    { value: "PriceRpAscend", label: "Price (RP) ↑" },
-    { value: "alphabetically descend", label: "Alphabetical A-Z" },
-    { value: "alphabetically ascend", label: "Alphabetical Z-A" },
-  ];
 
   return (
     <div className="skins-store">
@@ -60,14 +54,14 @@ export default memo(function Skins() {
         setSortedBy={filters.setSortedBy}
         itemCategoryChecked={filters.categoryChecked}
         setItemCategoryChecked={filters.setCategoryChecked}
-        sortOptions={sortOptions}
+        sortOptions={STORE_SORT_OPTIONS}
         championInCollection={filters.championInCollection}
         setChampionInCollection={filters.setChampionInCollection}
       />
       <div className="gradient-layer" />
       {/* Grid de skins */}
       {subsectionSelected === "SKINS" ? (
-        <VirtualStoreGrid items={filteredItems} StoreCard={SkinCard} />
+        <VirtualStoreGrid<Skin> items={filteredItems as Skin[]} StoreCard={SkinCard} />
       ) : (
         <div className="poro-apologizes flex justify-center items-center grow">
           <img src="/global/poro_question.png" alt="Poro question"></img>

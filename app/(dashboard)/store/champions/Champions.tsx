@@ -6,7 +6,7 @@ import { useState, memo } from "react";
 import ChampionCard from "@/components/cards/store/Champion/Champion";
 import VirtualStoreGrid from "@/components/virtual-grids/VirtualStoreGrid";
 import StoreSidePanel from "@/components/StoreSidePanel/StoreSidePanel";
-
+import { STORE_SORT_OPTIONS } from "@/utils/constants";
 import { useUserChampions } from '@/hooks/useUserChampions'
 import useChampions from "@/hooks/useChampions";
 import useFilterLogic from './useFilterLogic'
@@ -17,7 +17,7 @@ export default memo(function Champions() {
   const { userChampions } = useUserChampions();
   const { championsData } = useChampions();
 
-  const [categoryChecked, setCategoryChecked] = useState({
+  const [categoryChecked, setCategoryChecked] = useState<Record<string, any>>({
     Assassin: false,
     Fighter: false,
     Mage: false,
@@ -29,28 +29,17 @@ export default memo(function Champions() {
     filteredItems,
     filters
   } = useFilterLogic({
-    items: championsData,
+    items: championsData || [],
     itemCategoryChecked: categoryChecked,
     adquiredItems: userChampions,
   })
 
 
   const subsections = ["CHAMPIONS", "ETERNALS", "PACKS"];
-  const sortOptions = [
-    { value: "", label: "Release Date ↓" },
-    { value: "ReleaseAscend", label: "Release Date ↑" },
-    { value: "PriceRpDescend", label: "Price (RP) ↓" },
-    { value: "PriceRpAscend", label: "Price (RP) ↑" },
-    { value: "PriceBeDescend", label: "Price (EA) ↓" },
-    { value: "PriceBeAscend", label: "Price (EA) ↑" },
-    { value: "AlphabeticallyDescend", label: "Alphabetical (A-Z)" },
-    { value: "AlphabeticallyAscend", label: "Alphabetical (Z-A)" },
-  ]
-
 
 
   return (
-    <div className="champion-store" styles={{paddingLeft: "4.4rem", paddingTop:"5.6rem"}}>
+    <div className="champion-store" style={{paddingLeft: "4.4rem", paddingTop:"5.6rem"}}>
 
       <StoreSidePanel
         subsections={subsections}
@@ -61,10 +50,10 @@ export default memo(function Champions() {
         inCollection={filters.inCollection}
         setInCollection={filters.setInCollection}
         sortedBy={filters.sortedBy}
+        sortOptions={STORE_SORT_OPTIONS}
         setSortedBy={filters.setSortedBy}
         itemCategoryChecked={categoryChecked}
         setItemCategoryChecked={setCategoryChecked}
-        sortOptions={sortOptions}
       />
       <div className="gradient-layer" />
       {subsectionSelected === "CHAMPIONS" ? (

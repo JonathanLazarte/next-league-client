@@ -2,28 +2,40 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setQueue } from '@/redux/slices/userInterfaceSlice.ts';
+import { setQueue } from '@/redux/slices/userInterfaceSlice';
 import ConfirmButton from '@/components/buttons/Confirm/Confirm';
 import { useSound } from '@/hooks/useSound';
+import { GAME_DATA } from '@/utils/constants';
+import { setSelectedQueue } from '@/redux/slices/matchmakingSlice';
 
 
 const QueueName = {
-  'ranked_solo_duo': 'Ranked Solo/Duo',
-  'ranked_flex': 'Ranked Flex',
-  'swiftplay': 'Swiftplay',
-  'aram': 'ARAM',
-  'aram_mayhem': 'ARAM: Mayhem',
-  'intro': 'Intro',
-  'beginner': 'Beginner',
-  'intermediate': 'Intermediate',
+  ranked_solo_duo: 'Ranked Solo/Duo',
+  ranked_flex: 'Ranked Flex',
+  swiftplay: 'Swiftplay',
+  aram: 'ARAM',
+  aram_mayhem: 'ARAM: Mayhem',
+  intro: 'Intro',
+  beginner: 'Beginner',
+  intermediate: 'Intermediate',
+} as const
+
+type QueueName = typeof QueueName[keyof typeof QueueName]
+
+type GameMode = typeof GAME_DATA[keyof typeof GAME_DATA][number]
+
+type Queue = GameMode["queues"][number]
+
+interface RenderQueueSelectorProps {
+  gameMode: GameMode;
+  setSelectedQueueGlobal: (queue: string) => void;
 }
 
-
-const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
+const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }: RenderQueueSelectorProps) => {
   const [ queueSelected, setQueueSelected ] = useState(gameMode.queues[0]);
   const { play: playQueueClick } = useSound('/sfx/sfx-soc-ui-click-generic.ogg');
 
-  const handleClick = (queue) => {
+  const handleClick = (queue: Queue) => {
     if(queueSelected.name !== queue.name) {
       setQueueSelected(queue);
       setSelectedQueueGlobal(queue.name);
@@ -45,7 +57,7 @@ const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
             <div className="custom-checkbox">
               {queueSelected.name === queue.name && <div className="checkboxMark" />}
             </div>
-            <span>{QueueName[queue.name]}</span>
+            <span>{QueueName[queue.name as keyof typeof QueueName]}</span>
           </div>
         ))
       }
@@ -53,7 +65,16 @@ const RenderQueueSelector = ({ gameMode, setSelectedQueueGlobal }) => {
   );
 };
 
-const RenderGameMode = ({ gameMode, selectedMap, hoveredMap, setSelectedMap, setHoveredMap, setSelectedQueueGlobal }) => {
+interface RenderGameModeProps {
+  gameMode: GameMode;
+  selectedMap: string;
+  hoveredMap: string;
+  setSelectedMap: React.Dispatch<React.SetStateAction<string>>;
+  setHoveredMap: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedQueueGlobal: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const RenderGameMode = ({ gameMode, selectedMap, hoveredMap, setSelectedMap, setHoveredMap, setSelectedQueueGlobal }: RenderGameModeProps) => {
   const { play: playGameModeHover } = useSound('/sfx/sfx-gameselect-button-hover.ogg');
   const { play : playGameModeClick } = useSound('/sfx/sfx-gameselect-button-map-click.ogg');
   const handleMouseEnter = () => {
@@ -114,7 +135,11 @@ const RenderGameMode = ({ gameMode, selectedMap, hoveredMap, setSelectedMap, set
   );
 }
 
-export default function ModeSelector({ data : gameModes }){
+interface ModeSelectorProps {
+  data: typeof GAME_DATA[keyof typeof GAME_DATA]
+}
+
+export default function ModeSelector({ data : gameModes }: ModeSelectorProps){
 	const [ selectedMap, setSelectedMap ] = useState(gameModes[0].title);
 	const [ hoveredMap, setHoveredMap ] = useState('');
   const dispatch = useDispatch();
@@ -125,9 +150,10 @@ export default function ModeSelector({ data : gameModes }){
   };
 
   useEffect(() => {
-    const mapInfo = gameModes.find(map => map.title === selectedMap);
-    setSelectedQueueGlobal(mapInfo?.queues[0].name);
-  },[selectedMap])
+    const selectedMapData = gameModes.find(map => map.title === selectedMap);
+    if(selectedMapData) setSelectedQueueGlobal(selectedMapData.queues[0].name);
+  }, [selectedMap])
+
 	return <>
 
       <div className="gamemode-selector">

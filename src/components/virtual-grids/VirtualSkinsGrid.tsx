@@ -5,23 +5,24 @@ import { useRef, useMemo, memo, useState, useCallback, useLayoutEffect } from "r
 import SkinCard from "@/components/cards/collection/Skin/Skin";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import { useThrottledCallback } from "@/hooks/useThrottle";
-import type { Skin } from '@/utils/types'
+import type { Skin } from '@/types/skin'
+import type { SkinGroupingOptionsValues } from "@/types/ui";
 import type { UserSkin } from '@/redux/slices/userSkinsSlice'
 import "./virtualGrid.css";
 
 type SkinsGroup = [
   string,
   Skin[]
-]
+  ][]
 
 
 interface VirtualSkinsProps {
-  groupedSkins: SkinsGroup[],
+  groupedSkins: SkinsGroup,
   onHoverStart: (skin: Skin, skinCardRef: React.RefObject<HTMLDivElement>) => void,
   onHoverEnd: () => void,
   tooltipPosRef: React.MutableRefObject<{ x: number, y: number }>,
   userSkins: UserSkin[],
-  groupedBy: string,
+  groupedBy: SkinGroupingOptionsValues | null,
   handleScroll: () => void
 }
 
@@ -41,7 +42,6 @@ export default memo(function VirtualSkinsGrid({
     () => new Set(userSkins.map((us: UserSkin) => us.id)),
     [userSkins]
   );
-  console.log(userSkins)
   function getRem() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
   }

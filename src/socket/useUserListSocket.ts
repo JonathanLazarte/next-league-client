@@ -1,20 +1,22 @@
 import { useEffect } from 'react'
 import { useConnectedUsers } from "@/hooks/useConnectedUsers";
-import type { User } from '@/utils/types'
+import type { ConnectedUser } from '@/types/user'
 import type { Socket } from 'socket.io-client'
 
-export function useUserListSocket(socket: Socket, user: User) {
+export function useUserListSocket(socket: Socket | undefined) {
   const { setFriendsOnline } = useConnectedUsers();
 
+  interface FriendFolder {
+    name: string,
+    users: ConnectedUser[]
+  }
+  type FriendFolders = FriendFolder[]
 
   useEffect(() => {
     if (!socket) return;
-    socket.on("user-list", (msg: User[]) => {
-      //const actualUserIndex = msg.findIndex((u) => u.alias === user.alias);
-      //msg.splice(actualUserIndex, 1);
-      const ownIndex = msg.findIndex(u => u.alias === user?.alias);
-      msg.splice(ownIndex, 1);
-      const friendFolders = [
+    socket.on("user-list", (msg: ConnectedUser[]) => {
+
+      const friendFolders: FriendFolders  = [
         {
           name: "general",
           users: msg,
@@ -24,7 +26,7 @@ export function useUserListSocket(socket: Socket, user: User) {
       setFriendsOnline(friendFolders);
     });
     return () => { socket.off("user-list"); }
-  }, [setFriendsOnline, user?.alias]);
+  }, [setFriendsOnline]);
 
   return
 }

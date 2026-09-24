@@ -2,24 +2,24 @@ import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import CustomSelect from "@/components/CustomSelect/CustomSelect";
 import type { Dispatch, SetStateAction } from "react";
+import type { SortOptions, SortOptionsValues, FilterCategories } from "@/types/ui";
 
-type ItemCategory = "fighter" | "assasin" | "marskman" //TODO
 
 interface StoreSidePanelProps {
-  subsections: string[],
-  subsectionSelected: string,
-  setSubsectionSelected: Dispatch<SetStateAction<string>>,
-  searchKeys: string,
-  setSearchKeys: Dispatch<SetStateAction<string>>,
-  inCollection: boolean,
-  setInCollection: Dispatch<SetStateAction<boolean>>,
-  sortOptions: string[],
-  sortedBy: string,
-  setSortedBy: Dispatch<SetStateAction<string>>,
-  itemCategoryChecked: Record<string, boolean>,
-  setItemCategoryChecked: Dispatch<SetStateAction<Record<string, boolean>>>,
-  championInCollection: boolean,
-  setChampionInCollection: Dispatch<SetStateAction<boolean>>
+  subsections: string[];
+  subsectionSelected: string;
+  setSubsectionSelected: Dispatch<SetStateAction<string>>;
+  searchKeys: string;
+  setSearchKeys: Dispatch<SetStateAction<string>>;
+  inCollection: boolean;
+  setInCollection: Dispatch<SetStateAction<boolean>>;
+  sortOptions: SortOptions;
+  sortedBy: SortOptionsValues | null;
+  setSortedBy: Dispatch<SetStateAction<SortOptionsValues | null>>;
+  itemCategoryChecked: Record<string, any>;
+  setItemCategoryChecked: Dispatch<SetStateAction<Record<string, any>>>;
+  championInCollection?: boolean;
+  setChampionInCollection?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function StoreSidePanel({
@@ -39,10 +39,10 @@ export default function StoreSidePanel({
   setChampionInCollection
 }: StoreSidePanelProps) {
 
-  const handleCheckboxChange = (role: string) => {
+  const handleCheckboxChange = (role: keyof FilterCategories) => {
     setItemCategoryChecked((prev) => ({
       ...prev,
-      [role]: !prev[role],
+      [role as keyof typeof prev]: !prev[role as keyof typeof prev],
     }));
   };
 
@@ -99,7 +99,7 @@ export default function StoreSidePanel({
         onChange={setSortedBy}
         placeholder="Select..."
       />
-      {championInCollection !== undefined && (
+      {championInCollection !== undefined && setChampionInCollection !== undefined && (
         <div
           onClick={() => setChampionInCollection((prev) => !prev)}
           className="checkbox"
@@ -111,7 +111,7 @@ export default function StoreSidePanel({
         </div>
       )}
 
-      {Object.keys(itemCategoryChecked).map((cat: string) => (
+      {(Object.keys(itemCategoryChecked) as Array<keyof FilterCategories>).map((cat) => (
         <div
           key={cat}
           className="checkbox"

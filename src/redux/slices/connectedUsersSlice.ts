@@ -1,27 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { ConnectedUser } from "@/types/user"
 
-export interface ConnectedUser {
-  id: string;
-  alias: string;
-  tag: string;
-  title: string;
-  rank: object;
-  profile_icon: number;
-  profile_background: string;
-  profile_border: string;
-  status: "online" | "offline" | "away";
-  activity:
-    | "idle"
-    | "in queue"
-    | "ranked_flex"
-    | "ranked_solo_duo"
-    | "swiftplay"
-    | "in_game";
+export interface FriendFolder {
+  name: string,
+  users: ConnectedUser[]
 }
-
+export type FriendFolders = FriendFolder[]
 
 interface ConnectedUsersState {
-  friendsOnline: Record<string, ConnectedUser[]>[];
+  friendsOnline: FriendFolders;
   partyMembers: ConnectedUser[];
 }
 
@@ -34,7 +21,7 @@ const connectedUsersSlice = createSlice({
   name: "connectedUsers",
   initialState,
   reducers: {
-    setFriendsOnline: (state, action: PayloadAction<Record<string, ConnectedUser[] >[]>) => {
+    setFriendsOnline: (state, action: PayloadAction<FriendFolders>) => {
       state.friendsOnline = action.payload;
     },
     setPartyMembers: (state, action: PayloadAction<ConnectedUser[]>) => {

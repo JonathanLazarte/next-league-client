@@ -11,7 +11,7 @@ import {
   setIsSettingsModalOpen,
   selectUserInterfaceData,
 } from '@/redux/slices/userInterfaceSlice';
-import type { UserState, Queue, Section, QueueStatus } from '@/redux/slices/userInterfaceSlice'
+import type { UserState, Queue, Section, QueueStatus } from '@/types/ui'
 
 
 export const useUserInterface = () => {
@@ -42,6 +42,9 @@ export const useUserInterface = () => {
     dispatch(toggleSideNav())
   }, [dispatch])
 
+  const updateSettingsModal = useCallback((status: boolean) => {
+    dispatch(setIsSettingsModalOpen(status))
+  }, [dispatch])
   return {
     // Estado
     ...uiState,
@@ -53,6 +56,6 @@ export const useUserInterface = () => {
     updateQueue,
     updateQueueStatus,
     updateSideNav,
-    setIsSettingsModalOpen
+    updateSettingsModal
   };
 };

@@ -7,7 +7,7 @@ import { useSound } from '@/hooks/useSound'
 
 import "./Skin.css";
 import { RESOURCES_URL } from "@/utils/constants";
-import type { Skin } from '@/utils/types'
+import type { Skin } from '@/types/skin'
 
 interface SkinCardProps {
   onHoverStart: (skin: Skin, ref: React.RefObject<HTMLDivElement>) => void,

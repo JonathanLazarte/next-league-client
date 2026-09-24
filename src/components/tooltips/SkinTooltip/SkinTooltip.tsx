@@ -3,14 +3,9 @@
 import ReactDOM from "react-dom";
 import "./SkinTooltip.css";
 import { memo, useRef, useLayoutEffect, useState } from "react";
+import type { Skin } from "@/types/skin";
 
-interface Skin {
-  chromas: boolean,
-  value: number,
-  purchaseDate: number,
-  rarity: string,
-  name: string
-}
+
 
 interface SkinTooltipProps {
   content: Skin,

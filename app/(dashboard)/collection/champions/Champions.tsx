@@ -9,6 +9,7 @@ import Filters from './components/Filters'
 import EmptyChampionsState from "./components/EmptyChampionsState";
 import useChampionHoverTooltip from "./hooks/useChampionHoverTooltip";
 import useChampionsFilter from "./hooks/useChampionsFilter";
+import { Champion } from "@/types/champion";
 
 
 
@@ -30,7 +31,7 @@ export default memo(function Champions() {
     currentDelayType
   } = useChampionHoverTooltip()
 
-  const handleChampionClick = (champion: Record<string, unknown>) => {
+  const handleChampionClick = (champion: Champion) => {
     cancel();
     setHoveredChampion(null);
     setSelectedChampion(championFull[champion.id]);
@@ -89,7 +90,7 @@ export default memo(function Champions() {
         <Tooltip
           currentDelayType={currentDelayType}
           content={{
-            championName: hoveredChampion?.name || null,
+            championName: hoveredChampion?.name,
             masteryLevel: 1,
             masteryPoints: 0,
             maxSeasonRating: "N/D",

@@ -10,7 +10,6 @@ import { RESOURCES_URL } from '@/utils/constants'
 import { useAuth } from '@/hooks/useAuth'
 import { useUser } from "@/hooks/useUser";
 import { useSound } from "@/hooks/useSound"
-import { setIsSettingsModalOpen } from "@/redux/slices/userInterfaceSlice";
 
 interface ProfileBoxProps {
   updateSideNav: () => void,
@@ -19,7 +18,7 @@ interface ProfileBoxProps {
 
 const ProfileBox = ({ updateSideNav, userState }: ProfileBoxProps) => {
   const { user } = useUser();
-  const { queue, queueStatus, updateUserState } = useUserInterface();
+  const { queue, queueStatus, updateUserState, updateSettingsModal } = useUserInterface();
   const [iconIsInHover, setIconIsInHover] = useState(false);
   const { play: playClickGeneric } = useSound("/sfx/sfx-uikit-click-generic.ogg")
   const showPerfilSpanStyle = iconIsInHover
@@ -125,7 +124,7 @@ const ProfileBox = ({ updateSideNav, userState }: ProfileBoxProps) => {
             className="accountOptionIcon"
             onClick={() => {
               playClickGeneric();
-              setIsSettingsModalOpen(true);
+              updateSettingsModal(true);
             }}
           />
           <PiXBold onClick={() => handleLogout()} className="accountOptionIcon" />

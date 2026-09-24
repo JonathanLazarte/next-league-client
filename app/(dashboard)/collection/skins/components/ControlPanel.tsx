@@ -1,6 +1,7 @@
 import { memo } from "react";
 import TotalSkinsCount from "./TotalSkinsCount";
 import RaritySkinsCount from "./RaritySkinCount";
+import { Skin } from "@/types/skin";
 
 type TooltipTrigger = ({ content }: { content: string; }) => {
   ref: React.MutableRefObject<null>;
@@ -8,10 +9,9 @@ type TooltipTrigger = ({ content }: { content: string; }) => {
   onMouseLeave: () => void;
 }
 
-
 interface ControlPanelProps {
     userSkinsCount: number;
-    userSkinsFull: string[];
+    userSkinsFull: Skin[];
     trigger: TooltipTrigger;
 }
 

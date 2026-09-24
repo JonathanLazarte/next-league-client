@@ -1,19 +1,14 @@
+import type { Skin, UserSkin } from '@/types/skin'
+
+
 interface SkinsLogicProps {
-  groupedBy: string,
+  groupedBy: string | null,
   showNotObtained: boolean,
-  skins: string[],
-  userSkinsFull: string[]
-  sortedBy: string,
-  deferredSearch: string,
-  userSkins: string[]
-}
-
-interface Skin {
-  purchaseDate: number
-  release: string
-  champion: string | string[],
-  rarity: string,
-
+  skins: Skin[],
+  userSkinsFull: Skin[]
+  sortedBy: string | null,
+  deferredSearch: string | null,
+  userSkins: UserSkin[]
 }
 
 export default function skinsLogic({
@@ -37,20 +32,20 @@ export default function skinsLogic({
     ).sort(([a], [b]) => Number(b) - Number(a));
   }
 
-  function groupByReleaseYear(skins) {
+  function groupByReleaseYear(skins: Skin[]) {
     return Object.entries(
-      skins.reduce((acc, skin) => {
+      skins.reduce((acc: Record<number, Skin[]>, skin: Skin) => {
         const year = new Date(skin.release).getFullYear();
         acc[year] = acc[year] || [];
         acc[year].push(skin);
         return acc;
-      }, {}),
-    ).sort(([a], [b]) => b - a);
+      }, {} as Record<number, Skin[]>),
+    ).sort(([a], [b]) => Number(b) - Number(a))
   }
 
-  function groupByChampion(skins) {
+  function groupByChampion(skins: Skin[]) {
     return Object.entries(
-      skins.reduce((acc, skin) => {
+      skins.reduce((acc: Record<string, Skin[]>, skin: Skin) => {
         acc[skin.champion] = acc[skin.champion] || [];
         acc[skin.champion].push(skin);
         return acc;
@@ -58,9 +53,9 @@ export default function skinsLogic({
     ).sort(([a], [b]) => a.localeCompare(b));
   }
 
-  function groupBySkinline(skins) {
+  function groupBySkinline(skins: Skin[]) {
     return Object.entries(
-      skins.reduce((acc, skin) => {
+      skins.reduce((acc: Record<string, Skin[]>, skin) => {
         acc[skin.set[0]] = acc[skin.set[0]] || [];
         acc[skin.set[0]].push(skin);
         return acc;
@@ -68,9 +63,9 @@ export default function skinsLogic({
     ).sort(([a], [b]) => a.localeCompare(b));
   }
 
-  function groupByRarity(skins) {
+  function groupByRarity(skins: Skin[]) {
     return Object.entries(
-      skins.reduce((acc, skin) => {
+      skins.reduce((acc: Record<string, Skin[]>, skin: Skin) => {
         acc[skin.rarity] = acc[skin.rarity] || [];
         acc[skin.rarity].push(skin);
         return acc;
@@ -78,8 +73,8 @@ export default function skinsLogic({
     ).sort(([a], [b]) => a.localeCompare(b));
   }
 
-  function groupByChampionInitial(skins) {
-    const grouped = skins.reduce((acc, skin) => {
+  function groupByChampionInitial(skins: Skin[]) {
+    const grouped = skins.reduce((acc: Record<string, Skin[]>, skin: Skin) => {
       const initial = (skin.champion?.[0] || "#").toUpperCase();
       (acc[initial] ||= []).push(skin);
       return acc;
@@ -88,9 +83,10 @@ export default function skinsLogic({
     return Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b));
   }
 
-  function getGroupedSkins(mode, showNotObtained, allSkins, userSkins) {
+  function getGroupedSkins(mode: string | null, showNotObtained: boolean, allSkins: Skin[], userSkins: Skin[] ): [string, Skin[]][] {
     // primero agrupamos SOLO lo del usuario
-    let groupedUser;
+    let groupedUser: [string, Skin[]][];
+
     switch (mode) {
       case "collection":
         if (sortedBy === "releaseDate") {
@@ -127,11 +123,10 @@ export default function skinsLogic({
     }
 
     // si hay que mostrar también los no obtenidos
-    // eslint-disable-next-line no-undef
     const obtainedIds = new Set(userSkins?.map((s) => s.id));
     const notObtained = allSkins.filter((s) => !obtainedIds.has(s.id));
 
-    let groupedNotObtained;
+    let groupedNotObtained: [string, Skin[]][];
     switch (mode) {
       case "all":
         if (sortedBy === "alphabetical") {
@@ -154,7 +149,7 @@ export default function skinsLogic({
     }
 
     // combinamos: primero obtenidos, luego no obtenidos
-    const combined = [];
+    const combined: [string, Skin[]][] = [];
     // eslint-disable-next-line no-undef
     const mapNotObtained = new Map(groupedNotObtained);
     for (const [section, skins] of groupedUser) {
@@ -168,7 +163,7 @@ export default function skinsLogic({
     return combined;
   }
 
-  function applySectionSorting(grouped, sortedBy, userSkins) {
+  function applySectionSorting(grouped: [string, Skin[]][], sortedBy: string | null) {
     if (!grouped) return [];
     const sortedGrouped = [...grouped];
     switch (sortedBy) {
@@ -181,36 +176,13 @@ export default function skinsLogic({
       case "alphabetical":
         sortedGrouped.sort(([a], [b]) => a.localeCompare(b));
         break;
-      case "mastery":
-        sortedGrouped.sort(([, skinsA], [, skinsB]) => {
-          const masteryA = skinsA.reduce(
-            (sum, s) => sum + (s.championMastery || 0),
-            0,
-          );
-          const masteryB = skinsB.reduce(
-            (sum, s) => sum + (s.championMastery || 0),
-            0,
-          );
-          return masteryB - masteryA;
-        });
-        break;
-      case "mostOwned": {
-        // eslint-disable-next-line no-undef
-        const obtainedIds = new Set(userSkins?.map((s) => s.id));
-        sortedGrouped.sort(([, skinsA], [, skinsB]) => {
-          const ownedA = skinsA.filter((s) => obtainedIds.has(s.id)).length;
-          const ownedB = skinsB.filter((s) => obtainedIds.has(s.id)).length;
-          return ownedB - ownedA;
-        });
-        break;
-      }
       default:
         break;
     }
     return sortedGrouped;
   }
 
-  const applySearchFilter = (groupedSections, searchKeys) => {
+  const applySearchFilter = (groupedSections: [string, Skin[]][], searchKeys: string | null) => {
     if (!searchKeys) return groupedSections;
 
     const lower = searchKeys.toLowerCase();
@@ -222,7 +194,7 @@ export default function skinsLogic({
         );
         return [section, filteredSkins];
       })
-      .filter(([, skins]) => skins.length > 0);
+      .filter(([, skins]) => skins.length > 0) as [string, Skin[]][];
   };
 
   const grouped = getGroupedSkins(
@@ -233,11 +205,9 @@ export default function skinsLogic({
   );
   const sectionSorted = applySectionSorting(
     grouped,
-    groupedBy,
     sortedBy,
-    userSkins,
   );
   const searched = applySearchFilter(sectionSorted, deferredSearch);
 
-  return applySearchFilter(searched);
+  return searched;
 }

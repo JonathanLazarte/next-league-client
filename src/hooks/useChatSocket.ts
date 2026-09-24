@@ -33,17 +33,17 @@ export function useChatSocket(socket: Socket | undefined) {
 
     // Handle typing indicators
     const handleTyping = (user: ChatUser, isTyping: boolean) => {
-      setTyping({ userId: user.userId, isTyping  })
+      setTyping({ id: user.id, isTyping  })
 
       // Clear existing timeout
-      if (typingTimeouts.current[user.userId]) {
-        clearTimeout(typingTimeouts.current[user.userId])
+      if (typingTimeouts.current[user.id]) {
+        clearTimeout(typingTimeouts.current[user.id])
       }
 
       // Set timeout to stop typing indicator
       if (user.isTyping) {
-        typingTimeouts.current[user.userId] = setTimeout(() => {
-          setTyping({ userId: user.userId, isTyping: false })
+        typingTimeouts.current[user.id] = setTimeout(() => {
+          setTyping({ id: user.id, isTyping: false })
         }, 3000)
       }
     }
@@ -51,7 +51,7 @@ export function useChatSocket(socket: Socket | undefined) {
     // Handle user status updates
     const handleUserStatusUpdate = (data: ChatUser) => {
       updateUserStatus({
-        userId: data.userId,
+        id: data.id,
         status: data.status
       })
     }
@@ -59,14 +59,14 @@ export function useChatSocket(socket: Socket | undefined) {
     // Handle user online/offline
     const handleUserOnline = (data: ChatUser) => {
       updateUserStatus({
-        userId: data.userName,
+        id: data.alias,
         status: 'online'
       })
     }
 
     const handleUserOffline = (data: ChatUser) => {
       updateUserStatus({
-        userId: data.userName,
+        id: data.alias,
         status: 'offline'
       })
     }

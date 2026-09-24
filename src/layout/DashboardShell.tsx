@@ -28,7 +28,6 @@ import { useChatSocket } from '@/socket/useChatSocket'
 import { useAppHydration } from "@/hooks/useAppHydration";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import { useRouteSync } from '@/hooks/useRouteSync'
-import { SocketRef } from '@/utils/types'
 import { ReactElement } from "react";
 
 
@@ -43,7 +42,7 @@ export default function ProvidersWrapper({ children }: { children: ReactElement}
   const isReady = !user.alias || authLoading || !isAuthenticated
 
   useAppHydration(token)
-  useUserListSocket(socket, user)
+  useUserListSocket(socket)
   useChatSocket(socket)
   useRouteSync()
 
@@ -55,7 +54,7 @@ export default function ProvidersWrapper({ children }: { children: ReactElement}
       <BackgroundEngine />
       <ResponsiveHeader />
       <SideNav />
-      <Chat />
+      <Chat socket={socket} />
       <MusicPlayer />
       <TooltipLayer />
       <SettingsModal/>

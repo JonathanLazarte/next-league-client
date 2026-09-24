@@ -1,9 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
+interface ErrorBoundaryProps {
+  children: React.ReactNode
+}
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
@@ -12,12 +21,12 @@ class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error,
       errorInfo
     });
-    
+
     // Log error to console in development
     if (process.env.NODE_ENV === 'development') {
       console.error('ErrorBoundary caught an error:', error, errorInfo);
@@ -42,15 +51,15 @@ class ErrorBoundary extends React.Component {
           color: 'var(--color-secundary)',
           background: 'var(--blue-five)'
         }}>
-          <h2 style={{ 
-            fontFamily: 'Bold', 
+          <h2 style={{
+            fontFamily: 'Bold',
             fontSize: 'var(--font-2xl)',
             marginBottom: '1rem',
             color: 'var(--gold-four)'
           }}>
             Algo salió mal
           </h2>
-          <p style={{ 
+          <p style={{
             marginBottom: '2rem',
             color: 'var(--grey-three)',
             maxWidth: '500px'
@@ -68,8 +77,8 @@ class ErrorBoundary extends React.Component {
             Intentar de nuevo
           </button>
           {process.env.NODE_ENV === 'development' && this.state.error && (
-            <details style={{ 
-              marginTop: '2rem', 
+            <details style={{
+              marginTop: '2rem',
               textAlign: 'left',
               maxWidth: '800px',
               background: 'rgba(0,0,0,0.3)',
@@ -79,13 +88,13 @@ class ErrorBoundary extends React.Component {
               <summary style={{ cursor: 'pointer', marginBottom: '0.5rem' }}>
                 Detalles del error (solo en desarrollo)
               </summary>
-              <pre style={{ 
-                fontSize: '0.8rem', 
+              <pre style={{
+                fontSize: '0.8rem',
                 overflow: 'auto',
                 color: 'var(--grey-three)'
               }}>
                 {this.state.error.toString()}
-                {this.state.errorInfo.componentStack}
+                {this.state.errorInfo?.componentStack}
               </pre>
             </details>
           )}
@@ -98,4 +107,3 @@ class ErrorBoundary extends React.Component {
 }
 
 export default ErrorBoundary;
-

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { fetchUser } from '@/redux/slices/userSlice'
+import type { ConnectedUser } from "@/types/user"
 
 export interface Message {
   id: string;
@@ -13,10 +14,6 @@ export interface Message {
 }
 
 export interface ChatUser {
-  userId: string;
-  userName?: string;
-
-
   alias: string;
   profile_icon: number;
   profile_border: string;
@@ -27,9 +24,12 @@ export interface ChatUser {
   tag: string;
   id: string;
   title: string;
-  rank: object;
-  profile_background: string;
-  activity:
+  rank: {
+    name: string,
+    points: number
+  };
+  profile_background?: string;
+  activity?:
     | "idle"
     | "in queue"
     | "ranked_flex"
@@ -67,7 +67,7 @@ export interface ChatState {
   selectedChat: string | object | null;
   selectedUser: ChatUser | null;
   isChatVisible: boolean;
-  isTyping: Record<string, boolean>; // userId -> isTyping
+  isTyping: Record<string, boolean>;
 
   // Notifications
   unreadCount: number;
@@ -106,96 +106,96 @@ const chatSlice = createSlice({
     openChat: (
       state,
       action: PayloadAction<{
-        userId: string;
-        userName: string;
+        id: string;
+        alias: string;
         profile_icon: number;
       }>,
     ) => {
-      const { userId, userName } = action.payload;
+      const { id, alias } = action.payload;
 
       // Create chat room if it doesn't exist
-      if (!state.chatRooms[userId]) {
-        state.chatRooms[userId] = {
-          id: userId,
-          name: userName,
+      if (!state.chatRooms[id]) {
+        state.chatRooms[id] = {
+          id: id,
+          name: alias,
           type: "private",
-          participants: [userId],
+          participants: [id],
           isActive: true,
           isMinimized: false,
         };
       }
 
       // Add to active chats if not already there
-      if (!state.activeChats.includes(userId)) {
-        state.activeChats.push(userId);
+      if (!state.activeChats.includes(id)) {
+        state.activeChats.push(id);
       }
 
       // Remove from minimized if it was there
-      state.minimizedChats = state.minimizedChats.filter((id) => id !== userId);
+      state.minimizedChats = state.minimizedChats.filter((id) => id !== id);
 
       // Set as selected chat
-      state.selectedChat = userId;
+      state.selectedChat = id;
       state.isChatVisible = true;
 
       // Reset unread count for this chat
-      if (state.chatUsers[userId]) {
-        state.chatUsers[userId].unreadCount = 0;
+      if (state.chatUsers[id]) {
+        state.chatUsers[id].unreadCount = 0;
       }
     },
 
     closeChat: (state, action: PayloadAction<string>) => {
-      const userId = action.payload;
-      state.activeChats = state.activeChats.filter((id) => id !== userId);
-      state.minimizedChats = state.minimizedChats.filter((id) => id !== userId);
+      const id = action.payload;
+      state.activeChats = state.activeChats.filter((userid) => userid !== id);
+      state.minimizedChats = state.minimizedChats.filter((userid) => userid !== id);
 
-      if (state.selectedChat === userId) {
+      if (state.selectedChat === id) {
         state.selectedChat = state.activeChats[0] || null;
         state.isChatVisible = state.activeChats.length > 0;
       }
     },
 
     minimizeChat: (state, action: PayloadAction<string>) => {
-      const userId = action.payload;
-      if (state.activeChats.includes(userId)) {
-        state.activeChats = state.activeChats.filter((id) => id !== userId);
-        state.minimizedChats.push(userId);
-        state.chatRooms[userId].isMinimized = true;
+      const id = action.payload;
+      if (state.activeChats.includes(id)) {
+        state.activeChats = state.activeChats.filter((userid) => userid !== id);
+        state.minimizedChats.push(id);
+        state.chatRooms[id].isMinimized = true;
 
-        if (state.selectedChat === userId) {
+        if (state.selectedChat === id) {
           state.selectedChat = state.activeChats[0] || null;
         }
       }
     },
 
     restoreChat: (state, action: PayloadAction<string>) => {
-      const userId = action.payload;
-      if (state.minimizedChats.includes(userId)) {
+      const id = action.payload;
+      if (state.minimizedChats.includes(id)) {
         state.minimizedChats = state.minimizedChats.filter(
-          (id) => id !== userId,
+          (userid) => userid !== id,
         );
-        state.activeChats.push(userId);
-        state.chatRooms[userId].isMinimized = false;
-        state.selectedChat = userId;
+        state.activeChats.push(id);
+        state.chatRooms[id].isMinimized = false;
+        state.selectedChat = id;
       }
     },
 
-    selectUser: (state, action: PayloadAction<ChatUser>) => {
+    selectUser: (state, action: PayloadAction<ConnectedUser>) => {
       state.selectedUser = action.payload
       state.isChatVisible = true;
     },
 
     selectChat: (state, action: PayloadAction<string>) => {
-      const userId = action.payload;
+      const id = action.payload;
       if (
-        state.activeChats.includes(userId) ||
-        state.minimizedChats.includes(userId)
+        state.activeChats.includes(id) ||
+        state.minimizedChats.includes(id)
       ) {
-        state.selectedChat = userId;
+        state.selectedChat = id;
         state.isChatVisible = true;
 
         // Reset unread count
-        if (state.chatUsers[userId]) {
-          state.chatUsers[userId].unreadCount = 0;
+        if (state.chatUsers[id]) {
+          state.chatUsers[id].unreadCount = 0;
         }
       }
     },
@@ -239,20 +239,20 @@ const chatSlice = createSlice({
     },
 
     // User Management
-    updateChatUser: (state, action: PayloadAction<ChatUser>) => {
+    updateChatUser: (state, action: PayloadAction<ConnectedUser>) => {
       const user = action.payload;
-      state.chatUsers[user.userId] = user;
+      state.chatUsers[user.id] = user;
     },
 
     updateUserStatus: (
       state,
-      action: PayloadAction<{ userId: string; status: ChatUser["status"] }>,
+      action: PayloadAction<{ id: string; status: ChatUser["status"] }>,
     ) => {
-      const { userId, status } = action.payload;
-      if (state.chatUsers[userId]) {
-        state.chatUsers[userId].status = status;
+      const { id, status } = action.payload;
+      if (state.chatUsers[id]) {
+        state.chatUsers[id].status = status;
         if (status === "offline") {
-          state.chatUsers[userId].lastSeen = Date.now();
+          state.chatUsers[id].lastSeen = Date.now();
         }
       }
     },
@@ -260,13 +260,13 @@ const chatSlice = createSlice({
     // Typing Indicators
     setTyping: (
       state,
-      action: PayloadAction<{ userId: string; isTyping: boolean }>,
+      action: PayloadAction<{ id: string; isTyping: boolean }>,
     ) => {
-      const { userId, isTyping } = action.payload;
-      state.isTyping[userId] = isTyping;
+      const { id, isTyping } = action.payload;
+      state.isTyping[id] = isTyping;
 
-      if (state.chatUsers[userId]) {
-        state.chatUsers[userId].isTyping = isTyping;
+      if (state.chatUsers[id]) {
+        state.chatUsers[id].isTyping = isTyping;
       }
     },
 
@@ -323,8 +323,8 @@ const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.
-      addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ userData: { messages: Message[]}} >) => {
-        const { userData } = action.payload
+      addCase(fetchUser.fulfilled, (state, action: PayloadAction<Record<string, any>>) => {
+        const userData = action.payload
         state.messages = userData.messages
       })
   }

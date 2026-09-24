@@ -11,6 +11,7 @@ import {
 import { saveSettings } from "@/redux/slices/settingsSlice";
 import { useAppSelector, useAppDispatch } from '@/hooks/hooks'
 import { useSound } from '@/hooks/useSound'
+import { useUserInterface } from "@/hooks/useUserInterface";
 
 interface SoundControlProps {
   label: string,
@@ -35,7 +36,7 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }: SoundControlPr
   };
   const handleCommit = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
     const target = e.currentTarget as HTMLInputElement
-    const val = target.value;
+    const val = Number(target.value);
     dispatch(setVolume({ type, val }));
   };
 
@@ -105,7 +106,7 @@ function AudioSettings() {
   };
   const handleCommit = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
     const target = e.currentTarget as HTMLInputElement
-    const val = target.value;
+    const val = Number(target.value);
     dispatch(setVolume({ type: "master", val }));
   };
 
@@ -165,11 +166,12 @@ function AudioSettings() {
   );
 }
 
-export default function Settings({ setIsSettingsOpen }: { setIsSettingsOpen: () => void }) {
+export default function Settings() {
   const [settingSelected, setSettingSelected] = useState("sound");
   const userSettings = useAppSelector((state) => state.settings);
+  const { updateSettingsModal, isSettingsModalOpen } = useUserInterface()
   const dispatch = useAppDispatch();
-    const { play: playButtonGoldClick } = useSound("/sfx/sfx-uikit-button-gold-click.ogg")
+  const { play: playButtonGoldClick } = useSound("/sfx/sfx-uikit-button-gold-click.ogg")
 
   const handleRestoreDefaults = () => {
     dispatch(restoreDefaults());
@@ -196,10 +198,11 @@ export default function Settings({ setIsSettingsOpen }: { setIsSettingsOpen: () 
     const token = localStorage.getItem("token");
     if (token) dispatch(saveSettings({ userId: token, settings: updatedUserSettings }));
   };
+
   return (
     typeof window !== "undefined" &&
     ReactDOM.createPortal(
-      <div className="settings-modal">
+      <div style={{ display: isSettingsModalOpen ? "flex" : "none" }} className="settings-modal">
         <div className="settings-panel">
           <div className="settings-header">
             <div className="settings-header-tittle">
@@ -234,7 +237,7 @@ export default function Settings({ setIsSettingsOpen }: { setIsSettingsOpen: () 
             className="general-button"
             onClick={() => {
               handleSaveSettings();
-              setIsSettingsOpen();
+              updateSettingsModal(false);
             }}
           >
             DONE

@@ -14,24 +14,23 @@ import ChampionCard from "@/components/cards/collection/Champion/Champion";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
 import { useThrottledCallback } from "@/hooks/useThrottle";
+import type { Champion, AdquiredChampion } from '@/types/champion';
+import { ChampionGroupingOptionsValues } from '@/types/ui';
 
-interface Champion {
-  id: string,
-}
 
 interface VirtualSkinsGridProps {
-  onHoverStart: () => void,
+  onHoverStart: (champion: any, championCardRef: any) => void,
   onHoverEnd: () => void,
-  tooltipPosRef: React.RefObject<{ x:number, y: number, rect: unknown }>,
+  tooltipPosRef: React.MutableRefObject<{ x:number, y: number, rect: unknown }>,
   groupedChampions: object,
-  handleChampionClick: (champion: Record<string, unknown>) => void,
-  userChampions: Champion[],
-  groupedBy: string,
-  tooltipRef: React.RefObject<unknown>,
+  handleChampionClick: (champion: Champion) => void,
+  userChampions: AdquiredChampion[],
+  groupedBy: ChampionGroupingOptionsValues | null,
+  tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
   handleScroll: () => void
 }
 
-export default memo(function VirtualSkinsGrid({
+export default memo(function VirtualChampionsGrid({
   onHoverStart,
   onHoverEnd,
   tooltipPosRef,
@@ -112,7 +111,7 @@ export default memo(function VirtualSkinsGrid({
         result.push({
           type: "header",
           section:
-            groupedBy === "collection" ? `Obtenido en ${section}` : section,
+            groupedBy === "possession" ? `Obtenido en ${section}` : section,
         });
       }
 
@@ -195,7 +194,7 @@ export default memo(function VirtualSkinsGrid({
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
-                  {row.champions?.map((c: Record<string, any>, index: string) => (
+                  {row.champions?.map((c: Champion, index: string) => (
                     <ChampionCard
                       key={c.id || index} // Usar poke.id si está disponible, de lo contrario, index
                       id={index}

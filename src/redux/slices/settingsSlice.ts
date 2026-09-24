@@ -94,8 +94,8 @@ const settingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ userData: { settings: { sound: SoundSettings }} }>) => {
-      state.sound = action.payload.userData.settings.sound;
+      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<Record<string, any>>) => {
+      state.sound = action.payload.settings.sound;
       state.loading = false;
       state.error = null;
     })

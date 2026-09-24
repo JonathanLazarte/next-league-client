@@ -4,23 +4,23 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   useRef,
   useMemo,
-  memo,
   useState,
   useCallback,
   useLayoutEffect,
 } from "react";
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import "./virtualGrid.css";
-import type { Skin } from '@/utils/types'
+import type { Skin } from '@/types/skin'
 import type { Champion } from "@/types/champion"
 
+export type Items = Skin[]
 
-interface VirtualSkinsProps<T extends Skin | Champion = Skin | Champion> {
-  items: T[],
-  StoreCard: React.ComponentType<{ item: T }>
+interface VirtualSkinsProps<T> {
+  items: T[];
+  StoreCard: React.ElementType<{ item: T }>;
 }
 
-export default memo(function VirtualSkinsGrid<T extends Skin | Champion = Skin | Champion>({
+export default function VirtualSkinsGrid<T>({
   items,
   StoreCard,
 }: VirtualSkinsProps<T>) {
@@ -69,13 +69,18 @@ export default memo(function VirtualSkinsGrid<T extends Skin | Champion = Skin |
   // Construimos filas
   const itemsCopy = items ? [...items] : [];
 
-  const rows = useMemo(() => {
+  interface Row {
+    type: string,
+    items: Skin[] | Champion[]
+  }
+
+  const rows = useMemo((): { type: string; items: T[]; }[] | []  => {
     if (!columns) return []
     const result = [];
     for (let i = 0; i < itemsCopy.length; i += columns) {
       result.push({
         type: "row",
-        skins: itemsCopy.slice(i, i + columns),
+        items: itemsCopy.slice(i, i + columns),
       });
     }
     return result;
@@ -128,10 +133,10 @@ export default memo(function VirtualSkinsGrid<T extends Skin | Champion = Skin |
                     gridTemplateColumns: `repeat(${columns}, 1fr)`,
                   }}
                 >
-                  {row.skins.map((item, index) => (
+                  {row.items.map((item: T, index: number) => (
                     <StoreCard
-                      key={index}
                       item={item}
+                      key={index}
                     />
                   ))}
                 </div>
@@ -142,4 +147,4 @@ export default memo(function VirtualSkinsGrid<T extends Skin | Champion = Skin |
       </div>
     </div>
   );
-});
+};

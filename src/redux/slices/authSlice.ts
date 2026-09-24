@@ -1,9 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { User, UserCredentials } from "@/types/user";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 
 // Async thunk para login
-export const loginUser = createAsyncThunk(
+export const loginUser = createAsyncThunk<
+  User,
+  UserCredentials,
+  {
+    rejectValue: string;
+  }
+>(
   "auth/loginUser",
-  async (credentials, { rejectWithValue }) => {
+  async ( credentials, { rejectWithValue } ) => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/login`,
@@ -22,7 +29,7 @@ export const loginUser = createAsyncThunk(
       // Guardar token en localStorage
       localStorage.setItem("token", data.token);
 
-      return data;
+      return data as User;
     } catch (error) {
       return rejectWithValue(String(error));
     }
@@ -30,7 +37,13 @@ export const loginUser = createAsyncThunk(
 );
 
 // Async thunk para login
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<
+  User,
+  UserCredentials,
+  {
+    rejectValue: string
+  }
+>(
   "auth/registerUser",
   async (credentials, { rejectWithValue }) => {
     try {
@@ -60,11 +73,22 @@ export const registerUser = createAsyncThunk(
     }*/
   },
 );
+export interface Rank {
+  name: string;
+  level: number;
+  points: number;
+}
 
 // Async thunk para verificar token
-export const verifyToken = createAsyncThunk(
+export const verifyToken = createAsyncThunk<
+  { token: string, user: User },
+  string,
+  {
+    rejectValue: string;
+  }
+>(
   "auth/verifyToken",
-  async (token, { rejectWithValue }) => {
+  async (token , { rejectWithValue }) => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth/verify`,
@@ -95,15 +119,13 @@ export const verifyToken = createAsyncThunk(
 
 interface AuthState {
   isAuthenticated: boolean,
-  user: null | string[],
   token: null | string,
   loading: boolean,
-  error: null | string | unknown,
+  error: null | string | undefined,
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  user: null,
   token: null,
   loading: false,
   error: null,
@@ -115,7 +137,6 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isAuthenticated = false;
-      state.user = null;
       state.token = null;
       state.error = null;
     },
@@ -136,11 +157,10 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, action: PayloadAction<string | undefined>) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -151,11 +171,10 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
       })
-      .addCase(registerUser.rejected, (state, action) => {
+      .addCase(registerUser.rejected, (state, action: PayloadAction<string | undefined>) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -163,10 +182,9 @@ const authSlice = createSlice({
       .addCase(verifyToken.pending, (state) => {
         state.loading = true;
       })
-      .addCase(verifyToken.fulfilled, (state, action) => {
+      .addCase(verifyToken.fulfilled, (state, action: PayloadAction<{ user: User, token: string }>) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
         /*state.user = action.payload.user*/
@@ -174,7 +192,6 @@ const authSlice = createSlice({
       .addCase(verifyToken.rejected, (state, action) => {
         state.loading = false;
         state.isAuthenticated = false;
-        state.user = null;
         state.token = null;
         state.error = action.payload;
       });

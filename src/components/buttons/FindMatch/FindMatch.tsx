@@ -7,7 +7,7 @@ import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { findMatch, leaveParty } from '@/redux/slices/matchmakingSlice'
 import { useSound } from "@/hooks/useSound";
-import { QueueStatus } from '@/redux/slices/userInterfaceSlice'
+import { QueueStatus } from '@/types/ui'
 
 interface FindMatchButtonProps {
   queueStatus: QueueStatus
