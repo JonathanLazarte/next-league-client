@@ -55,12 +55,12 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }: SoundControlPr
         <div
           className="custom-checkbox"
           onClick={handleCheck}
-          style={ { pointerEvents: isMasterMuted ? "none" : "unset" } }
+          style={{ pointerEvents: isMasterMuted ? "none" : "unset" }}
         >
           {!isLocalMuted && (
             <FaCheck
               className="check-icon"
-              style={ { opacity: isMasterMuted ? "0.5" : "1" } }
+              style={{ opacity: isMasterMuted ? "0.5" : "1" }}
             />
           )}
         </div>
@@ -68,10 +68,8 @@ function SoundControl({ label, checkLabel, type, isMasterMuted }: SoundControlPr
       </div>
       <div className="sub-volume-controls">
         <span className={`audio-label `}>
-          label
-          {
-            (globalVolume * 100) / audioEngine.channels[type].maxVolume
-          }
+          {label}
+          {Math.floor((globalVolume * 100) / audioEngine.channels[type].maxVolume)}
         </span>
         <input
           type="range"
@@ -99,7 +97,7 @@ function AudioSettings() {
   );
   const dispatch = useAppDispatch();
 
-  const handleSlider = (e: React.ChangeEvent<HTMLInputElement> ) => {
+  const handleSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
     audioEngine.setVolume("master", val);
     setLocalVolume(val);
@@ -125,7 +123,7 @@ function AudioSettings() {
             {!isMasterMuted && (
               <FaCheck
                 className="check-icon"
-                style={ { opacity: isMasterMuted ? "0.5" : "1"}}
+                style={{ opacity: isMasterMuted ? "0.5" : "1" }}
               />
             )}
           </div>
