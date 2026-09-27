@@ -5,15 +5,15 @@ import Image from "next/image";
 import { useSound } from "@/hooks/useSound";
 import { useChat } from "@/hooks/useChat";
 import { useSmartHover } from "@/hooks/useSmartHover";
-import PartyRequest from './PartyRequest'
+import PartyRequestUI from './PartyRequest'
 import { RESOURCES_URL } from '@/utils/constants'
 import type { ConnectedUser } from "@/types/user"
-import type { ChatUser } from "@/redux/slices/chatSlice"
+import type { PartyRequest } from "@/types/socket"
 
 
 interface FriendProps {
   user: ConnectedUser,
-  battleRequest?: Record<string, any>[],
+  partyRequest?: PartyRequest[],
   handleContextMenu?: () => void,
   tooltipPosRef: React.MutableRefObject<{ x: number, y: number }>,
   onHoverStart: (user: ConnectedUser) => void,
@@ -22,7 +22,7 @@ interface FriendProps {
 
 export default (function Friend({
   user,
-  battleRequest,
+  partyRequest,
   handleContextMenu,
   tooltipPosRef,
   onHoverStart,
@@ -60,8 +60,8 @@ export default (function Friend({
 
 
 
-  if (battleRequest?.find((br: Record<any, unknown>) => br.from === user?.alias)) {
-    return PartyRequest(user?.alias);
+  if (partyRequest?.find((pr: PartyRequest) => pr.from === user?.alias)) {
+    return PartyRequestUI(user?.alias);
   }
 
   return (

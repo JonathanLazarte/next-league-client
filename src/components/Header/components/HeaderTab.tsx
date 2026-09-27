@@ -2,14 +2,15 @@ import { useSound } from '@/hooks/useSound'
 import { useRouter } from '@/hooks/useRouter'
 import { useUserInterface } from '@/hooks/useUserInterface';
 import type { Dispatch } from 'react';
+import type { Section, TooltipTrigger } from '@/types/ui';
 /*import { flushSync } from "react-dom";*/
 
 interface HeaderTabProps {
-  type: string,
-  section: string,
-  trigger?: ({ content }: { content: string }) => Record<string, any>,
-  setSectionTabSelected: Dispatch<React.SetStateAction<string | null>>,
-  sectionTabSelected: string | null
+  type: string;
+  section: Section;
+  trigger?: TooltipTrigger;
+  setSectionTabSelected: Dispatch<React.SetStateAction<Section | null>>;
+  sectionTabSelected: Section | null;
 
 }
 
@@ -26,13 +27,13 @@ export default function HeaderTab({
   /*const [isMouseUp, setIsMouseUp] = useState();*/
 
   const isPointerVisible = sectionTabSelected === section;
-  const handleClick = (section: string) => {
+  const handleClick = (section: Section) => {
     /*flushSync(() => {
       setIsMouseUp(true);
     });*/
     play();
     setSectionTabSelected(section)
-    push(section, {})
+    push(section)
   };
 
   if (section === "league")

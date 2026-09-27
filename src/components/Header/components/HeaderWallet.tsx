@@ -1,7 +1,8 @@
 import { useUser } from '@/hooks/useUser'
+import type { TooltipTrigger } from '@/types/ui';
 
 interface HeaderWalletProps {
-  trigger: ({ content }: { content: string }) => Record<string, any>,
+  trigger: TooltipTrigger,
 }
 
 export default function HeaderWallet({ trigger }: HeaderWalletProps) {

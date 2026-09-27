@@ -3,17 +3,18 @@ import ReactDOM from "react-dom";
 import styles from "./ChampionTooltip.module.css";
 import { GiPadlock } from "react-icons/gi";
 import { GiAngelWings } from "react-icons/gi";
-import { memo, forwardRef, useState } from "react";
-import { useLayoutEffect } from "react";
+import { memo, forwardRef, useState, useLayoutEffect } from "react";
+
+type Eternals = "Serie 1" | "Serie 2" | "Serie Inicial"
 
 interface Champion {
   masteryLevel: number,
   championName: string,
   masteryPoints: number,
   startInfo: string,
-  maxSeasonRating: string,
+  maxSeasonRating: string | "N/D",
   freeToPlay: boolean,
-  eternals: Record<string, any>
+  eternals: Eternals[]
 }
 
 interface TooltipProps {
@@ -28,17 +29,19 @@ const Tooltip = (
 ) => {
   const [coords, setCoords] = useState(tooltipPos);
 
+  console.log(content)
+
   useLayoutEffect(() => {
     if (!ref) return
 
     let tooltipHeight = 0
 
     if (ref && 'current' in ref && ref.current) {
-       tooltipHeight = ref?.current.getBoundingClientRect().height;
+      tooltipHeight = ref?.current.getBoundingClientRect().height;
     }
 
     /*const tooltipWidth = ref.current.getBoundingClientRect().width;*/
-    /*const championCard = activeChampionRef.current?.getBoundingClientRect();    SE DEBE USER ESTE REF PARA POSICIONAR EL TOOLTIP Y REMOVER LA FUNCION QUE AHORA ESTA SIENDO USADA EN CHAMPION.JSX*/
+    /*const championCard = activeChampionRef.current?.getBoundingClientRect();    SE DEBE USAR ESTE REF PARA POSICIONAR EL TOOLTIP Y REMOVER LA FUNCION QUE AHORA ESTA SIENDO USADA EN CHAMPION.JSX*/
     const viewportHeight = window.innerHeight;
     const getRem = () => {
       return parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -46,14 +49,14 @@ const Tooltip = (
     const currentRem = getRem();
 
     const getPositionY = () => {
-      const initialPos = tooltipPos.y;
-      const intendedPos = initialPos - tooltipHeight / 2;
+      const initialPos = tooltipPos.y;  // Ubicación del elemento al que se le hizo hover.
+      const intendedPos = initialPos - tooltipHeight / 2; // intendedPos es la posición que tendra el tooltip sin tomar en cuenta desbordamientos.
 
-      const overflowInTop = intendedPos < 0;
-      const overflowInBottom = intendedPos + tooltipHeight > viewportHeight;
+      const overflowInTop = intendedPos < 0; // Si intendedPos es negativo, significa que el tooltip se desborda hacia arriba.
+      const overflowInBottom = intendedPos + tooltipHeight > viewportHeight; // Si intendedPos + tooltipHeight es mayor que viewportHeight, significa que el tooltip se sale por abajo.
 
-      //const lowerPosition = intendedPos + tooltipHeight / 4;
-      const upperPosition = intendedPos - tooltipHeight / 2;
+      const upperPosition = intendedPos - tooltipHeight / 2; // Esta es la posición que tendra el tooltip si hay desbordamiento superior.
+
 
       if (overflowInTop) {
         return initialPos;
@@ -134,7 +137,7 @@ const Tooltip = (
               <div className={styles.separator}></div>
               <h4 className={styles.eternalsTitle}>PROGRESIÓN DE ETERNOS</h4>
               <div className={styles.eternalsList}>
-                {content.eternals.map((eternal: string[], index: string) => (
+                {content.eternals.map((eternal: string, index: number) => (
                   <div key={index} className={styles.eternalItem}>
                     <span>{eternal}</span>
                     <span className={styles.lockIcon}>

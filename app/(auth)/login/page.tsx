@@ -29,10 +29,10 @@ export default memo(function Login() {
   };
 
   /*useEffect(() => {
-		if(isAuthenticated && !loading){
-			router.push('/dashboard')
-		}
-	}, [isAuthenticated, loading])*/
+    if(isAuthenticated && !loading){
+      router.push('/dashboard')
+    }
+  }, [isAuthenticated, loading])*/
 
   const validationSchema = () => {
     if (loginOptionSelected === "guest") {
@@ -44,7 +44,7 @@ export default memo(function Login() {
     });
   };
 
-  const onSubmit = async (values: { userName: string, password: string}) => {
+  const onSubmit = async (values: { userName: string, password: string }) => {
     try {
       const result = await
         login({
@@ -103,7 +103,7 @@ export default memo(function Login() {
               className={`switch-option ${loginOptionSelected === tab && "active"} ${loading ? "disabled" : ""}`}
               onClick={() => (!loading ? setLoginOptionSelected(tab) : null)}
               ref={(el) => {
-                if(el === null) return
+                if (el === null) return
                 tabRefs.current[index] = el
               }}
             >
@@ -176,7 +176,7 @@ export default memo(function Login() {
           >
             <FaArrowRight />
           </button>
-          <a className="auth-link" onClick={() => router.push("/register", {})}>Create account</a>
+          <a className="auth-link" onClick={() => router.push("/register")}>Create account</a>
           <div className="disclaimer">
             <span className="disclaimer-line">
               THIS APP IS PROTECTED BY HCAPCHA AND ITS

@@ -1,6 +1,7 @@
 import { Skin } from '@/types/skin';
 import { SortOptionsValues } from '@/types/ui';
 import { useState, useMemo, Dispatch } from 'react'
+import { SkinFilterCategories } from '@/types/skin';
 
 interface OwnedItem {
   id: string
@@ -16,8 +17,8 @@ interface UserFilterLogicProps {
   items: Skin[];
   ownedItems: OwnedItem[];
   ownedChampions: OwnedItem[];
-  categoryChecked: Record<string, any>;
-  setCategoryChecked: Dispatch<React.SetStateAction<Record<string, any>>>;
+  categoryChecked: SkinFilterCategories;
+  setCategoryChecked: Dispatch<React.SetStateAction<SkinFilterCategories>>;
 }
 
 export function useFilterLogic({
@@ -40,10 +41,10 @@ export function useFilterLogic({
     result = [...result].filter((skin: Skin) => {
       const showInCollectionFilter = inCollection
         ? true // devuelve todas las skins, incluyendo las adquiridas por el usuario
-        : !ownedItems.find(( s: OwnedItem) => s.id === skin.id);
+        : !ownedItems.find((s: OwnedItem) => s.id === skin.id);
       const championInCollectionFilter = !championInCollection
         ? true // solo devuelve las skins relacionadas con los campeones adquiridos por el usuario
-        : ownedChampions.find(( c: OwnedItem) => c.id === skin.champion);
+        : ownedChampions.find((c: OwnedItem) => c.id === skin.champion);
 
       return showInCollectionFilter && championInCollectionFilter; // si un filtro esta desactivado simplemente devolverá true por lo tanto solo se evaluara el filtro activado
     });

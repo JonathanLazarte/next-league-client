@@ -3,7 +3,8 @@ import { FaCheck } from "react-icons/fa6";
 import CustomSelect from "@/components/CustomSelect/CustomSelect";
 import type { Dispatch, SetStateAction } from "react";
 import type { SortOptions, SortOptionsValues, FilterCategories } from "@/types/ui";
-
+import type { ChampionRoles } from '@/types/champion'
+import type { SkinFilterCategories } from "@/types/skin";
 
 interface StoreSidePanelProps {
   subsections: string[];
@@ -16,8 +17,8 @@ interface StoreSidePanelProps {
   sortOptions: SortOptions;
   sortedBy: SortOptionsValues | null;
   setSortedBy: Dispatch<SetStateAction<SortOptionsValues | null>>;
-  itemCategoryChecked: Record<string, any>;
-  setItemCategoryChecked: Dispatch<SetStateAction<Record<string, any>>>;
+  itemCategoryChecked: ChampionRoles | SkinFilterCategories;
+  setItemCategoryChecked: Dispatch<SetStateAction<FilterCategories>>;
   championInCollection?: boolean;
   setChampionInCollection?: Dispatch<SetStateAction<boolean>>;
 }

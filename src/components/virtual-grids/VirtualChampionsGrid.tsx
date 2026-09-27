@@ -19,9 +19,9 @@ import { ChampionGroupingOptionsValues } from '@/types/ui';
 
 
 interface VirtualSkinsGridProps {
-  onHoverStart: (champion: any, championCardRef: any) => void,
+  onHoverStart: (champion: Champion, championCardRef: React.RefObject<HTMLDivElement>) => void,
   onHoverEnd: () => void,
-  tooltipPosRef: React.MutableRefObject<{ x:number, y: number, rect: unknown }>,
+  tooltipPosRef: React.MutableRefObject<{ x: number, y: number, rect: unknown }>,
   groupedChampions: object,
   handleChampionClick: (champion: Champion) => void,
   userChampions: AdquiredChampion[],
@@ -93,17 +93,17 @@ export default memo(function VirtualChampionsGrid({
   useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
-  const groupedChampionsCopy: Record<string, any> = { ...groupedChampions };
+  const groupedChampionsCopy: Record<string, Champion[]> = { ...groupedChampions };
 
   interface Row {
     type: string,
     section?: string
-    champions?: Record<string, any>
+    champions?: Champion[]
   }
 
   // Construimos filas
   const rows = useMemo(() => {
-    if(!columns) return []
+    if (!columns) return []
     const result: Row[] = [];
 
     Object.keys(groupedChampionsCopy).forEach((section) => {
@@ -194,10 +194,10 @@ export default memo(function VirtualChampionsGrid({
                     /*padding: `0 ${gapValue}px`,*/
                   }}
                 >
-                  {row.champions?.map((c: Champion, index: string) => (
+                  {row.champions?.map((c: Champion) => (
                     <ChampionCard
-                      key={c.id || index} // Usar poke.id si está disponible, de lo contrario, index
-                      id={index}
+                      key={c.id}
+                      id={c.id}
                       champion={c}
                       adquired={acquiredChampionIds.has(c.id)}
                       onClick={handleChampionClick}

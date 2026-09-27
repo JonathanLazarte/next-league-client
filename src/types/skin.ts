@@ -18,20 +18,26 @@ export type SkinRarity =
 export type SkinValues = number | "Special" | "Battle Pass" | "Sanctum"
 
 export interface Skin {
-    id: string,
-    num: number,
-    name: string,
-    chromas: boolean,
-    img: string,
-    champion: string,
-    rarity: SkinRarity,
-    value: SkinValues,
-    release: string,
-    set: string[],
-    availability: string,
-    purchaseDate: string
+  id: string,
+  num: number,
+  name: string,
+  chromas: boolean,
+  img: string,
+  champion: string,
+  rarity: SkinRarity,
+  value: SkinValues,
+  release: string,
+  set: string[],
+  availability: string,
+  purchaseDate: string
 }
 
 export interface UserSkin {
   id: string
+}
+
+export interface SkinFilterCategories {
+  Limited: boolean;
+  Legendary: boolean;
+  Ultimate: boolean;
 }

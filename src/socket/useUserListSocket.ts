@@ -10,13 +10,14 @@ export function useUserListSocket(socket: Socket | undefined) {
     name: string,
     users: ConnectedUser[]
   }
+
   type FriendFolders = FriendFolder[]
 
   useEffect(() => {
     if (!socket) return;
     socket.on("user-list", (msg: ConnectedUser[]) => {
 
-      const friendFolders: FriendFolders  = [
+      const friendFolders: FriendFolders = [
         {
           name: "general",
           users: msg,

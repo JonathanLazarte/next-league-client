@@ -2,6 +2,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -24,7 +25,7 @@
     top: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 15%);
+    /*background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 15%);*/
     position: absolute;
     z-index: 4;
     pointer-events: none;
@@ -55,13 +56,10 @@
     letter-spacing: 1px;
     color: var(--color-primary);
     transition: color 0.1s;
-    border-image: linear-gradient(
-            to right,
+    border-image: linear-gradient(to right,
             transparent,
             var(--color-primary),
-            transparent
-        )
-        1;
+            transparent) 1;
     font-family: "Medium";
 }
 
@@ -115,13 +113,10 @@
     font-size: 0.9rem;
     font-size: 1.74rem;
     letter-spacing: 1px;
-    border-image: linear-gradient(
-            to bottom,
+    border-image: linear-gradient(to bottom,
             var(--gold-two),
             var(--gold-four),
-            var(--gold-five)
-        )
-        1;
+            var(--gold-five)) 1;
     background: var(--blue-six);
     display: flex;
     align-items: center;
@@ -133,13 +128,10 @@
 
 .store-header .buy-rp-button:hover {
     color: var(--gold-one);
-    border-image: linear-gradient(to bottom, var(--gold-one), var(--gold-four))
-        1;
-    background: linear-gradient(
-        to bottom,
-        var(--blue-six) 40%,
-        rgb(69, 63, 44) 100%
-    );
+    border-image: linear-gradient(to bottom, var(--gold-one), var(--gold-four)) 1;
+    background: linear-gradient(to bottom,
+            var(--blue-six) 40%,
+            rgb(69, 63, 44) 100%);
 }
 
 .rounded-button {
@@ -151,11 +143,9 @@
     color: var(--color-primary);
     width: 3.2rem;
     height: 3.2rem;
-    background-image: linear-gradient(
-        to bottom,
-        var(--gold-four),
-        var(--gold-five)
-    );
+    background-image: linear-gradient(to bottom,
+            var(--gold-four),
+            var(--gold-five));
     clip-path: circle(50%);
     margin-left: 2.72rem;
     cursor: pointer;
@@ -165,11 +155,9 @@
 
 .rounded-button:hover {
     color: var(--color-secundary);
-    background-image: linear-gradient(
-        to bottom,
-        var(--gold-one),
-        var(--gold-four)
-    );
+    background-image: linear-gradient(to bottom,
+            var(--gold-one),
+            var(--gold-four));
 }
 
 .rounded-button::before {
@@ -205,22 +193,23 @@
     padding-left: 0.96rem;
     margin-top: 2.48rem;
 }
+
 .store .search-filter:focus-within {
-    background: linear-gradient(
-        to bottom,
-        #07111a,
-        #0e171f,
-        #151e25
-    ) !important;
+    background: linear-gradient(to bottom,
+            #07111a,
+            #0e171f,
+            #151e25) !important;
     border-image: linear-gradient(to bottom, #6c5227, #907747, #c4a66c) 1;
 }
+
 .store .search-filter::placeholder {
     color: #999486;
 }
 
 .search-filter input {
     width: 100%;
-    font-size: 1.5rem; /* 0.97vw → 1.552rem */
+    font-size: 1.5rem;
+    /* 0.97vw → 1.552rem */
     color: #999486;
 }
 
@@ -363,18 +352,13 @@
         height: var(--dashboard-content-height-mobile);
     }
 
-    .store-header {
-    }
+    .store-header {}
 
-    .store-header .buy-rp-button {
-    }
+    .store-header .buy-rp-button {}
 
-    .store .rounded-button {
-    }
+    .store .rounded-button {}
 
-    .store-tab {
-    }
+    .store-tab {}
 
-    .active-store-tab::after {
-    }
+    .active-store-tab::after {}
 }

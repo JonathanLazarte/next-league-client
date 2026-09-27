@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchUser } from '@/redux/slices/userSlice'
+import { DatabaseUser } from '@/types/user';
 
 
 export const saveSettings = createAsyncThunk<
@@ -9,16 +10,16 @@ export const saveSettings = createAsyncThunk<
     settings: Record<string, unknown>
   },
   { rejectValue: string }
-  >(
+>(
   'settings/saveSettings',
-  async ( { userId, settings }, { rejectWithValue } ) => {
+  async ({ userId, settings }, { rejectWithValue }) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/user/save-settings`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({ userId, settings })
-      })
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId, settings })
+        })
 
       if (!response.ok) return rejectWithValue('fetch failed')
 
@@ -94,37 +95,37 @@ const settingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<Record<string, any>>) => {
-      state.sound = action.payload.settings.sound;
-      state.loading = false;
-      state.error = null;
-    })
-    .addCase(saveSettings.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(saveSettings.fulfilled, (state, action) => {
-      Object.assign(state, action.payload);
+      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<DatabaseUser>) => {
+        state.sound = action.payload.settings.sound;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(saveSettings.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(saveSettings.fulfilled, (state, action) => {
+        Object.assign(state, action.payload);
 
-      // posible a futuro:
-      // state.theme         = action.payload.theme;
-      // state.language      = action.payload.language;
-      // state.notifications = action.payload.notifications;
-      // ... etc
+        // posible a futuro:
+        // state.theme         = action.payload.theme;
+        // state.language      = action.payload.language;
+        // state.notifications = action.payload.notifications;
+        // ... etc
 
-      state.loading = false;
-      state.error = null
-    })
-    .addCase(saveSettings.rejected, (state, action) => {
-      state.loading = false;
+        state.loading = false;
+        state.error = null
+      })
+      .addCase(saveSettings.rejected, (state, action) => {
+        state.loading = false;
 
-      if (action.payload) {
-        state.error = action.payload || 'Error al guardar';
-      } else {
-        state.error = 'Error desconocido';
-      }
-    });
-}
+        if (action.payload) {
+          state.error = action.payload || 'Error al guardar';
+        } else {
+          state.error = 'Error desconocido';
+        }
+      });
+  }
 });
 
 export const { setLanguage, setVolume, setTheme } = settingsSlice.actions;

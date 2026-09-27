@@ -22,11 +22,11 @@ export interface Champion {
   blurb: string,
   id: string,
   image: Record<string, any>
-  info: {attack: number, defense: number, magic: number, difficulty: number}
+  info: { attack: number, defense: number, magic: number, difficulty: number }
   key: string,
   name: string,
   partype: string,
-  price: { rp: string, be: string}
+  price: { rp: string, be: string }
   release: string
   stats: Record<string, any>,
   tags: string[]
@@ -35,7 +35,7 @@ export interface Champion {
 
   //CHAMPION FULL PROPS
   lore: string,
-  skins: Record<string, any>[]
+  skins: Skin[]
 }
 
 export interface ImageData {
@@ -163,16 +163,18 @@ export type SkinRarity =
   | 'Transcendent';
 
 export interface Skin {
-    id: string,
-    num: number,
-    name: string,
-    chromas: boolean,
-    img: string,
-    champion: string,
-    rarity: SkinRarity,
-    value: number,
-    release: string,
-    set: string[],
-    availability: string,
-    purchaseDate: string
+  id: string,
+  num: number,
+  name: string,
+  chromas: boolean,
+  img: string,
+  champion: string,
+  rarity: SkinRarity,
+  value: number,
+  release: string,
+  set: string[],
+  availability: string,
+  purchaseDate: string
 }
+
+

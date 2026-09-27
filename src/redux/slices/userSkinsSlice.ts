@@ -1,17 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { confirmPurchase } from "@/redux/slices/purchaseSlice";
-import type { Skin } from '@/utils/types'
+import type { UserSkin } from "@/types/user"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const getUserSkins = createAsyncThunk<
-  Record<string, any>,
+  UserSkin[],
   string,
   {}
 >(
   "userSkins/getUserSkins",
-  async ( token, { rejectWithValue }) => {
+  async (token, { rejectWithValue }) => {
     try {
       const response = await fetch(`${API_URL}api/v1/user/skin-collection`, {
         method: "POST",
@@ -25,17 +25,13 @@ export const getUserSkins = createAsyncThunk<
 
       const userSkins = await response.json();
 
-      return { userSkins };
-    } catch ( error ) {
+      return userSkins;
+    } catch (error) {
       return rejectWithValue(error);
     }
   },
 );
 
-export interface UserSkin {
-  id: string,
-  purchaseDate: string
-}
 
 interface UserSkinsState {
   loading: boolean,
@@ -60,12 +56,12 @@ const userSkinsSlice = createSlice({
         state.loading = true;
         state.error = "";
       })
-      .addCase(getUserSkins.fulfilled, (state, action) => {
+      .addCase(getUserSkins.fulfilled, (state, action: PayloadAction<UserSkin[]>) => {
         state.loading = false;
         state.error = null;
-        state.skins = action.payload.userSkins;
+        state.skins = action.payload;
       })
-      .addCase(getUserSkins.rejected, (state, action) => {
+      .addCase(getUserSkins.rejected, (state, action: PayloadAction<unknown>) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
       })

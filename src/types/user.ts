@@ -1,4 +1,4 @@
-import type { ChatUser } from '@/redux/slices/chatSlice'
+import type { ChatUser, Message } from '@/redux/slices/chatSlice'
 
 export interface ConnectedUser extends ChatUser {
   id: string;
@@ -14,12 +14,12 @@ export interface ConnectedUser extends ChatUser {
   profile_border: string;
   status: "online" | "offline" | "away";
   activity:
-    | "idle"
-    | "in queue"
-    | "ranked_flex"
-    | "ranked_solo_duo"
-    | "swiftplay"
-    | "in_game";
+  | "idle"
+  | "in queue"
+  | "ranked_flex"
+  | "ranked_solo_duo"
+  | "swiftplay"
+  | "in_game";
 }
 
 export interface Rank {
@@ -48,4 +48,36 @@ export interface User {
 export interface UserCredentials {
   userName: string,
   password: string
+}
+
+export interface DatabaseUser {
+  userName: string;
+  id: string;
+  alias: string;
+  tag: string;
+  title: string;
+  level: number;
+  EXP: number;
+  BE: number;
+  RP: number;
+  rank: Rank;
+  profile_icon: string;
+  profile_background: string;
+  loading: boolean;
+  token: string;
+  messages: Message[],
+  settings: {
+    sound: {
+      master: { volume: number; muted: boolean; },
+      sfx: { volume: number; muted: boolean; },
+      music: { volume: number; muted: boolean; }
+    },
+    language: string;
+    theme: 'light' | 'dark';
+  }
+}
+
+export interface UserSkin {
+  id: string;
+  purchaseDate: string;
 }

@@ -7,17 +7,18 @@ import { useRouter } from "@/hooks/useRouter";
 import { useUserInterface } from "@/hooks/useUserInterface";
 import { useSound } from "@/hooks/useSound";
 import Image from 'next/image'
+import { Section } from "@/types/ui";
 
 type Button = 'idle' | 'disabled' | 'hovered' | 'lobby' | 'lobby-hovered';
 
 interface LobbyPlayButtonProps {
-  setSectionTabSelected: Dispatch<React.SetStateAction<string | null>>
+  setSectionTabSelected: Dispatch<React.SetStateAction<Section | null>>
 }
 
 export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButtonProps) {
   const route = useRouter();
   const { actualSection, queue } = useUserInterface();
-  const [ buttonState, setButtonState ] = useState<Button>('idle')
+  const [buttonState, setButtonState] = useState<Button>('idle')
   const { play: playHover } = useSound("/sfx/sfx-nav-button-play-hover.ogg");
   const { play: playClick } = useSound("/sfx/sfx-nav-button-play-click.ogg");
   const videoRef = useRef<Record<string, HTMLVideoElement>>({})
@@ -50,7 +51,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
     setSectionTabSelected('play')
 
     // Comportamiento por defecto: abrir selección de modos
-      route.push("play", {});
+    route.push("play");
   };
   const handleMouseEnter = () => {
     if (buttonState === 'disabled') return;
@@ -90,7 +91,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
         onMouseLeave={handleMouseLeave}
       >
         <Image
-          style={{opacity: buttonState === 'idle' ? 1 : 0}}
+          style={{ opacity: buttonState === 'idle' ? 1 : 0 }}
           className="play-frame"
           src='/play-button/play-button-default.png'
           width={188}
@@ -98,7 +99,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
           alt="Play Lobby button"
         />
         <Image
-          style={{opacity: buttonState === 'hovered' ? 1 : 0}}
+          style={{ opacity: buttonState === 'hovered' ? 1 : 0 }}
           className="play-frame"
           src='/play-button/play-button-hover.png'
           width={188}
@@ -106,7 +107,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
           alt="Play Lobby button"
         />
         <Image
-          style={{opacity: buttonState === 'disabled' ? 1 : 0}}
+          style={{ opacity: buttonState === 'disabled' ? 1 : 0 }}
           className="play-frame"
           src='/play-button/play-button-disabled.png'
           width={188}
@@ -114,7 +115,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
           alt="Play Lobby button"
         />
         <Image
-          style={{opacity: buttonState === 'lobby' ? 1 : 0}}
+          style={{ opacity: buttonState === 'lobby' ? 1 : 0 }}
           className="play-frame"
           src='/play-button/play-button-lobby-default.png'
           width={188}
@@ -122,7 +123,7 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
           alt="Play Lobby button"
         />
         <Image
-          style={{opacity: buttonState === 'lobby-hovered' ? 1 : 0}}
+          style={{ opacity: buttonState === 'lobby-hovered' ? 1 : 0 }}
           className="play-frame"
           src='/play-button/play-button-lobby-hover.png'
           width={188}
@@ -139,10 +140,10 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
           controlsList="nodownload noplaybackrate noremoteplayback"
           src='/play-button/play-button-hover-loop.webm'
           ref={(el) => {
-            if(!el) return
+            if (!el) return
             videoRef.current['hover'] = el
           }}
-          style={{opacity: buttonState === 'hovered' ? 1 : 0}}
+          style={{ opacity: buttonState === 'hovered' ? 1 : 0 }}
         />
         <video
           className="play-button-effect-video"
@@ -152,10 +153,10 @@ export default function LobbyPlayButton({ setSectionTabSelected }: LobbyPlayButt
           controlsList="nodownload noplaybackrate noremoteplayback"
           src='/play-button/lobby-button-release.webm'
           ref={(el) => {
-            if(!el) return
+            if (!el) return
             videoRef.current['disabled'] = el
           }}
-          style={{ display: buttonState === 'disabled' ? "block" : "none"}}
+          style={{ display: buttonState === 'disabled' ? "block" : "none" }}
         />
         <span className={`main-button-text ${buttonState === 'disabled' ? 'disabled' : ''}`}>{getButtonText()}</span>
       </div>

@@ -5,16 +5,32 @@
       "dom.iterable",
       "esnext"
     ],
-        "paths": {
-          "$/*": ["./app/*"],
-          "@/*": ["./src/*"],
-          "@/components/*": ["./src/components/*"],
-          "@/pages/*": ["./src/pages/*"],
-          "@/redux/*": ["./src/redux/*"],
-          "@/hooks/*": ["./src/hooks/*"],
-          "@/services/*": ["./src/services/*"],
-          "@/svg/*": ["./src/svg/*"]
-        },
+    "paths": {
+      "$/*": [
+        "./app/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/pages/*": [
+        "./src/pages/*"
+      ],
+      "@/redux/*": [
+        "./src/redux/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/services/*": [
+        "./src/services/*"
+      ],
+      "@/svg/*": [
+        "./src/svg/*"
+      ]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,7 +42,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-       /*"noImplicitAny": true,          //Prohíbe el uso de 'any' implícito
+    /*"noImplicitAny": true,          //Prohíbe el uso de 'any' implícito
        "strictNullChecks": true,       // Evita que uses variables que podrían ser null o undefined
        "noUnusedLocals": true,         // Alerta si dejas variables declaradas sin usar
        "noUnusedParameters": true,*/
@@ -40,8 +56,14 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "postcss.config.js", "tailwind.config.js", "next.config.js", "src/components/Settings/Settings"  ],
+    "**/*.tsx",
+    "postcss.config.js",
+    "tailwind.config.js",
+    "next.config.js",
+    "src/components/Settings/Settings",
+    "jest.config.js",
+    "jest.setup.js"
+  ],
   "exclude": [
     "node_modules"
   ]

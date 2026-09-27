@@ -8,7 +8,7 @@ import useSkins from "@/hooks/useSkins";
 import { useUserChampions } from '@/hooks/useUserChampions'
 import { useUserSkins } from '@/hooks/useUserSkins'
 import { useFilterLogic } from './useFilterLogic'
-import type { Skin } from '@/types/skin'
+import type { Skin, SkinFilterCategories } from '@/types/skin'
 import { STORE_SORT_OPTIONS } from "@/utils/constants";
 
 import "./skins.css";
@@ -18,7 +18,7 @@ export default memo(function Skins() {
   const { userSkins = [] } = useUserSkins();
   const { userChampions } = useUserChampions();
   const [subsectionSelected, setSubsectionSelected] = useState("SKINS");
-  const [categoryChecked, setCategoryChecked] = useState<Record<string, any>>({
+  const [categoryChecked, setCategoryChecked] = useState<SkinFilterCategories>({
     Limited: false,
     Legendary: false,
     Ultimate: false,

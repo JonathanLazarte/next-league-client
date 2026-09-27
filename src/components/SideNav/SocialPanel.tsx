@@ -12,18 +12,17 @@ import { useChat } from "@/hooks/useChat";
 import type { ConnectedUser } from "@/types/user";
 import useHoverIntent from "@/hooks/useHoverIntent";
 import UserTooltip from "@/components/tooltips/UserTooltip/UserTooltip";
-import { ChatUser } from "@/redux/slices/chatSlice";
 
 interface FriendsGroupProps {
-  group: Record<string, any>,
-  groupStyle: Record<string, any> | undefined | CSSProperties ,
+  group: { users: ConnectedUser[] },
+  groupStyle: undefined | CSSProperties,
 }
 
 export const FriendsGroup = ({ group, groupStyle }: FriendsGroupProps) => {
-  const [ hoveredUser, setHoveredUser ] = useState<ConnectedUser | null>(null);
+  const [hoveredUser, setHoveredUser] = useState<ConnectedUser | null>(null);
   const { start, cancel } = useHoverIntent({ initialDelay: 400 });
   const tooltipPosRef = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
-  const [ toolTipPos, setToolTipPos ] = useState({ x: 0, y: 0 });
+  const [toolTipPos, setToolTipPos] = useState({ x: 0, y: 0 });
 
   const onHoverStart = (hovereduser: ConnectedUser) => {
     start({

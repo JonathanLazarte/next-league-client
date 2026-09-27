@@ -1,10 +1,10 @@
-import { Champion } from "@/utils/types";
+import { Champion } from "@/types/champion";
 
 interface EmptyChampionsStateProps {
-  loading: boolean;
-  isLoadingChampionsData: boolean;
-  championsData: Champion[];
-  groupedChampions: Record<string, Champion[]>;
+    loading: boolean;
+    isLoadingChampionsData: boolean;
+    championsData: Champion[];
+    groupedChampions: Record<string, Champion[]>;
 }
 export default function EmptyChampionsState({
     loading,

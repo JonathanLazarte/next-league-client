@@ -35,7 +35,7 @@ export default function FindMatchButton({
     playQuitClick();
 
     if (queueStatus === 'idle') {
-      push("league", {});
+      push("league");
       updateQueue(null);
     } else {
       dispatch(leaveParty())

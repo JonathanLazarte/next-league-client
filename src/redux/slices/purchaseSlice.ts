@@ -8,15 +8,38 @@ import { RootState } from "../store";
 
 export type ItemType = "skin" | "champion"
 
-export interface Item {
-  id: string,
-  type: ItemType,
+export interface SkinItem {
+  availability: string
+  champion: string
+  chromas: boolean
+  id: string
+  img: string
+  name: string
+  num: number
+  rarity: string
+  release: string
+  set: string[]
+  value: number
 }
+
+
+export interface ItemToBuy {
+  id: string,
+  name: string,
+  subtitle?: string,
+  type: ItemType,
+  img: string,
+  value: {
+    be?: number | string,
+    rp?: number | string
+  }
+}
+
 export type Coin = "BE" | "RP";
 
 interface PurchaseState {
   isOpen: boolean,
-  itemToBuy: Item | null,
+  itemToBuy: ItemToBuy | null,
   currency: "RP" | "BE" | unknown,
   price: number,
   status: "idle" | "processing" | "success" | "error",
@@ -49,17 +72,17 @@ export const confirmPurchase = createAsyncThunk(
     const body =
       itemToBuy.type === "champion"
         ? {
-            userId: token,
-            championId: itemToBuy.id,
-            coin,
-            price,
-          }
+          userId: token,
+          championId: itemToBuy.id,
+          coin,
+          price,
+        }
         : {
-            userId: token,
-            skinId: itemToBuy.id,
-            price,
-            coin,
-          };
+          userId: token,
+          skinId: itemToBuy.id,
+          price,
+          coin,
+        };
     const apiRoute =
       itemToBuy.type === "champion" ? "api/v1/store/champion" : "api/v1/store/skin";
 
@@ -89,11 +112,22 @@ const purchaseSlice = createSlice({
   name: "purchase",
   initialState,
   reducers: {
-    openPurchaseModal: (state, action: PayloadAction<{itemId: string, type: ItemType}>) => {
-      const { itemId, type } = action.payload;
+    openPurchaseModal: (state, action: PayloadAction<{
+      id: string,
+      type: ItemType,
+      name: string,
+      img: string,
+      subtitle?: string,
+      value: { be?: number | string, rp?: number | string }
+    }>) => {
+      const { id, type, name, img, subtitle, value } = action.payload;
       state.itemToBuy = {
-        id: itemId,
-        type: type
+        id: id,
+        type: type,
+        name: name,
+        img: img,
+        subtitle: subtitle,
+        value
       };
     },
     closeModal: (state) => {

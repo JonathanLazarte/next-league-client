@@ -44,3 +44,9 @@ export interface ChampionRoles {
   Support: boolean;
 }
 export type FilterCategories = SkinRaritys | ChampionRoles;
+
+export type TooltipTrigger = ({ content }: { content: string }) => {
+  ref: React.MutableRefObject<HTMLDivElement | null>
+  onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onMouseLeave: () => void;
+}

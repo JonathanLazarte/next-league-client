@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createSelector, createAsyncThunk } from "@r
 import { loginUser, registerUser, verifyToken } from "@/redux/slices/authSlice";
 import { confirmPurchase } from '@/redux/slices/purchaseSlice'
 import { RootState } from '@/redux/store'
-import type { User } from "@/types/user";
+import type { User, DatabaseUser } from "@/types/user";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -21,24 +21,24 @@ interface PurchasePayload {
 export type Coin = "RP" | "BE";
 
 export interface UserState {
-userName: string,
-id: string,
-alias: string,
-tag: string,
-title: string,
-level: number,
-EXP: number,
-BE: number,
-RP: number,
-rank: {
-  name: string,
+  userName: string,
+  id: string,
+  alias: string,
+  tag: string,
+  title: string,
   level: number,
-  points: number,
-},
-profile_icon: string,
-profile_background: string,
-loading: boolean,
-token: string,
+  EXP: number,
+  BE: number,
+  RP: number,
+  rank: {
+    name: string,
+    level: number,
+    points: number,
+  },
+  profile_icon: string,
+  profile_background: string,
+  loading: boolean,
+  token: string,
 }
 
 const initialState: UserState = {
@@ -63,9 +63,9 @@ const initialState: UserState = {
 };
 
 export const fetchUser = createAsyncThunk<
-  User,
+  DatabaseUser,
   string
-  >(
+>(
   "user/set-user",
   async (token, { rejectWithValue }) => {
     try {
@@ -89,18 +89,18 @@ export const fetchUser = createAsyncThunk<
 
 const updateUserFields = (state: User, action: PayloadAction<User>) => {
   const { payload } = action;
-    state.userName = payload.userName;
-    state.id = payload.id;
-    state.alias = payload.userName;
-    state.tag = payload.tag;
-    state.title = payload.title;
-    state.level = payload.level;
-    state.EXP = payload.EXP;
-    state.BE = payload.BE;
-    state.RP = payload.RP;
-    state.profile_icon = payload.profile_icon;
-    state.profile_background = payload.profile_background;
-    state.rank = payload.rank;
+  state.userName = payload.userName;
+  state.id = payload.id;
+  state.alias = payload.userName;
+  state.tag = payload.tag;
+  state.title = payload.title;
+  state.level = payload.level;
+  state.EXP = payload.EXP;
+  state.BE = payload.BE;
+  state.RP = payload.RP;
+  state.profile_icon = payload.profile_icon;
+  state.profile_background = payload.profile_background;
+  state.rank = payload.rank;
 }
 
 
@@ -111,7 +111,7 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       Object.assign(state, action.payload);
     },
-    updateUser: (state , action: PayloadAction<User>) => {
+    updateUser: (state, action: PayloadAction<User>) => {
       Object.assign(state, action.payload)
     },
     updateCoins: (

@@ -25,8 +25,7 @@ export interface Champion {
   spells: Spell[];
   passive: Passive;
   recommended: unknown[];
-
-  price: { rp: string; be: string; };
+  price: { rp: number; be: number; };
   release?: number;
   version?: number;
 }
@@ -120,4 +119,13 @@ export interface Passive {
 
 export interface AdquiredChampion {
   id: string
+}
+
+export interface ChampionRoles {
+  Assassin: boolean;
+  Fighter: boolean;
+  Mage: boolean;
+  Tank: boolean;
+  Marksman: boolean;
+  Support: boolean;
 }

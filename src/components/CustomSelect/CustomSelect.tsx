@@ -1,36 +1,31 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import type { Dispatch} from 'react'
+import type { Dispatch, SetStateAction } from 'react';
 import './CustomSelect.css';
-import { FILTER_OPTIONS_BY_GROUPING, SKIN_FILTER_OPTIONS } from '@/utils/constants';
-import type { ChampionGroupingOptionsValues, SkinGroupingOptionsValues, SortOptionsValues, ChampionSortOptions, ChampionGroupOptions } from '@/types/ui'
-import type { SortOptions } from '@/types/ui';
 
-type SkinFilterOptions = typeof SKIN_FILTER_OPTIONS
-type ChampionFilterOptions = typeof FILTER_OPTIONS_BY_GROUPING[keyof typeof FILTER_OPTIONS_BY_GROUPING]//[number]["value"]
-type OnChange =
-  Dispatch<React.SetStateAction<SortOptionsValues | null>> |
-  Dispatch<React.SetStateAction<SkinGroupingOptionsValues | null>> |
-  Dispatch<React.SetStateAction<ChampionGroupingOptionsValues | null>>
-
-interface CustomSelectProps {
-  options: ChampionFilterOptions | SkinFilterOptions | SortOptions | ChampionSortOptions | ChampionGroupOptions,
-  value: string | null,
-  onChange: OnChange;
-  placeholder: string,
-  className: string,
-  disabled?: boolean,
+export interface SelectOption<T = string> {
+  readonly label: string;
+  readonly value: T;
 }
 
-const CustomSelect = ({
+interface CustomSelectProps<T> {
+  options: readonly SelectOption<T>[];
+  value: T | null;
+  onChange: ((value: T) => void) | Dispatch<SetStateAction<T>> | Dispatch<SetStateAction<T | null>>;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
+}
+
+const CustomSelect = <T,>({
   options,
   value,
   onChange,
   placeholder = "Select...",
   className = "",
   disabled = false,
-}: CustomSelectProps) => {
+}: CustomSelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const selectRef = useRef<HTMLDivElement | null>(null);
@@ -60,7 +55,7 @@ const CustomSelect = ({
       case 'Enter':
       case ' ':
         event.preventDefault();
-        if (isOpen && highlightedIndex >= 0) {
+        if (isOpen && highlightedIndex >= 0 && options[highlightedIndex]) {
           handleOptionSelect(options[highlightedIndex]);
         } else {
           setIsOpen(!isOpen);
@@ -94,7 +89,7 @@ const CustomSelect = ({
   };
 
   // Manejar selección de opción
-  const handleOptionSelect = (option: Record<string, any>) => {
+  const handleOptionSelect = (option: SelectOption<T>) => {
     onChange(option.value);
     setIsOpen(false);
     setHighlightedIndex(-1);
@@ -136,25 +131,19 @@ const CustomSelect = ({
         <span className="custom-select-value">
           {selectedOption ? selectedOption.label : placeholder}
         </span>
-        {/*<span className={`custom-select-arrow ${isOpen ? 'open' : ''}`}>
-          ▼
-        </span>*/}
       </div>
 
       {isOpen && (
         <div className="custom-select-dropdown" role="listbox">
           {options?.map((option, index) => (
             <div
-              key={option.value}
-              ref={ el => {
-                if (el !== null) optionRefs.current[index] = el
-                }
-              }
-              className={`custom-select-option ${
-                option.value === value ? 'selected' : ''
-              } ${
-                index === highlightedIndex ? 'highlighted' : ''
-              }`}
+              key={option.value !== null && option.value !== undefined ? String(option.value) : `option-${index}`}
+              ref={el => {
+                if (el !== null) optionRefs.current[index] = el;
+              }}
+              className={`custom-select-option ${option.value === value ? 'selected' : ''
+                } ${index === highlightedIndex ? 'highlighted' : ''
+                }`}
               onClick={() => handleOptionSelect(option)}
               onMouseEnter={() => setHighlightedIndex(index)}
               role="option"

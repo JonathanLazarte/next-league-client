@@ -40,7 +40,7 @@ export const CHAMPION_SORT_OPTIONS = [
 ] as const;
 
 export const CHAMPION_GROUP_OPTIONS = [
-    { value: "", label: "All Champions" },
+    { value: "all", label: "All Champions" },
     { value: "possession", label: "Most Popular Posesition" },
     { value: "role", label: "Role" },
 ] as const

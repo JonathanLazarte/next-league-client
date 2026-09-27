@@ -1,53 +1,7 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { fetchUser } from '@/redux/slices/userSlice'
-import type { ConnectedUser } from "@/types/user"
-
-export interface Message {
-  id: string;
-  from: string;
-  to: string;
-  content: string;
-  timestamp: number;
-  type: "text" | "system" | "notification";
-  isRead: boolean;
-  isDelivered?: boolean;
-}
-
-export interface ChatUser {
-  alias: string;
-  profile_icon: number;
-  profile_border: string;
-  status: "online" | "offline" | "away";
-  lastSeen?: number;
-  isTyping?: boolean | undefined;
-  unreadCount?: number;
-  tag: string;
-  id: string;
-  title: string;
-  rank: {
-    name: string,
-    points: number
-  };
-  profile_background?: string;
-  activity?:
-    | "idle"
-    | "in queue"
-    | "ranked_flex"
-    | "ranked_solo_duo"
-    | "swiftplay"
-    | "in_game";
-}
-
-export interface ChatRoom {
-  id: string;
-  name: string;
-  type: "private" | "group" | "lobby";
-  participants: string[];
-  lastMessage?: Message;
-  isActive: boolean;
-  isMinimized: boolean;
-  position?: { x: number; y: number };
-}
+import type { ConnectedUser, DatabaseUser } from "@/types/user"
+import type { Message, ChatUser, ChatRoom, ChatState } from '@/types/chat'
 
 export interface ChatState {
   // Chat rooms management
@@ -225,7 +179,7 @@ const chatSlice = createSlice({
       }
     },
 
-    markAllAsRead: (state, action: PayloadAction<{ roomId: string}>) => {
+    markAllAsRead: (state, action: PayloadAction<{ roomId: string }>) => {
       const { roomId } = action.payload;
       if (state.messagesByRoom[roomId]) {
         state.messagesByRoom[roomId].forEach((message) => {
@@ -314,7 +268,7 @@ const chatSlice = createSlice({
     },
 
     // Cleanup
-    clearChatHistory: (state, action: PayloadAction<{ roomId: string}>) => {
+    clearChatHistory: (state, action: PayloadAction<{ roomId: string }>) => {
       const { roomId } = action.payload;
       if (state.messagesByRoom[roomId]) {
         state.messagesByRoom[roomId] = [];
@@ -323,7 +277,7 @@ const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.
-      addCase(fetchUser.fulfilled, (state, action: PayloadAction<Record<string, any>>) => {
+      addCase(fetchUser.fulfilled, (state, action: PayloadAction<DatabaseUser>) => {
         const userData = action.payload
         state.messages = userData.messages
       })

@@ -8,13 +8,14 @@ import useTooltipTrigger from '@/components/tooltips/GlobalTooltip/TooltipTrigge
 import HeaderTab from './components/HeaderTab'
 import HeaderWallet from './components/HeaderWallet'
 import { LEFT_HEADER_TABS, RIGHT_HEADER_TABS } from '@/utils/constants'
+import type { Section } from '@/types/ui'
 
 interface DesktopHeaderProps {
   showSideNav: boolean
 }
 
 export default memo(function DesktopHeader({ showSideNav }: DesktopHeaderProps) {
-  const [sectionTabSelected, setSectionTabSelected] = useState<string | null>(null)
+  const [sectionTabSelected, setSectionTabSelected] = useState<Section | null>(null)
   const trigger = useTooltipTrigger()
 
   return (
@@ -31,7 +32,7 @@ export default memo(function DesktopHeader({ showSideNav }: DesktopHeaderProps) 
             key={section.id}
             setSectionTabSelected={setSectionTabSelected}
             sectionTabSelected={sectionTabSelected}
-            section={section.id}
+            section={section.id as Section}
             type={section.type}
           />
         ))}
@@ -40,7 +41,7 @@ export default memo(function DesktopHeader({ showSideNav }: DesktopHeaderProps) 
             <>
               <HeaderTab
                 trigger={trigger}
-                section={section.id}
+                section={section.id as Section}
                 setSectionTabSelected={setSectionTabSelected}
                 sectionTabSelected={sectionTabSelected}
                 type={section.type}

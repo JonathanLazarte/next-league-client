@@ -1,11 +1,7 @@
 import { useEffect } from 'react'
 import type { SocketRef } from '@/utils/types'
+import type { PartyRequest } from '@/types/socket'
 
-interface PartyRequest {
-  roomId: string;
-  from: string;
-  to: string;
-}
 
 export const usePartySocket = (
   socket: SocketRef,

@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import DesktopHeader from '../DesktopHeader';
-import { useRouter } from '@/hooks/useRouter.js';
+import { useRouter } from '@/hooks/useRouter';
 import { useSound } from '@/hooks/useSound';
 
 
@@ -12,11 +12,11 @@ import userInterfaceReducer from '@/redux/slices/userInterfaceSlice';
 import { RootState } from '@/redux/store';
 
 // Mock de los hooks useRouter y useSound
-jest.mock('@/hooks/useRouter.js', () => ({
+jest.mock('@/hooks/useRouter.ts', () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock('@/hooks/useSound.js', () => ({
+jest.mock('@/hooks/useSound.ts', () => ({
   useSound: jest.fn(),
 }));
 // Creamos un mock de la función que devuelve las props (getTriggerProps)

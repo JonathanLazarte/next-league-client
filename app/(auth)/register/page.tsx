@@ -214,7 +214,7 @@ export default function Register() {
           >
             <FaArrowRight />
           </button>
-          <a className="auth-link" onClick={() => router.push("/login", {})}>I have an account</a>
+          <a className="auth-link" onClick={() => router.push("/login")}>I have an account</a>
           <div className="disclaimer">
             <span className="disclaimer-line">
               THIS APP IS PROTECTED BY HCAPCHA AND ITS

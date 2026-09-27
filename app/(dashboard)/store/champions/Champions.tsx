@@ -10,6 +10,7 @@ import { STORE_SORT_OPTIONS } from "@/utils/constants";
 import { useUserChampions } from '@/hooks/useUserChampions'
 import useChampions from "@/hooks/useChampions";
 import useFilterLogic from './useFilterLogic'
+import type { ChampionRoles } from '@/types/champion'
 
 export default memo(function Champions() {
   const [subsectionSelected, setSubsectionSelected] = useState("CHAMPIONS");
@@ -17,7 +18,7 @@ export default memo(function Champions() {
   const { userChampions } = useUserChampions();
   const { championsData } = useChampions();
 
-  const [categoryChecked, setCategoryChecked] = useState<Record<string, any>>({
+  const [categoryChecked, setCategoryChecked] = useState<ChampionRoles>({
     Assassin: false,
     Fighter: false,
     Mage: false,
@@ -39,7 +40,7 @@ export default memo(function Champions() {
 
 
   return (
-    <div className="champion-store" style={{paddingLeft: "4.4rem", paddingTop:"5.6rem"}}>
+    <div className="champion-store" style={{ paddingLeft: "4.4rem", paddingTop: "5.6rem" }}>
 
       <StoreSidePanel
         subsections={subsections}

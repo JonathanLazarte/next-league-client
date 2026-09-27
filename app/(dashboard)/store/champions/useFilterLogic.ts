@@ -1,19 +1,11 @@
 import { useMemo, useState } from 'react'
-import { Champion, ChampionTag } from '@/types/champion'
+import { Champion, ChampionTag, ChampionRoles } from '@/types/champion'
 import { SortOptionsValues } from '@/types/ui';
-export interface ChampionRoles {
-  Assassin: boolean;
-  Fighter: boolean;
-  Mage: boolean;
-  Tank: boolean;
-  Marksman: boolean;
-  Support: boolean;
-}
+
 interface UseFilterLogicProps {
-  itemCategoryChecked: Record<string, any>;
+  itemCategoryChecked: ChampionRoles;
   items: Champion[],
   adquiredItems: { id: string }[],
-
 }
 
 export default function useFilterLogic({

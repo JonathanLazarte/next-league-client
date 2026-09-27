@@ -14,10 +14,22 @@ export function usePurchase() {
     shallowEqual,
   );
 
+  interface OpenPurchaseModalPayload {
+    id: string
+    type: ItemType
+    name: string
+    img: string
+    subtitle?: string
+    value: {
+      be?: number | string;
+      rp?: number | string;
+    }
+  }
+
   return {
     ...purchase,
     wallet,
-    openPurchaseModal: (payload: { itemId: string, type: ItemType }) => dispatch(openPurchaseModal(payload)),
+    openPurchaseModal: (payload: OpenPurchaseModalPayload) => dispatch(openPurchaseModal(payload)),
     closeModal: () => dispatch(closeModal()),
     confirmPurchase: (payload: { coin: Coin, price: number }) => dispatch(confirmPurchase(payload)),
   };

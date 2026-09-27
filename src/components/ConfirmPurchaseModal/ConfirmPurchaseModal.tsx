@@ -7,11 +7,6 @@ import { LiaLongArrowAltUpSolid } from "react-icons/lia";
 import useLoadingDelay from "@/hooks/useLoadingDelay";
 import "./confirmPurchaseModal.css";
 import { usePurchase } from "@/hooks/usePurchase";
-import useSkins from "@/hooks/useSkins";
-import useChampions from "@/hooks/useChampions";
-import { RESOURCES_URL } from "@/utils/constants";
-import type { Champion } from '@/types/champion'
-import type { Skin } from "@/types/skin"
 
 
 
@@ -23,63 +18,36 @@ export default function ConfirmPurchaseModal() {
     closeModal,
     confirmPurchase,
   } = usePurchase();
-  //const token = localStorage.getItem("token");
-  //const [ chapionsData, setChampionsData ] = useState()
-  const { championsData } = useChampions();
-  const { skinsData } = useSkins();
+
   const isProcessing = status === "processing";
   const showLoading = useLoadingDelay(isProcessing, { delay: 300, minDisplayTime: 1000 });
   const showSuccess = status === "success" && !showLoading;
   const [imageLoading, setImageLoading] = useState(true);
   const delayedImageLoading = useLoadingDelay(imageLoading, { delay: 400 })
 
-  const productInfo = useMemo(() => {
-    if (!itemToBuy) return null;
+  const productPrice = itemToBuy?.value;
 
-    const data =
-      itemToBuy?.type === "champion" ? championsData : skinsData;
-    const puntualItem = data?.find((item: Champion | Skin) => item.id === itemToBuy?.id);
-
-    return puntualItem;
-  }, [itemToBuy, championsData, skinsData]);
-
-  // Memoized price calculation
-  const productPrice = useMemo(
-    () => ({
-      rp: productInfo?.price?.rp || productInfo?.value || 0,
-      be: productInfo?.price?.be || 0,
-    }),
-    [productInfo],
-  );
-
-  // Memoized balance calculation
   const newBalance = useMemo(
     () => ({
-      rp: walletRP - productPrice.rp,
-      be: walletBE - productPrice.be,
+      rp: walletRP - (productPrice?.rp || 0),
+      be: walletBE - (productPrice?.be || 0),
     }),
-    [walletRP, walletBE, productPrice.rp, productPrice.be],
+    [walletRP, walletBE, itemToBuy],
   );
 
   // Memoized button styles
-  const buttonStyles = useMemo(
-    () => ({
-      rp:
-        walletRP - productPrice.rp >= 0
-          ? undefined
-          : { filter: "grayscale(0.5)", cursor: "default" },
-      be:
-        walletBE - productPrice.be >= 0
-          ? undefined
-          : { filter: "grayscale(0.5)", cursor: "default" },
-    }),
+  const buttonStyles = useMemo(() => ({
+    rp:
+      walletRP - productPrice.rp >= 0
+        ? undefined
+        : { filter: "grayscale(0.5)", cursor: "default" },
+    be:
+      walletBE - productPrice.be >= 0
+        ? undefined
+        : { filter: "grayscale(0.5)", cursor: "default" },
+  }),
     [walletRP, walletBE, productPrice.rp, productPrice.be],
   );
-
-  const productImg =
-    itemToBuy?.type === "champion"
-      ? `${RESOURCES_URL}/splash/${productInfo?.id}_0.jpg`
-      : `${RESOURCES_URL}/splash/${productInfo?.img}`;
 
   // Optimized purchase function
   const buyProduct = (coin: "RP" | "BE", price: number) => {
@@ -147,7 +115,7 @@ export default function ConfirmPurchaseModal() {
               >
                 <>
                   <svg className="be-icon" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#0acbe6" fill-rule="evenodd" clip-rule="evenodd" d="M6 16L9 12L0 8L6 16ZM9 3.2L6 0L0.75 6.4L5.25 8L9 3.2ZM9.75 5.6L6.75 8.8L9.75 10.4L12 8L9.75 5.6Z"/>
+                    <path fill="#0acbe6" fill-rule="evenodd" clip-rule="evenodd" d="M6 16L9 12L0 8L6 16ZM9 3.2L6 0L0.75 6.4L5.25 8L9 3.2ZM9.75 5.6L6.75 8.8L9.75 10.4L12 8L9.75 5.6Z" />
                   </svg>
                   {productPrice.be}
                 </>
@@ -172,8 +140,8 @@ export default function ConfirmPurchaseModal() {
     return (
       <div className="purchase-success-message">
         <span>
-          You have unlocked {productInfo.name}! Check out champion detail page
-          for some quick tips on how to play {productInfo.name}. GLHF!{" "}
+          You have unlocked {itemToBuy.name}! Check out champion detail page
+          for some quick tips on how to play {itemToBuy.name}. GLHF!{" "}
         </span>
         <div
           onClick={closeModal}
@@ -190,7 +158,7 @@ export default function ConfirmPurchaseModal() {
     typeof window !== "undefined" &&
     ReactDOM.createPortal(
       <>
-        {productInfo ? (
+        {itemToBuy ? (
           <div
             className="confirm-purchase-screen"
             onClick={(e) => e.stopPropagation()}
@@ -204,8 +172,8 @@ export default function ConfirmPurchaseModal() {
                 <div className="image-container">
                   <Image
                     className="product-image"
-                    src={productImg}
-                    alt={productInfo.name}
+                    src={itemToBuy?.img}
+                    alt={itemToBuy.name}
                     fill
                     onLoad={() => setImageLoading(false)}
                     style={{
@@ -226,13 +194,11 @@ export default function ConfirmPurchaseModal() {
 
                 <div className="product-title">
                   <h2 className="product-name">
-                    {productInfo.name?.toUpperCase()}
+                    {itemToBuy?.name?.toUpperCase()}
                   </h2>
                   {!showSuccess ? (
                     <span className="product-subtitle">
-                      {itemToBuy?.type !== "skin"
-                        ? productInfo.title
-                        : "Elige este nuevo estilo para tu campeón!"}
+                      {itemToBuy?.subtitle}
                     </span>
                   ) : (
                     <span className="product-subtitle">Item unlocked!</span>

@@ -18,7 +18,7 @@ export function useAuth() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logout());
-    router.push("/login", {});
+    router.push("/login");
   };
 
   const clearAuthError = () => {
