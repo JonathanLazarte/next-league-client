@@ -16,9 +16,9 @@
 ### 🎬 Preview
 
 
-```
+
 ![preview](public/collection-champions.gif)
-```
+
 
 ---
 
