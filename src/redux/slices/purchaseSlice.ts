@@ -30,8 +30,8 @@ export interface ItemToBuy {
   type: ItemType,
   img: string,
   value: {
-    be?: number | string,
-    rp?: number | string
+    be?: number,
+    rp?: number
   }
 }
 
@@ -118,7 +118,7 @@ const purchaseSlice = createSlice({
       name: string,
       img: string,
       subtitle?: string,
-      value: { be?: number | string, rp?: number | string }
+      value: { be?: number, rp?: number }
     }>) => {
       const { id, type, name, img, subtitle, value } = action.payload;
       state.itemToBuy = {

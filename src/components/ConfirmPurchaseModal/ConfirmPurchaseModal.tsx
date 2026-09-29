@@ -38,15 +38,15 @@ export default function ConfirmPurchaseModal() {
   // Memoized button styles
   const buttonStyles = useMemo(() => ({
     rp:
-      walletRP - productPrice.rp >= 0
+      walletRP - (productPrice?.rp ?? 0) >= 0
         ? undefined
         : { filter: "grayscale(0.5)", cursor: "default" },
     be:
-      walletBE - productPrice.be >= 0
+      walletBE - (productPrice?.be ?? 0) >= 0
         ? undefined
         : { filter: "grayscale(0.5)", cursor: "default" },
   }),
-    [walletRP, walletBE, productPrice.rp, productPrice.be],
+    [walletRP, walletBE, productPrice],
   );
 
   // Optimized purchase function
@@ -78,7 +78,7 @@ export default function ConfirmPurchaseModal() {
             <div
               onClick={() => {
                 if (newBalance.rp >= 0) {
-                  buyProduct("RP", productPrice.rp);
+                  buyProduct("RP", productPrice?.rp ?? 0);
                 }
               }}
               style={buttonStyles.rp}
@@ -88,7 +88,7 @@ export default function ConfirmPurchaseModal() {
                 <svg className="rp-icon" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#e3ba3d" fill-rule="evenodd" clip-rule="evenodd" d="M8.63343 2.25848L6.5001 0.600098L4.36676 2.25848V8.25781L6.5001 9.7405L8.63343 8.25781V2.25848ZM12.0468 6.1152L12.9001 5.49383L10.3401 3.11553V9.11486L7.35343 11.2575V13.4001L12.9001 9.68479L12.0468 8.68634V6.1152ZM2.6601 3.11553L0.100098 5.49383L0.953431 6.1152V8.68634L0.100098 9.68479L5.64676 13.4001V11.2575L2.6601 9.11486V3.11553Z" />
                 </svg>
-                {productPrice.rp}
+                {productPrice?.rp ?? 0}
               </>
               {newBalance.rp >= 0 ? (
                 <span className="new-balance">
@@ -107,7 +107,7 @@ export default function ConfirmPurchaseModal() {
               <div
                 onClick={() => {
                   if (newBalance.be >= 0) {
-                    buyProduct("BE", productPrice.be);
+                    buyProduct("BE", productPrice?.be ?? 0);
                   }
                 }}
                 style={buttonStyles.be}
@@ -117,7 +117,7 @@ export default function ConfirmPurchaseModal() {
                   <svg className="be-icon" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#0acbe6" fill-rule="evenodd" clip-rule="evenodd" d="M6 16L9 12L0 8L6 16ZM9 3.2L6 0L0.75 6.4L5.25 8L9 3.2ZM9.75 5.6L6.75 8.8L9.75 10.4L12 8L9.75 5.6Z" />
                   </svg>
-                  {productPrice.be}
+                  {productPrice?.be ?? 0}
                 </>
                 {newBalance.be >= 0 ? (
                   <span className="new-balance">
@@ -140,8 +140,8 @@ export default function ConfirmPurchaseModal() {
     return (
       <div className="purchase-success-message">
         <span>
-          You have unlocked {itemToBuy.name}! Check out champion detail page
-          for some quick tips on how to play {itemToBuy.name}. GLHF!{" "}
+          You have unlocked {itemToBuy?.name}! Check out champion detail page
+          for some quick tips on how to play {itemToBuy?.name}. GLHF!{" "}
         </span>
         <div
           onClick={closeModal}
@@ -152,6 +152,8 @@ export default function ConfirmPurchaseModal() {
       </div>
     );
   };
+
+  if (!itemToBuy) return null
 
 
   return (
@@ -180,7 +182,7 @@ export default function ConfirmPurchaseModal() {
                       visibility: !delayedImageLoading ? "visible" : "hidden",
                     }}
                   />
-                  {delayedImageLoading && <div className="loading-image">
+                  {delayedImageLoading && <div data-testid="loading-spinner" className="loading-image">
                     <div className={`loading-spinner medium`}>
                       <img
                         alt="loading spinner"

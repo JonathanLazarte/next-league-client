@@ -21,8 +21,8 @@ export function usePurchase() {
     img: string
     subtitle?: string
     value: {
-      be?: number | string;
-      rp?: number | string;
+      be?: number;
+      rp?: number;
     }
   }
 
