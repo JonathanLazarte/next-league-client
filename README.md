@@ -1,5 +1,9 @@
 # Next League Client
 
+![Game-mode selector](public/play-lobby.gif)
+![User collection and detail modal](public/collection-champions.gif)
+![Store](public/store.gif)
+
 A high-fidelity recreation of the League of Legends desktop client, rebuilt as a modern web application with Next.js and React.
 
 The project focuses on reproducing the original client's interface, navigation flows, interactive systems, animations, and real-time features while exploring frontend architecture, state management, performance optimization, and reusable UI infrastructure.

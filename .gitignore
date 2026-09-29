@@ -31,5 +31,6 @@ build/
 .DS_Store.next/
 .env
 .env.development
-*.tsbuildinfo 
+*.tsbuildinfo
+tsconfig.tsbuildinfo 
  
