@@ -17,7 +17,7 @@
 
 
 
-![preview](public/collection-champions.gif)
+![preview](public/preview.gif)
 
 
 ---
