@@ -25,7 +25,7 @@ const ChampionCard = ({ item: data, owned = false }: { item: Champion, owned?: b
   return (
     <article
       id={data.id}
-      className={"store-champion-item"/*`store-champion-item ${owned ? "owned" : ""}`*/}
+      className={`store-champion-item ${owned ? "owned" : ""}`}
       onClick={() => {
         handleClick();
       }}

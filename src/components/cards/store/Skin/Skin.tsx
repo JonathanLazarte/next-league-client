@@ -26,7 +26,7 @@ export default function SkinStoreItem({ item: skin, owned }: { item: Skin, owned
   return (
     <article
       key={skin.id}
-      className="store-champion-item"
+      className={`store-champion-item ${owned ? "owned" : ""}`}
       onClick={() => handleClick()}
     >
       <Image
