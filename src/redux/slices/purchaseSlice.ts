@@ -106,7 +106,11 @@ export const confirmPurchase = createAsyncThunk<
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!response.ok) throw new Error("Failed to buy item");
+      if (!response.ok) {
+        const errorBody = await response.text();
+        console.log(errorBody)
+        throw new Error("Failed to buy item");
+      }
 
       const data = await response.json();
       return {
@@ -116,7 +120,7 @@ export const confirmPurchase = createAsyncThunk<
         price,
       };
     } catch (error) {
-      return rejectWithValue("Error en la transacción");
+      return rejectWithValue(error as string || "Error en la transacción");
     }
   },
 );

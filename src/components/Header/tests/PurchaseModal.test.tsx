@@ -90,6 +90,9 @@ describe('PurchaseModal', () => {
         expect(screen.getByText('1200')).toBeInTheDocument();
     })
     test('after clicking que rp button the purchase status becomes loading', async () => {
+
+
+
         const store = createTestStore()
         render(
             <Provider store={store}>
@@ -101,7 +104,7 @@ describe('PurchaseModal', () => {
         expect(screen.getByText('1000')).toBeInTheDocument()
         const button = screen.getByText('1000')
         fireEvent.click(button)
-        //store.dispatch(confirmPurchase({ coin: 'RP', price: 1000 }))
+        store.dispatch(confirmPurchase({ coin: 'RP', price: 1000 }))
         //expect(store.getState().purchase.status).toBe('processing');
         //expect(screen.getByTestId('loading-spinner')).toBeInTheDocument()
         await waitFor(() => {

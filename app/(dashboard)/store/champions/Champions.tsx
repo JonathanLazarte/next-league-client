@@ -61,7 +61,7 @@ export default memo(function Champions() {
         <VirtualStoreGrid
           items={filteredItems}
           StoreCard={ChampionCard}
-          adquiredItems={userChampions}
+          ownedItems={userChampions}
         />
       ) : (
         <div className="poro-apologizes flex justify-center items-center grow">

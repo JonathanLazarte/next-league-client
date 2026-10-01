@@ -61,7 +61,7 @@ export default memo(function Skins() {
       <div className="gradient-layer" />
       {/* Grid de skins */}
       {subsectionSelected === "SKINS" ? (
-        <VirtualStoreGrid<Skin> items={filteredItems as Skin[]} StoreCard={SkinCard} />
+        <VirtualStoreGrid<Skin> items={filteredItems as Skin[]} StoreCard={SkinCard} ownedItems={userSkins} />
       ) : (
         <div className="poro-apologizes flex justify-center items-center grow">
           <img src="/global/poro_question.png" alt="Poro question"></img>

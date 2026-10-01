@@ -17,13 +17,13 @@ export type Items = Skin[]
 
 interface VirtualSkinsProps<T> {
   items: T[];
-  adquiredItems?: { id: string }[];
-  StoreCard: React.ElementType<{ item: T; isAdquired?: boolean }>;
+  ownedItems?: { id: string }[];
+  StoreCard: React.ElementType<{ item: T; owned?: boolean }>;
 }
 
 export default function VirtualSkinsGrid<T extends { id: string }>({
   items,
-  adquiredItems = [],
+  ownedItems = [],
   StoreCard,
 }: VirtualSkinsProps<T>) {
   const parentRef = useRef<HTMLDivElement | null>(null);
@@ -99,11 +99,11 @@ export default function VirtualSkinsGrid<T extends { id: string }>({
     gap: gapValue,
     overscan: 6,
   });
-  const acquiredChampionsIds = useMemo(
-    () => new Set((adquiredItems || []).map((champion) => champion.id)),
-    [adquiredItems]
+  const ownedChampionsIds = useMemo(
+    () => new Set((ownedItems || []).map((champion) => champion.id)),
+    [ownedItems]
   );
-  const isAdquired = (id: string) => acquiredChampionsIds.has(id);
+  const isOwned = (id: string) => ownedChampionsIds.has(id);
 
   if (!items) return null
 
@@ -144,7 +144,7 @@ export default function VirtualSkinsGrid<T extends { id: string }>({
                     <StoreCard
                       item={item}
                       key={item.id ?? index}
-                      isAdquired={isAdquired(item.id)}
+                      owned={isOwned(item.id)}
                     />
                   ))}
                 </div>
