@@ -186,11 +186,7 @@ img[src=".undefinedshield.png"] {
     color: #a09b8c;
     font-size: 1.4rem;
     letter-spacing: 1px;
-    font-family: Spiegel-SemiBold;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 0.2rem 1rem;
-    border-radius: 2px;
-    border: 1px solid rgba(160, 155, 140, 0.2);
+    font-family: Spiegel-Regular;
 }
 
 @media (max-width: 767px) {

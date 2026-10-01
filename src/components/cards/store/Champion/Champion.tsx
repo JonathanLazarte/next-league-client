@@ -63,7 +63,7 @@ const ChampionCard = ({ item: data, isAdquired = false }: { item: Champion, isAd
           </div>
         ) : (
           <div className="owned-status-wrapper">
-            <span className="owned-status-badge">En colección</span>
+            <span className="owned-status-badge">owned</span>
           </div>
         )}
       </div>
