@@ -51,7 +51,7 @@ export default function ConfirmPurchaseModal() {
 
   // Optimized purchase function
   const buyProduct = (coin: "RP" | "BE", price: number) => {
-    confirmPurchase({ coin, price }).unwrap();
+    confirmPurchase({ coin, price });
   };
   const closeWindow = () => {
     closeModal();
@@ -112,6 +112,7 @@ export default function ConfirmPurchaseModal() {
                 }}
                 style={buttonStyles.be}
                 className="buy-be-button"
+                data-testid="buy-be-button"
               >
                 <>
                   <svg className="be-icon" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -182,7 +183,7 @@ export default function ConfirmPurchaseModal() {
                       visibility: !delayedImageLoading ? "visible" : "hidden",
                     }}
                   />
-                  {delayedImageLoading && <div data-testid="loading-spinner" className="loading-image">
+                  {delayedImageLoading && <div className="loading-image">
                     <div className={`loading-spinner medium`}>
                       <img
                         alt="loading spinner"
@@ -211,7 +212,7 @@ export default function ConfirmPurchaseModal() {
                   <>{!showSuccess ? <DefaultBottom /> : <SuccessBottom />}</>
                 ) : (
                   <div className="purchase-loading-bottom">
-                    <div className={`loading-spinner small`}>
+                    <div className={`loading-spinner small`} data-testid="purchase-loading-spinner">
                       <img className="spinner-ring" src="/general/loading-spinner-blue.png"></img>
                     </div>
                   </div>

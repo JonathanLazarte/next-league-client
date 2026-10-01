@@ -17,11 +17,13 @@ export type Items = Skin[]
 
 interface VirtualSkinsProps<T> {
   items: T[];
-  StoreCard: React.ElementType<{ item: T }>;
+  adquiredItems?: { id: string }[];
+  StoreCard: React.ElementType<{ item: T; isAdquired?: boolean }>;
 }
 
-export default function VirtualSkinsGrid<T>({
+export default function VirtualSkinsGrid<T extends { id: string }>({
   items,
+  adquiredItems = [],
   StoreCard,
 }: VirtualSkinsProps<T>) {
   const parentRef = useRef<HTMLDivElement | null>(null);
@@ -74,7 +76,7 @@ export default function VirtualSkinsGrid<T>({
     items: Skin[] | Champion[]
   }
 
-  const rows = useMemo((): { type: string; items: T[]; }[] | []  => {
+  const rows = useMemo((): { type: string; items: T[]; }[] | [] => {
     if (!columns) return []
     const result = [];
     for (let i = 0; i < itemsCopy.length; i += columns) {
@@ -97,8 +99,13 @@ export default function VirtualSkinsGrid<T>({
     gap: gapValue,
     overscan: 6,
   });
+  const acquiredChampionsIds = useMemo(
+    () => new Set((adquiredItems || []).map((champion) => champion.id)),
+    [adquiredItems]
+  );
+  const isAdquired = (id: string) => acquiredChampionsIds.has(id);
 
-  if(!items) return null
+  if (!items) return null
 
   return (
     <div ref={parentRef} className="virtual-store-grid">
@@ -136,7 +143,8 @@ export default function VirtualSkinsGrid<T>({
                   {row.items.map((item: T, index: number) => (
                     <StoreCard
                       item={item}
-                      key={index}
+                      key={item.id ?? index}
+                      isAdquired={isAdquired(item.id)}
                     />
                   ))}
                 </div>

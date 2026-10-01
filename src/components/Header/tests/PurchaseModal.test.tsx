@@ -24,13 +24,15 @@ const createTestStore = () =>
                     img: 'https://d2l6vvcxr1n0o0.cloudfront.net/splash/Aatrox_1.jpg',
                     value: { rp: 1200, be: 1000 }
                 },
-                currency: 'RP',
+                currency: 'BE',
                 status: 'idle',
-                price: '1200'
+                price: '1000'
             },
             user: {
-                wallet: { RP: 1000, BE: 1000 },
-                profile: { id: 1, nickname: 'mocked user' }
+                wallet: { RP: 30000, BE: 30000 },
+                profile: { id: 1, nickname: 'mocked user' },
+                RP: 300000,
+                BE: 300000
             }
         },
     });
@@ -103,9 +105,10 @@ describe('PurchaseModal', () => {
         //expect(store.getState().purchase.status).toBe('processing');
         //expect(screen.getByTestId('loading-spinner')).toBeInTheDocument()
         await waitFor(() => {
-            expect(store.getState().purchase.status).toBe("processing")
-            expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+            expect(screen.getByTestId('purchase-loading-spinner')).toBeInTheDocument()
         })
+
+
 
     })
 

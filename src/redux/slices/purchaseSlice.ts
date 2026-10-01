@@ -5,6 +5,7 @@ import {
   PayloadAction
 } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { Champion } from "@/types/champion";
 
 export type ItemType = "skin" | "champion"
 
@@ -60,9 +61,21 @@ const initialState: PurchaseState = {
 };
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const confirmPurchase = createAsyncThunk(
+export const confirmPurchase = createAsyncThunk<
+  {
+    type: ItemType;
+    newInventoryItem: SkinItem | Champion;
+    coin: Coin;
+    price: number;
+  },
+  { coin: Coin, price: number },
+  {
+    state: RootState;
+    rejectValue: string;
+  }
+>(
   "purchase/confirm",
-  async ({ coin, price }: { coin: Coin, price: number }, { getState, rejectWithValue }) => {
+  async ({ coin, price }, { getState, rejectWithValue }) => {
     const token = localStorage.getItem("token");
     const state = getState() as RootState;
     const { itemToBuy } = state.purchase;
@@ -145,6 +158,10 @@ const purchaseSlice = createSlice({
       .addCase(confirmPurchase.fulfilled, (state) => {
         state.currency = null;
         state.status = "success";
+      })
+      .addCase(confirmPurchase.rejected, (state) => {
+        state.currency = null;
+        state.status = "error";
       });
   },
 });
