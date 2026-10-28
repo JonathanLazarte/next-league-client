@@ -15,13 +15,15 @@ export default function ConfirmPurchaseModal() {
     wallet: { RP: walletRP, BE: walletBE },
     itemToBuy,
     status,
+    error,
     closeModal,
     confirmPurchase,
   } = usePurchase();
 
   const isProcessing = status === "processing";
   const showLoading = useLoadingDelay(isProcessing, { delay: 300, minDisplayTime: 1000 });
-  const showSuccess = status === "success" && !showLoading;
+  const isSuccess = status === "success";
+  const showSuccess = isSuccess && !showLoading
   const [imageLoading, setImageLoading] = useState(true);
   const delayedImageLoading = useLoadingDelay(imageLoading, { delay: 400 })
 
@@ -51,6 +53,7 @@ export default function ConfirmPurchaseModal() {
 
   // Optimized purchase function
   const buyProduct = (coin: "RP" | "BE", price: number) => {
+    if (isProcessing) return;
     confirmPurchase({ coin, price });
   };
   const closeWindow = () => {
@@ -83,6 +86,7 @@ export default function ConfirmPurchaseModal() {
               }}
               style={buttonStyles.rp}
               className="buy-rp-button"
+              data-testid="buy-rp-button"
             >
               <>
                 <svg className="rp-icon" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +143,7 @@ export default function ConfirmPurchaseModal() {
 
   const SuccessBottom = () => {
     return (
-      <div className="purchase-success-message">
+      <div className="purchase-success-message" data-testid="purchase-success-message">
         <span>
           You have unlocked {itemToBuy?.name}! Check out champion detail page
           for some quick tips on how to play {itemToBuy?.name}. GLHF!{" "}
@@ -147,8 +151,26 @@ export default function ConfirmPurchaseModal() {
         <div
           onClick={closeModal}
           className="general-button done-purchase-modal-button"
+          data-testid="done-purchase-button"
         >
           Done
+        </div>
+      </div>
+    );
+  };
+
+  const ErrorBottom = () => {
+    return (
+      <div className="purchase-error-message" data-testid="purchase-error-message">
+        <span>
+          Something went wrong, try again later
+        </span>
+        <div
+          onClick={closeModal}
+          className="general-button done-purchase-modal-button"
+          data-testid="done-purchase-button"
+        >
+          Ok
         </div>
       </div>
     );
@@ -180,7 +202,7 @@ export default function ConfirmPurchaseModal() {
                     fill
                     onLoad={() => setImageLoading(false)}
                     style={{
-                      visibility: !delayedImageLoading ? "visible" : "hidden",
+                      visibility: !imageLoading ? "visible" : "hidden",
                     }}
                   />
                   {delayedImageLoading && <div className="loading-image">
@@ -209,7 +231,9 @@ export default function ConfirmPurchaseModal() {
                 </div>
 
                 {!showLoading ? (
-                  <>{!showSuccess ? <DefaultBottom /> : <SuccessBottom />}</>
+                  <>
+                    {showSuccess ? <SuccessBottom /> : !error ? <DefaultBottom /> : <ErrorBottom />}
+                  </>
                 ) : (
                   <div className="purchase-loading-bottom">
                     <div className={`loading-spinner small`} data-testid="purchase-loading-spinner">

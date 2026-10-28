@@ -68,7 +68,7 @@ export default function VirtualSkinsGrid<T extends { id: string }>({
   useResizeObserver(parentRef, handleResize);
 
   //-----------------------------------------------------------------------------------------------
-  // Construimos filas
+  // Construcción de filas
   const itemsCopy = items ? [...items] : [];
 
   interface Row {

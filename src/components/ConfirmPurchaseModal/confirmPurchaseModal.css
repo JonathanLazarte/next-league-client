@@ -2,6 +2,7 @@
     from {
         backdrop-filter: brightness(0.5);
     }
+
     to {
         backdrop-filter: brightness(1);
     }
@@ -11,6 +12,7 @@
     from {
         opacity: 0.5;
     }
+
     to {
         opacity: 1;
     }
@@ -35,13 +37,10 @@
     border: 2px solid white;
     background-color: lightgray;
     z-index: 1;
-    border-image: linear-gradient(
-            to bottom,
+    border-image: linear-gradient(to bottom,
             var(--gold-six),
             var(--gold-six),
-            var(--gold-five)
-        )
-        1;
+            var(--gold-five)) 1;
     background-size: contain;
     background-position-y: 0px;
     background-color: var(--blue-five);
@@ -108,7 +107,8 @@
     align-content: center;
     z-index: 1;
     /*font-size: 0.8rem;*/
-    font-size: 1.6rem; /* 1vw → 1.6rem */
+    font-size: 1.6rem;
+    /* 1vw → 1.6rem */
     font-family: "Bold";
 }
 
@@ -131,7 +131,8 @@
 .product-name {
     text-align: center;
     font-size: 1.5rem;
-    font-size: 2.8rem; /* 1.75vw → 2.8rem */
+    font-size: 2.8rem;
+    /* 1.75vw → 2.8rem */
     letter-spacing: 2px;
     font-family: "Bold";
     color: var(--color-secundary);
@@ -187,10 +188,11 @@
 .button-container {
     border: 1px solid white;
     height: 6vh;
-    height: 5.28rem; /* 3.3vw → 5.28rem */
-    width: 16.48rem; /* 10.3vw → 16.48rem */
-    border-image: linear-gradient(to bottom, var(--gold-six), var(--gold-five))
-        1;
+    height: 5.28rem;
+    /* 3.3vw → 5.28rem */
+    width: 16.48rem;
+    /* 10.3vw → 16.48rem */
+    border-image: linear-gradient(to bottom, var(--gold-six), var(--gold-five)) 1;
     align-items: center;
     align-content: center;
     display: flex;
@@ -208,14 +210,12 @@
     width: 15.7rem;
     border: 2px solid white;
     font-size: 15px;
-    font-size: 1.68rem; /* 1.05vw → 1.68rem */
-    border-image: linear-gradient(
-            to bottom,
+    font-size: 1.68rem;
+    /* 1.05vw → 1.68rem */
+    border-image: linear-gradient(to bottom,
             var(--gold-two),
             var(--gold-two),
-            var(--gold-five)
-        )
-        1;
+            var(--gold-five)) 1;
     background: linear-gradient(to bottom, rgb(37, 34, 27), rgb(64, 56, 41));
     display: flex;
     align-items: center;
@@ -231,19 +231,14 @@
 .buy-be-button:hover {
     filter: brightness(1.2);
     color: rgb(235, 225, 204);
-    background: linear-gradient(
-        to bottom,
-        rgb(45, 41, 32),
-        rgb(60, 54, 41),
-        rgb(77, 67, 49)
-    );
-    border-image: linear-gradient(
-            to bottom,
+    background: linear-gradient(to bottom,
+            rgb(45, 41, 32),
+            rgb(60, 54, 41),
+            rgb(77, 67, 49));
+    border-image: linear-gradient(to bottom,
             rgb(240, 204, 132),
             rgb(240, 204, 132),
-            rgb(145, 109, 49)
-        )
-        1;
+            rgb(145, 109, 49)) 1;
 }
 
 .buy-rp-button:active,
@@ -264,17 +259,20 @@
     position: absolute;
     bottom: -90%;
     /*font-size: 0.75rem;*/
-    font-size: 1.36rem; /* 0.85vw → 1.36rem */
+    font-size: 1.36rem;
+    /* 0.85vw → 1.36rem */
     text-align: center;
     white-space: nowrap;
     font-family: Spiegel-Regular;
     color: #a09b8c;
 }
+
 .buy-rp-button:hover .new-balance,
 .buy-be-button:hover .new-balance {
     color: #a09b8c;
     filter: brightness(1);
 }
+
 .purchase-success-message {
     font-family: Spiegel-Regular;
     color: #9f9a8b;
@@ -287,6 +285,20 @@
     align-items: center;
     flex-direction: column;
 }
+
+.purchase-error-message {
+    font-family: Spiegel-Regular;
+    color: #9f9a8b;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.5;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .done-purchase-modal-button {
     width: 11.5rem;
     height: 4.3rem;
@@ -295,11 +307,12 @@
     border-width: 0.3rem;
     font-size: 1.7rem;
 }
+
 .purchase-loading-bottom {
     height: 23rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-@media (max-width: 767px) {
-}
+
+@media (max-width: 767px) {}

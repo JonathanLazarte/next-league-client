@@ -150,6 +150,7 @@ const purchaseSlice = createSlice({
     closeModal: (state) => {
       state.itemToBuy = null;
       state.status = "idle";
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -163,9 +164,10 @@ const purchaseSlice = createSlice({
         state.currency = null;
         state.status = "success";
       })
-      .addCase(confirmPurchase.rejected, (state) => {
+      .addCase(confirmPurchase.rejected, (state, action) => {
         state.currency = null;
         state.status = "error";
+        state.error = action.payload || "Error en la transacción";
       });
   },
 });
@@ -176,13 +178,15 @@ export const selectItemToBuy = (state: { purchase: PurchaseState }) => state.pur
 export const selectCurrency = (state: { purchase: PurchaseState }) =>
   state.purchase.currency;
 export const selectStatus = (state: { purchase: PurchaseState }) => state.purchase.status;
+export const selectError = (state: { purchase: PurchaseState }) => state.purchase.error;
 
 export const selectPurchaseData = createSelector(
-  [selectItemToBuy, selectCurrency, selectStatus],
-  (itemToBuy, currency, status) => ({
+  [selectItemToBuy, selectCurrency, selectStatus, selectError],
+  (itemToBuy, currency, status, error) => ({
     itemToBuy,
     currency,
     status,
+    error
   }),
 );
 

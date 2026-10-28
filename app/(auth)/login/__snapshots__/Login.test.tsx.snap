@@ -1,0 +1,448 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`login page tests render 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="main-menu"
+      >
+        <form
+          class="login-form"
+        >
+          <div
+            class="logo-container"
+          >
+            <img
+              alt="RiotGames logo"
+              class="riot-games-logo"
+              data-nimg="1"
+              decoding="async"
+              height="60"
+              loading="lazy"
+              src="/_next/image?url=%2Friot-games.png&w=640&q=75"
+              srcset="/_next/image?url=%2Friot-games.png&w=256&q=75 1x, /_next/image?url=%2Friot-games.png&w=640&q=75 2x"
+              style="color: transparent;"
+              width="200"
+            />
+          </div>
+          <div
+            class="login-switch"
+          >
+            <div
+              class="switch-option active "
+              data-testid="login-option-button"
+            >
+              <svg
+                class="switch-option-icon"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 576 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M528 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h480c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM128 180v-40c0-6.627-5.373-12-12-12H76c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm-336 96v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm-336 96v-40c0-6.627-5.373-12-12-12H76c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm288 0v-40c0-6.627-5.373-12-12-12H172c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h232c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12z"
+                />
+              </svg>
+              <span>
+                Sign-in
+              </span>
+            </div>
+            <div
+              class="switch-option false "
+              data-testid="guest-option-button"
+            >
+              <svg
+                class="switch-option-icon"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                />
+              </svg>
+              <span>
+                Guest
+              </span>
+            </div>
+            <div
+              class="active-indicator"
+            >
+              <div
+                class="active-indicator-inner"
+                style="transform: translateX(0);"
+              />
+            </div>
+          </div>
+          <div
+            class="auth-loading-spinner"
+            style="display: none;"
+          >
+            <img
+              alt="loading spinner"
+              src="/red-loading-circle.png"
+            />
+          </div>
+          <section
+            class="form-interface"
+            style="display: flex;"
+          >
+            <div
+              class="error-box"
+              style="margin-bottom: 0px;"
+            />
+            <div
+              class="form-inputs"
+              style="opacity: 1; pointer-events: auto;"
+            >
+              <div
+                class="auth-input-wrapper null"
+              >
+                <input
+                  class="auth-input"
+                  data-testid="username-input"
+                  id="userName"
+                  name="userName"
+                  placeholder=" "
+                  type="text"
+                />
+                <label
+                  class="label-placeholder"
+                >
+                  username
+                </label>
+              </div>
+              <div
+                class="auth-input-wrapper null"
+              >
+                <input
+                  class="auth-input"
+                  data-testid="password-input"
+                  id="password"
+                  name="password"
+                  placeholder=" "
+                  type="password"
+                />
+                <label
+                  class="label-placeholder"
+                >
+                  password
+                </label>
+              </div>
+            </div>
+          </section>
+          <div
+            class="actions-box"
+          >
+            <button
+              class="login-button disabled"
+              data-testid="login-submit-button"
+              disabled=""
+              style="display: flex;"
+              type="submit"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
+                />
+              </svg>
+            </button>
+            <a
+              class="auth-link"
+            >
+              Create account
+            </a>
+            <div
+              class="disclaimer"
+            >
+              <span
+                class="disclaimer-line"
+              >
+                THIS APP IS PROTECTED BY HCAPCHA AND ITS
+              </span>
+              <span
+                class="disclaimer-line"
+              >
+                <a>
+                  PRIVACY POLICY
+                </a>
+                 AND 
+                <a>
+                  TERMS OF SERVICE
+                </a>
+                 APPLY.
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="main-menu"
+    >
+      <form
+        class="login-form"
+      >
+        <div
+          class="logo-container"
+        >
+          <img
+            alt="RiotGames logo"
+            class="riot-games-logo"
+            data-nimg="1"
+            decoding="async"
+            height="60"
+            loading="lazy"
+            src="/_next/image?url=%2Friot-games.png&w=640&q=75"
+            srcset="/_next/image?url=%2Friot-games.png&w=256&q=75 1x, /_next/image?url=%2Friot-games.png&w=640&q=75 2x"
+            style="color: transparent;"
+            width="200"
+          />
+        </div>
+        <div
+          class="login-switch"
+        >
+          <div
+            class="switch-option active "
+            data-testid="login-option-button"
+          >
+            <svg
+              class="switch-option-icon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 576 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M528 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h480c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM128 180v-40c0-6.627-5.373-12-12-12H76c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm-336 96v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm-336 96v-40c0-6.627-5.373-12-12-12H76c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12zm288 0v-40c0-6.627-5.373-12-12-12H172c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h232c6.627 0 12-5.373 12-12zm96 0v-40c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h40c6.627 0 12-5.373 12-12z"
+              />
+            </svg>
+            <span>
+              Sign-in
+            </span>
+          </div>
+          <div
+            class="switch-option false "
+            data-testid="guest-option-button"
+          >
+            <svg
+              class="switch-option-icon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 448 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+              />
+            </svg>
+            <span>
+              Guest
+            </span>
+          </div>
+          <div
+            class="active-indicator"
+          >
+            <div
+              class="active-indicator-inner"
+              style="transform: translateX(0);"
+            />
+          </div>
+        </div>
+        <div
+          class="auth-loading-spinner"
+          style="display: none;"
+        >
+          <img
+            alt="loading spinner"
+            src="/red-loading-circle.png"
+          />
+        </div>
+        <section
+          class="form-interface"
+          style="display: flex;"
+        >
+          <div
+            class="error-box"
+            style="margin-bottom: 0px;"
+          />
+          <div
+            class="form-inputs"
+            style="opacity: 1; pointer-events: auto;"
+          >
+            <div
+              class="auth-input-wrapper null"
+            >
+              <input
+                class="auth-input"
+                data-testid="username-input"
+                id="userName"
+                name="userName"
+                placeholder=" "
+                type="text"
+              />
+              <label
+                class="label-placeholder"
+              >
+                username
+              </label>
+            </div>
+            <div
+              class="auth-input-wrapper null"
+            >
+              <input
+                class="auth-input"
+                data-testid="password-input"
+                id="password"
+                name="password"
+                placeholder=" "
+                type="password"
+              />
+              <label
+                class="label-placeholder"
+              >
+                password
+              </label>
+            </div>
+          </div>
+        </section>
+        <div
+          class="actions-box"
+        >
+          <button
+            class="login-button disabled"
+            data-testid="login-submit-button"
+            disabled=""
+            style="display: flex;"
+            type="submit"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 448 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
+              />
+            </svg>
+          </button>
+          <a
+            class="auth-link"
+          >
+            Create account
+          </a>
+          <div
+            class="disclaimer"
+          >
+            <span
+              class="disclaimer-line"
+            >
+              THIS APP IS PROTECTED BY HCAPCHA AND ITS
+            </span>
+            <span
+              class="disclaimer-line"
+            >
+              <a>
+                PRIVACY POLICY
+              </a>
+               AND 
+              <a>
+                TERMS OF SERVICE
+              </a>
+               APPLY.
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "queryClient": QueryClient {},
+  "rerender": [Function],
+  "store": {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;

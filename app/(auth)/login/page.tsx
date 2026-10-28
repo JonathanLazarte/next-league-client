@@ -106,6 +106,7 @@ export default memo(function Login() {
                 if (el === null) return
                 tabRefs.current[index] = el
               }}
+              data-testid={`${tab}-option-button`}
             >
               {tab === "login" && <FaKeyboard className="switch-option-icon" />}
               {tab === "guest" && <FaUser className="switch-option-icon" />}
@@ -143,6 +144,7 @@ export default memo(function Login() {
                 placeholder=" "
                 onBlur={handleBlur}
                 onChange={handleChange}
+                data-testid="username-input"
               />
               <label className="label-placeholder" >
                 username
@@ -160,6 +162,7 @@ export default memo(function Login() {
                 placeholder=" "
                 onBlur={handleBlur}
                 onChange={handleChange}
+                data-testid="password-input"
               />
               <label className="label-placeholder">
                 password
@@ -173,6 +176,8 @@ export default memo(function Login() {
             className={`login-button ${isButtonDisabled ? "disabled" : null}`}
             style={{ display: loading ? "none" : "flex" }}
             type="submit"
+            data-testid="login-submit-button"
+            disabled={isButtonDisabled}
           >
             <FaArrowRight />
           </button>
